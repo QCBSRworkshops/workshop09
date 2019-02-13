@@ -25,7 +25,7 @@ class: center, middle, inverse, title-slide
 
 
 
----
+
 
 class: inverse, center, middle
 
@@ -80,7 +80,7 @@ What if we are interested in this response for different species of algae involv
 # Methods for scientific research 
 
 --
-- Questions / Hypothesis 
+- **Questions / Hypothesis** 
 --
 
 - **Experimental design**
@@ -89,10 +89,10 @@ What if we are interested in this response for different species of algae involv
 - **Data Collection**
 --
 
-- *Transformation / Distance* 
+- **Transformation / Distance** 
 --
 
-- *Analysis*
+- **Analysis**
 --
 
 - **Redaction**
@@ -125,13 +125,11 @@ Verneaux (1973) dataset:
 ---
 # Doubs River Fish Dataset
 
-
-
 Load the Doubs River species data (Doubs.Spe.csv)
 
 
 ```r
-spe &lt;- read.csv("data/doubsspe.csv", row.names = 1) 
+spe &lt;- read.csv("Scripts_and_data/doubsspe.csv", row.names = 1) 
 spe &lt;-  spe[-8] # remove site with no data 
 ```
 
@@ -139,7 +137,7 @@ Load the Doubs River environmental data (Doubs.Env.csv)
 
 
 ```r
-env &lt;- read.csv("data/doubsenv.csv", row.names = 1) 
+env &lt;- read.csv("Scripts_and_data/doubsenv.csv", row.names = 1) 
 env &lt;- env[-8] # remove site with no data 
 ```
 
@@ -225,7 +223,7 @@ barplot(site.pre,
 - What do they mean? 
 
 
-.alert[A measured 0 (e.g 0mg/L, 0ªC) is not the same than a 0 representing an absence observations]
+.alert[A measured 0 (e.g 0mg/L, 0°C) is not the same than a 0 representing an absence observations]
   
 
 ---
@@ -1595,15 +1593,17 @@ text(scores(spe.nmds, display = "species", choices = c(1)),
 ---
 # NMDS on fish abundances 
 
-.pull-right[
-![:scale 80%](images/NMDSbiplot1.png)
-]
-
 .pull-left[ 
 
 The biplot of the NMDS shows a group of closed sites characterized by the species BLA, TRU, VAI, LOC, CHA and OMB, 
 while the other species form a cluster of sites in the upper right part of the graph. Four sites in the lower part of the graph are strongly different from the others
 ]
+
+.pull-right[
+![](images/NMDSbiplot1.png)
+]
+
+
 
 
 ---
@@ -1615,7 +1615,7 @@ Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curt
 # Solution #6 
 
 .pull-left[
-![:scale 80%](images/SheplSol6.png)
+![](images/SheplSol6.png)
 ]
 
 .pull-right[ 
@@ -1627,7 +1627,7 @@ Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curt
 # Solution #6 
 
 .pull-left[
-![:scale 90%](images/NMDSSol61.png)
+![](images/NMDSSol61.png)
 ]
 
 .pull-right[ 
@@ -1748,7 +1748,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
