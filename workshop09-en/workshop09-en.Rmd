@@ -11,13 +11,14 @@ output:
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
       beforeInit: "qcbsR-macros.js"
-      highlightLines: true
+      highlightLines: false
 ---
 
 ```{r setup2, echo = F}
 ## Setup for your presentation
 knitr::opts_chunk$set(
-  eval = F, 
+  eval = T, 
+  cache = T,
   comment = "#",
   collapse = TRUE,
   warning = FALSE,
@@ -160,12 +161,16 @@ env <- env[-8] # remove site with no data
 
 Explore the content of the fish community dataset
 
-```{r}
+```{r, eval = F}
 names(spe) # Names of objects 
 dim(spe) # dimensions 
 str(spe) # structure of objects
-head(spe) # first 5 rows 
 summary(spe) # summary statistics
+head(spe) # first 6 rows 
+```
+
+```{r, echo = F}
+head(spe) # first 6 rows 
 ```
 
 ---
@@ -173,19 +178,15 @@ summary(spe) # summary statistics
 
 Take a look at the distribution of species frequencies  
 
-```{r}
+```{r, fig.width=8, echo = -1}
+par(mar = c(4,4,.5,.5), cex = 1.5)
 ab <- table(unlist(spe))
-barplot(ab,
-        las = 1,
-        xlab = "Abundance class",
-        ylab = "Frequency", 
-        col = grey(5:0/5))
+barplot(ab, las = 1, col = grey(5:0/5),
+        xlab = "Abundance class", ylab = "Frequency")
 ```
 
-.center[
-![:scale 80%](images/specFrec.png)]
-
 .alert[Note the proportion of 0s]
+
 ---
 # Species Frequencies
 
@@ -206,17 +207,13 @@ sum(spe == 0)/(nrow(spe)*ncol(spe))
 
 Visualize how many species are present at each site: 
 
-```{r}
+```{r, fig.width=10, fig.height=5, echo=-1}
+par(mar = c(4,4,1,.5), cex = 1.5)
 site.pre <- rowSums(spe > 0)
-barplot(site.pre,
-        main = "Species richness",
-        las = 1, 
-        xlab = "Sites", 
-        ylab = "Number of species", 
-        col = "grey ") 
+barplot(site.pre, main = "Species richness",
+        xlab = "Sites", ylab = "Number of species", 
+        col = "grey ", las = 1) 
 ```
-
-.center[![:scale 90%](images/diver1.png)]
 
 ---
 # Understand your data!
@@ -286,17 +283,21 @@ spe.pa <- decostand(spe,method = "log")
 ---
 # Doubs Environmental Data 
 
-```{r}
+```{r, eval = F}
 names(env) # Names of objects 
 dim(env) # dimensions 
 str(env) # structure of objects
-head(env) # first 5 rows 
 summary(env) # summary statistics
+head(env) # first 6 rows 
+```
+
+```{r, echo = T}
+head(env) # first 6 rows 
 ```
 
 Explore colinearity by visualizing correlations between variables 
 
-```{r}
+```{r, eval = F}
 pairs(env, main = "Bivariate Plots of the Environmental Data")
 ```
 
@@ -307,14 +308,12 @@ pairs(env, main = "Bivariate Plots of the Environmental Data")
 ![](images/EnvDat1.png)
 
 ---
-# decostand() 
+# Standardization
 
-```{r}
-?decostand
-```
 Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units
 
-```{r}
+```{r, eval = -1}
+?decostand
 env.z <- decostand(env, method = "standardize")
 ```
 
@@ -403,9 +402,9 @@ Distance: D = 1-S]
 ---
 # Comparing Doubs Sites 
 
-The vegdist() function contains all common distances 
+The `vegdist()` function contains all common distances 
 
-```{r}
+```{r, eval = F}
 ?vegdist
 ```
 
@@ -433,20 +432,18 @@ spe.db.pa <- vegdist(spe, method = "bray")
 ---
 # Challenge #1 ![:cube]()
 
+<br/>
+
 Discuss with your neighbor:
 
-.center[**How can we tell how similar objects are when we have multivariate data?**]
 <br/>
-<br/><br/><br/>
+
+.center[**How can we tell how similar objects are when we have multivariate data?**]
+
+<br/>
+
 - Make a list of all your suggestions 
 
-
----
-# Solution 1 
-
-<br/><br/><br/><br/>
-
-.alert[Suggestions?]
 
 ---
 # And what about ordination? 
@@ -478,21 +475,23 @@ With ordination methods, we order our objects (site) according to their similari
 
 .center[
 ![:scale 80%](images/cluster1.png)]
+
 ---
 # Overview of 3 hierarchical methods
 
+<br>
 
 - Single linkage agglomerative clustering 
 
---
+<br>
 
 - Complete linkage, agglomerative clustering 
 
---
+<br>
 
 - Ward's minimum variance clustering 
 
---
+<br>
 
 - Elements of lower are nested in higher ranking clusters 
    - (e.g. species, genus, family, order)
@@ -549,25 +548,15 @@ A distance matrix is first sorted in increasing distance order
 ---
 # Comparison 
 
-Create a distance matrix from Hellinger transformed Doubs river data 
+Create a distance matrix from Hellinger transformed Doubs river data and compute the single linkage clustering 
 
-```{r}
+```{r, fig.width=7, echo = -1}
+par(mar=c(.5,3.8,2,.5), cex = 1.5)
 spe.dhe1 <- vegdist(spec.hel, method = "euclidean") 
-```
-
-Compute the single linkage clustering 
-
-```{r}
 spe.dhe1.single <- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-Compute the complete linkage clustering  
-   
-```{r}
-spe.dhe1.complete = hclust(spe.dhe1, method = "complete")
-plot(spe.dhe1.complete)
-```
 
 ---
 # Comparison 
@@ -597,24 +586,22 @@ Contrasted groups are formed of objects occur
 ---
 # Ward's method  
 
-- Compute the Ward's minimum variance clustering: 
-```{r}
+Compute the Ward's minimum variance clustering and plot the dendrogram by using the square root of the distances:
+
+```{r, fig.width=9, echo = -1}
+par(mar=c(.5,3.8,2,.5), cex = 1.5)
 spe.dhel.ward <- hclust(spe.dhe1, method = "ward.D2") 
-```
-
-- Plot the dendrogram by using the square root of the distances 
-
-```{r}
 spe.dhel.ward$height <- sqrt(spe.dhel.ward$height)
-plot(spe.dhel.ward, hang = 1)
-# hang = 1 aligns objects at the same level (distance = 0)
+plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ```
 
 ---
 # Ward's method
 
-.center[
-![:scale 80%](images/Ward1.png)]
+```{r, fig.width=9, echo = F}
+par(mar=c(.5,3.8,2,.5), cex = 1.5)
+plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
+```
 
 Clusters generated using this method tend to be more spherical and to contain similar number of objects
 
@@ -768,37 +755,30 @@ class: inverse, center, middle
 ---
 # PCA - Let's try it on Fish Species! 
 
-- For both PCA and RDA, we will be using the rda() function in the vegan package 
-```{r}
-?rda 
-```
+- For both PCA and RDA, we will be using the `rda()` function in the vegan package 
 
-- Run a PCA on the Hellinger-transformed fish data 
+- Run a PCA on the Hellinger-transformed fish data and extract the results 
 
 ```{r}
 spe.h.pca <- rda(spec.hel) 
-```
 
-- Extract the results 
-
-```{r}
 summary(spe.h.pca) 
 ```
 
 ---
-# Function rda()
+# Function `rda()`
 
 - RDA is in 2 steps 
 
   - multiple regressions
   - PCA on regressed values 
   
-- If we give only one table to the function rda() it does directly a PCA without doing regression 
+- If we give only one table to the function `rda()` it does directly a PCA without doing regression 
 
 .center[
-.alert[ rda(Y~X) --> RDA 
+.alert[ rda(Y~X) ![:faic](arrow-right) RDA 
 
-rda(Y) or rda(X) --> PCA ]]
+rda(Y) or rda(X) ![:faic](arrow-right) PCA ]]
 
 ---
 #PCA - Interpretation of Output 
@@ -812,17 +792,22 @@ rda(Y) or rda(X) --> PCA ]]
 ---
 # PCA - Interpretation of Output 
 
+<br/>
+
+.center[
 ![:scale 80%](images/PCAout2.png)
+]
+
 
 - List the eigenvalues associated to each Principal Component (in this output there are 27 PCs, as this is the number of dimensions in the data) 
 
-<br/><br/>
+<br/>
 
-.alert[.small[
+.alert[
 An eigenvalue is the value of the change in the length of a vector, and for our purposes is the amount of variation explained by Principal Component
-]]
+]
 
-<br/><br/>
+<br/>
 
 .center[0.258 + 0.064 + ... = 0.5025 Total explained variance]
 
@@ -835,7 +820,7 @@ An eigenvalue is the value of the change in the length of a vector, and for our 
 
 - List of the proportion of variance explained by each Principal Component (as well as cumulative) 
 
-<br/><br/>
+<br/>
 
 .center[51.3% of 0.5025 is 0.258]
 
@@ -871,18 +856,22 @@ More on this later!
 ---
 # Accessing Parts of the Output 
 
-The output is very dense, but you can access specific information if needed 
-
-- Access the eigenvalues associated contribution to variance 
+The output is very dense, but you can access specific information if needed. For example, you can access the eigenvalues associated contribution to variance :
 
 ```{r}
 summary(spe.h.pca, display = NULL) 
 ```
 
-- Calculate the eigenvalues from scratch 
+---
+# Accessing Parts of the Output 
+
+You can calculate the eigenvalues from scratch 
+
 ```{r}
 eigen(cov(spec.hel))
 ```
+
+
 
 ---
 # Accessing Parts of the Output 
@@ -891,9 +880,9 @@ You may wish to extract the scores (either from species or sites) for use in sub
 
 - Access the species scores along the 1st and 2nd PC: 
 ```{r}
-spe.scores <-  scores(spe.h.pca, 
-                      display = "species", 
-                      choices = c(1,2)) 
+spe.scores <- scores(spe.h.pca, 
+                     display = "species", 
+                     choices = c(1,2)) 
 ```
 
 - Access the site scores along the 1st and 2nd PC: 
@@ -907,14 +896,16 @@ site.scores <- scores(spe.h.pca,
 ---
 # Selecting Significant PCs
 
-The strength of PCA is that we can condense the variance contained in a huge dataset into a set of synthetic variables that is manageable 
+<br>
 
-In our case, there are still 27 Principal Components, but only the first few account for any significant amount of variance, while the rest can simply be discarded as noise... 
+- The strength of PCA is that we can condense the variance contained in a huge dataset into a set of synthetic variables that is manageable 
+
+- In our case, there are still 27 Principal Components, but only the first few account for any significant amount of variance, while the rest can simply be discarded as noise... 
 
 
 --
 
-How do we manage this?
+.alert[How do we manage this?]
 
 ---
 # Kaiser - Guttman criterion 
@@ -932,44 +923,28 @@ ev <- spe.h.pca$CA$eig
 ev[ev>mean(ev)]
 ```
 
-![](images/KG1.png)
 
 ---
 # Kaiser - Guttman criterion (visualization)
 
-```{r}
+```{r, echo = -1, fig.width=10, fig.height = 5.5}
+par(mar=c(4,4,2.5,.5), cex = 1.5)
 n <- length(ev)
-
-barplot(ev, 
-        main = "Eigenvalues", 
-        col = "grey", 
-        las = 2)
-abline(h=mean(ev), col="red")
-legend("topright", 
-       "Average eigenvalue", 
-       lwd = 1, col =2 , bty = "n")
+barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue", 
+       lwd = 2, col = "red3" , bty = "n")
 ```
 
----
-# Kaiser - Guttman criterion (visualization)
-
-.center[
-![](images/Eigen1.png)]
 
 ---
 # PCA - environmental variables 
 
 We can also run PCAs on standardized environmental variables, to compare sites for example, or how variables are correlated... 
 
-- Run a PCA on the standardized environmental variables 
+- Run a PCA on the standardized environmental variables and extract the results
 ```{r}
 env.pca <- rda(env.z)
-```
-
-- Extract the results 
-
-```{r}
-summary(env.pca)
 summary(env.pca, scaling  = 2) # default 
 ```
 
@@ -988,15 +963,18 @@ ev <- env.pca$CA$eig
 ev[ev>mean(ev)]
 ```
 
-- Plot 
+---
+# PCA - environmental variables 
 
-```{r}
+- Plot the eigenvalues above average 
+
+```{r, echo = -1, fig.width=8, fig.height = 5}
+par(mar=c(4,4,2.5,.5), cex = 1.5)
 n <- length(ev)
-barplot(ev, main = "Eigenvalues", 
-        col = "grey", las = 2)
-abline(h=mean(ev), col = "red") 
+barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
 legend("topright", "Average eigenvalue", 
-       lwd = 1, col = 2, bty = "n") 
+       lwd = 2, col = "red3" , bty = "n")
 ```
 
 ---
@@ -1004,9 +982,10 @@ legend("topright", "Average eigenvalue",
 
 The abundance of information produced by PCA is easier to understand and interpret using biplots to visualize patterns 
 
-- We can produce a quick biplot of the species data using the function ´plot()´ in base R
+- We can produce a quick biplot of the PCA using the function `plot()` in base R
 
-```{r}
+```{r, echo = -1}
+par(mar=c(4,4,.1,.1), cex = 1.5)
 plot(spe.h.pca)
 ```
 
@@ -1017,19 +996,15 @@ plot(spe.h.pca)
 ![:scale 70%](images/biplotPCA.png)]
 
 
-.small[
-plot() is quick but its hard to interpret the angles between species
+.comment[
+`plot()` is quick but its hard to interpret the angles between species
 ]
 
 
 ---
-# PCA basic biplot with biplot() 
+# PCA basic `biplot()`
 
-- Using the function biplot from base R, arrows are plotted to show the directionality and angle of the descriptors in the ordination 
-
-```{r}
-biplot(spe.h.pca)
-```
+- Using the function `biplot()` from base R, arrows are plotted to show the directionality and angle of the descriptors in the ordination 
 
 .alert[
 .small[ 
@@ -1037,6 +1012,12 @@ biplot(spe.h.pca)
 - Descriptors at 90 degrees of each other have zero correlation
 - Descriptors at 0 degrees of each other are positively correlated 
 ]]
+
+```{r, echo = -1, fig.height=4, fig.width=4.5}
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
+biplot(spe.h.pca)
+```
+
 
 
 ---
@@ -1067,8 +1048,29 @@ among objects (sites): the angles among descriptor (species) vector are meaningl
 
 - By extracting specific parts of the PCA output, we can build more detailed and aesthetic plots: 
 
-```{r}
-plot(spe.h.pca, caling  = 1, type = "none", 
+```{r, eval = F}
+plot(spe.h.pca, scaling  = 1, type = "none", 
+     xlab = c("PC1 (%)", round(spe.h.pca$CA$eig[1]/sum(spe.h.pca$CAeig)*100,2)),
+     ylab = c("PC2 (%)", round(spe.h.pca$CA$eig[2]/sum(spe.h.pca$CA$eig)*100,2)))
+points(scores(spe.h.pca, display = "sites", choices = c(1,2), scaling = 1),
+       pch=21, col = "black", bg = "steelblue" , cex  = 1.2)
+text(scores(spe.h.pca, display = "species", choices = 1, scaling = 1),
+     scores(spe.h.pca, display = "species", choices = 2, scaling = 1),
+     labels = rownames(scores(spe.h.pca, display = "species", scaling = 1)),
+     col = "red", cex = 0.8)
+spe.cs <- scores(spe.h.pca, choices = 1:2, scaling = 1 , display = "sp")
+arrows(0, 0, spe.cs[,1], spe.cs[,2], length = 0)
+```
+
+use the `arrows()` function in  `graphics` to add vectors
+
+
+---
+# Advanced "biplotting" 
+
+```{r, echo = F, fig.width=7,fig.height=7}
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
+plot(spe.h.pca, scaling  = 1, type = "none", 
      xlab = c("PC1 (%)", round(spe.h.pca$CA$eig[1]/sum(spe.h.pca$CAeig)*100,2)),
      ylab = c("PC2 (%)", round(spe.h.pca$CA$eig[2]/sum(spe.h.pca$CA$eig)*100,2)))
 points(scores(spe.h.pca, display = "sites", choices = c(1,2), scaling = 1),
@@ -1080,15 +1082,6 @@ text(scores(spe.h.pca, display="species", choices=c(1), scaling = 1),
 spe.cs <- scores(spe.h.pca, choices = 1:2, scaling = 1 , display = "sp")
 arrows(0,0,spe.cs[,1], spe.cs[,2], length = 0)
 ```
-
-use the `arrows()` function in  `graphics` to add vectors
-
-
----
-# Advanced "biplotting" 
-
-.center[
-![:scale 70%](images/AdvBiplot.png)]
 
 ---
 # EASTER EGG: ggvegan 
@@ -1130,39 +1123,47 @@ data(mite)
 ---
 # Solution #3
 
-- Hellinger transform the species data 
+- Compute PCA on the Hellinger-transformed species data
 
 ```{r}
 mite.spe.hel <- decostand(mite, method = "hellinger")
-```
 
-- Compute PCA 
-
-```{r}
 mite.spe.h.pca <- rda(mite.spe.hel)
 ```
 
 - Check significant axes using the Guttman-Kaiser criterion 
 
-```{r}
+```{r, eval = F}
 ev <- mite.spe.h.pca$CA$eig
 ev[ev>mean(ev)]
 n <- length(ev)
 barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
-abline(h = mean(ev), col = "red")
-legend("topright", "Average eigenvalue", lwd = 1, col = 2, bty = "n")
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
 ```
 
 ---
 # Solution #3 
 
-.center[![:scale 70%](images/Solution3.png)]
+```{r, echo = F, fig.width=10, fig.height=7}
+par(mar=c(4,4,2,1), cex = 1.2)
+ev <- mite.spe.h.pca$CA$eig
+n <- length(ev)
+barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
+```
+
 
 
 ---
 # Solution #3 
 
-.center[![:scale 80%](images/Solution3_1.png)]
+```{r, echo = -1, fig.height=6.5, fig.width=7}
+par(mar = c(4,4,0.05,0.05), cex = 1.5)
+biplot(mite.spe.h.pca, col = c("red3", "grey15"))
+```
+
 
 ---
 # Warnings 
@@ -1210,7 +1211,7 @@ Violation of these can cause a horseshoe shape in your biplots, where opposite e
 ---
 # How to run a CA? 
 
-- CA is implemented in the vegan package using the function cca: 
+- CA is implemented in the `vegan` package using the function `cca()`: 
 
 ```{r}
 spe.ca <- cca(spe[-8,])
@@ -1234,17 +1235,17 @@ summary(spe.ca)
 ---
 # CA: Interpretation of results 
 
-.pull-left[
-![:scale 100%](images/CAInt.png)
+.pull-left2[
+![](images/CAInt.png)
 ]
 
-.pull-right[
+.pull-right2[
 
-- 26 CA axes identified 
+26 CA axes identified 
 
-- % CA1 = 51.50% 
+% CA1 = 51.50% 
 
-- % CA2 = 12.37% 
+% CA2 = 12.37% 
 ]
 
 
@@ -1252,9 +1253,15 @@ summary(spe.ca)
 # CA: biplots 
 
 .center[
-![:scale 60%](images/CABiplto.png)]
+![:scale 75%](images/CABiplto.png)]
 
-.tiny[These biplots show that a group of sites located in the left part with similar fish community characterized by numerous species such as *GAR*, *TAN*, *PER*, *ROT*, *PSO*, and *CAR*; in the upper right corner, an other site cluster characterized by the species *LOC*, *VAI* and *TRU* is identified; the last site cluster in the lower right corner of the biplot is characterized by the species *BLA*, *CHA*, and *OMB*]
+.small[
+The group of sites on the left is characterized by the species *GAR*, *TAN*, *PER*, *ROT*, *PSO*, and *CAR* 
+
+The group of sites in the upper right corner is characterized by the species *LOC*, *VAI* and *TRU* 
+The group of sites in the lower right corner is characterized by the species *BLA*, *CHA*, and *OMB*
+]
+
 
 ---
 # Challenge #4 ![:cube]()
@@ -1280,20 +1287,26 @@ mite.spe.ca <- cca(mite.spe)
 
 - Check significant axes using the Guttman-Kaiser criterion 
 
-```{r}
+```{r, eval = F}
 ev <- mite.spe.ca$CA$eig
 ev[ev > mean(ev)]
 n <- length(ev)
 barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
-abline(h = mean(ev), col = "red")
-legend("topright", "Average eigenvalue", lwd = 1, col = 2, bty = "n")
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ```
 
 ---
 # Solution #4
 
-.center[
-![](images/CASol4.png)]
+```{r, echo = F, fig.width=10, fig.height=7}
+par(mar=c(4,4,2,1), cex = 1.2)
+ev <- mite.spe.ca$CA$eig
+n <- length(ev)
+barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
+```
 
 ---
 # 4.3. Principal Coordinates Analysis 
@@ -1311,20 +1324,15 @@ legend("topright", "Average eigenvalue", lwd = 1, col = 2, bty = "n")
 
 - For computing PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages: 
 
-```{r}
+```{r, eval = F}
 ?cmdscale
 ?pcoa
 ```
 
-- Run a PCoA on the Hellinger-distances of the fish dataset 
+- Run a PCoA on the Hellinger-distances of the fish dataset and extract the results
 ```{r}
 spe.h.pcoa <- pcoa(dist(spec.hel))
-```
-
-- Extract the results
-
-```{r}
-spe.h.pcoa
+summary(spe.h.pcoa)
 ```
 
 
@@ -1350,20 +1358,14 @@ spe.h.pcoa
 
 
 ---
-# PCoA biplot with biplot.pcoa() 
+# PCoA biplot with `biplot.pcoa()` 
 
-We can display, in 2D, the distances between sites using the `biplot.pcoa()` function, as well as the species associated to each site (though this is less common)
+We can display, in 2D, the distances between sites using the `biplot.pcoa()` function, as well as the species associated to each site
 
-```{r}
+```{r, fig.height=5, fig.width=8}
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
-
----
-# PCoA biplot with biplot.pcoa() 
-
-.center[
-![:scale 80%](images/PCoAbiPlot1.png)]
 
 ---
 # PCoA and non-metric distances
@@ -1372,14 +1374,14 @@ biplot.pcoa(spe.h.pcoa, spec.hel)
 
 ```{r}
 spe.bray.pcoa <- pcoa(spe.db.pa)
-spe.bray.pcoa 
+# spe.bray.pcoa 
 ```
 
 - Examine the output and notice the negative eigenvalues. This is because non-metric distances cannot be represented in Euclidean space without corrections (*see* Legendre & Legendre 2012 for more details on this): 
 
 ```{r}
 spe.bray.pcoa <- pcoa(spe.db.pa, correction = "cailliez")
-spe.bray.pcoa
+# spe.bray.pcoa
 ```
 
 ---
@@ -1387,11 +1389,11 @@ spe.bray.pcoa
 
 - Now let's visualize this using a biplot without the species (more common approach for PCoA)
 
-```{r}
+```{r, fig.width=6, fig.height=5.5, echo = -1}
+par(mar=c(3,3,.5,1), cex = 1.2)
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-.center[![:scale 60%](images/PCoAOrd2.png)]
 
 
 ---
@@ -1422,15 +1424,13 @@ mite.spe.h.pcoa <- pcoa(dist(mite.spe.hel))
 # Solution #5
 
 - Build a biplot to visualize the data: 
-```{r}
+```{r, fig.width=6, fig.height=6}
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-.center[
-![:scale 55%](images/PcoASol1.png)]
 
 ---
-# 4.4. Non-metric Multidimensional scaling (NMDS)
+# Non-metric Multidimensional scaling (NMDS)
 
 - In PCA, CA and PCoA, objects are ordinated in a few number of dimensions (i.e. axis) generally > 2
 
@@ -1454,14 +1454,15 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ---
 # How to run a NMDS 
 
--  nMDS is implemented in the vegan package using function metaMDS: 
+-  nMDS is implemented in the `vegan` package using function `metaMDS()` where
+  - *distance* specifies the distance measure to use 
+  - *k* specifies the number of dimensions 
 
 ```{r}
 spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
 ```
 
-- *distance* specifies the distance measure to use 
-- *k* specifies the number of dimensions 
+
 
 ---
 # NMDS: goodness-of-fit 
@@ -1483,21 +1484,10 @@ stressplot(spe.nmds, main = "Shepard plot")
 ---
 # NMDS on fish abundances 
 
-- Run the NMDS 
+- Run the NMDS and assess the goodness of fit 
 
-```{r}
+```{r, eval = F}
 spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
-```
-
-- Extract the results 
-
-```{r}
-spe.nmds
-```
-
-- Assess the goodness of fit 
-
-```{r}
 spe.nmds$stress 
 stressplot(spe.nmds, main = "Shepard plot") 
 ```
@@ -1518,7 +1508,7 @@ stressplot(spe.nmds, main = "Shepard plot")
 
 - Construct the biplot 
 
-```{r}
+```{r, eval = F}
 plot(spe.nmds, type = "none",
      main = paste("NMDS/Bray - Stress =",
                   round(spe.nmds$stress, 3)),
@@ -1555,7 +1545,11 @@ while the other species form a cluster of sites in the upper right part of the g
 ---
 # Challenge #6 ![:cube]()
 
-Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance. Assess the goodness-of-fit of the ordination and interpret the biplot
+<br>
+
+- Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance. 
+
+- Assess the goodness-of-fit of the ordination and interpret the biplot
 
 ---
 # Solution #6 
@@ -1565,8 +1559,7 @@ Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curt
 ]
 
 .pull-right[ 
-
-.small[The correlation between observed dissimilarity and ordination distance (R2 > 0.91) and the stress value relatively low, showing together a good accuracy of the NMDS ordination]
+The correlation between observed dissimilarity and ordination distance (R2 > 0.91) and the stress value relatively low, showing together a good accuracy of the NMDS ordination
 ]
 
 ---
@@ -1577,7 +1570,7 @@ Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curt
 ]
 
 .pull-right[ 
-.small[No cluster of sites can be precisely defined from the NMDS biplot showing that most of the species occurred in most of the sites, i.e. a few sites shelter specific communities]
+No cluster of sites can be precisely defined from the NMDS biplot showing that most of the species occurred in most of the sites, i.e. a few sites shelter specific communities
 ]
 
 ---
@@ -1620,7 +1613,7 @@ The proportion of variance explained by a principal component
 ---
 # Prime time 4 quiz time 
 
-4.- Spot what is sketchy
+Spot what is sketchy
 
 ![:scale 90%](images/Chall7.png)
 
@@ -1632,7 +1625,7 @@ The proportion of variance explained by a principal component
 ---
 # Prime time 4 quiz time 
 
-4.- Spot what is sketchy
+Spot what is sketchy
 
 ![:scale 90%](images/Chall7_2.png)
 
