@@ -12,6 +12,8 @@ Le contenu de cet atelier a été révisé par plusieurs membres du CSBQ. Si vou
 
 # Workshop 9: Multivariate analyses
 
+[![Build Status](https://travis-ci.org/QCBSRworkshops/workshop09.svg?branch=dev)](https://travis-ci.org/QCBSRworkshops/workshop09)
+
 In this workshop, you will learn the basics of multivariate analyses that will
 allow you to reveal patterns in your community composition data. You will first
 learn to choose appropriate distance metrics and transformations to then perform
@@ -23,6 +25,9 @@ Non-Metric MultiDimensional Scaling (NMDS).
 
 # Atelier 9: Analyses multivariées
 
+
+[![Build Status](https://travis-ci.org/QCBSRworkshops/workshop09.svg?branch=dev)](https://travis-ci.org/QCBSRworkshops/workshop09)
+
 Dans cet atelier, vous apprendrez les bases des analyses multivariées qui vous
 permettront de révéler les patrons de diversité dans vos données de communautés.
 Vous apprendrez d'abord comment choisir les mesures de distance et les
@@ -32,3 +37,22 @@ des Analyses de Correspondance (CA), des Analyses en Coordonnées Principales
 (PCoA) et des Positionnements Multidimensionnels Non-Métriques (NMDS).
 
 *Le script R est en parti issu de: Borcard, Gillet & Legendre (2011). Numerical Ecology with R. Springer New York*
+
+
+# Links
+
+#### [English](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.html)
+
+#### [Français](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.html)
+
+# Developers
+
+1. Set the working directory set to this folder.
+2. then use:
+
+``` r
+install.packages("remotes")
+remotes::install_github("QCBSRworkshops/qcbsRworkshops")
+library("qcbsRworkshops")
+build_workshops()
+```

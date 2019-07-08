@@ -1,0 +1,15 @@
+Package: placeholder
+Type: Tutorial
+Title: Workshop 09
+Version: 0.0.1
+Authors@R: c(
+  person("Team", "QCBS", role = c("aut", "cre"), email = "kevin.cazelles@gmail.com")
+  )
+Imports:
+  vegan,
+  ape,
+  gclus,
+  qcbsRworkshops,
+  xaringan
+Remotes:
+  QCBSRworkshops/qcbsRworkshops
