@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="author" content="Québec Centre for Biodiversity Science" />
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/academicons-1.8.1/css/academicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css">
     <link rel="stylesheet" href="qcbsR.css" type="text/css" />
     <link rel="stylesheet" href="qcbsR-fonts.css" type="text/css" />
   </head>
@@ -2012,64 +2012,67 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.002209362 
-# Run 1 stress 9.677536e-05 
+# Run 1 stress 7.654949e-05 
 # ... New best solution
-# ... Procrustes: rmse 0.005462215  max resid 0.01144732 
-# Run 2 stress 5.582457e-05 
+# ... Procrustes: rmse 0.005524683  max resid 0.01124089 
+# Run 2 stress 0.0001336782 
+# ... Procrustes: rmse 0.0003193267  max resid 0.0007739284 
+# ... Similar to previous best
+# Run 3 stress 9.485665e-05 
+# ... Procrustes: rmse 0.0001092323  max resid 0.0003014631 
+# ... Similar to previous best
+# Run 4 stress 9.613741e-05 
+# ... Procrustes: rmse 0.00015549  max resid 0.0004560519 
+# ... Similar to previous best
+# Run 5 stress 9.923721e-05 
+# ... Procrustes: rmse 0.0002205482  max resid 0.0005269484 
+# ... Similar to previous best
+# Run 6 stress 5.568753e-05 
 # ... New best solution
-# ... Procrustes: rmse 0.0002012683  max resid 0.0003874081 
+# ... Procrustes: rmse 0.0001152862  max resid 0.0001899527 
 # ... Similar to previous best
-# Run 3 stress 9.513462e-05 
-# ... Procrustes: rmse 0.0001317038  max resid 0.0002670334 
+# Run 7 stress 9.797943e-05 
+# ... Procrustes: rmse 0.0002121901  max resid 0.0003817941 
 # ... Similar to previous best
-# Run 4 stress 8.274932e-05 
-# ... Procrustes: rmse 4.797003e-05  max resid 9.613382e-05 
+# Run 8 stress 9.50771e-05 
+# ... Procrustes: rmse 0.0001239685  max resid 0.0002568983 
 # ... Similar to previous best
-# Run 5 stress 9.993356e-05 
-# ... Procrustes: rmse 0.0001633768  max resid 0.0003354126 
+# Run 9 stress 9.393031e-05 
+# ... Procrustes: rmse 0.0001383624  max resid 0.0002890439 
 # ... Similar to previous best
-# Run 6 stress 9.773364e-05 
-# ... Procrustes: rmse 0.0002450219  max resid 0.0004629943 
+# Run 10 stress 9.202794e-05 
+# ... Procrustes: rmse 4.84549e-05  max resid 8.945931e-05 
 # ... Similar to previous best
-# Run 7 stress 9.896792e-05 
-# ... Procrustes: rmse 0.0002489525  max resid 0.0005205705 
+# Run 11 stress 9.797683e-05 
+# ... Procrustes: rmse 0.0001653465  max resid 0.0003368991 
 # ... Similar to previous best
-# Run 8 stress 9.88316e-05 
-# ... Procrustes: rmse 0.0002374766  max resid 0.000482101 
+# Run 12 stress 6.779564e-05 
+# ... Procrustes: rmse 3.673735e-05  max resid 8.87414e-05 
 # ... Similar to previous best
-# Run 9 stress 9.713061e-05 
-# ... Procrustes: rmse 0.0001581114  max resid 0.0003159357 
+# Run 13 stress 8.183048e-05 
+# ... Procrustes: rmse 4.609882e-05  max resid 9.179649e-05 
 # ... Similar to previous best
-# Run 10 stress 9.504172e-05 
-# ... Procrustes: rmse 0.0001491269  max resid 0.000321263 
+# Run 14 stress 9.672172e-05 
+# ... Procrustes: rmse 0.0001532438  max resid 0.0002912699 
 # ... Similar to previous best
-# Run 11 stress 0.0001925866 
-# ... Procrustes: rmse 0.0004113601  max resid 0.000785026 
+# Run 15 stress 0.0001970854 
+# ... Procrustes: rmse 0.0004727698  max resid 0.0009288315 
 # ... Similar to previous best
-# Run 12 stress 9.921255e-05 
-# ... Procrustes: rmse 0.0001428055  max resid 0.0002964905 
+# Run 16 stress 7.521602e-05 
+# ... Procrustes: rmse 3.78685e-05  max resid 7.180043e-05 
 # ... Similar to previous best
-# Run 13 stress 9.682419e-05 
-# ... Procrustes: rmse 0.0001305106  max resid 0.0002632344 
+# Run 17 stress 9.339385e-05 
+# ... Procrustes: rmse 0.0001626969  max resid 0.0003389408 
 # ... Similar to previous best
-# Run 14 stress 8.193043e-05 
-# ... Procrustes: rmse 4.346592e-05  max resid 8.264767e-05 
+# Run 18 stress 4.690363e-05 
+# ... New best solution
+# ... Procrustes: rmse 3.431191e-05  max resid 7.034703e-05 
 # ... Similar to previous best
-# Run 15 stress 9.222966e-05 
-# ... Procrustes: rmse 0.0001617938  max resid 0.0003424277 
+# Run 19 stress 9.907876e-05 
+# ... Procrustes: rmse 0.0001676059  max resid 0.0003281453 
 # ... Similar to previous best
-# Run 16 stress 0.0005789769 
-# Run 17 stress 8.137002e-05 
-# ... Procrustes: rmse 4.107926e-05  max resid 8.784111e-05 
-# ... Similar to previous best
-# Run 18 stress 8.126789e-05 
-# ... Procrustes: rmse 3.914975e-05  max resid 8.34439e-05 
-# ... Similar to previous best
-# Run 19 stress 9.872693e-05 
-# ... Procrustes: rmse 0.0001680647  max resid 0.0003463909 
-# ... Similar to previous best
-# Run 20 stress 9.952262e-05 
-# ... Procrustes: rmse 0.0001583926  max resid 0.0003269113 
+# Run 20 stress 7.808533e-05 
+# ... Procrustes: rmse 4.302813e-05  max resid 0.0001201717 
 # ... Similar to previous best
 # *** Solution reached
 ```
@@ -2091,7 +2094,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 5.582457e-05
+# [1] 4.690363e-05
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
