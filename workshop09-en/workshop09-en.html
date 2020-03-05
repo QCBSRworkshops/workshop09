@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="" xml:lang="">
   <head>
     <title>Workshop 9: Multivariate analyses</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Québec Centre for Biodiversity Science" />
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/academicons-1.8.1/css/academicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css">
     <link rel="stylesheet" href="qcbsR.css" type="text/css" />
     <link rel="stylesheet" href="qcbsR-fonts.css" type="text/css" />
   </head>
@@ -30,13 +30,13 @@ class: center, middle, inverse, title-slide
 class: inverse, center, middle
 
 # 1. Introduction
-## What is ordination? 
+## What is ordination?
 
 
 ---
-# One Dimension 
+# One Dimension
 
-What if we are interested in this response for different species of algae involved in the algal bloom density? 
+What if we are interested in this response for different species of algae involved in the algal bloom density?
 
 .center[![:scale 70%](images/algalBloom.png)]
 
@@ -54,33 +54,33 @@ What if we are interested in this response for different species of algae involv
 
 
 ---
-# 4,5,6, or more Dimensions 
+# 4,5,6, or more Dimensions
 
 .center[![:scale 70%](images/4dim.png)]
 
 
 ---
-# Ordination in reduced space 
+# Ordination in reduced space
 
 .center[![:scale 70%](images/Ord1.png)]
 
 ---
-# Ordination in reduced space 
+# Ordination in reduced space
 
 
 .center[![:scale 70%](images/Ord2.png)]
 
-- Matrix algebra is complex and hard to understand 
+- Matrix algebra is complex and hard to understand
 
-- A global understanding is enough in order to use ordination methods adequately 
+- A global understanding is enough in order to use ordination methods adequately
 
 
 
 ---
-# Methods for scientific research 
+# Methods for scientific research
 
 --
-- **Questions / Hypothesis** 
+- **Questions / Hypothesis**
 --
 
 - **Experimental design**
@@ -89,7 +89,7 @@ What if we are interested in this response for different species of algae involv
 - **Data Collection**
 --
 
-- **Transformation / Distance** 
+- **Transformation / Distance**
 --
 
 - **Analysis**
@@ -110,11 +110,11 @@ class: inverse, center, middle
 
 .pull-left[
 
-Verneaux (1973) dataset: 
-- characterization of fish communities 
-- 27 different species 
+Verneaux (1973) dataset:
+- characterization of fish communities
+- 27 different species
 - 30 different sites
-- 11 environmental variables 
+- 11 environmental variables
 
 ]
 
@@ -129,51 +129,51 @@ Load the Doubs River species data (Doubs.Spe.csv)
 
 
 ```r
-spe &lt;- read.csv("Scripts_and_data/doubsspe.csv", row.names = 1) 
-spe &lt;-  spe[-8] # remove site with no data 
+spe &lt;- read.csv("data/doubsspe.csv", row.names = 1)
+spe &lt;-  spe[-8] # remove site with no data
 ```
 
 Load the Doubs River environmental data (Doubs.Env.csv)
 
 
 ```r
-env &lt;- read.csv("Scripts_and_data/doubsenv.csv", row.names = 1) 
-env &lt;- env[-8] # remove site with no data 
+env &lt;- read.csv("data/doubsenv.csv", row.names = 1) 
+env &lt;- env[-8] # remove site with no data
 ```
 
 .alert[Proceed with caution, only execute once]
 
 
 ---
-# Expore Doubs Dataset 
+# Expore Doubs Dataset
 
 Explore the content of the fish community dataset
 
 
 ```r
-names(spe) # Names of objects 
-dim(spe) # dimensions 
+names(spe) # Names of objects
+dim(spe) # dimensions
 str(spe) # structure of objects
 summary(spe) # summary statistics
-head(spe) # first 6 rows 
+head(spe) # first 6 rows
 ```
 
 
 ```
-#   CHA TRU VAI LOC OMB BLA HOT VAN CHE BAR SPI GOU BRO PER BOU PSO ROT CAR
-# 1   0   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-# 2   0   5   4   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-# 3   0   5   5   5   0   0   0   0   0   0   0   0   1   0   0   0   0   0
-# 4   0   4   5   5   0   0   0   0   1   0   0   1   2   2   0   0   0   0
-# 5   0   2   3   2   0   0   0   5   2   0   0   2   4   4   0   0   2   0
-# 6   0   3   4   5   0   0   0   1   2   0   0   1   1   1   0   0   0   0
-#   TAN BCO PCH GRE GAR BBO ABL ANG
-# 1   0   0   0   0   0   0   0   0
-# 2   0   0   0   0   0   0   0   0
-# 3   0   0   0   0   0   0   0   0
-# 4   1   0   0   0   0   0   0   0
-# 5   3   0   0   0   5   0   0   0
-# 6   2   0   0   0   1   0   0   0
+#   CHA TRU VAI LOC OMB BLA HOT VAN CHE BAR SPI GOU BRO PER BOU PSO ROT CAR TAN BCO PCH GRE GAR
+# 1   0   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+# 2   0   5   4   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+# 3   0   5   5   5   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0
+# 4   0   4   5   5   0   0   0   0   1   0   0   1   2   2   0   0   0   0   1   0   0   0   0
+# 5   0   2   3   2   0   0   0   5   2   0   0   2   4   4   0   0   2   0   3   0   0   0   5
+# 6   0   3   4   5   0   0   0   1   2   0   0   1   1   1   0   0   0   0   2   0   0   0   1
+#   BBO ABL ANG
+# 1   0   0   0
+# 2   0   0   0
+# 3   0   0   0
+# 4   0   0   0
+# 5   0   0   0
+# 6   0   0   0
 ```
 
 ---
@@ -188,14 +188,14 @@ barplot(ab, las = 1, col = grey(5:0/5),
         xlab = "Abundance class", ylab = "Frequency")
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-7-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 .alert[Note the proportion of 0s]
 
 ---
 # Species Frequencies
 
-How many zeros? 
+How many zeros?
 
 
 ```r
@@ -212,19 +212,19 @@ sum(spe == 0)/(nrow(spe)*ncol(spe))
 ```
 
 ---
-# Total Species Richness 
+# Total Species Richness
 
-Visualize how many species are present at each site: 
+Visualize how many species are present at each site:
 
 
 ```r
 site.pre &lt;- rowSums(spe &gt; 0)
 barplot(site.pre, main = "Species richness",
-        xlab = "Sites", ylab = "Number of species", 
-        col = "grey ", las = 1) 
+        xlab = "Sites", ylab = "Number of species",
+        col = "grey ", las = 1)
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # Understand your data!
@@ -232,36 +232,36 @@ barplot(site.pre, main = "Species richness",
 .center[...to choose the appropiate transformation and distance]
 
 
-- Are there many zeros? 
+- Are there many zeros?
 
-- What do they mean? 
+- What do they mean?
 
 
 .alert[A measured 0 (e.g 0mg/L, 0°C) is not the same than a 0 representing an absence observations]
-  
+
 
 ---
-# Before transforming your community data... 
+# Before transforming your community data...
 
-.alert[Important considerations:] 
+.alert[Important considerations:]
 
 --
 - relative abundances/counts/presence-absence?
 
 --
-- asymmetrical distributions? 
+- asymmetrical distributions?
 
 --
-- many rare species? 
+- many rare species?
 
 --
-- overabundance of dominant species? 
+- overabundance of dominant species?
 
 --
-- double Zero problem? 
+- double Zero problem?
 
 ---
-# Transforming community data 
+# Transforming community data
 
 .center[
 ![](images/trans1.png)]
@@ -269,9 +269,9 @@ barplot(site.pre, main = "Species richness",
 ---
 # Transforming your community data
 
-## Examples 
+## Examples
 
-Transforming counts into presence - absence 
+Transforming counts into presence - absence
 
 ```r
 spec.pa &lt;- decostand(spe,method = "pa")
@@ -285,7 +285,7 @@ spec.hel &lt;- decostand(spe,method = "hellinger")
 spec.chi &lt;- decostand(spe,method = "chi.square")
 ```
 
-Reducing the weight of very abundant species 
+Reducing the weight of very abundant species
 
 
 ```r
@@ -295,20 +295,20 @@ spe.pa &lt;- decostand(spe,method = "log")
 
 
 ---
-# Doubs Environmental Data 
+# Doubs Environmental Data
 
 
 ```r
-names(env) # Names of objects 
-dim(env) # dimensions 
+names(env) # Names of objects
+dim(env) # dimensions
 str(env) # structure of objects
 summary(env) # summary statistics
-head(env) # first 6 rows 
+head(env) # first 6 rows
 ```
 
 
 ```r
-head(env) # first 6 rows 
+head(env) # first 6 rows
 #    das alt  pen  deb  pH dur  pho  amm  oxy dbo
 # 1  0.3 934 48.0 0.84 7.9  45 0.01 0.00 12.2 2.7
 # 2  2.2 932  3.0 1.00 8.0  40 0.02 0.10 10.3 1.9
@@ -318,7 +318,7 @@ head(env) # first 6 rows
 # 6 32.4 846  3.2 2.86 7.9  60 0.20 0.00 10.2 5.3
 ```
 
-Explore colinearity by visualizing correlations between variables 
+Explore colinearity by visualizing correlations between variables
 
 
 ```r
@@ -327,7 +327,7 @@ pairs(env, main = "Bivariate Plots of the Environmental Data")
 
 
 ---
-# Doubs Environmental Data 
+# Doubs Environmental Data
 
 ![](images/EnvDat1.png)
 
@@ -342,15 +342,15 @@ Standardizing environmental variables is crucial as you cannot compare the effec
 env.z &lt;- decostand(env, method = "standardize")
 ```
 
-This centers and scales the variables to make your downstream analysis more appropriate 
+This centers and scales the variables to make your downstream analysis more appropriate
 
 
 ```r
 apply(env.z, 2, mean)
-#           das           alt           pen           deb            pH 
-#  1.000429e-16  1.814232e-18 -1.659010e-17  1.233099e-17 -4.096709e-15 
-#           dur           pho           amm           oxy           dbo 
-#  3.348595e-16  1.327063e-17 -4.289646e-17 -2.886092e-16  7.656545e-17
+#           das           alt           pen           deb            pH           dur 
+#  1.000429e-16  1.814232e-18 -1.659010e-17  1.233099e-17 -4.096709e-15  3.348595e-16 
+#           pho           amm           oxy           dbo 
+#  1.327063e-17 -4.289646e-17 -2.886092e-16  7.656545e-17
 apply(env.z, 2, sd)
 # das alt pen deb  pH dur pho amm oxy dbo 
 #   1   1   1   1   1   1   1   1   1   1
@@ -360,31 +360,31 @@ apply(env.z, 2, sd)
 
 ---
 class: inverse, center, middle
-# 3. Similarity / Dissimilarity 
+# 3. Similarity / Dissimilarity
 
 
 ---
-# Association measures 
+# Association measures
 
-Matrix algebra is at the heart of all ordinations 
+Matrix algebra is at the heart of all ordinations
 
 .center[![](images/MatrixAlgebra.png)]
 
-- Exploring various measures of distance between objects provides some understanding of the engine under the hood 
+- Exploring various measures of distance between objects provides some understanding of the engine under the hood
 
 ---
-# Breaking out of 1D 
+# Breaking out of 1D
 
-.pull-left[ 
+.pull-left[
 
 - As you have seen, ecological datasets can sometimes be very large matrices
 
-- Ordinations compute the relationships between species or between sites 
+- Ordinations compute the relationships between species or between sites
 
-- We can simplify these relationships using methods of dissimilarity 
+- We can simplify these relationships using methods of dissimilarity
 ]
 
-.pull-right[ 
+.pull-right[
 
 ![:scale 40%](images/PCAMatrix.png)
 
@@ -395,32 +395,32 @@ Matrix algebra is at the heart of all ordinations
 
 
 ---
-# Similarity / Dissimilarity 
+# Similarity / Dissimilarity
 
 - Useful to understand your dataset
-- Appropriate measure required by some types of ordinations 
+- Appropriate measure required by some types of ordinations
 
 .center[
-Similarity: S = 1 - D 
+Similarity: S = 1 - D
 Distance: D = 1-S]
 
 
 
-![](images/similarity.png) 
+![](images/similarity.png)
 
 ---
-# Community distance measures 
+# Community distance measures
 
 .pull-left[
 - Euclidean
-- Manhattan 
-- Chord 
+- Manhattan
+- Chord
 ]
 
 .pull-right[
-- Hellinger 
-- Chi-square 
-- Bray-Curtis 
+- Hellinger
+- Chi-square
+- Bray-Curtis
 ]
 
 
@@ -432,9 +432,9 @@ Distance: D = 1-S]
 .alert[Each of these will be useful in different situations]
 
 ---
-# Comparing Doubs Sites 
+# Comparing Doubs Sites
 
-The `vegdist()` function contains all common distances 
+The `vegdist()` function contains all common distances
 
 
 ```r
@@ -449,17 +449,17 @@ spe.db.pa &lt;- vegdist(spe, method = "bray")
 ```
 
 ---
-# Comparing Doubs Sites 
+# Comparing Doubs Sites
 
 .center[![](images/Doubs1.png)]
 
 ---
-# Comparing Doubs Sites 
+# Comparing Doubs Sites
 
 .center[![](images/Doubs2.png)]
 
 ---
-# Visualization of distance matrices 
+# Visualization of distance matrices
 
 .center[![](images/MatrxViz.png)]
 
@@ -476,36 +476,36 @@ Discuss with your neighbor:
 
 &lt;br/&gt;
 
-- Make a list of all your suggestions 
+- Make a list of all your suggestions
 
 
 ---
-# And what about ordination? 
+# And what about ordination?
 
 
-With ordination methods, we order our objects (site) according to their similarity 
+With ordination methods, we order our objects (site) according to their similarity
 
 
-- The more the sites are similar, the closer they are in the ordination space (smaller distances) 
+- The more the sites are similar, the closer they are in the ordination space (smaller distances)
 
 
-- In Ecology, we usually calculate the similarity between sites according to their species composition or their environmental conditions. 
+- In Ecology, we usually calculate the similarity between sites according to their species composition or their environmental conditions.
 
 
 ---
-# Schematic analysis of multivariate analysis 
+# Schematic analysis of multivariate analysis
 
-.center[:scale 70% 
+.center[:scale 70%
 ![](images/ Schema1.png)]
 
 ---
-# Clustering 
+# Clustering
 
-- To highlight structures in the data by partitioning either objects or the descriptors 
+- To highlight structures in the data by partitioning either objects or the descriptors
 
 - Results are represented as dendrograms (trees)
 
-- Not a statistical method 
+- Not a statistical method
 
 .center[
 ![:scale 80%](images/cluster1.png)]
@@ -515,25 +515,25 @@ With ordination methods, we order our objects (site) according to their similari
 
 &lt;br&gt;
 
-- Single linkage agglomerative clustering 
+- Single linkage agglomerative clustering
 
 &lt;br&gt;
 
-- Complete linkage, agglomerative clustering 
+- Complete linkage, agglomerative clustering
 
 &lt;br&gt;
 
-- Ward's minimum variance clustering 
+- Ward's minimum variance clustering
 
 &lt;br&gt;
 
-- Elements of lower are nested in higher ranking clusters 
+- Elements of lower are nested in higher ranking clusters
    - (e.g. species, genus, family, order)
-   
----
-# Hierarchical methods 
 
-A distance matrix is first sorted in increasing distance order 
+---
+# Hierarchical methods
+
+A distance matrix is first sorted in increasing distance order
 
 ![](images/Hierachic1.png)
 
@@ -548,11 +548,11 @@ A distance matrix is first sorted in increasing distance order
 
 ]
 
-.pull-right[ 
+.pull-right[
 
-- The two closest objects merge 
+- The two closest objects merge
 
-- The next two closest objects/clusters merge 
+- The next two closest objects/clusters merge
 
 - and so on
 
@@ -561,7 +561,7 @@ A distance matrix is first sorted in increasing distance order
 ]
 
 ---
-# Complete linkage clustering 
+# Complete linkage clustering
 
 .pull-left[
 
@@ -569,9 +569,9 @@ A distance matrix is first sorted in increasing distance order
 
 ]
 
-.pull-right[ 
+.pull-right[
 
-- The two closest objects merge 
+- The two closest objects merge
 
 - The next two objects/cluster will agglomerate when linked to the furthest element of the group
 
@@ -580,44 +580,44 @@ A distance matrix is first sorted in increasing distance order
 
 
 ---
-# Comparison 
+# Comparison
 
-Create a distance matrix from Hellinger transformed Doubs river data and compute the single linkage clustering 
+Create a distance matrix from Hellinger transformed Doubs river data and compute the single linkage clustering
 
 
 ```r
-spe.dhe1 &lt;- vegdist(spec.hel, method = "euclidean") 
+spe.dhe1 &lt;- vegdist(spec.hel, method = "euclidean")
 spe.dhe1.single &lt;- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-21-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
-# Comparison 
+# Comparison
 
 ![](images/comparison.png)
 
 
-.pull-left[ 
+.pull-left[
 
-**Single linkage:** 
+**Single linkage:**
 
 Chains of objects occur (e.g. 19,29,30,26)
 ]
 
-.pull-right[ 
+.pull-right[
 
-**Complete linkage:** 
+**Complete linkage:**
 Contrasted groups are formed of objects occur
 ]
 
 ---
-# Ward's minimum variance method 
+# Ward's minimum variance method
 
-- Uses the criterion of least squares to cluster objects into groups 
-  - At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares 
+- Uses the criterion of least squares to cluster objects into groups
+  - At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares
 
 ---
 # Ward's method  
@@ -626,37 +626,37 @@ Compute the Ward's minimum variance clustering and plot the dendrogram by using 
 
 
 ```r
-spe.dhel.ward &lt;- hclust(spe.dhe1, method = "ward.D2") 
+spe.dhel.ward &lt;- hclust(spe.dhe1, method = "ward.D2")
 spe.dhel.ward$height &lt;- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-22-1.png" width="648" style="display: block; margin: auto;" /&gt;
 
 ---
 # Ward's method
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-23-1.png" width="648" style="display: block; margin: auto;" /&gt;
 
 Clusters generated using this method tend to be more spherical and to contain similar number of objects
 
 ---
-# How to choose the right method? 
+# How to choose the right method?
 
-- Depends on the objective 
-  - highlights gradients? contrasts? 
-- If more than on method seems appropriate, compare dendrograms 
-- Again: this is **not** an statistical method 
- But! is possible to: 
-  - determine the optimal number of interpretable clusters 
-  - compute clustering statistics 
-  - combine clustering to ordination to distinguish groups of sites 
+- Depends on the objective
+  - highlights gradients? contrasts?
+- If more than on method seems appropriate, compare dendrograms
+- Again: this is **not** an statistical method
+ But! is possible to:
+  - determine the optimal number of interpretable clusters
+  - compute clustering statistics
+  - combine clustering to ordination to distinguish groups of sites
 
 
 
 ---
 class: inverse, center, middle
-# 4. Unconstrained ordination 
+# 4. Unconstrained ordination
 
 
 ---
@@ -682,39 +682,39 @@ class: inverse, center, middle
 - **Score:** position of a dot on an axis. All the scores of a dot give its coordinates in the multidimensional space. They can be used as new variable for other analyses (e.g. linear combination of measured variables).
 
 --
-- **Dispersion** (inertia): Measure of the total variability of the scatter plot (descriptors) in the multidimensional space with regards to its center of gravity. 
+- **Dispersion** (inertia): Measure of the total variability of the scatter plot (descriptors) in the multidimensional space with regards to its center of gravity.
 
 ---
-# Unconstrained ordination 
+# Unconstrained ordination
 
 - Asses relationships **within** a set of variables (species or environmental variables, not **between** sets, i.e. constrained analysis)
 
 - Find key components of variation between samples, sites, species, etc... ç
 
-- Reduce the number of dimensions in multivariate data without substantial loss of information 
+- Reduce the number of dimensions in multivariate data without substantial loss of information
 
 - Create new variables for use in subsequent analysis (such as regression)
 
 
 ---
-# 4.1. Principal Component Analysis (PCA) 
+# 4.1. Principal Component Analysis (PCA)
 
 .center[
 ![:scale 90%](images/Ord1.png)]
 
-- Preserves, in 2D, the maximum amount of variation in the data 
+- Preserves, in 2D, the maximum amount of variation in the data
 - The resulting, synthetic variables are orthogonal (and therefore uncorrelated)
 
 ---
-# PCA - What you need 
+# PCA - What you need
 
-- A set of variables that are response variables (e.g. community composition) OR explanatory variables (e.g. environmental variables) 
+- A set of variables that are response variables (e.g. community composition) OR explanatory variables (e.g. environmental variables)
 
-**NOT BOTH!** 
+**NOT BOTH!**
 
 .pull-left[
-- Samples that are measured for the same set of variables 
-- Generally a dataset that is longer than it is wide is preferred 
+- Samples that are measured for the same set of variables
+- Generally a dataset that is longer than it is wide is preferred
 ]
 
 .pull-right[
@@ -722,13 +722,13 @@ class: inverse, center, middle
 ]
 
 ---
-# PCA - Walkthrough 
+# PCA - Walkthrough
 
 &lt;br/&gt;&lt;br/&gt;
 
 
-|Site|Species 1| Species 2| 
-|---|------|------| 
+|Site|Species 1| Species 2|
+|---|------|------|
 |A|7|3|
 |B|4|3|
 |C|12|10|
@@ -741,7 +741,7 @@ class: inverse, center, middle
 .alert[ A simplified example ]
 
 ---
-# PCA - Walkthrough 
+# PCA - Walkthrough
 
 .center[
 ![:scale 70%](images/DispPlot.png)]
@@ -750,7 +750,7 @@ class: inverse, center, middle
 .alert[In 2D, we would plot the sites like this... Notice the dispersion in the scatterplot]]
 
 ---
-# PCA - Walkthrough 
+# PCA - Walkthrough
 
 .center[
 ![:scale 60%](images/PCA1.png)]
@@ -759,7 +759,7 @@ class: inverse, center, middle
 .alert[Our first component is essentially drawn trough the maximum amount of observed variation... or the best fit line through the points]]
 
 ---
-# PCA - Walkthrough 
+# PCA - Walkthrough
 
 .center[
 ![:scale 70%](images/PCA2.png)]
@@ -767,38 +767,38 @@ class: inverse, center, middle
 .alert[A second principal component is then added perpendicular (90 degrees in 2D) to the first axis]]
 
 ---
-# PCA - Walkthrough 
+# PCA - Walkthrough
 
 .center[
 ![:scale 70%](images/PCA3.png)]
 
-.small[ The final plot then is the two PC axes rotated where the axes are now principal components as opposed to species] 
+.small[ The final plot then is the two PC axes rotated where the axes are now principal components as opposed to species]
 ---
 # PCA - Multidimensional case
 
 &lt;br/&gt;&lt;br/&gt;
 
-- **PC1** --&gt; axis that maximizes the variance of the points that are projected perpendicularly onto the axis. 
-- **PC2** --&gt; must be perpendicular to PC1, but the direction is again the one in which variance is maximized when points are perpendicularly projected 
+- **PC1** --&gt; axis that maximizes the variance of the points that are projected perpendicularly onto the axis.
+- **PC2** --&gt; must be perpendicular to PC1, but the direction is again the one in which variance is maximized when points are perpendicularly projected
 - **PC3** --&gt; and so on: perpendicular to the first two axes
 
 &lt;br/&gt;
 
-.alert[When there are more than two dimensions, PCA produces a new spaces in which all PCA axes are orthogonal (i.e. non-correlated)  and where the PCA axes are ordered according to the percent of variance of the original data they explain] 
+.alert[When there are more than two dimensions, PCA produces a new spaces in which all PCA axes are orthogonal (i.e. non-correlated)  and where the PCA axes are ordered according to the percent of variance of the original data they explain]
 
 
 ---
-# PCA - Let's try it on Fish Species! 
+# PCA - Let's try it on Fish Species!
 
-- For both PCA and RDA, we will be using the `rda()` function in the vegan package 
+- For both PCA and RDA, we will be using the `rda()` function in the vegan package
 
-- Run a PCA on the Hellinger-transformed fish data and extract the results 
+- Run a PCA on the Hellinger-transformed fish data and extract the results
 
 
 ```r
-spe.h.pca &lt;- rda(spec.hel) 
+spe.h.pca &lt;- rda(spec.hel)
 
-summary(spe.h.pca) 
+summary(spe.h.pca)
 # 
 # Call:
 # rda(X = spec.hel) 
@@ -811,26 +811,22 @@ summary(spe.h.pca)
 # Eigenvalues, and their contribution to the variance 
 # 
 # Importance of components:
-#                          PC1     PC2     PC3     PC4     PC5     PC6
-# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617
-# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249
-# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304
-#                           PC7     PC8     PC9     PC10     PC11     PC12
-# Eigenvalue            0.01382 0.01239 0.01002 0.006678 0.005053 0.004269
-# Proportion Explained  0.02777 0.02488 0.02012 0.013416 0.010151 0.008577
-# Cumulative Proportion 0.90081 0.92569 0.94581 0.959230 0.969381 0.977958
-#                           PC13     PC14     PC15     PC16    PC17
-# Eigenvalue            0.002831 0.002252 0.001411 0.001218 0.00105
-# Proportion Explained  0.005686 0.004524 0.002834 0.002448 0.00211
-# Cumulative Proportion 0.983645 0.988168 0.991002 0.993449 0.99556
-#                            PC18      PC19      PC20      PC21      PC22
-# Eigenvalue            0.0007434 0.0004759 0.0003888 0.0002236 0.0001748
-# Proportion Explained  0.0014934 0.0009561 0.0007810 0.0004491 0.0003512
-# Cumulative Proportion 0.9970528 0.9980089 0.9987898 0.9992390 0.9995902
-#                            PC23      PC24      PC25      PC26
-# Eigenvalue            0.0001057 5.548e-05 2.929e-05 1.349e-05
-# Proportion Explained  0.0002124 1.115e-04 5.885e-05 2.711e-05
-# Cumulative Proportion 0.9998026 9.999e-01 1.000e+00 1.000e+00
+#                          PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8     PC9
+# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617 0.01382 0.01239 0.01002
+# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249 0.02777 0.02488 0.02012
+# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304 0.90081 0.92569 0.94581
+#                           PC10     PC11     PC12     PC13     PC14     PC15     PC16    PC17
+# Eigenvalue            0.006678 0.005053 0.004269 0.002831 0.002252 0.001411 0.001218 0.00105
+# Proportion Explained  0.013416 0.010151 0.008577 0.005686 0.004524 0.002834 0.002448 0.00211
+# Cumulative Proportion 0.959230 0.969381 0.977958 0.983645 0.988168 0.991002 0.993449 0.99556
+#                            PC18      PC19      PC20      PC21      PC22      PC23      PC24
+# Eigenvalue            0.0007434 0.0004759 0.0003888 0.0002236 0.0001748 0.0001057 5.548e-05
+# Proportion Explained  0.0014934 0.0009561 0.0007810 0.0004491 0.0003512 0.0002124 1.115e-04
+# Cumulative Proportion 0.9970528 0.9980089 0.9987898 0.9992390 0.9995902 0.9998026 9.999e-01
+#                            PC25      PC26
+# Eigenvalue            2.929e-05 1.349e-05
+# Proportion Explained  5.885e-05 2.711e-05
+# Cumulative Proportion 1.000e+00 1.000e+00
 # 
 # Scaling 2 for species and site scores
 # * Species are scaled proportional to eigenvalues
@@ -907,29 +903,29 @@ summary(spe.h.pca)
 ---
 # Function `rda()`
 
-- RDA is in 2 steps 
+- RDA is in 2 steps
 
   - multiple regressions
-  - PCA on regressed values 
-  
-- If we give only one table to the function `rda()` it does directly a PCA without doing regression 
+  - PCA on regressed values
+
+- If we give only one table to the function `rda()` it does directly a PCA without doing regression
 
 .center[
-.alert[ rda(Y~X) ![:faic](arrow-right) RDA 
+.alert[ rda(Y~X) ![:faic](arrow-right) RDA
 
 rda(Y) or rda(X) ![:faic](arrow-right) PCA ]]
 
 ---
-#PCA - Interpretation of Output 
+#PCA - Interpretation of Output
 
 .center[
 ![:scale 80%](images/PCAout1.png)]
 
 - Total variance explained by the descriptors (here the fish species)
-- In PCA, not that the "Total" and "Unconstrained" portion of the explained variance is identical 
+- In PCA, not that the "Total" and "Unconstrained" portion of the explained variance is identical
 
 ---
-# PCA - Interpretation of Output 
+# PCA - Interpretation of Output
 
 &lt;br/&gt;
 
@@ -938,7 +934,7 @@ rda(Y) or rda(X) ![:faic](arrow-right) PCA ]]
 ]
 
 
-- List the eigenvalues associated to each Principal Component (in this output there are 27 PCs, as this is the number of dimensions in the data) 
+- List the eigenvalues associated to each Principal Component (in this output there are 27 PCs, as this is the number of dimensions in the data)
 
 &lt;br/&gt;
 
@@ -951,55 +947,55 @@ An eigenvalue is the value of the change in the length of a vector, and for our 
 .center[0.258 + 0.064 + ... = 0.5025 Total explained variance]
 
 ---
-# PCA - Interpretation of Output 
+# PCA - Interpretation of Output
 
 ![:scale 70%](images/PCAout1.png)
 
 ![](images/PCAout2.png)
 
-- List of the proportion of variance explained by each Principal Component (as well as cumulative) 
+- List of the proportion of variance explained by each Principal Component (as well as cumulative)
 
 &lt;br/&gt;
 
 .center[51.3% of 0.5025 is 0.258]
 
 ---
-# PCA - Interpretation of Output 
+# PCA - Interpretation of Output
 
 ![](images/PCAout3.png)
 
-- There are two ways to represent an ordination in 2D, here the output is informing us that it used the default scaling, which is type 2... 
+- There are two ways to represent an ordination in 2D, here the output is informing us that it used the default scaling, which is type 2...
 
 &lt;br/&gt;&lt;br/&gt;
 
 --
 
-More on this later! 
+More on this later!
 
 ---
-# PCA - Interpretation of Output 
+# PCA - Interpretation of Output
 
 ![](images/PCAout4.png)
 
 - Species refers to your descriptors (i.e. the columns in your dataset), which here are the Fish species
-- Scores refer to the position of every species in the PC. Essentially they are the coordinates of each species along the principal component 
+- Scores refer to the position of every species in the PC. Essentially they are the coordinates of each species along the principal component
 
 ---
-# PCA - Interpretation of Output 
+# PCA - Interpretation of Output
 
 ![](images/PCAout5.png)
 
-- Site refers to the rows in your dataset, which here are the different sites along the Doubs river (but it can be points in time, etc) 
+- Site refers to the rows in your dataset, which here are the different sites along the Doubs river (but it can be points in time, etc)
 
 
 ---
-# Accessing Parts of the Output 
+# Accessing Parts of the Output
 
 The output is very dense, but you can access specific information if needed. For example, you can access the eigenvalues associated contribution to variance :
 
 
 ```r
-summary(spe.h.pca, display = NULL) 
+summary(spe.h.pca, display = NULL)
 # 
 # Call:
 # rda(X = spec.hel) 
@@ -1012,26 +1008,22 @@ summary(spe.h.pca, display = NULL)
 # Eigenvalues, and their contribution to the variance 
 # 
 # Importance of components:
-#                          PC1     PC2     PC3     PC4     PC5     PC6
-# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617
-# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249
-# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304
-#                           PC7     PC8     PC9     PC10     PC11     PC12
-# Eigenvalue            0.01382 0.01239 0.01002 0.006678 0.005053 0.004269
-# Proportion Explained  0.02777 0.02488 0.02012 0.013416 0.010151 0.008577
-# Cumulative Proportion 0.90081 0.92569 0.94581 0.959230 0.969381 0.977958
-#                           PC13     PC14     PC15     PC16    PC17
-# Eigenvalue            0.002831 0.002252 0.001411 0.001218 0.00105
-# Proportion Explained  0.005686 0.004524 0.002834 0.002448 0.00211
-# Cumulative Proportion 0.983645 0.988168 0.991002 0.993449 0.99556
-#                            PC18      PC19      PC20      PC21      PC22
-# Eigenvalue            0.0007434 0.0004759 0.0003888 0.0002236 0.0001748
-# Proportion Explained  0.0014934 0.0009561 0.0007810 0.0004491 0.0003512
-# Cumulative Proportion 0.9970528 0.9980089 0.9987898 0.9992390 0.9995902
-#                            PC23      PC24      PC25      PC26
-# Eigenvalue            0.0001057 5.548e-05 2.929e-05 1.349e-05
-# Proportion Explained  0.0002124 1.115e-04 5.885e-05 2.711e-05
-# Cumulative Proportion 0.9998026 9.999e-01 1.000e+00 1.000e+00
+#                          PC1     PC2     PC3     PC4     PC5     PC6     PC7     PC8     PC9
+# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617 0.01382 0.01239 0.01002
+# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249 0.02777 0.02488 0.02012
+# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304 0.90081 0.92569 0.94581
+#                           PC10     PC11     PC12     PC13     PC14     PC15     PC16    PC17
+# Eigenvalue            0.006678 0.005053 0.004269 0.002831 0.002252 0.001411 0.001218 0.00105
+# Proportion Explained  0.013416 0.010151 0.008577 0.005686 0.004524 0.002834 0.002448 0.00211
+# Cumulative Proportion 0.959230 0.969381 0.977958 0.983645 0.988168 0.991002 0.993449 0.99556
+#                            PC18      PC19      PC20      PC21      PC22      PC23      PC24
+# Eigenvalue            0.0007434 0.0004759 0.0003888 0.0002236 0.0001748 0.0001057 5.548e-05
+# Proportion Explained  0.0014934 0.0009561 0.0007810 0.0004491 0.0003512 0.0002124 1.115e-04
+# Cumulative Proportion 0.9970528 0.9980089 0.9987898 0.9992390 0.9995902 0.9998026 9.999e-01
+#                            PC25      PC26
+# Eigenvalue            2.929e-05 1.349e-05
+# Proportion Explained  5.885e-05 2.711e-05
+# Cumulative Proportion 1.000e+00 1.000e+00
 # 
 # Scaling 2 for species and site scores
 # * Species are scaled proportional to eigenvalues
@@ -1040,208 +1032,152 @@ summary(spe.h.pca, display = NULL)
 ```
 
 ---
-# Accessing Parts of the Output 
+# Accessing Parts of the Output
 
-You can calculate the eigenvalues from scratch 
+You can calculate the eigenvalues from scratch
 
 
 ```r
 eigen(cov(spec.hel))
 # eigen() decomposition
 # $values
-#  [1] 2.490586e-01 6.455031e-02 4.614814e-02 3.717311e-02 2.147943e-02
-#  [6] 1.617319e-02 1.382348e-02 1.238557e-02 1.001515e-02 6.678379e-03
-# [11] 5.052873e-03 4.269333e-03 2.830601e-03 2.251837e-03 1.410567e-03
-# [16] 1.218317e-03 1.050264e-03 7.433712e-04 4.759244e-04 3.887585e-04
-# [21] 2.235598e-04 1.748274e-04 1.057316e-04 5.548439e-05 2.929344e-05
-# [26] 1.349485e-05
+#  [1] 2.490586e-01 6.455031e-02 4.614814e-02 3.717311e-02 2.147943e-02 1.617319e-02 1.382348e-02
+#  [8] 1.238557e-02 1.001515e-02 6.678379e-03 5.052873e-03 4.269333e-03 2.830601e-03 2.251837e-03
+# [15] 1.410567e-03 1.218317e-03 1.050264e-03 7.433712e-04 4.759244e-04 3.887585e-04 2.235598e-04
+# [22] 1.748274e-04 1.057316e-04 5.548439e-05 2.929344e-05 1.349485e-05
 # 
 # $vectors
-#              [,1]         [,2]        [,3]         [,4]        [,5]
-#  [1,] -0.12594124 -0.118155118  0.08691154  0.492124051 -0.06695832
-#  [2,] -0.46607288 -0.011846329  0.40209076 -0.241536592 -0.15906403
-#  [3,] -0.37124113 -0.296186152 -0.26089686  0.029424059  0.27207509
-#  [4,] -0.27573760 -0.340323250 -0.37242406 -0.080207514  0.31697598
-#  [5,] -0.12138159 -0.085954712  0.13600539  0.478968200  0.05124106
-#  [6,] -0.05803368 -0.207137549  0.05547902  0.446741242 -0.26324940
-#  [7,]  0.13494116 -0.075760963  0.07476709  0.050366991  0.17872501
-#  [8,]  0.08331902 -0.280442856 -0.19505232 -0.034364120 -0.49203992
-#  [9,]  0.07380592  0.095283569 -0.49052955  0.181559121  0.06558103
-# [10,]  0.14365024 -0.302934198  0.13105657  0.199905334  0.01230848
-# [11,]  0.12761142 -0.229302967  0.08724180  0.083302775  0.07625103
-# [12,]  0.16988637 -0.196813565 -0.08936581  0.007969778 -0.35351696
-# [13,]  0.11146914 -0.220217721 -0.01844969 -0.212951454 -0.23797258
-# [14,]  0.11466389 -0.285605747 -0.03159402 -0.173378634 -0.10419318
-# [15,]  0.16667105 -0.194112631  0.14068747 -0.005616183  0.20088009
-# [16,]  0.16543288 -0.120702851  0.11895793  0.051360737  0.15049852
-# [17,]  0.14108978 -0.060098791  0.02892934 -0.127390876 -0.16980893
-# [18,]  0.13543442 -0.185818749  0.11854073  0.013646870  0.09335415
-# [19,]  0.14071048 -0.270686939 -0.13007268 -0.160152059  0.02439829
-# [20,]  0.14768353 -0.120373044  0.14523209 -0.080835800  0.18274264
-# [21,]  0.10759892 -0.076033098  0.13763117 -0.067191643  0.12191066
-# [22,]  0.22068936  0.009315198  0.12369154 -0.004383481  0.07464380
-# [23,]  0.25810115  0.107254071 -0.34701386  0.014416315  0.05432341
-# [24,]  0.17803815 -0.053767753  0.14761520 -0.049167661  0.23779248
-# [25,]  0.31109105  0.315591656 -0.04507994  0.213277469  0.01738847
-# [26,]  0.15043425 -0.165620118  0.13687070 -0.014765709  0.17955888
-#                [,6]         [,7]        [,8]         [,9]       [,10]
-#  [1,]  0.0624963655  0.027077161 -0.21758351  0.145795470  0.05993801
-#  [2,] -0.1230997696 -0.612260250 -0.04892570  0.347228986 -0.07193617
-#  [3,] -0.3627035195  0.008950791 -0.15438555 -0.149688002  0.20354178
-#  [4,] -0.1928746335 -0.003860258  0.13950475 -0.018177318 -0.22333287
-#  [5,] -0.0032208600  0.073037612 -0.41014595  0.139237066  0.18897911
-#  [6,]  0.1141016276 -0.062480886  0.13132587 -0.186213116 -0.39303719
-#  [7,] -0.1430118425 -0.129984877  0.08729234 -0.059572813 -0.14433494
-#  [8,] -0.1326249306  0.003095341  0.40774075  0.217381014  0.36369849
-#  [9,]  0.0656236287 -0.195743608 -0.02658461  0.559025640  0.07295118
-# [10,]  0.0746845550 -0.112425929  0.18148080  0.001821516 -0.07842011
-# [11,]  0.0437746655 -0.249568581  0.17351354 -0.234246033  0.25053237
-# [12,] -0.3593761995  0.127348614 -0.04521928  0.141868937 -0.27700885
-# [13,] -0.1330663476  0.007214641 -0.48474047 -0.212239965 -0.11834185
-# [14,]  0.1357387070 -0.233218775 -0.27247790 -0.166471263  0.09307337
-# [15,] -0.0005439712 -0.074721124  0.03465361 -0.013659534  0.21568121
-# [16,] -0.0748547048 -0.109794035  0.13299582  0.060321706 -0.19912753
-# [17,] -0.1117157495  0.157299224 -0.23445428  0.076108219  0.27291933
-# [18,]  0.0632340932 -0.068334896  0.10700278  0.013127214  0.11869340
-# [19,]  0.3336076374 -0.089854406 -0.19227031  0.143779291 -0.21668280
-# [20,]  0.0083714156  0.118259558 -0.03605937  0.182521603  0.05967061
-# [21,]  0.0452059256  0.120099402 -0.06724125  0.254034492  0.09417351
-# [22,] -0.3507674142  0.104908728 -0.07199441  0.216927840 -0.21265664
-# [23,]  0.2288213670 -0.393220746 -0.18994303 -0.031562718 -0.08469788
-# [24,] -0.1129371714  0.093889795 -0.00615705  0.237092084 -0.21667310
-# [25,] -0.5100787061 -0.392853410 -0.05354285 -0.190927481  0.10474467
-# [26,]  0.0144644444 -0.044200367  0.01882218  0.035686825  0.19633318
-#              [,11]       [,12]        [,13]        [,14]        [,15]
-#  [1,]  0.047219130  0.05090193 -0.036717147 -0.170953043  0.505786018
-#  [2,] -0.110086632  0.01459194  0.052951475  0.002047546 -0.051837120
-#  [3,]  0.004320368  0.20106609 -0.229647682  0.164144152 -0.193851746
-#  [4,] -0.230910995 -0.18638609  0.145348555 -0.112818963  0.242069762
-#  [5,]  0.018811345  0.11904456  0.136463626  0.044871850 -0.085211147
-#  [6,] -0.282501446 -0.02754308 -0.282798013  0.140356210 -0.356743250
-#  [7,]  0.213779812  0.35512463  0.142662803  0.047862464 -0.002878393
-#  [8,] -0.096966799  0.18243007 -0.169462004  0.013491248  0.241331825
-#  [9,]  0.240352755 -0.27824979  0.007359262 -0.113981010 -0.259228021
-# [10,] -0.062250295 -0.27484261  0.323142874  0.092335626  0.118098639
-# [11,]  0.092500715  0.04171205  0.146847029 -0.279955018 -0.189632496
-# [12,]  0.196093927  0.02832742  0.239615544  0.147668692 -0.299300354
-# [13,] -0.091035111 -0.37346037 -0.045000510 -0.360131953  0.051796443
-# [14,]  0.485482042  0.04947686 -0.279020401  0.167247237  0.031070798
-# [15,] -0.034912761 -0.03111316  0.244384822  0.038673078 -0.188016678
-# [16,]  0.145844239  0.14440573 -0.314051390 -0.283086200  0.126693395
-# [17,] -0.379099401  0.23034976  0.151589679 -0.001161271 -0.030907187
-# [18,] -0.054359861 -0.12070434 -0.219380986 -0.186838067  0.003745690
-# [19,]  0.009589484  0.07405127  0.164886580  0.357824862  0.259827875
-# [20,] -0.238727272 -0.09989778 -0.080256878  0.288669036 -0.021137817
-# [21,] -0.141422685 -0.25783340 -0.415230368  0.019537350 -0.170487657
-# [22,]  0.014270087  0.18043118  0.052942102 -0.365951048 -0.019767915
-# [23,] -0.430354392  0.37523109 -0.035359280 -0.156409017 -0.086589622
-# [24,] -0.025303793  0.16364808 -0.227159754  0.182354008  0.107770921
-# [25,] -0.091185934 -0.26291484 -0.083066316  0.328027812  0.243746786
-# [26,] -0.061692291 -0.09812445  0.113686840 -0.003957754 -0.117879068
-#              [,16]        [,17]        [,18]        [,19]        [,20]
-#  [1,]  0.279536088 -0.207594086 -0.093244764  0.053202669 -0.158840441
-#  [2,]  0.023025800 -0.008298353 -0.019545375  0.015571217 -0.005693077
-#  [3,]  0.278684588 -0.010240587  0.398642436 -0.093121543 -0.082928770
-#  [4,] -0.265630128 -0.069450723 -0.424604723  0.006774728  0.062463088
-#  [5,] -0.431346863  0.192796636 -0.057423059  0.150576365  0.005372666
-#  [6,] -0.085909086 -0.096809306 -0.044184459 -0.111208779  0.261387883
-#  [7,] -0.067476930  0.396965378 -0.168122881 -0.010643942 -0.017770634
-#  [8,] -0.268370669  0.154144909  0.139085490  0.069797811 -0.026768534
-#  [9,]  0.146904971  0.097184322 -0.027041489 -0.061919110  0.248709504
-# [10,]  0.249851404  0.374991788  0.230887054 -0.422031748 -0.112040177
-# [11,]  0.165520462 -0.254861320 -0.031482822  0.284382267  0.252728317
-# [12,]  0.170461486 -0.172289429 -0.161455383  0.285054341 -0.347521532
-# [13,] -0.005624779  0.318456919  0.177558378  0.199895504  0.074493495
-# [14,] -0.130721352 -0.020185353 -0.345841869 -0.345377448  0.012415149
-# [15,] -0.169698062 -0.039257435  0.018112528 -0.047864726 -0.110823610
-# [16,]  0.056688098  0.096742832  0.096837011  0.133384120  0.129201423
-# [17,]  0.292026332 -0.020612126 -0.295606879 -0.252382274  0.446275561
-# [18,]  0.210433495 -0.185119171 -0.207684462  0.005395539 -0.279218340
-# [19,] -0.066381194 -0.364426555  0.350310867  0.099503789  0.162014376
-# [20,]  0.152067546  0.065121714 -0.201032385  0.055715816 -0.196134642
-# [21,] -0.183039328 -0.045772505  0.019763809 -0.061510083 -0.170375631
-# [22,] -0.228110594 -0.327521693  0.205053395 -0.473481498 -0.005215116
-# [23,] -0.001977530  0.097416079  0.001339861  0.037061901 -0.358158194
-# [24,]  0.155594273  0.212434071 -0.029047127  0.269245312  0.295518436
-# [25,] -0.067994018 -0.140681214 -0.002775844  0.020821551  0.070318951
-# [26,] -0.205011501 -0.105272156  0.141357081  0.213972196  0.096915689
-#              [,21]        [,22]        [,23]        [,24]       [,25]
-#  [1,]  0.012371710 -0.065459991  0.001552051 -0.153446010 -0.37962734
-#  [2,] -0.002876672 -0.006980261 -0.003530986 -0.002222691 -0.00268792
-#  [3,] -0.006689311 -0.019911918 -0.027704485  0.025071064 -0.01112429
-#  [4,] -0.008040158  0.115248277  0.034975623 -0.020624124  0.01831661
-#  [5,]  0.013790477  0.109990871  0.032025507  0.115321610  0.40870558
-#  [6,] -0.022339824 -0.194617383 -0.035238490 -0.006293321 -0.10870275
-#  [7,]  0.354215470 -0.177297691 -0.441610394  0.193728042 -0.28610446
-#  [8,]  0.047878026 -0.101561254  0.005201222 -0.070906030  0.03222080
-#  [9,]  0.008482888 -0.172632792 -0.029305127  0.033388887 -0.04119534
-# [10,] -0.019058727  0.300938103  0.049472857 -0.058705505  0.10532985
-# [11,]  0.453141809  0.140352177  0.127027306 -0.227475191  0.14699643
-# [12,] -0.091126768  0.218936931  0.040969409  0.033572309 -0.01514639
-# [13,]  0.071312221 -0.226537586 -0.064752570 -0.036999244 -0.03267069
-# [14,] -0.092410297  0.070034780  0.159224331 -0.142719656 -0.04664852
-# [15,] -0.379526275 -0.342885270  0.100725449 -0.174194665 -0.03777385
-# [16,] -0.215983677  0.156623264  0.389023243  0.534584471  0.05650082
-# [17,] -0.086492454  0.155879032 -0.078334399  0.225575198 -0.03559138
-# [18,] -0.207013303 -0.206004130 -0.517633414  0.186434954  0.40360687
-# [19,]  0.134115274 -0.050338480 -0.164089191  0.197468709  0.13523168
-# [20,]  0.358742999 -0.410263126  0.472922392  0.130587164 -0.02657134
-# [21,]  0.316950385  0.461431427 -0.195908429 -0.024607871 -0.16357688
-# [22,]  0.135886059 -0.147810595  0.051007808 -0.153252623  0.05755011
-# [23,] -0.053120129  0.133082610  0.083558734 -0.129482990 -0.03333922
-# [24,] -0.203697552  0.048574391 -0.094143813 -0.571582062  0.14693909
-# [25,]  0.017642806  0.025997103 -0.033393348  0.059332097  0.04974550
-# [26,] -0.303843596  0.104126337 -0.076978718  0.106911181 -0.55925768
-#               [,26]
-#  [1,] -1.334810e-01
-#  [2,]  2.898622e-04
-#  [3,]  1.701858e-02
-#  [4,] -1.396034e-02
-#  [5,]  1.156481e-01
-#  [6,] -8.531145e-03
-#  [7,] -1.001320e-01
-#  [8,]  2.138798e-02
-#  [9,]  6.497336e-05
-# [10,]  1.084428e-01
-# [11,] -4.170257e-03
-# [12,] -3.063871e-02
-# [13,] -3.603719e-02
-# [14,]  1.308340e-01
-# [15,] -6.110248e-01
-# [16,] -1.874051e-01
-# [17,] -1.067030e-01
-# [18,]  1.966043e-01
-# [19,] -1.033739e-01
-# [20,]  2.132612e-01
-# [21,] -3.371479e-01
-# [22,]  1.834716e-01
-# [23,]  5.761169e-02
-# [24,]  7.058605e-02
-# [25,] -4.177769e-02
-# [26,]  5.045595e-01
+#              [,1]         [,2]        [,3]         [,4]        [,5]          [,6]         [,7]
+#  [1,] -0.12594124 -0.118155118  0.08691154  0.492124051 -0.06695832  0.0624963655  0.027077161
+#  [2,] -0.46607288 -0.011846329  0.40209076 -0.241536592 -0.15906403 -0.1230997696 -0.612260250
+#  [3,] -0.37124113 -0.296186152 -0.26089686  0.029424059  0.27207509 -0.3627035195  0.008950791
+#  [4,] -0.27573760 -0.340323250 -0.37242406 -0.080207514  0.31697598 -0.1928746335 -0.003860258
+#  [5,] -0.12138159 -0.085954712  0.13600539  0.478968200  0.05124106 -0.0032208600  0.073037612
+#  [6,] -0.05803368 -0.207137549  0.05547902  0.446741242 -0.26324940  0.1141016276 -0.062480886
+#  [7,]  0.13494116 -0.075760963  0.07476709  0.050366991  0.17872501 -0.1430118425 -0.129984877
+#  [8,]  0.08331902 -0.280442856 -0.19505232 -0.034364120 -0.49203992 -0.1326249306  0.003095341
+#  [9,]  0.07380592  0.095283569 -0.49052955  0.181559121  0.06558103  0.0656236287 -0.195743608
+# [10,]  0.14365024 -0.302934198  0.13105657  0.199905334  0.01230848  0.0746845550 -0.112425929
+# [11,]  0.12761142 -0.229302967  0.08724180  0.083302775  0.07625103  0.0437746655 -0.249568581
+# [12,]  0.16988637 -0.196813565 -0.08936581  0.007969778 -0.35351696 -0.3593761995  0.127348614
+# [13,]  0.11146914 -0.220217721 -0.01844969 -0.212951454 -0.23797258 -0.1330663476  0.007214641
+# [14,]  0.11466389 -0.285605747 -0.03159402 -0.173378634 -0.10419318  0.1357387070 -0.233218775
+# [15,]  0.16667105 -0.194112631  0.14068747 -0.005616183  0.20088009 -0.0005439712 -0.074721124
+# [16,]  0.16543288 -0.120702851  0.11895793  0.051360737  0.15049852 -0.0748547048 -0.109794035
+# [17,]  0.14108978 -0.060098791  0.02892934 -0.127390876 -0.16980893 -0.1117157495  0.157299224
+# [18,]  0.13543442 -0.185818749  0.11854073  0.013646870  0.09335415  0.0632340932 -0.068334896
+# [19,]  0.14071048 -0.270686939 -0.13007268 -0.160152059  0.02439829  0.3336076374 -0.089854406
+# [20,]  0.14768353 -0.120373044  0.14523209 -0.080835800  0.18274264  0.0083714156  0.118259558
+# [21,]  0.10759892 -0.076033098  0.13763117 -0.067191643  0.12191066  0.0452059256  0.120099402
+# [22,]  0.22068936  0.009315198  0.12369154 -0.004383481  0.07464380 -0.3507674142  0.104908728
+# [23,]  0.25810115  0.107254071 -0.34701386  0.014416315  0.05432341  0.2288213670 -0.393220746
+# [24,]  0.17803815 -0.053767753  0.14761520 -0.049167661  0.23779248 -0.1129371714  0.093889795
+# [25,]  0.31109105  0.315591656 -0.04507994  0.213277469  0.01738847 -0.5100787061 -0.392853410
+# [26,]  0.15043425 -0.165620118  0.13687070 -0.014765709  0.17955888  0.0144644444 -0.044200367
+#              [,8]         [,9]       [,10]        [,11]       [,12]        [,13]        [,14]
+#  [1,] -0.21758351  0.145795470  0.05993801  0.047219130  0.05090193 -0.036717147 -0.170953043
+#  [2,] -0.04892570  0.347228986 -0.07193617 -0.110086632  0.01459194  0.052951475  0.002047546
+#  [3,] -0.15438555 -0.149688002  0.20354178  0.004320368  0.20106609 -0.229647682  0.164144152
+#  [4,]  0.13950475 -0.018177318 -0.22333287 -0.230910995 -0.18638609  0.145348555 -0.112818963
+#  [5,] -0.41014595  0.139237066  0.18897911  0.018811345  0.11904456  0.136463626  0.044871850
+#  [6,]  0.13132587 -0.186213116 -0.39303719 -0.282501446 -0.02754308 -0.282798013  0.140356210
+#  [7,]  0.08729234 -0.059572813 -0.14433494  0.213779812  0.35512463  0.142662803  0.047862464
+#  [8,]  0.40774075  0.217381014  0.36369849 -0.096966799  0.18243007 -0.169462004  0.013491248
+#  [9,] -0.02658461  0.559025640  0.07295118  0.240352755 -0.27824979  0.007359262 -0.113981010
+# [10,]  0.18148080  0.001821516 -0.07842011 -0.062250295 -0.27484261  0.323142874  0.092335626
+# [11,]  0.17351354 -0.234246033  0.25053237  0.092500715  0.04171205  0.146847029 -0.279955018
+# [12,] -0.04521928  0.141868937 -0.27700885  0.196093927  0.02832742  0.239615544  0.147668692
+# [13,] -0.48474047 -0.212239965 -0.11834185 -0.091035111 -0.37346037 -0.045000510 -0.360131953
+# [14,] -0.27247790 -0.166471263  0.09307337  0.485482042  0.04947686 -0.279020401  0.167247237
+# [15,]  0.03465361 -0.013659534  0.21568121 -0.034912761 -0.03111316  0.244384822  0.038673078
+# [16,]  0.13299582  0.060321706 -0.19912753  0.145844239  0.14440573 -0.314051390 -0.283086200
+# [17,] -0.23445428  0.076108219  0.27291933 -0.379099401  0.23034976  0.151589679 -0.001161271
+# [18,]  0.10700278  0.013127214  0.11869340 -0.054359861 -0.12070434 -0.219380986 -0.186838067
+# [19,] -0.19227031  0.143779291 -0.21668280  0.009589484  0.07405127  0.164886580  0.357824862
+# [20,] -0.03605937  0.182521603  0.05967061 -0.238727272 -0.09989778 -0.080256878  0.288669036
+# [21,] -0.06724125  0.254034492  0.09417351 -0.141422685 -0.25783340 -0.415230368  0.019537350
+# [22,] -0.07199441  0.216927840 -0.21265664  0.014270087  0.18043118  0.052942102 -0.365951048
+# [23,] -0.18994303 -0.031562718 -0.08469788 -0.430354392  0.37523109 -0.035359280 -0.156409017
+# [24,] -0.00615705  0.237092084 -0.21667310 -0.025303793  0.16364808 -0.227159754  0.182354008
+# [25,] -0.05354285 -0.190927481  0.10474467 -0.091185934 -0.26291484 -0.083066316  0.328027812
+# [26,]  0.01882218  0.035686825  0.19633318 -0.061692291 -0.09812445  0.113686840 -0.003957754
+#              [,15]        [,16]        [,17]        [,18]        [,19]        [,20]        [,21]
+#  [1,]  0.505786018  0.279536088 -0.207594086 -0.093244764  0.053202669 -0.158840441  0.012371710
+#  [2,] -0.051837120  0.023025800 -0.008298353 -0.019545375  0.015571217 -0.005693077 -0.002876672
+#  [3,] -0.193851746  0.278684588 -0.010240587  0.398642436 -0.093121543 -0.082928770 -0.006689311
+#  [4,]  0.242069762 -0.265630128 -0.069450723 -0.424604723  0.006774728  0.062463088 -0.008040158
+#  [5,] -0.085211147 -0.431346863  0.192796636 -0.057423059  0.150576365  0.005372666  0.013790477
+#  [6,] -0.356743250 -0.085909086 -0.096809306 -0.044184459 -0.111208779  0.261387883 -0.022339824
+#  [7,] -0.002878393 -0.067476930  0.396965378 -0.168122881 -0.010643942 -0.017770634  0.354215470
+#  [8,]  0.241331825 -0.268370669  0.154144909  0.139085490  0.069797811 -0.026768534  0.047878026
+#  [9,] -0.259228021  0.146904971  0.097184322 -0.027041489 -0.061919110  0.248709504  0.008482888
+# [10,]  0.118098639  0.249851404  0.374991788  0.230887054 -0.422031748 -0.112040177 -0.019058727
+# [11,] -0.189632496  0.165520462 -0.254861320 -0.031482822  0.284382267  0.252728317  0.453141809
+# [12,] -0.299300354  0.170461486 -0.172289429 -0.161455383  0.285054341 -0.347521532 -0.091126768
+# [13,]  0.051796443 -0.005624779  0.318456919  0.177558378  0.199895504  0.074493495  0.071312221
+# [14,]  0.031070798 -0.130721352 -0.020185353 -0.345841869 -0.345377448  0.012415149 -0.092410297
+# [15,] -0.188016678 -0.169698062 -0.039257435  0.018112528 -0.047864726 -0.110823610 -0.379526275
+# [16,]  0.126693395  0.056688098  0.096742832  0.096837011  0.133384120  0.129201423 -0.215983677
+# [17,] -0.030907187  0.292026332 -0.020612126 -0.295606879 -0.252382274  0.446275561 -0.086492454
+# [18,]  0.003745690  0.210433495 -0.185119171 -0.207684462  0.005395539 -0.279218340 -0.207013303
+# [19,]  0.259827875 -0.066381194 -0.364426555  0.350310867  0.099503789  0.162014376  0.134115274
+# [20,] -0.021137817  0.152067546  0.065121714 -0.201032385  0.055715816 -0.196134642  0.358742999
+# [21,] -0.170487657 -0.183039328 -0.045772505  0.019763809 -0.061510083 -0.170375631  0.316950385
+# [22,] -0.019767915 -0.228110594 -0.327521693  0.205053395 -0.473481498 -0.005215116  0.135886059
+# [23,] -0.086589622 -0.001977530  0.097416079  0.001339861  0.037061901 -0.358158194 -0.053120129
+# [24,]  0.107770921  0.155594273  0.212434071 -0.029047127  0.269245312  0.295518436 -0.203697552
+# [25,]  0.243746786 -0.067994018 -0.140681214 -0.002775844  0.020821551  0.070318951  0.017642806
+# [26,] -0.117879068 -0.205011501 -0.105272156  0.141357081  0.213972196  0.096915689 -0.303843596
+#              [,22]        [,23]        [,24]       [,25]         [,26]
+#  [1,] -0.065459991  0.001552051 -0.153446010 -0.37962734 -1.334810e-01
+#  [2,] -0.006980261 -0.003530986 -0.002222691 -0.00268792  2.898622e-04
+#  [3,] -0.019911918 -0.027704485  0.025071064 -0.01112429  1.701858e-02
+#  [4,]  0.115248277  0.034975623 -0.020624124  0.01831661 -1.396034e-02
+#  [5,]  0.109990871  0.032025507  0.115321610  0.40870558  1.156481e-01
+#  [6,] -0.194617383 -0.035238490 -0.006293321 -0.10870275 -8.531145e-03
+#  [7,] -0.177297691 -0.441610394  0.193728042 -0.28610446 -1.001320e-01
+#  [8,] -0.101561254  0.005201222 -0.070906030  0.03222080  2.138798e-02
+#  [9,] -0.172632792 -0.029305127  0.033388887 -0.04119534  6.497336e-05
+# [10,]  0.300938103  0.049472857 -0.058705505  0.10532985  1.084428e-01
+# [11,]  0.140352177  0.127027306 -0.227475191  0.14699643 -4.170257e-03
+# [12,]  0.218936931  0.040969409  0.033572309 -0.01514639 -3.063871e-02
+# [13,] -0.226537586 -0.064752570 -0.036999244 -0.03267069 -3.603719e-02
+# [14,]  0.070034780  0.159224331 -0.142719656 -0.04664852  1.308340e-01
+# [15,] -0.342885270  0.100725449 -0.174194665 -0.03777385 -6.110248e-01
+# [16,]  0.156623264  0.389023243  0.534584471  0.05650082 -1.874051e-01
+# [17,]  0.155879032 -0.078334399  0.225575198 -0.03559138 -1.067030e-01
+# [18,] -0.206004130 -0.517633414  0.186434954  0.40360687  1.966043e-01
+# [19,] -0.050338480 -0.164089191  0.197468709  0.13523168 -1.033739e-01
+# [20,] -0.410263126  0.472922392  0.130587164 -0.02657134  2.132612e-01
+# [21,]  0.461431427 -0.195908429 -0.024607871 -0.16357688 -3.371479e-01
+# [22,] -0.147810595  0.051007808 -0.153252623  0.05755011  1.834716e-01
+# [23,]  0.133082610  0.083558734 -0.129482990 -0.03333922  5.761169e-02
+# [24,]  0.048574391 -0.094143813 -0.571582062  0.14693909  7.058605e-02
+# [25,]  0.025997103 -0.033393348  0.059332097  0.04974550 -4.177769e-02
+# [26,]  0.104126337 -0.076978718  0.106911181 -0.55925768  5.045595e-01
 ```
 
 
 
 ---
-# Accessing Parts of the Output 
+# Accessing Parts of the Output
 
 You may wish to extract the scores (either from species or sites) for use in subsequent analysis or for plotting
 
-- Access the species scores along the 1st and 2nd PC: 
+- Access the species scores along the 1st and 2nd PC:
 
 ```r
-spe.scores &lt;- scores(spe.h.pca, 
-                     display = "species", 
-                     choices = c(1,2)) 
+spe.scores &lt;- scores(spe.h.pca,
+                     display = "species",
+                     choices = c(1,2))
 ```
 
-- Access the site scores along the 1st and 2nd PC: 
+- Access the site scores along the 1st and 2nd PC:
 
 
 ```r
-site.scores &lt;- scores(spe.h.pca, 
-                      display = "sites", 
+site.scores &lt;- scores(spe.h.pca,
+                      display = "sites",
                       choices = c(1,2))
 ```
 
@@ -1250,9 +1186,9 @@ site.scores &lt;- scores(spe.h.pca,
 
 &lt;br&gt;
 
-- The strength of PCA is that we can condense the variance contained in a huge dataset into a set of synthetic variables that is manageable 
+- The strength of PCA is that we can condense the variance contained in a huge dataset into a set of synthetic variables that is manageable
 
-- In our case, there are still 27 Principal Components, but only the first few account for any significant amount of variance, while the rest can simply be discarded as noise... 
+- In our case, there are still 27 Principal Components, but only the first few account for any significant amount of variance, while the rest can simply be discarded as noise...
 
 
 --
@@ -1260,11 +1196,11 @@ site.scores &lt;- scores(spe.h.pca,
 .alert[How do we manage this?]
 
 ---
-# Kaiser - Guttman criterion 
+# Kaiser - Guttman criterion
 
 Selects principal components which capture more variance than the average of all PCs
 
-- Extract the eigenvalues associated to the PCs 
+- Extract the eigenvalues associated to the PCs
 
 ```r
 ev &lt;- spe.h.pca$CA$eig
@@ -1288,23 +1224,23 @@ ev[ev&gt;mean(ev)]
 n &lt;- length(ev)
 barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
 abline(h = mean(ev), col = "red3", lwd = 2)
-legend("topright", "Average eigenvalue", 
+legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
 ---
-# PCA - environmental variables 
+# PCA - environmental variables
 
-We can also run PCAs on standardized environmental variables, to compare sites for example, or how variables are correlated... 
+We can also run PCAs on standardized environmental variables, to compare sites for example, or how variables are correlated...
 
 - Run a PCA on the standardized environmental variables and extract the results
 
 ```r
 env.pca &lt;- rda(env.z)
-summary(env.pca, scaling  = 2) # default 
+summary(env.pca, scaling  = 2) # default
 # 
 # Call:
 # rda(X = env.z) 
@@ -1317,14 +1253,14 @@ summary(env.pca, scaling  = 2) # default
 # Eigenvalues, and their contribution to the variance 
 # 
 # Importance of components:
-#                          PC1    PC2    PC3     PC4     PC5     PC6     PC7
-# Eigenvalue            5.1850 2.1568 1.0637 0.70784 0.33835 0.33024 0.12410
-# Proportion Explained  0.5185 0.2157 0.1064 0.07078 0.03384 0.03302 0.01241
-# Cumulative Proportion 0.5185 0.7342 0.8406 0.91134 0.94517 0.97820 0.99061
-#                            PC8      PC9      PC10
-# Eigenvalue            0.064673 0.023159 0.0061072
-# Proportion Explained  0.006467 0.002316 0.0006107
-# Cumulative Proportion 0.997073 0.999389 1.0000000
+#                          PC1    PC2    PC3     PC4     PC5     PC6     PC7      PC8      PC9
+# Eigenvalue            5.1850 2.1568 1.0637 0.70784 0.33835 0.33024 0.12410 0.064673 0.023159
+# Proportion Explained  0.5185 0.2157 0.1064 0.07078 0.03384 0.03302 0.01241 0.006467 0.002316
+# Cumulative Proportion 0.5185 0.7342 0.8406 0.91134 0.94517 0.97820 0.99061 0.997073 0.999389
+#                            PC10
+# Eigenvalue            0.0061072
+# Proportion Explained  0.0006107
+# Cumulative Proportion 1.0000000
 # 
 # Scaling 2 for species and site scores
 # * Species are scaled proportional to eigenvalues
@@ -1384,15 +1320,15 @@ summary(env.pca, scaling  = 2) # default
 
 
 ---
-# PCA - environmental variables 
+# PCA - environmental variables
 
-- Extract the eigenvalues associated to the PCs: 
+- Extract the eigenvalues associated to the PCs:
 
 ```r
 ev &lt;- env.pca$CA$eig
 ```
 
-- Select all the eigenvalues above average 
+- Select all the eigenvalues above average
 
 
 ```r
@@ -1402,25 +1338,25 @@ ev[ev&gt;mean(ev)]
 ```
 
 ---
-# PCA - environmental variables 
+# PCA - environmental variables
 
-- Plot the eigenvalues above average 
+- Plot the eigenvalues above average
 
 
 ```r
 n &lt;- length(ev)
 barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
 abline(h = mean(ev), col = "red3", lwd = 2)
-legend("topright", "Average eigenvalue", 
+legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
-# PCA - Visualization 
+# PCA - Visualization
 
-The abundance of information produced by PCA is easier to understand and interpret using biplots to visualize patterns 
+The abundance of information produced by PCA is easier to understand and interpret using biplots to visualize patterns
 
 - We can produce a quick biplot of the PCA using the function `plot()` in base R
 
@@ -1429,10 +1365,10 @@ The abundance of information produced by PCA is easier to understand and interpr
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-36-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
-# PCA basic biplot with plot() 
+# PCA basic biplot with plot()
 
 .center[
 ![:scale 70%](images/biplotPCA.png)]
@@ -1446,13 +1382,13 @@ plot(spe.h.pca)
 ---
 # PCA basic `biplot()`
 
-- Using the function `biplot()` from base R, arrows are plotted to show the directionality and angle of the descriptors in the ordination 
+- Using the function `biplot()` from base R, arrows are plotted to show the directionality and angle of the descriptors in the ordination
 
 .alert[
-.small[ 
+.small[
 - Descriptors at 180 degrees of each other are negatively correlated
 - Descriptors at 90 degrees of each other have zero correlation
-- Descriptors at 0 degrees of each other are positively correlated 
+- Descriptors at 0 degrees of each other are positively correlated
 ]]
 
 
@@ -1460,12 +1396,12 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-37-1.png" width="324" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
-# PCA scaling types 
+# PCA scaling types
 
 
 
@@ -1480,7 +1416,7 @@ biplot(spe.h.pca)
 
 
 .pull_right[
-.small[Type 1 scaling: attempts to preserve the Euclidean distance (in multidimensional space) 
+.small[Type 1 scaling: attempts to preserve the Euclidean distance (in multidimensional space)
 among objects (sites): the angles among descriptor (species) vector are meaningless.]
 
 .alert[
@@ -1488,13 +1424,13 @@ among objects (sites): the angles among descriptor (species) vector are meaningl
 
 
 ---
-# Advanced "biplotting" 
+# Advanced "biplotting"
 
-- By extracting specific parts of the PCA output, we can build more detailed and aesthetic plots: 
+- By extracting specific parts of the PCA output, we can build more detailed and aesthetic plots:
 
 
 ```r
-plot(spe.h.pca, scaling  = 1, type = "none", 
+plot(spe.h.pca, scaling  = 1, type = "none",
      xlab = c("PC1 (%)", round(spe.h.pca$CA$eig[1]/sum(spe.h.pca$CAeig)*100,2)),
      ylab = c("PC2 (%)", round(spe.h.pca$CA$eig[2]/sum(spe.h.pca$CA$eig)*100,2)))
 points(scores(spe.h.pca, display = "sites", choices = c(1,2), scaling = 1),
@@ -1511,28 +1447,28 @@ use the `arrows()` function in  `graphics` to add vectors
 
 
 ---
-# Advanced "biplotting" 
+# Advanced "biplotting"
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-39-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
-# EASTER EGG: ggvegan 
+# EASTER EGG: ggvegan
 
-- A set of tools for producing biplots using ggplot2 
+- A set of tools for producing biplots using ggplot2
 
 
 ```r
-install.packages("devtools") 
-require("devtools") 
+install.packages("devtools")
+require("devtools")
 install_github("ggvegan", "gavinsimpson")
 require("ggvegan")
 autoplot()
 ```
 
 ---
-# EASTER EGG: rgl and vegan 3d 
+# EASTER EGG: rgl and vegan 3d
 
-Interactive 3D biplots using rgl 
+Interactive 3D biplots using rgl
 
 ```r
 require(rgl)
@@ -1544,16 +1480,16 @@ ordirgl(spe.h.pca)
 ---
 # Challenge # 3 ![:cube]()
 
-Using everything you have learned to execute a PCA on the mite species abundance data 
+Using everything you have learned to execute a PCA on the mite species abundance data
 
 
 ```r
 data(mite)
 ```
 
-- What are the significant axes? 
-- Which groups of sites can you identify? 
-- Which groups of species are related to these groups of sites? 
+- What are the significant axes?
+- Which groups of sites can you identify?
+- Which groups of species are related to these groups of sites?
 
 ---
 # Solution #3
@@ -1567,7 +1503,7 @@ mite.spe.hel &lt;- decostand(mite, method = "hellinger")
 mite.spe.h.pca &lt;- rda(mite.spe.hel)
 ```
 
-- Check significant axes using the Guttman-Kaiser criterion 
+- Check significant axes using the Guttman-Kaiser criterion
 
 
 ```r
@@ -1580,84 +1516,84 @@ legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
 ```
 
 ---
-# Solution #3 
+# Solution #3
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
-# Solution #3 
+# Solution #3
 
 
 ```r
 biplot(mite.spe.h.pca, col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-46-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
-# Warnings 
+# Warnings
 
-- PCA is a linear method and thus relies on a few assumptions 
+- PCA is a linear method and thus relies on a few assumptions
 
 --
 
   - multinormal distribution of the data (only if you wish to make inferences)
-  
---
-
-  - not too many zeros 
 
 --
 
-  - the gradient of interest is causing the majority of the variance in the dataset 
-  
+  - not too many zeros
+
+--
+
+  - the gradient of interest is causing the majority of the variance in the dataset
+
 .alert[
-.small[ 
-Violation of these can cause a horseshoe shape in your biplots, where opposite ends of the horseshoe are close together but in reality represent opposite ends of a gradient] 
+.small[
+Violation of these can cause a horseshoe shape in your biplots, where opposite ends of the horseshoe are close together but in reality represent opposite ends of a gradient]
 ]
 
 ---
-# Warnings 
+# Warnings
 
-- We can avoid some of these problems in PCA by choosing appropriate transformations for your community composition data or environmental data 
+- We can avoid some of these problems in PCA by choosing appropriate transformations for your community composition data or environmental data
 
 - In some cases, such as studies that cover very large environmental gradients, it may be appropriate to use other types of unconstrained ordinations
 
 ---
-# 4.1. Correspondance Analysis (CA) 
+# 4.1. Correspondance Analysis (CA)
 
-## Euclidean vs Chi&lt;sup&gt;2&lt;/sup&gt; distances 
+## Euclidean vs Chi&lt;sup&gt;2&lt;/sup&gt; distances
 
-- PCA preserves **euclidean distances** between objects, and thus postulates **linear relationships** between species, and between species and environmental gradients. 
+- PCA preserves **euclidean distances** between objects, and thus postulates **linear relationships** between species, and between species and environmental gradients.
 
-- ... but in **some cases, species instead present unimodal responses** to environmental gradients 
+- ... but in **some cases, species instead present unimodal responses** to environmental gradients
 
 ---
-# Principles of CA 
+# Principles of CA
 
 - In such cases, CA should be preferred compared to PCA as it preserves **Chi2 distances between sites**... and thus better represents uni modal relationships
 
 ---
-# How to run a CA? 
+# How to run a CA?
 
-- CA is implemented in the `vegan` package using the function `cca()`: 
+- CA is implemented in the `vegan` package using the function `cca()`:
 
 
 ```r
 spe.ca &lt;- cca(spe[-8,])
-# only take columns which rowsums are &gt; than 0. 
+# only take columns which rowsums are &gt; than 0.
 ```
 
 
-- CA on fish species abundances 
+- CA on fish species abundances
 
 ---
-# CA: R output 
+# CA: R output
 
-- CA results are presented in the same way as PCA results and can be called using: 
+- CA results are presented in the same way as PCA results and can be called using:
 
 
 ```r
@@ -1674,22 +1610,18 @@ summary(spe.ca)
 # Eigenvalues, and their contribution to the scaled Chi-square 
 # 
 # Importance of components:
-#                          CA1    CA2    CA3     CA4     CA5     CA6     CA7
-# Eigenvalue            0.6055 0.1420 0.1032 0.07942 0.04372 0.04043 0.03436
-# Proportion Explained  0.5271 0.1236 0.0898 0.06914 0.03805 0.03519 0.02991
-# Cumulative Proportion 0.5271 0.6507 0.7405 0.80965 0.84770 0.88289 0.91280
-#                           CA8     CA9     CA10     CA11     CA12     CA13
-# Eigenvalue            0.02755 0.01718 0.011111 0.010244 0.007484 0.006256
-# Proportion Explained  0.02398 0.01496 0.009672 0.008918 0.006515 0.005446
-# Cumulative Proportion 0.93679 0.95175 0.961418 0.970336 0.976851 0.982296
-#                          CA14     CA15     CA16     CA17     CA18     CA19
-# Eigenvalue            0.00494 0.004256 0.003097 0.002221 0.001859 0.001387
-# Proportion Explained  0.00430 0.003705 0.002696 0.001933 0.001618 0.001207
-# Cumulative Proportion 0.98660 0.990301 0.992997 0.994930 0.996548 0.997756
-#                            CA20      CA21      CA22      CA23      CA24
-# Eigenvalue            0.0010405 0.0008391 0.0002971 0.0002181 9.311e-05
-# Proportion Explained  0.0009057 0.0007304 0.0002586 0.0001898 8.105e-05
-# Cumulative Proportion 0.9986615 0.9993919 0.9996505 0.9998404 9.999e-01
+#                          CA1    CA2    CA3     CA4     CA5     CA6     CA7     CA8     CA9
+# Eigenvalue            0.6055 0.1420 0.1032 0.07942 0.04372 0.04043 0.03436 0.02755 0.01718
+# Proportion Explained  0.5271 0.1236 0.0898 0.06914 0.03805 0.03519 0.02991 0.02398 0.01496
+# Cumulative Proportion 0.5271 0.6507 0.7405 0.80965 0.84770 0.88289 0.91280 0.93679 0.95175
+#                           CA10     CA11     CA12     CA13    CA14     CA15     CA16     CA17
+# Eigenvalue            0.011111 0.010244 0.007484 0.006256 0.00494 0.004256 0.003097 0.002221
+# Proportion Explained  0.009672 0.008918 0.006515 0.005446 0.00430 0.003705 0.002696 0.001933
+# Cumulative Proportion 0.961418 0.970336 0.976851 0.982296 0.98660 0.990301 0.992997 0.994930
+#                           CA18     CA19      CA20      CA21      CA22      CA23      CA24
+# Eigenvalue            0.001859 0.001387 0.0010405 0.0008391 0.0002971 0.0002181 9.311e-05
+# Proportion Explained  0.001618 0.001207 0.0009057 0.0007304 0.0002586 0.0001898 8.105e-05
+# Cumulative Proportion 0.996548 0.997756 0.9986615 0.9993919 0.9996505 0.9998404 9.999e-01
 #                            CA25
 # Eigenvalue            9.029e-05
 # Proportion Explained  7.860e-05
@@ -1767,7 +1699,7 @@ summary(spe.ca)
 
 
 ---
-# CA: Interpretation of results 
+# CA: Interpretation of results
 
 .pull-left2[
 ![](images/CAInt.png)
@@ -1775,24 +1707,24 @@ summary(spe.ca)
 
 .pull-right2[
 
-26 CA axes identified 
+26 CA axes identified
 
-% CA1 = 51.50% 
+% CA1 = 51.50%
 
-% CA2 = 12.37% 
+% CA2 = 12.37%
 ]
 
 
 ---
-# CA: biplots 
+# CA: biplots
 
 .center[
 ![:scale 75%](images/CABiplto.png)]
 
 .small[
-The group of sites on the left is characterized by the species *GAR*, *TAN*, *PER*, *ROT*, *PSO*, and *CAR* 
+The group of sites on the left is characterized by the species *GAR*, *TAN*, *PER*, *ROT*, *PSO*, and *CAR*
 
-The group of sites in the upper right corner is characterized by the species *LOC*, *VAI* and *TRU* 
+The group of sites in the upper right corner is characterized by the species *LOC*, *VAI* and *TRU*
 The group of sites in the lower right corner is characterized by the species *BLA*, *CHA*, and *OMB*
 ]
 
@@ -1800,28 +1732,28 @@ The group of sites in the lower right corner is characterized by the species *BL
 ---
 # Challenge #4 ![:cube]()
 
-Using everything you have learned to execute a CA on the mite species abundance data: 
+Using everything you have learned to execute a CA on the mite species abundance data:
 
 
 ```r
 mite.spe &lt;- mite
 ```
 
-- What are the significant axes? 
-- Which groups of sites can you identify? 
-- Which groups of species are related to these groups of sites? 
+- What are the significant axes?
+- Which groups of sites can you identify?
+- Which groups of species are related to these groups of sites?
 
 ---
-# Solution #4 
+# Solution #4
 
-- Compute CA: 
+- Compute CA:
 
 
 ```r
 mite.spe.ca &lt;- cca(mite.spe)
 ```
 
-- Check significant axes using the Guttman-Kaiser criterion 
+- Check significant axes using the Guttman-Kaiser criterion
 
 
 ```r
@@ -1836,10 +1768,10 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ---
 # Solution #4
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-52-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-52-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
-# 4.3. Principal Coordinates Analysis 
+# 4.3. Principal Coordinates Analysis
 
 .center[![:scale 90%](images/Ord1.png)]
 
@@ -1850,9 +1782,9 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 .alert[ PCoA can be especially useful when the dataset is wider than it is long (Typical problem in Genetics)]
 
 ---
-# PCoA - Let's try it on Fish species! 
+# PCoA - Let's try it on Fish species!
 
-- For computing PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages: 
+- For computing PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages:
 
 
 ```r
@@ -1875,7 +1807,7 @@ summary(spe.h.pcoa)
 
 
 ---
-# PCoA - Interpretation of Output 
+# PCoA - Interpretation of Output
 
 .center[![](images/PCoAInt.png)]
 
@@ -1883,20 +1815,20 @@ summary(spe.h.pcoa)
 - Relative eigenvalues
 - Broken stick model: to evaluate which axes are significant
 - Cumulative eigenvalues: cumulative value of the relative eigenvalues
-- Cumulative broken stick: cumulative value of the broken stick model 
+- Cumulative broken stick: cumulative value of the broken stick model
 
 ---
-# PCoA - Interpretation of Output 
+# PCoA - Interpretation of Output
 
 ![](images/PCoA2.png)
 
-- Vectors: the eigenvectors associated to each eigenvalue contain the coordinates, in Euclidean space, of each site. 
+- Vectors: the eigenvectors associated to each eigenvalue contain the coordinates, in Euclidean space, of each site.
 
-.alert[ These are the most useful for subsequent analysis as they capture the distance among objects very well] 
+.alert[ These are the most useful for subsequent analysis as they capture the distance among objects very well]
 
 
 ---
-# PCoA biplot with `biplot.pcoa()` 
+# PCoA biplot with `biplot.pcoa()`
 
 We can display, in 2D, the distances between sites using the `biplot.pcoa()` function, as well as the species associated to each site
 
@@ -1905,7 +1837,7 @@ We can display, in 2D, the distances between sites using the `biplot.pcoa()` fun
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-55-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1916,10 +1848,10 @@ biplot.pcoa(spe.h.pcoa, spec.hel)
 
 ```r
 spe.bray.pcoa &lt;- pcoa(spe.db.pa)
-# spe.bray.pcoa 
+# spe.bray.pcoa
 ```
 
-- Examine the output and notice the negative eigenvalues. This is because non-metric distances cannot be represented in Euclidean space without corrections (*see* Legendre &amp; Legendre 2012 for more details on this): 
+- Examine the output and notice the negative eigenvalues. This is because non-metric distances cannot be represented in Euclidean space without corrections (*see* Legendre &amp; Legendre 2012 for more details on this):
 
 
 ```r
@@ -1937,30 +1869,30 @@ spe.bray.pcoa &lt;- pcoa(spe.db.pa, correction = "cailliez")
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-58-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-58-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
 # Challenge #5 ![:cube]()
 
-Execute a PCoA on the Hellinger-transformed mite species abundance data 
+Execute a PCoA on the Hellinger-transformed mite species abundance data
 
-- What are the significant axes? 
-- Which groups of sites can you identify? 
+- What are the significant axes?
+- Which groups of sites can you identify?
 - Which groups of species are related to these groups of sites
-- How do the PCoA results compare with the PCA results? 
+- How do the PCoA results compare with the PCA results?
 
 ---
 # Solution #5
 
-- Hellinger transform the species data 
+- Hellinger transform the species data
 
 ```r
 mite.spe.hel &lt;- decostand(mite.spe, method = "hellinger")
 ```
 
-- Compute PCoA 
+- Compute PCoA
 
 
 ```r
@@ -1970,13 +1902,13 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 ---
 # Solution #5
 
-- Build a biplot to visualize the data: 
+- Build a biplot to visualize the data:
 
 ```r
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-61-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-61-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1986,91 +1918,96 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 
 - Consequently, 2D-biplots can fail to represent all the variation of the dataset
 
-- In some cases, the objective is however to represent the data in a specified small number of dimensions 
+- In some cases, the objective is however to represent the data in a specified small number of dimensions
 
-- Then, how do you plot the ordination space to represent all the variation in the data? 
-
----
-# Principles of NMDS 
-
-- NMDS 
-  - is the non-metric counterpart of PCoA 
-  - uses an iterative optimization algorithm to find the best representation of distances in reduced space 
-  - increasingly popular 
-- In NMDS, users can thus specify; 
-  - the number of dimensions 
-  - the distance measure 
+- Then, how do you plot the ordination space to represent all the variation in the data?
 
 ---
-# How to run a NMDS 
+# Principles of NMDS
+
+- NMDS
+  - is the non-metric counterpart of PCoA
+  - uses an iterative optimization algorithm to find the best representation of distances in reduced space
+  - increasingly popular
+- In NMDS, users can thus specify;
+  - the number of dimensions
+  - the distance measure
+
+---
+# How to run a NMDS
 
 -  nMDS is implemented in the `vegan` package using function `metaMDS()` where
-  - *distance* specifies the distance measure to use 
-  - *k* specifies the number of dimensions 
+  - *distance* specifies the distance measure to use
+  - *k* specifies the number of dimensions
 
 
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
-# Run 0 stress 0.001819067 
-# Run 1 stress 9.217952e-05 
+# Run 0 stress 0.001959205 
+# Run 1 stress 9.989288e-05 
 # ... New best solution
-# ... Procrustes: rmse 0.004493626  max resid 0.009015802 
-# ... Similar to previous best
-# Run 2 stress 6.035735e-05 
+# ... Procrustes: rmse 0.005006244  max resid 0.01021005 
+# Run 2 stress 9.934065e-05 
 # ... New best solution
-# ... Procrustes: rmse 0.0001981074  max resid 0.0003727889 
+# ... Procrustes: rmse 0.0002602955  max resid 0.0005568792 
 # ... Similar to previous best
-# Run 3 stress 9.758498e-05 
-# ... Procrustes: rmse 0.0001453947  max resid 0.0002578075 
+# Run 3 stress 9.385761e-05 
+# ... New best solution
+# ... Procrustes: rmse 0.0001189702  max resid 0.0004142779 
 # ... Similar to previous best
-# Run 4 stress 9.963816e-05 
-# ... Procrustes: rmse 0.000240987  max resid 0.0004385616 
+# Run 4 stress 9.378134e-05 
+# ... New best solution
+# ... Procrustes: rmse 0.0001624769  max resid 0.0004186917 
 # ... Similar to previous best
-# Run 5 stress 0.0003923491 
-# ... Procrustes: rmse 0.0009784253  max resid 0.001969387 
+# Run 5 stress 9.31593e-05 
+# ... New best solution
+# ... Procrustes: rmse 0.0001175166  max resid 0.0002083662 
 # ... Similar to previous best
-# Run 6 stress 9.172509e-05 
-# ... Procrustes: rmse 5.367021e-05  max resid 9.464505e-05 
+# Run 6 stress 9.84726e-05 
+# ... Procrustes: rmse 0.0001449509  max resid 0.0003282492 
 # ... Similar to previous best
-# Run 7 stress 7.03257e-05 
-# ... Procrustes: rmse 3.871576e-05  max resid 6.276003e-05 
+# Run 7 stress 8.944249e-05 
+# ... New best solution
+# ... Procrustes: rmse 4.964041e-05  max resid 8.534965e-05 
 # ... Similar to previous best
-# Run 8 stress 0.0006163476 
-# Run 9 stress 9.614918e-05 
-# ... Procrustes: rmse 5.22486e-05  max resid 8.892642e-05 
+# Run 8 stress 6.155125e-05 
+# ... New best solution
+# ... Procrustes: rmse 4.988261e-05  max resid 8.638751e-05 
 # ... Similar to previous best
-# Run 10 stress 9.713627e-05 
-# ... Procrustes: rmse 0.0001638271  max resid 0.0002921046 
+# Run 9 stress 0.0005401868 
+# ... Procrustes: rmse 0.001368003  max resid 0.002759271 
 # ... Similar to previous best
-# Run 11 stress 9.981257e-05 
-# ... Procrustes: rmse 7.884759e-05  max resid 0.0001414583 
+# Run 10 stress 5.509038e-05 
+# ... New best solution
+# ... Procrustes: rmse 3.690824e-05  max resid 5.866574e-05 
 # ... Similar to previous best
-# Run 12 stress 9.121268e-05 
-# ... Procrustes: rmse 0.0001350199  max resid 0.000255923 
+# Run 11 stress 8.81388e-05 
+# ... Procrustes: rmse 5.49982e-05  max resid 9.862189e-05 
 # ... Similar to previous best
-# Run 13 stress 9.926807e-05 
-# ... Procrustes: rmse 0.0001704282  max resid 0.0003103283 
+# Run 12 stress 9.666956e-05 
+# ... Procrustes: rmse 0.000144899  max resid 0.0003212194 
 # ... Similar to previous best
-# Run 14 stress 6.373289e-05 
-# ... Procrustes: rmse 3.632107e-05  max resid 6.497983e-05 
+# Run 13 stress 9.774895e-05 
+# ... Procrustes: rmse 0.0002056197  max resid 0.0004189744 
 # ... Similar to previous best
-# Run 15 stress 0.0002472552 
-# ... Procrustes: rmse 0.0006291189  max resid 0.001247194 
+# Run 14 stress 9.073646e-05 
+# ... Procrustes: rmse 0.0001164308  max resid 0.0002700728 
 # ... Similar to previous best
-# Run 16 stress 9.987928e-05 
-# ... Procrustes: rmse 0.0002116874  max resid 0.000445796 
+# Run 15 stress 9.901982e-05 
+# ... Procrustes: rmse 0.0001579319  max resid 0.0003143653 
 # ... Similar to previous best
-# Run 17 stress 9.279982e-05 
-# ... Procrustes: rmse 0.0001313307  max resid 0.0002574419 
+# Run 16 stress 8.95153e-05 
+# ... Procrustes: rmse 0.0001605646  max resid 0.0003392172 
 # ... Similar to previous best
-# Run 18 stress 8.878869e-05 
-# ... Procrustes: rmse 4.144589e-05  max resid 7.23125e-05 
+# Run 17 stress 9.901688e-05 
+# ... Procrustes: rmse 0.0002316243  max resid 0.000470237 
 # ... Similar to previous best
-# Run 19 stress 8.626097e-05 
-# ... Procrustes: rmse 0.0002005696  max resid 0.0003794417 
+# Run 18 stress 8.176796e-05 
+# ... Procrustes: rmse 4.427189e-05  max resid 8.081232e-05 
 # ... Similar to previous best
-# Run 20 stress 9.85221e-05 
-# ... Procrustes: rmse 0.00015339  max resid 0.000275691 
+# Run 19 stress 0.0006547107 
+# Run 20 stress 8.765614e-05 
+# ... Procrustes: rmse 0.0001225731  max resid 0.0002629677 
 # ... Similar to previous best
 # *** Solution reached
 ```
@@ -2078,53 +2015,53 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 
 ---
-# NMDS: goodness-of-fit 
+# NMDS: goodness-of-fit
 
-- NMDS applies an iterative procedure that tries to position the objects in the requested number of dimensions in such a way as to minimize a stress function (scaled from 0 to 1) which measure the goodness-of-fit of the distance adjustment in the reduced-space configuration. 
+- NMDS applies an iterative procedure that tries to position the objects in the requested number of dimensions in such a way as to minimize a stress function (scaled from 0 to 1) which measure the goodness-of-fit of the distance adjustment in the reduced-space configuration.
 
-- Consequently, the lower the stress value, the better the representation of objects in the ordination-space is. 
+- Consequently, the lower the stress value, the better the representation of objects in the ordination-space is.
 
 ---
-# NMDS: goodness-of-fit 
+# NMDS: goodness-of-fit
 
-- The Shepard diagram and stress values can be obtained from: 
+- The Shepard diagram and stress values can be obtained from:
 
 
 ```r
-spe.nmds$stress 
-# [1] 6.035735e-05
+spe.nmds$stress
+# [1] 5.509038e-05
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
-&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-63-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-en_files/figure-html/unnamed-chunk-63-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
-# NMDS on fish abundances 
+# NMDS on fish abundances
 
-- Run the NMDS and assess the goodness of fit 
+- Run the NMDS and assess the goodness of fit
 
 
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
-spe.nmds$stress 
-stressplot(spe.nmds, main = "Shepard plot") 
+spe.nmds$stress
+stressplot(spe.nmds, main = "Shepard plot")
 ```
 
 ---
-# NMDS on fish abundances 
+# NMDS on fish abundances
 
-.pull-left[ 
+.pull-left[
 ![](images/ShepNMDS.png)
 ]
 
-.pull-right[ 
+.pull-right[
 - The Shepard plot identifies a strong correlation between observed dissimilarity and ordination distance (R2 &gt; 0.95) highlighting a high goodness of fit of the NMDS
 ]
 
 ---
-# NMDS on fish abundances 
+# NMDS on fish abundances
 
-- Construct the biplot 
+- Construct the biplot
 
 
 ```r
@@ -2136,21 +2073,21 @@ plot(spe.nmds, type = "none",
 points(scores(spe.nmds, display = "sites",
               choiches = c(1,2),
               pch = 21,
-              col = "black", 
-              g = "steelblue", 
+              col = "black",
+              g = "steelblue",
               cex = 1.2))
-text(scores(spe.nmds, display = "species", choices = c(1)), 
-            scores(spe.nmds, display = "species", choices = c(2)), 
+text(scores(spe.nmds, display = "species", choices = c(1)),
+            scores(spe.nmds, display = "species", choices = c(2)),
             labels = rownames(scores(spe.nmds, display = "species")),
-            col = "red", cex = 0.8) 
+            col = "red", cex = 0.8)
 ```
 
 ---
-# NMDS on fish abundances 
+# NMDS on fish abundances
 
-.pull-left[ 
+.pull-left[
 
-The biplot of the NMDS shows a group of closed sites characterized by the species BLA, TRU, VAI, LOC, CHA and OMB, 
+The biplot of the NMDS shows a group of closed sites characterized by the species BLA, TRU, VAI, LOC, CHA and OMB,
 while the other species form a cluster of sites in the upper right part of the graph. Four sites in the lower part of the graph are strongly different from the others
 ]
 
@@ -2166,46 +2103,46 @@ while the other species form a cluster of sites in the upper right part of the g
 
 &lt;br&gt;
 
-- Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance. 
+- Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance.
 
 - Assess the goodness-of-fit of the ordination and interpret the biplot
 
 ---
-# Solution #6 
+# Solution #6
 
 .pull-left[
 ![](images/SheplSol6.png)
 ]
 
-.pull-right[ 
+.pull-right[
 The correlation between observed dissimilarity and ordination distance (R2 &gt; 0.91) and the stress value relatively low, showing together a good accuracy of the NMDS ordination
 ]
 
 ---
-# Solution #6 
+# Solution #6
 
 .pull-left[
 ![](images/NMDSSol61.png)
 ]
 
-.pull-right[ 
+.pull-right[
 No cluster of sites can be precisely defined from the NMDS biplot showing that most of the species occurred in most of the sites, i.e. a few sites shelter specific communities
 ]
 
 ---
-# Conclusion 
+# Conclusion
 
 .alert[Many ordination techniques exist, but their specificity should guide your choices on which methods to use]
 
 |   | Distance preserved | Variables | Maximum number of axis |
 |---|---------|--------------|------|
-|PCA| Euclidean | Quantitative data, linear relationships | p | 
+|PCA| Euclidean | Quantitative data, linear relationships | p |
 |CA| Chi2 | Non-negative, quantitative homogeneous data, binary data | p-1 |
 |PCoA| User defined | Quantitative, semi-quantitative, mixed data| p-1|
 |NMDS| User defined | Quantitative, semi-quantitative, mixed data| User defined|
 
 ---
-# Prime time 4 quiz time 
+# Prime time 4 quiz time
 
 .alert[What does PCA stand for?]
 
@@ -2219,7 +2156,7 @@ Principal Component Analysis
 
 --
 
-Principal Coordinate Analysis (PCoA) 
+Principal Coordinate Analysis (PCoA)
 
 --
 
@@ -2227,10 +2164,10 @@ Principal Coordinate Analysis (PCoA)
 
 --
 
-The proportion of variance explained by a principal component 
+The proportion of variance explained by a principal component
 
 ---
-# Prime time 4 quiz time 
+# Prime time 4 quiz time
 
 Spot what is sketchy
 
@@ -2238,11 +2175,11 @@ Spot what is sketchy
 
 --
 .alert[
-- Data non centered, Yikes! 
+- Data non centered, Yikes!
 ]
 
 ---
-# Prime time 4 quiz time 
+# Prime time 4 quiz time
 
 Spot what is sketchy
 
@@ -2256,7 +2193,7 @@ Spot what is sketchy
 
 
 ---
-# Live Long and Ordinate 
+# Live Long and Ordinate
 
 .center[![](images/LLaO.png)]
 
@@ -2268,6 +2205,7 @@ class: inverse, center, bottom
 
 ![:scale 50%](images/QCBS_logo.png)
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="qcbsR-macros.js"></script>
 <script>var slideshow = remark.create({
@@ -2276,16 +2214,57 @@ class: inverse, center, bottom
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -2299,7 +2278,8 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
