@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Workshop 9: Multivariate analyses</title>
     <meta charset="utf-8" />
@@ -160,20 +160,20 @@ head(spe) # first 6 rows
 
 
 ```
-#   CHA TRU VAI LOC OMB BLA HOT VAN CHE BAR SPI GOU BRO PER BOU PSO ROT CAR
-# 1   0   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-# 2   0   5   4   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-# 3   0   5   5   5   0   0   0   0   0   0   0   0   1   0   0   0   0   0
-# 4   0   4   5   5   0   0   0   0   1   0   0   1   2   2   0   0   0   0
-# 5   0   2   3   2   0   0   0   5   2   0   0   2   4   4   0   0   2   0
-# 6   0   3   4   5   0   0   0   1   2   0   0   1   1   1   0   0   0   0
-#   TAN BCO PCH GRE GAR BBO ABL ANG
-# 1   0   0   0   0   0   0   0   0
-# 2   0   0   0   0   0   0   0   0
-# 3   0   0   0   0   0   0   0   0
-# 4   1   0   0   0   0   0   0   0
-# 5   3   0   0   0   5   0   0   0
-# 6   2   0   0   0   1   0   0   0
+#   CHA TRU VAI LOC OMB BLA HOT VAN CHE BAR SPI GOU BRO PER BOU PSO ROT CAR TAN
+# 1   0   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+# 2   0   5   4   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+# 3   0   5   5   5   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0
+# 4   0   4   5   5   0   0   0   0   1   0   0   1   2   2   0   0   0   0   1
+# 5   0   2   3   2   0   0   0   5   2   0   0   2   4   4   0   0   2   0   3
+# 6   0   3   4   5   0   0   0   1   2   0   0   1   1   1   0   0   0   0   2
+#   BCO PCH GRE GAR BBO ABL ANG
+# 1   0   0   0   0   0   0   0
+# 2   0   0   0   0   0   0   0
+# 3   0   0   0   0   0   0   0
+# 4   0   0   0   0   0   0   0
+# 5   0   0   0   5   0   0   0
+# 6   0   0   0   1   0   0   0
 ```
 
 ---
@@ -811,26 +811,26 @@ summary(spe.h.pca)
 # Eigenvalues, and their contribution to the variance 
 # 
 # Importance of components:
-#                          PC1     PC2     PC3     PC4     PC5     PC6
-# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617
-# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249
-# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304
-#                           PC7     PC8     PC9     PC10     PC11     PC12
-# Eigenvalue            0.01382 0.01239 0.01002 0.006678 0.005053 0.004269
-# Proportion Explained  0.02777 0.02488 0.02012 0.013416 0.010151 0.008577
-# Cumulative Proportion 0.90081 0.92569 0.94581 0.959230 0.969381 0.977958
-#                           PC13     PC14     PC15     PC16    PC17
-# Eigenvalue            0.002831 0.002252 0.001411 0.001218 0.00105
-# Proportion Explained  0.005686 0.004524 0.002834 0.002448 0.00211
-# Cumulative Proportion 0.983645 0.988168 0.991002 0.993449 0.99556
-#                            PC18      PC19      PC20      PC21      PC22
-# Eigenvalue            0.0007434 0.0004759 0.0003888 0.0002236 0.0001748
-# Proportion Explained  0.0014934 0.0009561 0.0007810 0.0004491 0.0003512
-# Cumulative Proportion 0.9970528 0.9980089 0.9987898 0.9992390 0.9995902
-#                            PC23      PC24      PC25      PC26
-# Eigenvalue            0.0001057 5.548e-05 2.929e-05 1.349e-05
-# Proportion Explained  0.0002124 1.115e-04 5.885e-05 2.711e-05
-# Cumulative Proportion 0.9998026 9.999e-01 1.000e+00 1.000e+00
+#                          PC1     PC2     PC3     PC4     PC5     PC6     PC7
+# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617 0.01382
+# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249 0.02777
+# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304 0.90081
+#                           PC8     PC9     PC10     PC11     PC12     PC13
+# Eigenvalue            0.01239 0.01002 0.006678 0.005053 0.004269 0.002831
+# Proportion Explained  0.02488 0.02012 0.013416 0.010151 0.008577 0.005686
+# Cumulative Proportion 0.92569 0.94581 0.959230 0.969381 0.977958 0.983645
+#                           PC14     PC15     PC16    PC17      PC18      PC19
+# Eigenvalue            0.002252 0.001411 0.001218 0.00105 0.0007434 0.0004759
+# Proportion Explained  0.004524 0.002834 0.002448 0.00211 0.0014934 0.0009561
+# Cumulative Proportion 0.988168 0.991002 0.993449 0.99556 0.9970528 0.9980089
+#                            PC20      PC21      PC22      PC23      PC24
+# Eigenvalue            0.0003888 0.0002236 0.0001748 0.0001057 5.548e-05
+# Proportion Explained  0.0007810 0.0004491 0.0003512 0.0002124 1.115e-04
+# Cumulative Proportion 0.9987898 0.9992390 0.9995902 0.9998026 9.999e-01
+#                            PC25      PC26
+# Eigenvalue            2.929e-05 1.349e-05
+# Proportion Explained  5.885e-05 2.711e-05
+# Cumulative Proportion 1.000e+00 1.000e+00
 # 
 # Scaling 2 for species and site scores
 # * Species are scaled proportional to eigenvalues
@@ -1012,26 +1012,26 @@ summary(spe.h.pca, display = NULL)
 # Eigenvalues, and their contribution to the variance 
 # 
 # Importance of components:
-#                          PC1     PC2     PC3     PC4     PC5     PC6
-# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617
-# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249
-# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304
-#                           PC7     PC8     PC9     PC10     PC11     PC12
-# Eigenvalue            0.01382 0.01239 0.01002 0.006678 0.005053 0.004269
-# Proportion Explained  0.02777 0.02488 0.02012 0.013416 0.010151 0.008577
-# Cumulative Proportion 0.90081 0.92569 0.94581 0.959230 0.969381 0.977958
-#                           PC13     PC14     PC15     PC16    PC17
-# Eigenvalue            0.002831 0.002252 0.001411 0.001218 0.00105
-# Proportion Explained  0.005686 0.004524 0.002834 0.002448 0.00211
-# Cumulative Proportion 0.983645 0.988168 0.991002 0.993449 0.99556
-#                            PC18      PC19      PC20      PC21      PC22
-# Eigenvalue            0.0007434 0.0004759 0.0003888 0.0002236 0.0001748
-# Proportion Explained  0.0014934 0.0009561 0.0007810 0.0004491 0.0003512
-# Cumulative Proportion 0.9970528 0.9980089 0.9987898 0.9992390 0.9995902
-#                            PC23      PC24      PC25      PC26
-# Eigenvalue            0.0001057 5.548e-05 2.929e-05 1.349e-05
-# Proportion Explained  0.0002124 1.115e-04 5.885e-05 2.711e-05
-# Cumulative Proportion 0.9998026 9.999e-01 1.000e+00 1.000e+00
+#                          PC1     PC2     PC3     PC4     PC5     PC6     PC7
+# Eigenvalue            0.2491 0.06455 0.04615 0.03717 0.02148 0.01617 0.01382
+# Proportion Explained  0.5003 0.12968 0.09271 0.07468 0.04315 0.03249 0.02777
+# Cumulative Proportion 0.5003 0.63002 0.72272 0.79740 0.84055 0.87304 0.90081
+#                           PC8     PC9     PC10     PC11     PC12     PC13
+# Eigenvalue            0.01239 0.01002 0.006678 0.005053 0.004269 0.002831
+# Proportion Explained  0.02488 0.02012 0.013416 0.010151 0.008577 0.005686
+# Cumulative Proportion 0.92569 0.94581 0.959230 0.969381 0.977958 0.983645
+#                           PC14     PC15     PC16    PC17      PC18      PC19
+# Eigenvalue            0.002252 0.001411 0.001218 0.00105 0.0007434 0.0004759
+# Proportion Explained  0.004524 0.002834 0.002448 0.00211 0.0014934 0.0009561
+# Cumulative Proportion 0.988168 0.991002 0.993449 0.99556 0.9970528 0.9980089
+#                            PC20      PC21      PC22      PC23      PC24
+# Eigenvalue            0.0003888 0.0002236 0.0001748 0.0001057 5.548e-05
+# Proportion Explained  0.0007810 0.0004491 0.0003512 0.0002124 1.115e-04
+# Cumulative Proportion 0.9987898 0.9992390 0.9995902 0.9998026 9.999e-01
+#                            PC25      PC26
+# Eigenvalue            2.929e-05 1.349e-05
+# Proportion Explained  5.885e-05 2.711e-05
+# Cumulative Proportion 1.000e+00 1.000e+00
 # 
 # Scaling 2 for species and site scores
 # * Species are scaled proportional to eigenvalues
@@ -2012,67 +2012,67 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.002209362 
-# Run 1 stress 7.654949e-05 
+# Run 1 stress 8.972366e-05 
 # ... New best solution
-# ... Procrustes: rmse 0.005524683  max resid 0.01124089 
-# Run 2 stress 0.0001336782 
-# ... Procrustes: rmse 0.0003193267  max resid 0.0007739284 
+# ... Procrustes: rmse 0.005573768  max resid 0.01135528 
+# Run 2 stress 9.714323e-05 
+# ... Procrustes: rmse 0.0002252639  max resid 0.0005389406 
 # ... Similar to previous best
-# Run 3 stress 9.485665e-05 
-# ... Procrustes: rmse 0.0001092323  max resid 0.0003014631 
+# Run 3 stress 9.872319e-05 
+# ... Procrustes: rmse 0.0002871097  max resid 0.000453321 
 # ... Similar to previous best
-# Run 4 stress 9.613741e-05 
-# ... Procrustes: rmse 0.00015549  max resid 0.0004560519 
+# Run 4 stress 9.782102e-05 
+# ... Procrustes: rmse 0.0001176336  max resid 0.0002745951 
 # ... Similar to previous best
-# Run 5 stress 9.923721e-05 
-# ... Procrustes: rmse 0.0002205482  max resid 0.0005269484 
+# Run 5 stress 9.911377e-05 
+# ... Procrustes: rmse 0.0001874347  max resid 0.0006204146 
 # ... Similar to previous best
-# Run 6 stress 5.568753e-05 
+# Run 6 stress 8.211351e-05 
 # ... New best solution
-# ... Procrustes: rmse 0.0001152862  max resid 0.0001899527 
+# ... Procrustes: rmse 0.000143806  max resid 0.0003481784 
 # ... Similar to previous best
-# Run 7 stress 9.797943e-05 
-# ... Procrustes: rmse 0.0002121901  max resid 0.0003817941 
+# Run 7 stress 9.991731e-05 
+# ... Procrustes: rmse 0.0001531259  max resid 0.0003121985 
 # ... Similar to previous best
-# Run 8 stress 9.50771e-05 
-# ... Procrustes: rmse 0.0001239685  max resid 0.0002568983 
-# ... Similar to previous best
-# Run 9 stress 9.393031e-05 
-# ... Procrustes: rmse 0.0001383624  max resid 0.0002890439 
-# ... Similar to previous best
-# Run 10 stress 9.202794e-05 
-# ... Procrustes: rmse 4.84549e-05  max resid 8.945931e-05 
-# ... Similar to previous best
-# Run 11 stress 9.797683e-05 
-# ... Procrustes: rmse 0.0001653465  max resid 0.0003368991 
-# ... Similar to previous best
-# Run 12 stress 6.779564e-05 
-# ... Procrustes: rmse 3.673735e-05  max resid 8.87414e-05 
-# ... Similar to previous best
-# Run 13 stress 8.183048e-05 
-# ... Procrustes: rmse 4.609882e-05  max resid 9.179649e-05 
-# ... Similar to previous best
-# Run 14 stress 9.672172e-05 
-# ... Procrustes: rmse 0.0001532438  max resid 0.0002912699 
-# ... Similar to previous best
-# Run 15 stress 0.0001970854 
-# ... Procrustes: rmse 0.0004727698  max resid 0.0009288315 
-# ... Similar to previous best
-# Run 16 stress 7.521602e-05 
-# ... Procrustes: rmse 3.78685e-05  max resid 7.180043e-05 
-# ... Similar to previous best
-# Run 17 stress 9.339385e-05 
-# ... Procrustes: rmse 0.0001626969  max resid 0.0003389408 
-# ... Similar to previous best
-# Run 18 stress 4.690363e-05 
+# Run 8 stress 6.594157e-05 
 # ... New best solution
-# ... Procrustes: rmse 3.431191e-05  max resid 7.034703e-05 
+# ... Procrustes: rmse 4.873011e-05  max resid 9.410528e-05 
 # ... Similar to previous best
-# Run 19 stress 9.907876e-05 
-# ... Procrustes: rmse 0.0001676059  max resid 0.0003281453 
+# Run 9 stress 9.721302e-05 
+# ... Procrustes: rmse 0.0001617473  max resid 0.0003322576 
 # ... Similar to previous best
-# Run 20 stress 7.808533e-05 
-# ... Procrustes: rmse 4.302813e-05  max resid 0.0001201717 
+# Run 10 stress 9.909066e-05 
+# ... Procrustes: rmse 0.0001426753  max resid 0.0003025591 
+# ... Similar to previous best
+# Run 11 stress 9.937094e-05 
+# ... Procrustes: rmse 0.0001615456  max resid 0.0003274262 
+# ... Similar to previous best
+# Run 12 stress 0.000134948 
+# ... Procrustes: rmse 0.0002435926  max resid 0.0005105595 
+# ... Similar to previous best
+# Run 13 stress 8.513236e-05 
+# ... Procrustes: rmse 7.309599e-05  max resid 0.0001605832 
+# ... Similar to previous best
+# Run 14 stress 9.939119e-05 
+# ... Procrustes: rmse 0.0002074389  max resid 0.0004296116 
+# ... Similar to previous best
+# Run 15 stress 9.125261e-05 
+# ... Procrustes: rmse 3.531637e-05  max resid 6.55007e-05 
+# ... Similar to previous best
+# Run 16 stress 9.9092e-05 
+# ... Procrustes: rmse 0.0002402504  max resid 0.0005195675 
+# ... Similar to previous best
+# Run 17 stress 9.762799e-05 
+# ... Procrustes: rmse 0.0001388785  max resid 0.0002900337 
+# ... Similar to previous best
+# Run 18 stress 7.854404e-05 
+# ... Procrustes: rmse 4.353719e-05  max resid 8.887792e-05 
+# ... Similar to previous best
+# Run 19 stress 9.717725e-05 
+# ... Procrustes: rmse 0.0002449597  max resid 0.0005001617 
+# ... Similar to previous best
+# Run 20 stress 9.8404e-05 
+# ... Procrustes: rmse 0.0002327949  max resid 0.0004743187 
 # ... Similar to previous best
 # *** Solution reached
 ```
@@ -2094,7 +2094,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 4.690363e-05
+# [1] 6.594157e-05
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
@@ -2314,9 +2314,35 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -2324,8 +2350,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();
-</script>
+})();</script>
 
 <script>
 slideshow._releaseMath = function(el) {
