@@ -10,6 +10,7 @@ output:
     seal: true
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
+      countIncrementalSlides: false
       beforeInit: "qcbsR-macros.js"
       highlightLines: false
 ---
@@ -260,20 +261,21 @@ barplot(site.pre, main = "Richesse spécifique",
 
 Transformer des comptes en présence - absence
 ```{r}
-spec.pa <- decostand(spe,method = "pa")
+library(vegan)
+spec.pa <- decostand(spe, method = "pa")
 ```
 
 Réduire le poids des espèces rares
 
 ```{r}
-spec.hel <- decostand(spe,method = "hellinger")
-spec.chi <- decostand(spe,method = "chi.square")
+spec.hel <- decostand(spe, method = "hellinger")
+spec.chi <- decostand(spe, method = "chi.square")
 ```
 
 Réduire le poids des espèces abondantes
 
 ```{r}
-spe.pa <- decostand(spe,method = "log")
+spe.pa <- decostand(spe, method = "log")
 ```
 
 ---
@@ -450,8 +452,8 @@ Avec des méthodes d'ordination, nous ordonnons vos objets (sites) en fonction d
 ---
 # Analyse schématique des analyses multivariées
 
-.center[:scale 70%
-![](images/ Schema1.png)]
+.center[
+![:scale 70%](images/ Schema1.png)]
 
 ---
 # Groupement
@@ -548,7 +550,7 @@ plot(spe.dhe1.single)
 
 
 ---
-# Comparison
+# Comparaison
 
 ![](images/comparison.png)
 
@@ -600,7 +602,7 @@ Les objets ont tendance à former des groupes plus sphériques et homogènes
 - Dépend de votre objectif
   - démontrer des gradients? des contrastes?
 - Si plus d'une méthode semble adéquate, comparer les dendrogrammes
-- Encore une fois : ceci **n'est pas** une méthode statstique
+- Encore une fois : ceci **n'est pas** une méthode statistique
  Mais! il est possible de:
   - déterminer le nombre de groupe optimal
   - faire des tests statistiques sur les résultats
@@ -615,13 +617,13 @@ class: inverse, center, middle
 
 --
 
-- **Variance:** mesure de la dispersion d'une variable **y** *j* de sa moyenne
+- **Variance:** mesure de la dispersion d'une variable $y_j$ de sa moyenne
 --
 
-- **Co-variance:** mesure de co-dispersion des variables **y** *j* et **y** *i* de leur moyenne
+- **Co-variance:** mesure de co-dispersion des variables $y_j$ et $y_i$ de leur moyenne
 
 --
-- **Corrélation:** mesure de la force du lien entre 2 variables : $rij = (dij / dj . dk)$
+- **Corrélation:** mesure de la force du lien entre 2 variables : $r_{ij} = (d_{ij} / d_j x d_k)$
 
 --
 - **Valeurs propres:** proportion de variance (dispersion) représentée par un axe d'ordination
@@ -760,7 +762,7 @@ summary(spe.h.pca)
   - régressions multiples
   - PCA sur les valeurs régressées
 
-- Si on donne seulement un tableau à la fonction `rda()` it does directly a PCA without doing regression
+- Si on donne seulement un tableau à la fonction `rda()`, la fonction roule une PCA sans faire les régressions
 
 .center[
 .alert[ rda(Y~X) ![:faic](arrow-right) RDA
@@ -1026,7 +1028,7 @@ biplot(spe.h.pca)
 .small[Cadrage 1 : préserve au maximum la distance euclidienne (dans l'espace d'ordination) entre objets (ex. sites); les angles entre descripteurs (ex. espèces) ne sont pas informatifs.]
 
 .alert[
-.small[**Meilleur cadrage pour interpréter les relations entre descripteurs (sites)!**]]]
+.small[**Meilleur cadrage pour interpréter les relations entre objects (sites)!**]]]
 
 
 ---
@@ -1070,7 +1072,7 @@ arrows(0,0,spe.cs[,1], spe.cs[,2], length = 0)
 ```
 
 ---
-# OEUF DE PÂQUES : ggvegan
+# Autres options graphiques : `ggvegan`
 
 - Un ensemble d'outils pour créer des biplots avec ggplot2 :
 
@@ -1083,7 +1085,7 @@ autoplot()
 ```
 
 ---
-# OEUF DE PÂQUES : rgl et vegan 3d
+# Autres options graphiques : `rgl` et `vegan3d`
 
 Biplot interactif avec rgl
 
