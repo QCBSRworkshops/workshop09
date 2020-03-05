@@ -141,14 +141,14 @@ Chargement des données espèces (`Doubs.Spe.csv`)
 
 ```{r}
 spe <- read.csv("data/doubsspe.csv", row.names = 1)
-spe <-  spe[-8] # supprimer le site vide
+spe <-  spe[-8,] # supprimer le site vide
 ```
 
 Chargement des données environnementales (`Doubs.Env.csv`)
 
 ```{r}
 env <- read.csv("data/doubsenv.csv", row.names = 1)
-env <- env[-8] # remove site with no data
+env <- env[-8,] # remove site with no data
 ```
 
 .alert[Attention, n'exécuter qu'une seule fois]

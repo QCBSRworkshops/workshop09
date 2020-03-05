@@ -143,14 +143,14 @@ Load the Doubs River species data (Doubs.Spe.csv)
 
 ```{r}
 spe <- read.csv("data/doubsspe.csv", row.names = 1)
-spe <-  spe[-8] # remove site with no data
+spe <-  spe[-8,] # remove site with no data
 ```
 
 Load the Doubs River environmental data (Doubs.Env.csv)
 
 ```{r}
-env <- read.csv("data/doubsenv.csv", row.names = 1) 
-env <- env[-8] # remove site with no data
+env <- read.csv("data/doubsenv.csv", row.names = 1)
+env <- env[-8,] # remove site with no data
 ```
 
 .alert[Proceed with caution, only execute once]
