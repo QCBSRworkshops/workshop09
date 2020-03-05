@@ -10,6 +10,7 @@ output:
     seal: true
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
+      countIncrementalSlides: false
       beforeInit: "qcbsR-macros.js"
       highlightLines: false
 ---
@@ -262,14 +263,15 @@ barplot(site.pre, main = "Species richness",
 
 Transforming counts into presence - absence
 ```{r}
-spec.pa <- decostand(spe,method = "pa")
+library(vegan)
+spec.pa <- decostand(spe, method = "pa")
 ```
 
 Reducing the weight of rare species
 
 ```{r}
-spec.hel <- decostand(spe,method = "hellinger")
-spec.chi <- decostand(spe,method = "chi.square")
+spec.hel <- decostand(spe, method = "hellinger")
+spec.chi <- decostand(spe, method = "chi.square")
 ```
 
 Reducing the weight of very abundant species
@@ -461,8 +463,8 @@ With ordination methods, we order our objects (site) according to their similari
 ---
 # Schematic analysis of multivariate analysis
 
-.center[:scale 70%
-![](images/ Schema1.png)]
+.center[
+![:scale 70%](images/ Schema1.png)]
 
 ---
 # Clustering
@@ -629,13 +631,13 @@ class: inverse, center, middle
 
 --
 
-- **Variance:** measure of a variable **y** *j* dispersion from its mean
+- **Variance:** measure of a variable $y_j$ dispersion from its mean
 --
 
-- **Co-variance:** measure of co-dispersion of variables **y** *j* et **y** *j* from their means
+- **Co-variance:** measure of co-dispersion of variables $y_j$ et $y_i$ from their means
 
 --
-- **Correlation:** measure of the link strength between 2 variables: rij = (dij / dj . dk)
+- **Correlation:** measure of the link strength between 2 variables: $r_{ij} = (d_{ij} / d_j x d_k)$
 
 --
 - **Eigenvalues:** Proportio of variance (dispersion) represented by one ordination axe.

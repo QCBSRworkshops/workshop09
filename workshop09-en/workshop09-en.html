@@ -274,15 +274,16 @@ barplot(site.pre, main = "Species richness",
 Transforming counts into presence - absence
 
 ```r
-spec.pa &lt;- decostand(spe,method = "pa")
+library(vegan)
+spec.pa &lt;- decostand(spe, method = "pa")
 ```
 
 Reducing the weight of rare species
 
 
 ```r
-spec.hel &lt;- decostand(spe,method = "hellinger")
-spec.chi &lt;- decostand(spe,method = "chi.square")
+spec.hel &lt;- decostand(spe, method = "hellinger")
+spec.chi &lt;- decostand(spe, method = "chi.square")
 ```
 
 Reducing the weight of very abundant species
@@ -497,8 +498,8 @@ With ordination methods, we order our objects (site) according to their similari
 ---
 # Schematic analysis of multivariate analysis
 
-.center[:scale 70%
-![](images/ Schema1.png)]
+.center[
+![:scale 70%](images/ Schema1.png)]
 
 ---
 # Clustering
@@ -666,13 +667,13 @@ class: inverse, center, middle
 
 --
 
-- **Variance:** measure of a variable **y** *j* dispersion from its mean
+- **Variance:** measure of a variable `\(y_j\)` dispersion from its mean
 --
 
-- **Co-variance:** measure of co-dispersion of variables **y** *j* et **y** *j* from their means
+- **Co-variance:** measure of co-dispersion of variables `\(y_j\)` et `\(y_i\)` from their means
 
 --
-- **Correlation:** measure of the link strength between 2 variables: rij = (dij / dj . dk)
+- **Correlation:** measure of the link strength between 2 variables: `\(r_{ij} = (d_{ij} / d_j x d_k)\)`
 
 --
 - **Eigenvalues:** Proportio of variance (dispersion) represented by one ordination axe.
@@ -2020,33 +2021,30 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477822 
-# Run 1 stress 0.1117212 
-# Run 2 stress 0.07506759 
-# ... Procrustes: rmse 0.01470563  max resid 0.06367287 
-# Run 3 stress 0.1112258 
-# Run 4 stress 0.1128307 
-# Run 5 stress 0.07506704 
-# ... Procrustes: rmse 0.01473919  max resid 0.06365068 
-# Run 6 stress 0.1133689 
-# Run 7 stress 0.1127538 
-# Run 8 stress 0.09153662 
-# Run 9 stress 0.07376525 
+# Run 1 stress 0.110434 
+# Run 2 stress 0.1125692 
+# Run 3 stress 0.08841669 
+# Run 4 stress 0.1223511 
+# Run 5 stress 0.1117228 
+# Run 6 stress 0.1128299 
+# Run 7 stress 0.1111957 
+# Run 8 stress 0.08841676 
+# Run 9 stress 0.1209531 
+# Run 10 stress 0.07429345 
 # ... New best solution
-# ... Procrustes: rmse 0.01948918  max resid 0.09468592 
-# Run 10 stress 0.1111101 
-# Run 11 stress 0.0737651 
-# ... New best solution
-# ... Procrustes: rmse 3.885961e-05  max resid 0.0001444419 
+# ... Procrustes: rmse 0.02399966  max resid 0.09222162 
+# Run 11 stress 0.1127512 
+# Run 12 stress 0.1111116 
+# Run 13 stress 0.1124399 
+# Run 14 stress 0.07506806 
+# Run 15 stress 0.08841668 
+# Run 16 stress 0.07506783 
+# Run 17 stress 0.08845296 
+# Run 18 stress 0.1226383 
+# Run 19 stress 0.074294 
+# ... Procrustes: rmse 0.0001352728  max resid 0.0006055499 
 # ... Similar to previous best
-# Run 12 stress 0.07506846 
-# Run 13 stress 0.09161685 
-# Run 14 stress 0.1125693 
-# Run 15 stress 0.1111109 
-# Run 16 stress 0.1125719 
-# Run 17 stress 0.07477855 
-# Run 18 stress 0.08696461 
-# Run 19 stress 0.07478083 
-# Run 20 stress 0.08892317 
+# Run 20 stress 0.08927174 
 # *** Solution reached
 ```
 
@@ -2067,7 +2065,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.0737651
+# [1] 0.07429345
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
@@ -2247,6 +2245,7 @@ class: inverse, center, bottom
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="qcbsR-macros.js"></script>
 <script>var slideshow = remark.create({
+"countIncrementalSlides": false,
 "highlightLines": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {

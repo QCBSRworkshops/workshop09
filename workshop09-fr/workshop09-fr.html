@@ -272,22 +272,23 @@ barplot(site.pre, main = "Richesse spécifique",
 Transformer des comptes en présence - absence
 
 ```r
-spec.pa &lt;- decostand(spe,method = "pa")
+library(vegan)
+spec.pa &lt;- decostand(spe, method = "pa")
 ```
 
 Réduire le poids des espèces rares
 
 
 ```r
-spec.hel &lt;- decostand(spe,method = "hellinger")
-spec.chi &lt;- decostand(spe,method = "chi.square")
+spec.hel &lt;- decostand(spe, method = "hellinger")
+spec.chi &lt;- decostand(spe, method = "chi.square")
 ```
 
 Réduire le poids des espèces abondantes
 
 
 ```r
-spe.pa &lt;- decostand(spe,method = "log")
+spe.pa &lt;- decostand(spe, method = "log")
 ```
 
 ---
@@ -486,8 +487,8 @@ Avec des méthodes d'ordination, nous ordonnons vos objets (sites) en fonction d
 ---
 # Analyse schématique des analyses multivariées
 
-.center[:scale 70%
-![](images/ Schema1.png)]
+.center[
+![:scale 70%](images/ Schema1.png)]
 
 ---
 # Groupement
@@ -586,7 +587,7 @@ plot(spe.dhe1.single)
 
 
 ---
-# Comparison
+# Comparaison
 
 ![](images/comparison.png)
 
@@ -637,7 +638,7 @@ Les objets ont tendance à former des groupes plus sphériques et homogènes
 - Dépend de votre objectif
   - démontrer des gradients? des contrastes?
 - Si plus d'une méthode semble adéquate, comparer les dendrogrammes
-- Encore une fois : ceci **n'est pas** une méthode statstique
+- Encore une fois : ceci **n'est pas** une méthode statistique
  Mais! il est possible de:
   - déterminer le nombre de groupe optimal
   - faire des tests statistiques sur les résultats
@@ -652,13 +653,13 @@ class: inverse, center, middle
 
 --
 
-- **Variance:** mesure de la dispersion d'une variable **y** *j* de sa moyenne
+- **Variance:** mesure de la dispersion d'une variable `\(y_j\)` de sa moyenne
 --
 
-- **Co-variance:** mesure de co-dispersion des variables **y** *j* et **y** *i* de leur moyenne
+- **Co-variance:** mesure de co-dispersion des variables `\(y_j\)` et `\(y_i\)` de leur moyenne
 
 --
-- **Corrélation:** mesure de la force du lien entre 2 variables : `\(rij = (dij / dj . dk)\)`
+- **Corrélation:** mesure de la force du lien entre 2 variables : `\(r_{ij} = (d_{ij} / d_j x d_k)\)`
 
 --
 - **Valeurs propres:** proportion de variance (dispersion) représentée par un axe d'ordination
@@ -901,7 +902,7 @@ summary(spe.h.pca)
   - régressions multiples
   - PCA sur les valeurs régressées
 
-- Si on donne seulement un tableau à la fonction `rda()` it does directly a PCA without doing regression
+- Si on donne seulement un tableau à la fonction `rda()`, la fonction roule une PCA sans faire les régressions
 
 .center[
 .alert[ rda(Y~X) ![:faic](arrow-right) RDA
@@ -1478,7 +1479,7 @@ biplot(spe.h.pca)
 .small[Cadrage 1 : préserve au maximum la distance euclidienne (dans l'espace d'ordination) entre objets (ex. sites); les angles entre descripteurs (ex. espèces) ne sont pas informatifs.]
 
 .alert[
-.small[**Meilleur cadrage pour interpréter les relations entre descripteurs (sites)!**]]]
+.small[**Meilleur cadrage pour interpréter les relations entre objects (sites)!**]]]
 
 
 ---
@@ -1510,7 +1511,7 @@ voir la fonction `arrows()` de  `graphics` pour ajouter des vecteurs
 &lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-39-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
-# OEUF DE PÂQUES : ggvegan
+# Autres options graphiques : `ggvegan`
 
 - Un ensemble d'outils pour créer des biplots avec ggplot2 :
 
@@ -1524,7 +1525,7 @@ autoplot()
 ```
 
 ---
-# OEUF DE PÂQUES : rgl et vegan 3d
+# Autres options graphiques : `rgl` et `vegan3d`
 
 Biplot interactif avec rgl
 
@@ -2008,39 +2009,33 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477822 
-# Run 1 stress 0.1119586 
-# Run 2 stress 0.07429483 
-# ... New best solution
-# ... Procrustes: rmse 0.02385197  max resid 0.09220294 
-# Run 3 stress 0.07376433 
-# ... New best solution
-# ... Procrustes: rmse 0.01466816  max resid 0.06309918 
-# Run 4 stress 0.1121923 
-# Run 5 stress 0.1104316 
-# Run 6 stress 0.1203767 
-# Run 7 stress 0.08917048 
-# Run 8 stress 0.1104495 
-# Run 9 stress 0.12193 
-# Run 10 stress 0.07376389 
-# ... New best solution
-# ... Procrustes: rmse 6.735977e-05  max resid 0.0002614707 
+# Run 1 stress 0.07478793 
+# ... Procrustes: rmse 0.003745722  max resid 0.0147984 
+# Run 2 stress 0.1235258 
+# Run 3 stress 0.1237628 
+# Run 4 stress 0.07478 
+# ... Procrustes: rmse 0.000483381  max resid 0.002322267 
 # ... Similar to previous best
-# Run 11 stress 0.1104349 
-# Run 12 stress 0.1141234 
-# Run 13 stress 0.074781 
-# Run 14 stress 0.0737641 
-# ... Procrustes: rmse 3.399018e-05  max resid 0.0001025124 
-# ... Similar to previous best
-# Run 15 stress 0.1235557 
-# Run 16 stress 0.08901557 
-# Run 17 stress 0.07376225 
+# Run 5 stress 0.1173464 
+# Run 6 stress 0.07376338 
 # ... New best solution
-# ... Procrustes: rmse 0.0004574517  max resid 0.002199139 
-# ... Similar to previous best
-# Run 18 stress 0.1121196 
-# Run 19 stress 0.09311476 
-# Run 20 stress 0.07376266 
-# ... Procrustes: rmse 0.0004713483  max resid 0.002268879 
+# ... Procrustes: rmse 0.01938119  max resid 0.09469711 
+# Run 7 stress 0.07429626 
+# Run 8 stress 0.1141838 
+# Run 9 stress 0.114185 
+# Run 10 stress 0.1123514 
+# Run 11 stress 0.1239796 
+# Run 12 stress 0.1203438 
+# Run 13 stress 0.07429415 
+# Run 14 stress 0.1205812 
+# Run 15 stress 0.08696414 
+# Run 16 stress 0.07477843 
+# Run 17 stress 0.1249359 
+# Run 18 stress 0.07506721 
+# Run 19 stress 0.0747805 
+# Run 20 stress 0.07376229 
+# ... New best solution
+# ... Procrustes: rmse 0.0002939823  max resid 0.001394126 
 # ... Similar to previous best
 # *** Solution reached
 ```
@@ -2060,7 +2055,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376225
+# [1] 0.07376229
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
@@ -2235,6 +2230,7 @@ class: inverse, center, bottom
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="qcbsR-macros.js"></script>
 <script>var slideshow = remark.create({
+"countIncrementalSlides": false,
 "highlightLines": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
