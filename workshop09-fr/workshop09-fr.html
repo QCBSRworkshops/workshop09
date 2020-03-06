@@ -774,7 +774,7 @@ class: inverse, center, middle
 
 &lt;br/&gt;
 
-.alert[Quand il y a plus de deux dimensions, la PCA produit un nouvel espace dans lequel tous les axes sont orthogonaux (i.e. la corrélation entre les axes =0) et où les axes sont ordonnés selon le pourcentage de variation des données brutes qu'ils expliquent (valeur propre).]
+.alert[Quand il y a plus de deux dimensions, la PCA produit un nouvel espace dans lequel tous les axes sont orthogonaux (i.e. la corrélation entre les axes =0) et où les axes sont ordonnés selon le pourcentage de variation des données brutes qu'ils représentent (valeur propre).]
 
 
 ---
@@ -915,8 +915,8 @@ rda(Y) ou rda(X) ![:faic](arrow-right) PCA ]]
 .center[
 ![:scale 80%](images/PCAout1.png)]
 
-- Total de variance expliquée par les descripteurs (ici les espèces de poissons)
-- Dans une PCA, la proportion "Total" et "Unconstrained" de variance expliquée est identique
+- Total de variance capturée par les descripteurs (ici les espèces de poissons)
+- Dans une PCA, la proportion "Total" et "Unconstrained" de variance capturée est identique
 
 ---
 # PCA - Interprétation des sorties
@@ -933,12 +933,12 @@ rda(Y) ou rda(X) ![:faic](arrow-right) PCA ]]
 &lt;br/&gt;
 
 .alert[
-La valeur propre est la valeur du changement dans la longueur d'un vecteur, et ici représente la quantité de variation expliquée par chaque Composante Principale.
+La valeur propre est la valeur du changement dans la longueur d'un vecteur, et ici représente la quantité de variation capturée par chaque Composante Principale.
 ]
 
 &lt;br/&gt;
 
-.center[0.258 + 0.064 + ... = 0.5025 Variance totale expliquée]
+.center[0.258 + 0.064 + ... = 0.5025 Variance totale capturée]
 
 ---
 # PCA - Interprétation des sorties
@@ -947,7 +947,7 @@ La valeur propre est la valeur du changement dans la longueur d'un vecteur, et i
 
 ![](images/PCAout2.png)
 
-- Liste de la proportion de variance expliquée par chaque Composante Principale (et la proportion cumulée)
+- Liste de la proportion de variance capturée par chaque Composante Principale (et la proportion cumulée)
 
 &lt;br/&gt;
 
@@ -986,7 +986,7 @@ La valeur propre est la valeur du changement dans la longueur d'un vecteur, et i
 ---
 # Accéder à une partie de la sortie R
 
-La sortie R est très dense, mais vous pouvez accéder au besoin à des informations spécifiques. Par exemple, vous pouvez extraire les valeurs propres et leur contribution à la variance expliquée :
+La sortie R est très dense, mais vous pouvez accéder au besoin à des informations spécifiques. Par exemple, vous pouvez extraire les valeurs propres et leur contribution à la variance capturée :
 
 
 ```r
@@ -1249,11 +1249,11 @@ site.scores &lt;- scores(spe.h.pca,
 
 - La force de la PCA est de condenser la variance contenue dans un grand jeu de données en jeu de données synthétiques moins nombreuses
 
-- Dans notre cas, 27 PCs sont identifiées mais seuls les premières contribuent de façon importante à la variance expliquée tandis que les autres représentent le bruit des données et peuvent être écartées...
+- Dans notre cas, 27 PCs sont identifiées mais seules les premières contribuent de façon importante à la variance capturée tandis que les autres représentent le bruit des données et peuvent être écartées...
 
 --
 
-.alert[Comment choisir les PCs significatives?]
+.alert[Comment choisir les PCs les plus importantes?]
 
 ---
 # Critère de Kaiser - Guttman
@@ -1567,7 +1567,7 @@ mite.spe.h.pca &lt;- rda(mite.spe.hel)
 
 ```r
 ev &lt;- mite.spe.h.pca$CA$eig
-ev[ev&gt;mean(ev)]
+ev[ev &gt; mean(ev)]
 n &lt;- length(ev)
 barplot(ev, main = "Valeurs propres", col = "grey", las = 2)
 abline(h = mean(ev), col = "red3", lwd = 2)
@@ -2009,34 +2009,32 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477822 
-# Run 1 stress 0.07478793 
-# ... Procrustes: rmse 0.003745722  max resid 0.0147984 
-# Run 2 stress 0.1235258 
-# Run 3 stress 0.1237628 
-# Run 4 stress 0.07478 
-# ... Procrustes: rmse 0.000483381  max resid 0.002322267 
-# ... Similar to previous best
-# Run 5 stress 0.1173464 
-# Run 6 stress 0.07376338 
+# Run 1 stress 0.08696417 
+# Run 2 stress 0.07506794 
+# ... Procrustes: rmse 0.01490762  max resid 0.06352955 
+# Run 3 stress 0.1125719 
+# Run 4 stress 0.07376289 
 # ... New best solution
-# ... Procrustes: rmse 0.01938119  max resid 0.09469711 
-# Run 7 stress 0.07429626 
-# Run 8 stress 0.1141838 
-# Run 9 stress 0.114185 
-# Run 10 stress 0.1123514 
-# Run 11 stress 0.1239796 
-# Run 12 stress 0.1203438 
-# Run 13 stress 0.07429415 
-# Run 14 stress 0.1205812 
-# Run 15 stress 0.08696414 
-# Run 16 stress 0.07477843 
-# Run 17 stress 0.1249359 
-# Run 18 stress 0.07506721 
-# Run 19 stress 0.0747805 
-# Run 20 stress 0.07376229 
-# ... New best solution
-# ... Procrustes: rmse 0.0002939823  max resid 0.001394126 
+# ... Procrustes: rmse 0.01938326  max resid 0.09469276 
+# Run 5 stress 0.07478724 
+# Run 6 stress 0.0884395 
+# Run 7 stress 0.1136959 
+# Run 8 stress 0.1282771 
+# Run 9 stress 0.1248538 
+# Run 10 stress 0.0747843 
+# Run 11 stress 0.1152517 
+# Run 12 stress 0.1216627 
+# Run 13 stress 0.08841669 
+# Run 14 stress 0.08841668 
+# Run 15 stress 0.07478862 
+# Run 16 stress 0.07376398 
+# ... Procrustes: rmse 0.0002307804  max resid 0.001108762 
 # ... Similar to previous best
+# Run 17 stress 0.111216 
+# Run 18 stress 0.07383991 
+# ... Procrustes: rmse 0.003826932  max resid 0.01493167 
+# Run 19 stress 0.1124411 
+# Run 20 stress 0.09290782 
 # *** Solution reached
 ```
 
@@ -2055,7 +2053,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376229
+# [1] 0.07376289
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
@@ -2186,7 +2184,7 @@ Principal Coordinate Analysis (PCoA)
 
 --
 
-La proportion de variance expliquée par une composante principale
+La proportion de variance capturée par une composante principale
 
 ---
 # C'est l'heure du quiz !
@@ -2210,7 +2208,7 @@ Trouvez l'erreur!
 --
 
 .alert[
-- Les 2 premiers axes expliquent 100% de la variation
+- Les 2 premiers axes capturent 100% de la variation
 ]
 
 
