@@ -15,11 +15,11 @@ output:
       highlightLines: false
 ---
 
-```{r setup2, echo = F}
+```{r setup2, echo = FALSE}
 ## Setup for your presentation
 knitr::opts_chunk$set(
-  eval = T,
-  cache = T,
+  eval = TRUE,
+  cache = TRUE,
   comment = "#",
   collapse = TRUE,
   warning = FALSE,
@@ -27,20 +27,25 @@ knitr::opts_chunk$set(
   fig.width=5, fig.height=5, fig.retina=3,
   fig.align = 'center'
 )
-```
-
-```{r, echo = F}
 options(repos=structure(c(CRAN="http://cran.r-project.org")))
 ```
 
-```{r, include = FALSE}
-if (!require(vegan)) install.packages("vegan")
-library(vegan)
-if (!require(ape)) install.packages("ape")
-library(ape)
-if (!require(gclus)) install.packages("gclus")
-library(gclus)
+class: inverse, center, middle
+
+```{R install_pkgs, echo = FALSE, results = "asis"}
+cat(
+  qcbsRworkshops::first_slides(9, c('ape', 'gclus', 'vegan'))
+)
 ```
+
+---
+# Learning objectives
+
+##### Use R to perform an unconstrained ordination
+
+#### Use R to create dendrogram
+
+---
 
 class: inverse, center, middle
 
@@ -175,9 +180,9 @@ head(spe) # first 6 rows
 ```
 
 ---
-# Species Frequencies  
+# Species Frequencies
 
-Take a look at the distribution of species frequencies  
+Take a look at the distribution of species frequencies
 
 ```{r, fig.width=8, echo = -1}
 par(mar = c(4,4,.5,.5), cex = 1.5)
@@ -507,7 +512,7 @@ A distance matrix is first sorted in increasing distance order
 
 
 ---
-# Single linkage clustering  
+# Single linkage clustering
 
 .pull-left[
 
@@ -586,7 +591,7 @@ Contrasted groups are formed of objects occur
   - At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares
 
 ---
-# Ward's method  
+# Ward's method
 
 Compute the Ward's minimum variance clustering and plot the dendrogram by using the square root of the distances:
 
@@ -1326,8 +1331,13 @@ legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
 
 - For computing PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages:
 
-```{r, eval = F}
+```{R, include = FALSE}
+library(ape)
+```
+
+```{r, eval = FALSE}
 ?cmdscale
+library(ape)
 ?pcoa
 ```
 
@@ -1649,4 +1659,4 @@ class: inverse, center, bottom
 
 # Thank you for attending this workshop!
 
-![:scale 50%](images/QCBS_logo.png)
+![:scale 50%](images/qcbs_logo.png)
