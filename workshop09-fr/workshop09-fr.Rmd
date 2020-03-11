@@ -15,11 +15,11 @@ output:
       highlightLines: false
 ---
 
-```{r setup2, echo = F}
+```{r setup2, echo = FALSE}
 ## Setup for your presentation
 knitr::opts_chunk$set(
-  eval = T,
-  cache = T,
+  eval = TRUE,
+  cache = TRUE,
   comment = "#",
   collapse = TRUE,
   warning = FALSE,
@@ -27,20 +27,27 @@ knitr::opts_chunk$set(
   fig.width=5, fig.height=5, fig.retina=3,
   fig.align = 'center'
 )
-```
-
-```{r, echo = F}
 options(repos=structure(c(CRAN="http://cran.r-project.org")))
 ```
 
-```{r, include = FALSE}
-if (!require(vegan)) install.packages("vegan")
-library(vegan)
-if (!require(ape)) install.packages("ape")
-library(ape)
-if (!require(gclus)) install.packages("gclus")
-library(gclus)
+class: inverse, center, middle
+
+```{R install_pkgs, echo = FALSE, results = "asis"}
+cat(
+  qcbsRworkshops::first_slides(9, c('ape', 'gclus', 'vegan'), lang = "fr")
+)
 ```
+
+
+---
+# Objectifs d'apprentissage
+
+##### Utiliser R pour faire des ordinations sans contraintes
+
+#### Faire un dendrogramme avec R
+
+
+---
 
 class: inverse, center, middle
 
@@ -160,7 +167,7 @@ env <- env[-8,] # remove site with no data
 
 Explorer le contenu des données espèces :
 
-```{r, eval = F}
+```{r, eval = FALSE}
 names(spe) # noms des objets
 dim(spe) # dimensions
 str(spe) # structure des objets
@@ -168,7 +175,7 @@ summary(spe) # résumé statistique
 head(spe) # 6 premières lignes
 ```
 
-```{r, echo = F}
+```{r, echo = FALSE}
 head(spe) # 6 premières lignes
 ```
 
@@ -281,7 +288,7 @@ spe.pa <- decostand(spe, method = "log")
 ---
 # Données sur l'environnement
 
-```{r, eval = F}
+```{r, eval = FALSE}
 names(env) # Names of objects
 dim(env) # dimensions
 str(env) # structure of objects
@@ -289,12 +296,12 @@ summary(env) # summary statistics
 head(env) # first 6 rows
 ```
 
-```{r, echo = T}
+```{r}
 head(env) # first 6 rows
 ```
 Explorer la colinéarité en visualisant les corrélations entre les variables
 
-```{r, eval = F}
+```{r, eval = FALSE}
 pairs(env, main = "Bivariate Plots of the Environmental Data")
 ```
 
@@ -399,7 +406,7 @@ Distance: D = 1-S]
 
 La fonction `vegdist()` comprend les mesures de distances communes :
 
-```{r, eval = F}
+```{r, eval = FALSE}
 ?vegdist
 ```
 Comment la composition des communautés diffère-t-elle entre les 30 sites de la rivière Doubs?
@@ -590,7 +597,7 @@ plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ---
 # Groupement de Ward
 
-```{r, fig.width=9, echo = F}
+```{r, fig.width=9, echo = FALSE}
 par(mar=c(.5,3.8,2,.5), cex = 1.5)
 plot(spe.dhel.ward, hang = -1) # hang = -1 permet d'afficher les objets sur la même ligne
 ```
@@ -1036,7 +1043,7 @@ biplot(spe.h.pca)
 
 - En extrayant certaines parties de la sortie R, il est possible de créer des biplots plus détaillés et clairs :
 
-```{r, eval = F}
+```{r, eval = FALSE}
 plot(spe.h.pca, scaling  = 1, type = "none",
      xlab = c("PC1 (%)", round(spe.h.pca$CA$eig[1]/sum(spe.h.pca$CAeig)*100,2)),
      ylab = c("PC2 (%)", round(spe.h.pca$CA$eig[2]/sum(spe.h.pca$CA$eig)*100,2)))
@@ -1076,7 +1083,7 @@ arrows(0,0,spe.cs[,1], spe.cs[,2], length = 0)
 
 - Un ensemble d'outils pour créer des biplots avec ggplot2 :
 
-```{r, eval = F}
+```{r, eval = FALSE}
 install.packages("devtools")
 require("devtools")
 install_github("ggvegan", "gavinsimpson")
@@ -1089,7 +1096,7 @@ autoplot()
 
 Biplot interactif avec rgl
 
-```{r, eval = F}
+```{r, eval = FALSE}
 require(rgl)
 require(vegan3d)
 ordirgl(spe.h.pca)
@@ -1121,7 +1128,7 @@ mite.spe.h.pca <- rda(mite.spe.hel)
 
 - Recherche des axes significatifs par critère de Gutman-Kaiser :
 
-```{r, eval = F}
+```{r, eval = FALSE}
 ev <- mite.spe.h.pca$CA$eig
 ev[ev > mean(ev)]
 n <- length(ev)
@@ -1275,7 +1282,7 @@ mite.spe.ca <- cca(mite.spe)
 
 - Recherche des axes significatifs par critère de Guttman-Kaiser :
 
-```{r, eval = F}
+```{r, eval = FALSE}
 ev <- mite.spe.ca$CA$eig
 ev[ev > mean(ev)]
 n <- length(ev)
@@ -1287,7 +1294,7 @@ legend("topright", "Valeur propre moyenne", lwd = 2, col = red3, bty = "n")
 ---
 # Solution #4
 
-```{r, echo = F, fig.width=10, fig.height=7}
+```{r, echo = FALSE, fig.width=10, fig.height=7}
 par(mar=c(4,4,2,1), cex = 1.2)
 ev <- mite.spe.ca$CA$eig
 n <- length(ev)
@@ -1312,8 +1319,13 @@ legend("topright", "Valeur propre moyenne", lwd = 2, col = "red3", bty = "n")
 
 - Les fonctions `cmdscale()` et `pcoa()`, des librairies **stats** et **ape** permettent d'effectuer une PCoA:
 
-```{r, eval = F}
+```{R, include = FALSE}
+library(ape)
+```
+
+```{r, eval = FALSE}
 ?cmdscale
+library(ape)
 ?pcoa
 ```
 
@@ -1474,7 +1486,7 @@ stressplot(spe.nmds, main = "Shepard plot")
 
 - Effectuer le NMDS et vérifier la qualité de l'ajustement
 
-```{r, eval = F}
+```{r, eval = FALSE}
 spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
 spe.nmds$stress
 stressplot(spe.nmds, main = "Shepard plot")
@@ -1496,7 +1508,7 @@ stressplot(spe.nmds, main = "Shepard plot")
 
 - Construction du biplot
 
-```{r, eval = F}
+```{r, eval = FALSE}
 plot(spe.nmds, type = "none",
      main = paste("NMDS/Bray - Stress =",
                   round(spe.nmds$stress, 3)),
@@ -1630,4 +1642,4 @@ class: inverse, center, bottom
 
 # Merci pour votre participation à cet atelier!
 
-![:scale 50%](images/QCBS_logo.png)
+![:scale 50%](images/qcbs_logo.png)

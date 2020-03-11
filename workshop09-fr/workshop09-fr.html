@@ -23,9 +23,39 @@ class: center, middle, inverse, title-slide
 
 
 
+class: inverse, center, middle
+
+# À propos de cet atelier
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=repo&amp;message=dev&amp;color=6f42c1&amp;logo=github)](https://github.com/QCBSRworkshops/workshop09)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=wiki&amp;message=09&amp;logo=wikipedia)](https://wiki.qcbs.ca/r_atelier9)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Diapos&amp;message=09&amp;color=red&amp;logo=html5)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Diapos&amp;message=09&amp;color=red&amp;logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.pdf)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=script&amp;message=09&amp;color=2a50b8&amp;logo=r)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.R)
+
+---
+
+# Packages requis
+
+* [ape](https://cran.r-project.org/package=ape)
+* [gclus](https://cran.r-project.org/package=gclus)
+* [vegan](https://cran.r-project.org/package=vegan)
+
+&lt;br&gt;
+
+```R
+install.packages(c('ape', 'gclus', 'vegan'))
+```
 
 
+---
+# Objectifs d'apprentissage
 
+##### Utiliser R pour faire des ordinations sans contraintes
+
+#### Faire un dendrogramme avec R
+
+
+---
 
 class: inverse, center, middle
 
@@ -186,7 +216,7 @@ barplot(ab, las = 1, col = grey(5:0/5),
         xlab = "Abondance des classes", ylab = "Fréquence")
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-7-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-5-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 .alert[Notez la proportion de 0]
 
@@ -222,7 +252,7 @@ barplot(site.pre, main = "Richesse spécifique",
         col = "grey ", las = 1)
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # Comprenez vos données!
@@ -583,7 +613,7 @@ spe.dhe1.single &lt;- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-21-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-19-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -624,12 +654,12 @@ spe.dhel.ward$height &lt;- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-22-1.png" width="648" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-20-1.png" width="648" style="display: block; margin: auto;" /&gt;
 
 ---
 # Groupement de Ward
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-23-1.png" width="648" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-21-1.png" width="648" style="display: block; margin: auto;" /&gt;
 Les objets ont tendance à former des groupes plus sphériques et homogènes
 
 ---
@@ -1288,7 +1318,7 @@ legend("topright", "Valeur propore moyenne",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1411,7 +1441,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 # PCA - Illustration graphique
@@ -1425,7 +1455,7 @@ L'abondante information produite par une PCA est plus facile à comprendre et à
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-36-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-34-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # Biplot de PCA avec plot()
@@ -1456,7 +1486,7 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-37-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-35-1.png" width="324" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1508,7 +1538,7 @@ voir la fonction `arrows()` de  `graphics` pour ajouter des vecteurs
 ---
 # "Biplot" avancés
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-39-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-37-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # Autres options graphiques : `ggvegan`
@@ -1577,7 +1607,7 @@ legend("topright", "Valeur propre moyenne", lwd = 2, col = "red3", bty = "n")
 ---
 # Solution #3
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-43-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1589,7 +1619,7 @@ legend("topright", "Valeur propre moyenne", lwd = 2, col = "red3", bty = "n")
 biplot(mite.spe.h.pca, col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-46-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-44-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1831,7 +1861,7 @@ legend("topright", "Valeur propre moyenne", lwd = 2, col = red3, bty = "n")
 ---
 # Solution #4
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-52-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-50-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # 4.3. Analyse en Coordonnées Principales
@@ -1850,8 +1880,11 @@ legend("topright", "Valeur propre moyenne", lwd = 2, col = red3, bty = "n")
 - Les fonctions `cmdscale()` et `pcoa()`, des librairies **stats** et **ape** permettent d'effectuer une PCoA:
 
 
+
+
 ```r
 ?cmdscale
+library(ape)
 ?pcoa
 ```
 
@@ -1902,7 +1935,7 @@ La fonction `biplot.pcoa()` permet de visualiser en 2D les distances entre sites
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-55-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1934,7 +1967,7 @@ spe.bray.pcoa &lt;- pcoa(spe.db.pa, correction = "cailliez")
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-58-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-57-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 ---
 # Défi #5 ![:cube]()
@@ -1971,7 +2004,7 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-61-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-60-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2009,32 +2042,34 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477822 
-# Run 1 stress 0.08696417 
-# Run 2 stress 0.07506794 
-# ... Procrustes: rmse 0.01490762  max resid 0.06352955 
-# Run 3 stress 0.1125719 
-# Run 4 stress 0.07376289 
+# Run 1 stress 0.07376529 
 # ... New best solution
-# ... Procrustes: rmse 0.01938326  max resid 0.09469276 
-# Run 5 stress 0.07478724 
-# Run 6 stress 0.0884395 
-# Run 7 stress 0.1136959 
-# Run 8 stress 0.1282771 
-# Run 9 stress 0.1248538 
-# Run 10 stress 0.0747843 
-# Run 11 stress 0.1152517 
-# Run 12 stress 0.1216627 
-# Run 13 stress 0.08841669 
-# Run 14 stress 0.08841668 
-# Run 15 stress 0.07478862 
-# Run 16 stress 0.07376398 
-# ... Procrustes: rmse 0.0002307804  max resid 0.001108762 
+# ... Procrustes: rmse 0.01937592  max resid 0.09475612 
+# Run 2 stress 0.0750669 
+# Run 3 stress 0.07506713 
+# Run 4 stress 0.1205813 
+# Run 5 stress 0.07478047 
+# Run 6 stress 0.1208184 
+# Run 7 stress 0.08797367 
+# Run 8 stress 0.1224617 
+# Run 9 stress 0.1124366 
+# Run 10 stress 0.07383858 
+# ... Procrustes: rmse 0.003803093  max resid 0.01460363 
+# Run 11 stress 0.07376342 
+# ... New best solution
+# ... Procrustes: rmse 0.001341783  max resid 0.006458927 
 # ... Similar to previous best
-# Run 17 stress 0.111216 
-# Run 18 stress 0.07383991 
-# ... Procrustes: rmse 0.003826932  max resid 0.01493167 
-# Run 19 stress 0.1124411 
-# Run 20 stress 0.09290782 
+# Run 12 stress 0.07477886 
+# Run 13 stress 0.07506784 
+# Run 14 stress 0.1203768 
+# Run 15 stress 0.07376366 
+# ... Procrustes: rmse 0.001083407  max resid 0.005213604 
+# ... Similar to previous best
+# Run 16 stress 0.1205811 
+# Run 17 stress 0.0747841 
+# Run 18 stress 0.08892746 
+# Run 19 stress 0.0928842 
+# Run 20 stress 0.08901479 
 # *** Solution reached
 ```
 
@@ -2053,11 +2088,11 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376289
+# [1] 0.07376342
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
-&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-63-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-fr_files/figure-html/unnamed-chunk-62-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 # NMDS sur les données Poissons
@@ -2222,7 +2257,7 @@ class: inverse, center, bottom
 
 # Merci pour votre participation à cet atelier!
 
-![:scale 50%](images/QCBS_logo.png)
+![:scale 50%](images/qcbs_logo.png)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
