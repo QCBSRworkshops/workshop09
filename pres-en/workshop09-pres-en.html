@@ -2054,33 +2054,36 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477816 
-# Run 1 stress 0.08901468 
-# Run 2 stress 0.08841668 
-# Run 3 stress 0.09288416 
-# Run 4 stress 0.0750668 
-# ... Procrustes: rmse 0.0148289  max resid 0.06358054 
-# Run 5 stress 0.1152378 
-# Run 6 stress 0.120941 
-# Run 7 stress 0.1209556 
-# Run 8 stress 0.1234675 
-# Run 9 stress 0.09222737 
-# Run 10 stress 0.09290697 
-# Run 11 stress 0.1141841 
-# Run 12 stress 0.07506678 
-# ... Procrustes: rmse 0.01482539  max resid 0.0635821 
-# Run 13 stress 0.1119524 
-# Run 14 stress 0.09357322 
-# Run 15 stress 0.07376225 
+# Run 1 stress 0.1152378 
+# Run 2 stress 0.1133731 
+# Run 3 stress 0.08891911 
+# Run 4 stress 0.07477827 
+# ... Procrustes: rmse 5.565467e-05  max resid 0.0002580871 
+# ... Similar to previous best
+# Run 5 stress 0.1235187 
+# Run 6 stress 0.07376237 
 # ... New best solution
-# ... Procrustes: rmse 0.01940507  max resid 0.09463495 
-# Run 16 stress 0.08845297 
-# Run 17 stress 0.1250829 
-# Run 18 stress 0.120581 
-# Run 19 stress 0.1243015 
-# Run 20 stress 0.07477805 
-# *** No convergence -- monoMDS stopping criteria:
-#     19: stress ratio &gt; sratmax
-#      1: scale factor of the gradient &lt; sfgrmin
+# ... Procrustes: rmse 0.01941184  max resid 0.09463728 
+# Run 7 stress 0.1234441 
+# Run 8 stress 0.07376241 
+# ... Procrustes: rmse 0.0004308024  max resid 0.002072222 
+# ... Similar to previous best
+# Run 9 stress 0.1203765 
+# Run 10 stress 0.120581 
+# Run 11 stress 0.1111015 
+# Run 12 stress 0.1104318 
+# Run 13 stress 0.07477821 
+# Run 14 stress 0.1163619 
+# Run 15 stress 0.11257 
+# Run 16 stress 0.1144001 
+# Run 17 stress 0.07376228 
+# ... New best solution
+# ... Procrustes: rmse 0.0003576741  max resid 0.001720902 
+# ... Similar to previous best
+# Run 18 stress 0.07506681 
+# Run 19 stress 0.1112111 
+# Run 20 stress 0.1143508 
+# *** Solution reached
 ```
 
 
@@ -2100,7 +2103,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376225
+# [1] 0.07376228
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
