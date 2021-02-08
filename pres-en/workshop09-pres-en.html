@@ -2054,33 +2054,32 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477816 
-# Run 1 stress 0.1124388 
-# Run 2 stress 0.08696382 
-# Run 3 stress 0.0747783 
-# ... Procrustes: rmse 0.0004925398  max resid 0.00236368 
-# ... Similar to previous best
-# Run 4 stress 0.1219299 
-# Run 5 stress 0.08930119 
-# Run 6 stress 0.1250564 
-# Run 7 stress 0.1204795 
-# Run 8 stress 0.09290677 
-# Run 9 stress 0.08843925 
-# Run 10 stress 0.1223247 
-# Run 11 stress 0.1104317 
-# Run 12 stress 0.08841674 
-# Run 13 stress 0.1210348 
-# Run 14 stress 0.08917037 
-# Run 15 stress 0.1124306 
-# Run 16 stress 0.07506696 
-# ... Procrustes: rmse 0.01484536  max resid 0.06357 
-# Run 17 stress 0.1111092 
-# Run 18 stress 0.0880154 
-# Run 19 stress 0.1111093 
-# Run 20 stress 0.07376235 
+# Run 1 stress 0.1122611 
+# Run 2 stress 0.0893012 
+# Run 3 stress 0.07376225 
 # ... New best solution
-# ... Procrustes: rmse 0.01938842  max resid 0.09466644 
-# *** No convergence -- monoMDS stopping criteria:
-#     20: stress ratio &gt; sratmax
+# ... Procrustes: rmse 0.0194055  max resid 0.0946346 
+# Run 4 stress 0.07376224 
+# ... New best solution
+# ... Procrustes: rmse 6.307103e-06  max resid 2.102393e-05 
+# ... Similar to previous best
+# Run 5 stress 0.1218862 
+# Run 6 stress 0.07478423 
+# Run 7 stress 0.07506663 
+# Run 8 stress 0.1127484 
+# Run 9 stress 0.1159529 
+# Run 10 stress 0.1204795 
+# Run 11 stress 0.1152152 
+# Run 12 stress 0.1104321 
+# Run 13 stress 0.1124307 
+# Run 14 stress 0.09158506 
+# Run 15 stress 0.124006 
+# Run 16 stress 0.07429333 
+# Run 17 stress 0.1111017 
+# Run 18 stress 0.0892716 
+# Run 19 stress 0.07429333 
+# Run 20 stress 0.08696382 
+# *** Solution reached
 ```
 
 
@@ -2100,7 +2099,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376235
+# [1] 0.07376224
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
