@@ -203,10 +203,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Quantitative species data</strong> We can use the vegdist() function to
 compute dissimilarity indices for community composition data. These can
 then be visualized as a matrix if desired.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="quantifying-data-dissimilarity.html#cb12-1"></a>spe.db &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>)  <span class="co"># &#39;bray&#39; with presence-absence data is Sorensen dissimilarity </span></span>
-<span id="cb12-2"><a href="quantifying-data-dissimilarity.html#cb12-2"></a>spe.dj &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;jac&quot;</span>)  <span class="co"># Jaccard dissimilarity</span></span>
-<span id="cb12-3"><a href="quantifying-data-dissimilarity.html#cb12-3"></a>spe.dg &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;gower&quot;</span>)  <span class="co"># Gower dissimilarity </span></span>
-<span id="cb12-4"><a href="quantifying-data-dissimilarity.html#cb12-4"></a>spe.db &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spe.db)  <span class="co">#Put in matrix form (can visualize, write to .csv etc)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="quantifying-data-dissimilarity.html#cb11-1"></a>spe.db &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>)  <span class="co"># &#39;bray&#39; with presence-absence data is Sorensen dissimilarity </span></span>
+<span id="cb11-2"><a href="quantifying-data-dissimilarity.html#cb11-2"></a>spe.dj &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;jac&quot;</span>)  <span class="co"># Jaccard dissimilarity</span></span>
+<span id="cb11-3"><a href="quantifying-data-dissimilarity.html#cb11-3"></a>spe.dg &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;gower&quot;</span>)  <span class="co"># Gower dissimilarity </span></span>
+<span id="cb11-4"><a href="quantifying-data-dissimilarity.html#cb11-4"></a>spe.db &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spe.db)  <span class="co">#Put in matrix form (can visualize, write to .csv etc)</span></span></code></pre></div>
 <p>A condensed version of the spe.db matrix where the numbers represent the
 distance(dissimilarity) between the first 3 species in DoubsSpe would
 look like this:</p>
@@ -249,29 +249,29 @@ slightly different distance measures.</p>
 <p>You can also create graphical depictions of these association matrices
 using a function called coldiss. &lt;hidden&gt; This function can be sourced
 using the script coldiss.R:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="quantifying-data-dissimilarity.html#cb13-1"></a><span class="kw">windows</span>()</span>
-<span id="cb13-2"><a href="quantifying-data-dissimilarity.html#cb13-2"></a><span class="kw">coldiss</span>(spe.db, <span class="dt">byrank =</span> <span class="ot">FALSE</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>)  <span class="co"># Heat map of Bray-Curtis dissimilarity</span></span>
-<span id="cb13-3"><a href="quantifying-data-dissimilarity.html#cb13-3"></a><span class="kw">windows</span>()</span>
-<span id="cb13-4"><a href="quantifying-data-dissimilarity.html#cb13-4"></a><span class="kw">coldiss</span>(spe.dj, <span class="dt">byrank =</span> <span class="ot">FALSE</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>)  <span class="co"># Heat map of Jaccard dissimilarity</span></span>
-<span id="cb13-5"><a href="quantifying-data-dissimilarity.html#cb13-5"></a><span class="kw">windows</span>()</span>
-<span id="cb13-6"><a href="quantifying-data-dissimilarity.html#cb13-6"></a><span class="kw">coldiss</span>(spe.dg, <span class="dt">byrank =</span> <span class="ot">FALSE</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>)  <span class="co"># Heat map of Gower dissimilarity</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="quantifying-data-dissimilarity.html#cb12-1"></a><span class="kw">windows</span>()</span>
+<span id="cb12-2"><a href="quantifying-data-dissimilarity.html#cb12-2"></a><span class="kw">coldiss</span>(spe.db, <span class="dt">byrank =</span> <span class="ot">FALSE</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>)  <span class="co"># Heat map of Bray-Curtis dissimilarity</span></span>
+<span id="cb12-3"><a href="quantifying-data-dissimilarity.html#cb12-3"></a><span class="kw">windows</span>()</span>
+<span id="cb12-4"><a href="quantifying-data-dissimilarity.html#cb12-4"></a><span class="kw">coldiss</span>(spe.dj, <span class="dt">byrank =</span> <span class="ot">FALSE</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>)  <span class="co"># Heat map of Jaccard dissimilarity</span></span>
+<span id="cb12-5"><a href="quantifying-data-dissimilarity.html#cb12-5"></a><span class="kw">windows</span>()</span>
+<span id="cb12-6"><a href="quantifying-data-dissimilarity.html#cb12-6"></a><span class="kw">coldiss</span>(spe.dg, <span class="dt">byrank =</span> <span class="ot">FALSE</span>, <span class="dt">diag =</span> <span class="ot">TRUE</span>)  <span class="co"># Heat map of Gower dissimilarity</span></span></code></pre></div>
 <p><img src="/coldiss_Bray.png" width="800" /></p>
 <p>The figure shows a dissimilarity matrix which mirrors what you would see
 if you exported the matrix or viewed it within the R console. The ‘hot’
 colour (purple) shows areas of high dissimilarity. &lt;/hidden&gt;</p>
 <p><strong>Quantitative environmental data</strong> Let’s look at <em>associations</em> between
 environmental variables (also known as Q mode):</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="quantifying-data-dissimilarity.html#cb14-1"></a><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(dist  <span class="co"># this function also compute dissimilarity matrix</span></span>
-<span id="cb14-2"><a href="quantifying-data-dissimilarity.html#cb14-2"></a>)</span>
-<span id="cb14-3"><a href="quantifying-data-dissimilarity.html#cb14-3"></a>env.de &lt;-<span class="st"> </span><span class="kw">dist</span>(env.z, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co"># euclidean distance matrix of the standardized environmental variables </span></span>
-<span id="cb14-4"><a href="quantifying-data-dissimilarity.html#cb14-4"></a><span class="kw">windows</span>()  <span class="co">#Creates a separate graphical window</span></span>
-<span id="cb14-5"><a href="quantifying-data-dissimilarity.html#cb14-5"></a><span class="kw">coldiss</span>(env.de, <span class="dt">diag =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="quantifying-data-dissimilarity.html#cb13-1"></a><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(dist  <span class="co"># this function also compute dissimilarity matrix</span></span>
+<span id="cb13-2"><a href="quantifying-data-dissimilarity.html#cb13-2"></a>)</span>
+<span id="cb13-3"><a href="quantifying-data-dissimilarity.html#cb13-3"></a>env.de &lt;-<span class="st"> </span><span class="kw">dist</span>(env.z, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co"># euclidean distance matrix of the standardized environmental variables </span></span>
+<span id="cb13-4"><a href="quantifying-data-dissimilarity.html#cb13-4"></a><span class="kw">windows</span>()  <span class="co">#Creates a separate graphical window</span></span>
+<span id="cb13-5"><a href="quantifying-data-dissimilarity.html#cb13-5"></a><span class="kw">coldiss</span>(env.de, <span class="dt">diag =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>We can then look at the <em>dependence</em> between environmental variables
 (also known as R mode):</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="quantifying-data-dissimilarity.html#cb15-1"></a>(env.pearson &lt;-<span class="st"> </span><span class="kw">cor</span>(env))  <span class="co"># Pearson r linear correlation</span></span>
-<span id="cb15-2"><a href="quantifying-data-dissimilarity.html#cb15-2"></a><span class="kw">round</span>(env.pearson, <span class="dv">2</span>)  <span class="co">#Rounds the coefficients to 2 decimal points </span></span>
-<span id="cb15-3"><a href="quantifying-data-dissimilarity.html#cb15-3"></a>(env.ken &lt;-<span class="st"> </span><span class="kw">cor</span>(env, <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span>))  <span class="co"># Kendall tau rank correlation</span></span>
-<span id="cb15-4"><a href="quantifying-data-dissimilarity.html#cb15-4"></a><span class="kw">round</span>(env.ken, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="quantifying-data-dissimilarity.html#cb14-1"></a>(env.pearson &lt;-<span class="st"> </span><span class="kw">cor</span>(env))  <span class="co"># Pearson r linear correlation</span></span>
+<span id="cb14-2"><a href="quantifying-data-dissimilarity.html#cb14-2"></a><span class="kw">round</span>(env.pearson, <span class="dv">2</span>)  <span class="co">#Rounds the coefficients to 2 decimal points </span></span>
+<span id="cb14-3"><a href="quantifying-data-dissimilarity.html#cb14-3"></a>(env.ken &lt;-<span class="st"> </span><span class="kw">cor</span>(env, <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span>))  <span class="co"># Kendall tau rank correlation</span></span>
+<span id="cb14-4"><a href="quantifying-data-dissimilarity.html#cb14-4"></a><span class="kw">round</span>(env.ken, <span class="dv">2</span>)</span></code></pre></div>
 <p>The Pearson correlation measures the linear correlation between two
 variables. The Kendall tau is a rank correlation which means that it
 quantifies the relationship between two descriptors or variables when
@@ -279,19 +279,19 @@ the data are ordered within each variable.</p>
 <p>In some cases, there may be mixed types of environmental variables. Q
 mode can still be used to find associations between these environmental
 variables. We’ll do this by first creating an example dataframe:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="quantifying-data-dissimilarity.html#cb16-1"></a>var.g1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb16-2"><a href="quantifying-data-dissimilarity.html#cb16-2"></a>var.g2 &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb16-3"><a href="quantifying-data-dissimilarity.html#cb16-3"></a>var.g3 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)</span>
-<span id="cb16-4"><a href="quantifying-data-dissimilarity.html#cb16-4"></a>var.g4 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span>
-<span id="cb16-5"><a href="quantifying-data-dissimilarity.html#cb16-5"></a>(dat2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(var.g1, var.g2, var.g3, var.g4))</span>
-<span id="cb16-6"><a href="quantifying-data-dissimilarity.html#cb16-6"></a><span class="kw">str</span>(dat2)</span>
-<span id="cb16-7"><a href="quantifying-data-dissimilarity.html#cb16-7"></a><span class="kw">summary</span>(dat2)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="quantifying-data-dissimilarity.html#cb15-1"></a>var.g1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="quantifying-data-dissimilarity.html#cb15-2"></a>var.g2 &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb15-3"><a href="quantifying-data-dissimilarity.html#cb15-3"></a>var.g3 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)</span>
+<span id="cb15-4"><a href="quantifying-data-dissimilarity.html#cb15-4"></a>var.g4 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span>
+<span id="cb15-5"><a href="quantifying-data-dissimilarity.html#cb15-5"></a>(dat2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(var.g1, var.g2, var.g3, var.g4))</span>
+<span id="cb15-6"><a href="quantifying-data-dissimilarity.html#cb15-6"></a><span class="kw">str</span>(dat2)</span>
+<span id="cb15-7"><a href="quantifying-data-dissimilarity.html#cb15-7"></a><span class="kw">summary</span>(dat2)</span></code></pre></div>
 <p>A dissimilarity matrix can be generated for these mixed variables using
 the Gower dissimilarity matrix:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="quantifying-data-dissimilarity.html#cb17-1"></a><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(daisy  <span class="co">#This function can handle NAs in the data</span></span>
-<span id="cb17-2"><a href="quantifying-data-dissimilarity.html#cb17-2"></a>)</span>
-<span id="cb17-3"><a href="quantifying-data-dissimilarity.html#cb17-3"></a>(dat2.dg &lt;-<span class="st"> </span><span class="kw">daisy</span>(dat2, <span class="dt">metric =</span> <span class="st">&quot;gower&quot;</span>))</span>
-<span id="cb17-4"><a href="quantifying-data-dissimilarity.html#cb17-4"></a><span class="kw">coldiss</span>(dat2.dg)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="quantifying-data-dissimilarity.html#cb16-1"></a><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(daisy  <span class="co">#This function can handle NAs in the data</span></span>
+<span id="cb16-2"><a href="quantifying-data-dissimilarity.html#cb16-2"></a>)</span>
+<span id="cb16-3"><a href="quantifying-data-dissimilarity.html#cb16-3"></a>(dat2.dg &lt;-<span class="st"> </span><span class="kw">daisy</span>(dat2, <span class="dt">metric =</span> <span class="st">&quot;gower&quot;</span>))</span>
+<span id="cb16-4"><a href="quantifying-data-dissimilarity.html#cb16-4"></a><span class="kw">coldiss</span>(dat2.dg)</span></code></pre></div>
 <p><strong>Challenge 1 - Introductory</strong> Discuss with your neighbour: How can we
 tell how similar objects are when we have multivariate data? Make a list
 of all your suggestions.</p>
@@ -307,42 +307,42 @@ Bray-Curtis dissimilarity : d<span class="math display">\[jk\]</span> = (sum abs
 (x<span class="math display">\[ij\]</span>+x<span class="math display">\[ik\]</span>))</p>
 <p>Next, subset the species data so that only sites 1, 2 are included and
 only the species CHA, TRU and VAI</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="quantifying-data-dissimilarity.html#cb18-1"></a>spe.challenge &lt;-<span class="st"> </span>spe[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]  <span class="co">#”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="quantifying-data-dissimilarity.html#cb17-1"></a>spe.challenge &lt;-<span class="st"> </span>spe[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]  <span class="co">#”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)</span></span></code></pre></div>
 <p>Determine total species abundance for each site of interest (sum of the
 3 rows). This will be for the denominator in the above equation.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="quantifying-data-dissimilarity.html#cb19-1"></a>(Abund.s1 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, ]))</span>
-<span id="cb19-2"><a href="quantifying-data-dissimilarity.html#cb19-2"></a>(Abund.s2 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">2</span>, ]))</span>
-<span id="cb19-3"><a href="quantifying-data-dissimilarity.html#cb19-3"></a>(Abund.s3 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">3</span>, ]))</span>
-<span id="cb19-4"><a href="quantifying-data-dissimilarity.html#cb19-4"></a><span class="co"># () around code will cause output to print right away in</span></span>
-<span id="cb19-5"><a href="quantifying-data-dissimilarity.html#cb19-5"></a><span class="co"># console</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="quantifying-data-dissimilarity.html#cb18-1"></a>(Abund.s1 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, ]))</span>
+<span id="cb18-2"><a href="quantifying-data-dissimilarity.html#cb18-2"></a>(Abund.s2 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">2</span>, ]))</span>
+<span id="cb18-3"><a href="quantifying-data-dissimilarity.html#cb18-3"></a>(Abund.s3 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">3</span>, ]))</span>
+<span id="cb18-4"><a href="quantifying-data-dissimilarity.html#cb18-4"></a><span class="co"># () around code will cause output to print right away in</span></span>
+<span id="cb18-5"><a href="quantifying-data-dissimilarity.html#cb18-5"></a><span class="co"># console</span></span></code></pre></div>
 <p>Now calculate the difference in species abundances for each pair of
 sites. For example, what is the difference between the abundance of CHA
 and TRU in site 1? You need to calculate the following differences: CHA
 and TRU site 1 CHA and VAI site 1 TRU and VAI site 1 CHA and TRU site 2
 CHA and VAI site 2 TRU and VAI site 2 CHA and TRU site 3 CHA and VAI
 site 3 TRU and VAI site 3</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="quantifying-data-dissimilarity.html#cb20-1"></a>Spec.s1s2 &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb20-2"><a href="quantifying-data-dissimilarity.html#cb20-2"></a>Spec.s1s3 &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb20-3"><a href="quantifying-data-dissimilarity.html#cb20-3"></a>Spec.s2s3 &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb20-4"><a href="quantifying-data-dissimilarity.html#cb20-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
-<span id="cb20-5"><a href="quantifying-data-dissimilarity.html#cb20-5"></a>    Spec.s1s2 &lt;-<span class="st"> </span>Spec.s1s2 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, </span>
-<span id="cb20-6"><a href="quantifying-data-dissimilarity.html#cb20-6"></a>        i]))</span>
-<span id="cb20-7"><a href="quantifying-data-dissimilarity.html#cb20-7"></a>    Spec.s1s3 &lt;-<span class="st"> </span>Spec.s1s3 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, </span>
-<span id="cb20-8"><a href="quantifying-data-dissimilarity.html#cb20-8"></a>        i]))</span>
-<span id="cb20-9"><a href="quantifying-data-dissimilarity.html#cb20-9"></a>    Spec.s2s3 &lt;-<span class="st"> </span>Spec.s2s3 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">2</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, </span>
-<span id="cb20-10"><a href="quantifying-data-dissimilarity.html#cb20-10"></a>        i]))</span>
-<span id="cb20-11"><a href="quantifying-data-dissimilarity.html#cb20-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="quantifying-data-dissimilarity.html#cb19-1"></a>Spec.s1s2 &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb19-2"><a href="quantifying-data-dissimilarity.html#cb19-2"></a>Spec.s1s3 &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb19-3"><a href="quantifying-data-dissimilarity.html#cb19-3"></a>Spec.s2s3 &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb19-4"><a href="quantifying-data-dissimilarity.html#cb19-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
+<span id="cb19-5"><a href="quantifying-data-dissimilarity.html#cb19-5"></a>    Spec.s1s2 &lt;-<span class="st"> </span>Spec.s1s2 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, </span>
+<span id="cb19-6"><a href="quantifying-data-dissimilarity.html#cb19-6"></a>        i]))</span>
+<span id="cb19-7"><a href="quantifying-data-dissimilarity.html#cb19-7"></a>    Spec.s1s3 &lt;-<span class="st"> </span>Spec.s1s3 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, </span>
+<span id="cb19-8"><a href="quantifying-data-dissimilarity.html#cb19-8"></a>        i]))</span>
+<span id="cb19-9"><a href="quantifying-data-dissimilarity.html#cb19-9"></a>    Spec.s2s3 &lt;-<span class="st"> </span>Spec.s2s3 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">2</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, </span>
+<span id="cb19-10"><a href="quantifying-data-dissimilarity.html#cb19-10"></a>        i]))</span>
+<span id="cb19-11"><a href="quantifying-data-dissimilarity.html#cb19-11"></a>}</span></code></pre></div>
 <p>Now take the differences you have calculated as the numerator in the
 equation for Bray-Curtis dissimilarity and the total species abundance
 that you already calculated as the denominator.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="quantifying-data-dissimilarity.html#cb21-1"></a>(db.s1s2 &lt;-<span class="st"> </span>Spec.s1s2<span class="op">/</span>(Abund.s1 <span class="op">+</span><span class="st"> </span>Abund.s2))  <span class="co">#Site 1 compared to site 2</span></span>
-<span id="cb21-2"><a href="quantifying-data-dissimilarity.html#cb21-2"></a>(db.s1s3 &lt;-<span class="st"> </span>Spec.s1s3<span class="op">/</span>(Abund.s1 <span class="op">+</span><span class="st"> </span>Abund.s3))  <span class="co">#Site 1 compared to site 3</span></span>
-<span id="cb21-3"><a href="quantifying-data-dissimilarity.html#cb21-3"></a>(db.s2s3 &lt;-<span class="st"> </span>Spec.s2s3<span class="op">/</span>(Abund.s2 <span class="op">+</span><span class="st"> </span>Abund.s3))  <span class="co">#Site 2 compared to site 3 </span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="quantifying-data-dissimilarity.html#cb20-1"></a>(db.s1s2 &lt;-<span class="st"> </span>Spec.s1s2<span class="op">/</span>(Abund.s1 <span class="op">+</span><span class="st"> </span>Abund.s2))  <span class="co">#Site 1 compared to site 2</span></span>
+<span id="cb20-2"><a href="quantifying-data-dissimilarity.html#cb20-2"></a>(db.s1s3 &lt;-<span class="st"> </span>Spec.s1s3<span class="op">/</span>(Abund.s1 <span class="op">+</span><span class="st"> </span>Abund.s3))  <span class="co">#Site 1 compared to site 3</span></span>
+<span id="cb20-3"><a href="quantifying-data-dissimilarity.html#cb20-3"></a>(db.s2s3 &lt;-<span class="st"> </span>Spec.s2s3<span class="op">/</span>(Abund.s2 <span class="op">+</span><span class="st"> </span>Abund.s3))  <span class="co">#Site 2 compared to site 3 </span></span></code></pre></div>
 <p>You should find values of 0.5 for site 1 to site 2, 0.538 for site 1 to
 site 3 and 0.053 for site 2 to 3.</p>
 <p>Check your manual results with what you would find using the function
 vegdist() with the Bray-Curtis method:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="quantifying-data-dissimilarity.html#cb22-1"></a>(spe.db.challenge &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.challenge, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="quantifying-data-dissimilarity.html#cb21-1"></a>(spe.db.challenge &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.challenge, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>))</span></code></pre></div>
 <p>A matrix looking like this is produced, which should be the same as your
 manual calculations:</p>
 <table>
@@ -369,92 +369,92 @@ manual calculations:</p>
 <p>For the Gower dissimilarity, proceed in the same way but use the
 appropriate equation: Gower dissimilarity : d<span class="math display">\[jk\]</span> = (1/M)
 sum(abs(x<span class="math display">\[ij\]</span>-x<span class="math display">\[ik\]</span>)/(max(x<span class="math display">\[i\]</span>)-min(x<span class="math display">\[i\]</span>)))</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="quantifying-data-dissimilarity.html#cb23-1"></a><span class="co"># Calculate the number of columns in your dataset</span></span>
-<span id="cb23-2"><a href="quantifying-data-dissimilarity.html#cb23-2"></a>M &lt;-<span class="st"> </span><span class="kw">ncol</span>(spe.challenge)</span>
-<span id="cb23-3"><a href="quantifying-data-dissimilarity.html#cb23-3"></a></span>
-<span id="cb23-4"><a href="quantifying-data-dissimilarity.html#cb23-4"></a><span class="co"># Calculate the species abundance differences between pairs</span></span>
-<span id="cb23-5"><a href="quantifying-data-dissimilarity.html#cb23-5"></a><span class="co"># of sites for each species</span></span>
-<span id="cb23-6"><a href="quantifying-data-dissimilarity.html#cb23-6"></a>Spe1.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>])</span>
-<span id="cb23-7"><a href="quantifying-data-dissimilarity.html#cb23-7"></a>Spe2.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>])</span>
-<span id="cb23-8"><a href="quantifying-data-dissimilarity.html#cb23-8"></a>Spe3.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>])</span>
-<span id="cb23-9"><a href="quantifying-data-dissimilarity.html#cb23-9"></a>Spe1.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
-<span id="cb23-10"><a href="quantifying-data-dissimilarity.html#cb23-10"></a>Spe2.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
-<span id="cb23-11"><a href="quantifying-data-dissimilarity.html#cb23-11"></a>Spe3.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
-<span id="cb23-12"><a href="quantifying-data-dissimilarity.html#cb23-12"></a>Spe1.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
-<span id="cb23-13"><a href="quantifying-data-dissimilarity.html#cb23-13"></a>Spe2.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
-<span id="cb23-14"><a href="quantifying-data-dissimilarity.html#cb23-14"></a>Spe3.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
-<span id="cb23-15"><a href="quantifying-data-dissimilarity.html#cb23-15"></a></span>
-<span id="cb23-16"><a href="quantifying-data-dissimilarity.html#cb23-16"></a><span class="co"># Calculate the range of each species abundance between sites</span></span>
-<span id="cb23-17"><a href="quantifying-data-dissimilarity.html#cb23-17"></a>Range.spe1 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">1</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">1</span>])</span>
-<span id="cb23-18"><a href="quantifying-data-dissimilarity.html#cb23-18"></a>Range.spe2 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">2</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">2</span>])</span>
-<span id="cb23-19"><a href="quantifying-data-dissimilarity.html#cb23-19"></a>Range.spe3 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">3</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">3</span>])</span>
-<span id="cb23-20"><a href="quantifying-data-dissimilarity.html#cb23-20"></a></span>
-<span id="cb23-21"><a href="quantifying-data-dissimilarity.html#cb23-21"></a><span class="co"># Calculate the Gower dissimilarity</span></span>
-<span id="cb23-22"><a href="quantifying-data-dissimilarity.html#cb23-22"></a>(dg.s1s2 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s1s2<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s1s2<span class="op">/</span>Range.spe3)))</span>
-<span id="cb23-23"><a href="quantifying-data-dissimilarity.html#cb23-23"></a>(dg.s1s3 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s1s3<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s1s3<span class="op">/</span>Range.spe3)))</span>
-<span id="cb23-24"><a href="quantifying-data-dissimilarity.html#cb23-24"></a>(dg.s2s3 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s2s3<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s2s3<span class="op">/</span>Range.spe3)))</span>
-<span id="cb23-25"><a href="quantifying-data-dissimilarity.html#cb23-25"></a></span>
-<span id="cb23-26"><a href="quantifying-data-dissimilarity.html#cb23-26"></a><span class="co"># Compare your results</span></span>
-<span id="cb23-27"><a href="quantifying-data-dissimilarity.html#cb23-27"></a>(spe.db.challenge &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.challenge, <span class="dt">method =</span> <span class="st">&quot;gower&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="quantifying-data-dissimilarity.html#cb22-1"></a><span class="co"># Calculate the number of columns in your dataset</span></span>
+<span id="cb22-2"><a href="quantifying-data-dissimilarity.html#cb22-2"></a>M &lt;-<span class="st"> </span><span class="kw">ncol</span>(spe.challenge)</span>
+<span id="cb22-3"><a href="quantifying-data-dissimilarity.html#cb22-3"></a></span>
+<span id="cb22-4"><a href="quantifying-data-dissimilarity.html#cb22-4"></a><span class="co"># Calculate the species abundance differences between pairs</span></span>
+<span id="cb22-5"><a href="quantifying-data-dissimilarity.html#cb22-5"></a><span class="co"># of sites for each species</span></span>
+<span id="cb22-6"><a href="quantifying-data-dissimilarity.html#cb22-6"></a>Spe1.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>])</span>
+<span id="cb22-7"><a href="quantifying-data-dissimilarity.html#cb22-7"></a>Spe2.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>])</span>
+<span id="cb22-8"><a href="quantifying-data-dissimilarity.html#cb22-8"></a>Spe3.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb22-9"><a href="quantifying-data-dissimilarity.html#cb22-9"></a>Spe1.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
+<span id="cb22-10"><a href="quantifying-data-dissimilarity.html#cb22-10"></a>Spe2.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
+<span id="cb22-11"><a href="quantifying-data-dissimilarity.html#cb22-11"></a>Spe3.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
+<span id="cb22-12"><a href="quantifying-data-dissimilarity.html#cb22-12"></a>Spe1.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
+<span id="cb22-13"><a href="quantifying-data-dissimilarity.html#cb22-13"></a>Spe2.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
+<span id="cb22-14"><a href="quantifying-data-dissimilarity.html#cb22-14"></a>Spe3.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
+<span id="cb22-15"><a href="quantifying-data-dissimilarity.html#cb22-15"></a></span>
+<span id="cb22-16"><a href="quantifying-data-dissimilarity.html#cb22-16"></a><span class="co"># Calculate the range of each species abundance between sites</span></span>
+<span id="cb22-17"><a href="quantifying-data-dissimilarity.html#cb22-17"></a>Range.spe1 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">1</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">1</span>])</span>
+<span id="cb22-18"><a href="quantifying-data-dissimilarity.html#cb22-18"></a>Range.spe2 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">2</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">2</span>])</span>
+<span id="cb22-19"><a href="quantifying-data-dissimilarity.html#cb22-19"></a>Range.spe3 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">3</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">3</span>])</span>
+<span id="cb22-20"><a href="quantifying-data-dissimilarity.html#cb22-20"></a></span>
+<span id="cb22-21"><a href="quantifying-data-dissimilarity.html#cb22-21"></a><span class="co"># Calculate the Gower dissimilarity</span></span>
+<span id="cb22-22"><a href="quantifying-data-dissimilarity.html#cb22-22"></a>(dg.s1s2 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s1s2<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s1s2<span class="op">/</span>Range.spe3)))</span>
+<span id="cb22-23"><a href="quantifying-data-dissimilarity.html#cb22-23"></a>(dg.s1s3 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s1s3<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s1s3<span class="op">/</span>Range.spe3)))</span>
+<span id="cb22-24"><a href="quantifying-data-dissimilarity.html#cb22-24"></a>(dg.s2s3 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s2s3<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s2s3<span class="op">/</span>Range.spe3)))</span>
+<span id="cb22-25"><a href="quantifying-data-dissimilarity.html#cb22-25"></a></span>
+<span id="cb22-26"><a href="quantifying-data-dissimilarity.html#cb22-26"></a><span class="co"># Compare your results</span></span>
+<span id="cb22-27"><a href="quantifying-data-dissimilarity.html#cb22-27"></a>(spe.db.challenge &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.challenge, <span class="dt">method =</span> <span class="st">&quot;gower&quot;</span>))</span></code></pre></div>
 <div id="transformations-of-community-composition-data" class="section level2">
 <h2><span class="header-section-number">6.1</span> Transformations of community composition data</h2>
 <p>Sometimes species/community data may also need to be standardized or
 transformed. The decostand() function in vegan provides standardization
 and transformation options for community composition data.</p>
 <p>Transforming abundance or count data to presence-absence data:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="quantifying-data-dissimilarity.html#cb24-1"></a>spe.pa &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;pa&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="quantifying-data-dissimilarity.html#cb23-1"></a>spe.pa &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;pa&quot;</span>)</span></code></pre></div>
 <p>Other transformations can be used to correct for the influence of rare
 species, e.g. the Hellinger transformation:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="quantifying-data-dissimilarity.html#cb25-1"></a><span class="co"># Hellinger transformation</span></span>
-<span id="cb25-2"><a href="quantifying-data-dissimilarity.html#cb25-2"></a>spe.hel &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;hellinger&quot;</span>)  <span class="co">#can also use method=”hell”</span></span>
-<span id="cb25-3"><a href="quantifying-data-dissimilarity.html#cb25-3"></a></span>
-<span id="cb25-4"><a href="quantifying-data-dissimilarity.html#cb25-4"></a><span class="co"># Chi-square transformation</span></span>
-<span id="cb25-5"><a href="quantifying-data-dissimilarity.html#cb25-5"></a>spe.chi &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;chi.square&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="quantifying-data-dissimilarity.html#cb24-1"></a><span class="co"># Hellinger transformation</span></span>
+<span id="cb24-2"><a href="quantifying-data-dissimilarity.html#cb24-2"></a>spe.hel &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;hellinger&quot;</span>)  <span class="co">#can also use method=”hell”</span></span>
+<span id="cb24-3"><a href="quantifying-data-dissimilarity.html#cb24-3"></a></span>
+<span id="cb24-4"><a href="quantifying-data-dissimilarity.html#cb24-4"></a><span class="co"># Chi-square transformation</span></span>
+<span id="cb24-5"><a href="quantifying-data-dissimilarity.html#cb24-5"></a>spe.chi &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;chi.square&quot;</span>)</span></code></pre></div>
 <p><strong>Optional Challenge 2 - Advanced</strong> Produce Hellinger and Chi-square
 transformed abundance data for the “spe” data without using decostand().</p>
 <p><strong>Optional Challenge 2 - Advanced Solution</strong> &lt;hidden&gt; The Hellinger
 transformation is a transformation that down-weights the importance
 given to rare species in a sample.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="quantifying-data-dissimilarity.html#cb26-1"></a><span class="co"># Hellinger transformation First calculate the total species</span></span>
-<span id="cb26-2"><a href="quantifying-data-dissimilarity.html#cb26-2"></a><span class="co"># abundances by site</span></span>
-<span id="cb26-3"><a href="quantifying-data-dissimilarity.html#cb26-3"></a>(<span class="dt">site.totals =</span> <span class="kw">apply</span>(spe, <span class="dv">1</span>, sum))</span>
-<span id="cb26-4"><a href="quantifying-data-dissimilarity.html#cb26-4"></a></span>
-<span id="cb26-5"><a href="quantifying-data-dissimilarity.html#cb26-5"></a><span class="co"># Scale species abundances by dividing them by site totals</span></span>
-<span id="cb26-6"><a href="quantifying-data-dissimilarity.html#cb26-6"></a>(scale.spe &lt;-<span class="st"> </span>spe<span class="op">/</span>site.totals)</span>
-<span id="cb26-7"><a href="quantifying-data-dissimilarity.html#cb26-7"></a></span>
-<span id="cb26-8"><a href="quantifying-data-dissimilarity.html#cb26-8"></a><span class="co"># Calculate the square root of scaled species abundances</span></span>
-<span id="cb26-9"><a href="quantifying-data-dissimilarity.html#cb26-9"></a>(sqrt.scale.spe &lt;-<span class="st"> </span><span class="kw">sqrt</span>(scale.spe))</span>
-<span id="cb26-10"><a href="quantifying-data-dissimilarity.html#cb26-10"></a></span>
-<span id="cb26-11"><a href="quantifying-data-dissimilarity.html#cb26-11"></a><span class="co"># Compare the results</span></span>
-<span id="cb26-12"><a href="quantifying-data-dissimilarity.html#cb26-12"></a>sqrt.scale.spe</span>
-<span id="cb26-13"><a href="quantifying-data-dissimilarity.html#cb26-13"></a>spe.hel</span>
-<span id="cb26-14"><a href="quantifying-data-dissimilarity.html#cb26-14"></a>sqrt.scale.spe <span class="op">-</span><span class="st"> </span>spe.hel  <span class="co"># or: sqrt.scale.spe/spe.hel</span></span>
-<span id="cb26-15"><a href="quantifying-data-dissimilarity.html#cb26-15"></a></span>
-<span id="cb26-16"><a href="quantifying-data-dissimilarity.html#cb26-16"></a><span class="co"># Chi-square transformation First calculate the total species</span></span>
-<span id="cb26-17"><a href="quantifying-data-dissimilarity.html#cb26-17"></a><span class="co"># abundances by site</span></span>
-<span id="cb26-18"><a href="quantifying-data-dissimilarity.html#cb26-18"></a>(site.totals &lt;-<span class="st"> </span><span class="kw">apply</span>(spe, <span class="dv">1</span>, sum))</span>
-<span id="cb26-19"><a href="quantifying-data-dissimilarity.html#cb26-19"></a></span>
-<span id="cb26-20"><a href="quantifying-data-dissimilarity.html#cb26-20"></a><span class="co"># Then calculate the square root of total species abundances</span></span>
-<span id="cb26-21"><a href="quantifying-data-dissimilarity.html#cb26-21"></a>(sqrt.spe.totals &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">apply</span>(spe, <span class="dv">2</span>, sum)))</span>
-<span id="cb26-22"><a href="quantifying-data-dissimilarity.html#cb26-22"></a></span>
-<span id="cb26-23"><a href="quantifying-data-dissimilarity.html#cb26-23"></a><span class="co"># Scale species abundances by dividing them by the site</span></span>
-<span id="cb26-24"><a href="quantifying-data-dissimilarity.html#cb26-24"></a><span class="co"># totals and the species totals</span></span>
-<span id="cb26-25"><a href="quantifying-data-dissimilarity.html#cb26-25"></a>scale.spe2 &lt;-<span class="st"> </span>spe</span>
-<span id="cb26-26"><a href="quantifying-data-dissimilarity.html#cb26-26"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(spe)) {</span>
-<span id="cb26-27"><a href="quantifying-data-dissimilarity.html#cb26-27"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(spe)) {</span>
-<span id="cb26-28"><a href="quantifying-data-dissimilarity.html#cb26-28"></a>        (scale.spe2[i, j] =<span class="st"> </span>scale.spe2[i, j]<span class="op">/</span>(site.totals[i] <span class="op">*</span><span class="st"> </span></span>
-<span id="cb26-29"><a href="quantifying-data-dissimilarity.html#cb26-29"></a><span class="st">            </span>sqrt.spe.totals[j]))</span>
-<span id="cb26-30"><a href="quantifying-data-dissimilarity.html#cb26-30"></a>    }</span>
-<span id="cb26-31"><a href="quantifying-data-dissimilarity.html#cb26-31"></a>}</span>
-<span id="cb26-32"><a href="quantifying-data-dissimilarity.html#cb26-32"></a></span>
-<span id="cb26-33"><a href="quantifying-data-dissimilarity.html#cb26-33"></a><span class="co"># Adjust the scale abundance species by multiplying by the</span></span>
-<span id="cb26-34"><a href="quantifying-data-dissimilarity.html#cb26-34"></a><span class="co"># square root of the species matrix total</span></span>
-<span id="cb26-35"><a href="quantifying-data-dissimilarity.html#cb26-35"></a>(adjust.scale.spe2 &lt;-<span class="st"> </span>scale.spe2 <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>(<span class="kw">rowSums</span>(spe))))</span>
-<span id="cb26-36"><a href="quantifying-data-dissimilarity.html#cb26-36"></a></span>
-<span id="cb26-37"><a href="quantifying-data-dissimilarity.html#cb26-37"></a><span class="co"># Compare the results</span></span>
-<span id="cb26-38"><a href="quantifying-data-dissimilarity.html#cb26-38"></a>adjust.scale.spe2</span>
-<span id="cb26-39"><a href="quantifying-data-dissimilarity.html#cb26-39"></a>spe.chi</span>
-<span id="cb26-40"><a href="quantifying-data-dissimilarity.html#cb26-40"></a>adjust.scale.spe2 <span class="op">-</span><span class="st"> </span>spe.chi  <span class="co"># or: adjust.scale.spe2/spe.chi</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="quantifying-data-dissimilarity.html#cb25-1"></a><span class="co"># Hellinger transformation First calculate the total species</span></span>
+<span id="cb25-2"><a href="quantifying-data-dissimilarity.html#cb25-2"></a><span class="co"># abundances by site</span></span>
+<span id="cb25-3"><a href="quantifying-data-dissimilarity.html#cb25-3"></a>(<span class="dt">site.totals =</span> <span class="kw">apply</span>(spe, <span class="dv">1</span>, sum))</span>
+<span id="cb25-4"><a href="quantifying-data-dissimilarity.html#cb25-4"></a></span>
+<span id="cb25-5"><a href="quantifying-data-dissimilarity.html#cb25-5"></a><span class="co"># Scale species abundances by dividing them by site totals</span></span>
+<span id="cb25-6"><a href="quantifying-data-dissimilarity.html#cb25-6"></a>(scale.spe &lt;-<span class="st"> </span>spe<span class="op">/</span>site.totals)</span>
+<span id="cb25-7"><a href="quantifying-data-dissimilarity.html#cb25-7"></a></span>
+<span id="cb25-8"><a href="quantifying-data-dissimilarity.html#cb25-8"></a><span class="co"># Calculate the square root of scaled species abundances</span></span>
+<span id="cb25-9"><a href="quantifying-data-dissimilarity.html#cb25-9"></a>(sqrt.scale.spe &lt;-<span class="st"> </span><span class="kw">sqrt</span>(scale.spe))</span>
+<span id="cb25-10"><a href="quantifying-data-dissimilarity.html#cb25-10"></a></span>
+<span id="cb25-11"><a href="quantifying-data-dissimilarity.html#cb25-11"></a><span class="co"># Compare the results</span></span>
+<span id="cb25-12"><a href="quantifying-data-dissimilarity.html#cb25-12"></a>sqrt.scale.spe</span>
+<span id="cb25-13"><a href="quantifying-data-dissimilarity.html#cb25-13"></a>spe.hel</span>
+<span id="cb25-14"><a href="quantifying-data-dissimilarity.html#cb25-14"></a>sqrt.scale.spe <span class="op">-</span><span class="st"> </span>spe.hel  <span class="co"># or: sqrt.scale.spe/spe.hel</span></span>
+<span id="cb25-15"><a href="quantifying-data-dissimilarity.html#cb25-15"></a></span>
+<span id="cb25-16"><a href="quantifying-data-dissimilarity.html#cb25-16"></a><span class="co"># Chi-square transformation First calculate the total species</span></span>
+<span id="cb25-17"><a href="quantifying-data-dissimilarity.html#cb25-17"></a><span class="co"># abundances by site</span></span>
+<span id="cb25-18"><a href="quantifying-data-dissimilarity.html#cb25-18"></a>(site.totals &lt;-<span class="st"> </span><span class="kw">apply</span>(spe, <span class="dv">1</span>, sum))</span>
+<span id="cb25-19"><a href="quantifying-data-dissimilarity.html#cb25-19"></a></span>
+<span id="cb25-20"><a href="quantifying-data-dissimilarity.html#cb25-20"></a><span class="co"># Then calculate the square root of total species abundances</span></span>
+<span id="cb25-21"><a href="quantifying-data-dissimilarity.html#cb25-21"></a>(sqrt.spe.totals &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">apply</span>(spe, <span class="dv">2</span>, sum)))</span>
+<span id="cb25-22"><a href="quantifying-data-dissimilarity.html#cb25-22"></a></span>
+<span id="cb25-23"><a href="quantifying-data-dissimilarity.html#cb25-23"></a><span class="co"># Scale species abundances by dividing them by the site</span></span>
+<span id="cb25-24"><a href="quantifying-data-dissimilarity.html#cb25-24"></a><span class="co"># totals and the species totals</span></span>
+<span id="cb25-25"><a href="quantifying-data-dissimilarity.html#cb25-25"></a>scale.spe2 &lt;-<span class="st"> </span>spe</span>
+<span id="cb25-26"><a href="quantifying-data-dissimilarity.html#cb25-26"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(spe)) {</span>
+<span id="cb25-27"><a href="quantifying-data-dissimilarity.html#cb25-27"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(spe)) {</span>
+<span id="cb25-28"><a href="quantifying-data-dissimilarity.html#cb25-28"></a>        (scale.spe2[i, j] =<span class="st"> </span>scale.spe2[i, j]<span class="op">/</span>(site.totals[i] <span class="op">*</span><span class="st"> </span></span>
+<span id="cb25-29"><a href="quantifying-data-dissimilarity.html#cb25-29"></a><span class="st">            </span>sqrt.spe.totals[j]))</span>
+<span id="cb25-30"><a href="quantifying-data-dissimilarity.html#cb25-30"></a>    }</span>
+<span id="cb25-31"><a href="quantifying-data-dissimilarity.html#cb25-31"></a>}</span>
+<span id="cb25-32"><a href="quantifying-data-dissimilarity.html#cb25-32"></a></span>
+<span id="cb25-33"><a href="quantifying-data-dissimilarity.html#cb25-33"></a><span class="co"># Adjust the scale abundance species by multiplying by the</span></span>
+<span id="cb25-34"><a href="quantifying-data-dissimilarity.html#cb25-34"></a><span class="co"># square root of the species matrix total</span></span>
+<span id="cb25-35"><a href="quantifying-data-dissimilarity.html#cb25-35"></a>(adjust.scale.spe2 &lt;-<span class="st"> </span>scale.spe2 <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(<span class="kw">sum</span>(<span class="kw">rowSums</span>(spe))))</span>
+<span id="cb25-36"><a href="quantifying-data-dissimilarity.html#cb25-36"></a></span>
+<span id="cb25-37"><a href="quantifying-data-dissimilarity.html#cb25-37"></a><span class="co"># Compare the results</span></span>
+<span id="cb25-38"><a href="quantifying-data-dissimilarity.html#cb25-38"></a>adjust.scale.spe2</span>
+<span id="cb25-39"><a href="quantifying-data-dissimilarity.html#cb25-39"></a>spe.chi</span>
+<span id="cb25-40"><a href="quantifying-data-dissimilarity.html#cb25-40"></a>adjust.scale.spe2 <span class="op">-</span><span class="st"> </span>spe.chi  <span class="co"># or: adjust.scale.spe2/spe.chi</span></span></code></pre></div>
 </div>
 </div>
 <hr>

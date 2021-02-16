@@ -223,19 +223,19 @@ species have been observed over a set of quadrats, then a approach based
 on a PCoA using Bray-Curtis similarity (see below) may be best suited.</p>
 <p>Run a PCoA on the Hellinger transformed species abundances (back to
 DoubsSpe):</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="principal-coordinates-analysis.html#cb47-1"></a><span class="co">#Using cmdscale()</span></span>
-<span id="cb47-2"><a href="principal-coordinates-analysis.html#cb47-2"></a>?cmdscale</span>
-<span id="cb47-3"><a href="principal-coordinates-analysis.html#cb47-3"></a><span class="kw">cmdscale</span>(<span class="kw">dist</span>(spe.hel), <span class="dt">k=</span>(<span class="kw">nrow</span>(spe)<span class="op">-</span><span class="dv">1</span>), <span class="dt">eig=</span><span class="ot">TRUE</span>)</span>
-<span id="cb47-4"><a href="principal-coordinates-analysis.html#cb47-4"></a></span>
-<span id="cb47-5"><a href="principal-coordinates-analysis.html#cb47-5"></a><span class="co">#Using pcoa()</span></span>
-<span id="cb47-6"><a href="principal-coordinates-analysis.html#cb47-6"></a>?pcoa</span>
-<span id="cb47-7"><a href="principal-coordinates-analysis.html#cb47-7"></a>spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(spe.hel))</span>
-<span id="cb47-8"><a href="principal-coordinates-analysis.html#cb47-8"></a></span>
-<span id="cb47-9"><a href="principal-coordinates-analysis.html#cb47-9"></a><span class="co"># Extract the results</span></span>
-<span id="cb47-10"><a href="principal-coordinates-analysis.html#cb47-10"></a>spe.h.pcoa </span>
-<span id="cb47-11"><a href="principal-coordinates-analysis.html#cb47-11"></a></span>
-<span id="cb47-12"><a href="principal-coordinates-analysis.html#cb47-12"></a><span class="co">#Construct the biplot</span></span>
-<span id="cb47-13"><a href="principal-coordinates-analysis.html#cb47-13"></a><span class="kw">biplot.pcoa</span>(spe .h.pcoa, spe.hel, <span class="dt">dir.axis2=</span><span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="principal-coordinates-analysis.html#cb46-1"></a><span class="co">#Using cmdscale()</span></span>
+<span id="cb46-2"><a href="principal-coordinates-analysis.html#cb46-2"></a>?cmdscale</span>
+<span id="cb46-3"><a href="principal-coordinates-analysis.html#cb46-3"></a><span class="kw">cmdscale</span>(<span class="kw">dist</span>(spe.hel), <span class="dt">k=</span>(<span class="kw">nrow</span>(spe)<span class="op">-</span><span class="dv">1</span>), <span class="dt">eig=</span><span class="ot">TRUE</span>)</span>
+<span id="cb46-4"><a href="principal-coordinates-analysis.html#cb46-4"></a></span>
+<span id="cb46-5"><a href="principal-coordinates-analysis.html#cb46-5"></a><span class="co">#Using pcoa()</span></span>
+<span id="cb46-6"><a href="principal-coordinates-analysis.html#cb46-6"></a>?pcoa</span>
+<span id="cb46-7"><a href="principal-coordinates-analysis.html#cb46-7"></a>spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(spe.hel))</span>
+<span id="cb46-8"><a href="principal-coordinates-analysis.html#cb46-8"></a></span>
+<span id="cb46-9"><a href="principal-coordinates-analysis.html#cb46-9"></a><span class="co"># Extract the results</span></span>
+<span id="cb46-10"><a href="principal-coordinates-analysis.html#cb46-10"></a>spe.h.pcoa </span>
+<span id="cb46-11"><a href="principal-coordinates-analysis.html#cb46-11"></a></span>
+<span id="cb46-12"><a href="principal-coordinates-analysis.html#cb46-12"></a><span class="co">#Construct the biplot</span></span>
+<span id="cb46-13"><a href="principal-coordinates-analysis.html#cb46-13"></a><span class="kw">biplot.pcoa</span>(spe .h.pcoa, spe.hel, <span class="dt">dir.axis2=</span><span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p>The output looks like this (and here
 <a href="https://www.youtube.com/watch?v=lRdX1qhI7Dw">here</a> is a video that
 might help with the explanation of eigenvalues in terms of ordination):</p>
@@ -245,21 +245,21 @@ might help with the explanation of eigenvalues in terms of ordination):</p>
 <p><img src="/pcoa_spe.png" width="500" /></p>
 <p>You can also run a PCoA using a different distance measure (e.g.
 Bray-Curtis). Here is a PCoA run on a Bray-Curtis dissimilarity matrix:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="principal-coordinates-analysis.html#cb48-1"></a>spe.bray.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(spe.db)  <span class="co">#where spe.db is the species dissimilarity matrix using Bray-Curtis. </span></span>
-<span id="cb48-2"><a href="principal-coordinates-analysis.html#cb48-2"></a>spe.bray.pcoa</span>
-<span id="cb48-3"><a href="principal-coordinates-analysis.html#cb48-3"></a><span class="kw">biplot.pcoa</span>(spe.bray.pcoa, spe.hel, <span class="dt">dir.axis2 =</span> <span class="dv">-1</span>)</span>
-<span id="cb48-4"><a href="principal-coordinates-analysis.html#cb48-4"></a><span class="co"># Note that the distance measure chosen strongly influences</span></span>
-<span id="cb48-5"><a href="principal-coordinates-analysis.html#cb48-5"></a><span class="co"># the results.</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="principal-coordinates-analysis.html#cb47-1"></a>spe.bray.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(spe.db)  <span class="co">#where spe.db is the species dissimilarity matrix using Bray-Curtis. </span></span>
+<span id="cb47-2"><a href="principal-coordinates-analysis.html#cb47-2"></a>spe.bray.pcoa</span>
+<span id="cb47-3"><a href="principal-coordinates-analysis.html#cb47-3"></a><span class="kw">biplot.pcoa</span>(spe.bray.pcoa, spe.hel, <span class="dt">dir.axis2 =</span> <span class="dv">-1</span>)</span>
+<span id="cb47-4"><a href="principal-coordinates-analysis.html#cb47-4"></a><span class="co"># Note that the distance measure chosen strongly influences</span></span>
+<span id="cb47-5"><a href="principal-coordinates-analysis.html#cb47-5"></a><span class="co"># the results.</span></span></code></pre></div>
 <p><strong>Challenge 5</strong> Run a PCoA on the Hellinger-transformed <em>mite species</em>
 abundance data. What are the significant axes? Which groups of sites can
 you identify? Which species are related to each group of sites? How do
 the PCoA results compare with the PCA results?</p>
 <p><strong>Challenge 5 - Solution</strong> &lt;hidden&gt; Your code likely looks something
 like this:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="principal-coordinates-analysis.html#cb49-1"></a>mite.spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(mite.spe.hel))</span>
-<span id="cb49-2"><a href="principal-coordinates-analysis.html#cb49-2"></a>mite.spe.h.pcoa</span>
-<span id="cb49-3"><a href="principal-coordinates-analysis.html#cb49-3"></a><span class="kw">windows</span>()</span>
-<span id="cb49-4"><a href="principal-coordinates-analysis.html#cb49-4"></a><span class="kw">biplot.pcoa</span>(mite.spe.h.pcoa, mite.spe.hel, <span class="dt">dir.axis2 =</span> <span class="dv">-1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="principal-coordinates-analysis.html#cb48-1"></a>mite.spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(mite.spe.hel))</span>
+<span id="cb48-2"><a href="principal-coordinates-analysis.html#cb48-2"></a>mite.spe.h.pcoa</span>
+<span id="cb48-3"><a href="principal-coordinates-analysis.html#cb48-3"></a><span class="kw">windows</span>()</span>
+<span id="cb48-4"><a href="principal-coordinates-analysis.html#cb48-4"></a><span class="kw">biplot.pcoa</span>(mite.spe.h.pcoa, mite.spe.hel, <span class="dt">dir.axis2 =</span> <span class="dv">-1</span>)</span></code></pre></div>
 <p>And your biplot like this:</p>
 <p><img src="/pcoa_mite.png" width="500" /></p>
 <p>We see that species 16 and 31 are farther away from other species in

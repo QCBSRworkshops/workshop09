@@ -243,21 +243,21 @@ the Doubs fish species data.</p>
 <p>Species data were already Hellinger-transformed. The cluster analysis
 requiring similarity or dissimilarity indices, the first step will be to
 generate the Hellinger distance indices.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="clustering.html#cb27-1"></a>spe.dhel &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.hel, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co">#generates the distance matrix from Hellinger transformed data</span></span>
-<span id="cb27-2"><a href="clustering.html#cb27-2"></a></span>
-<span id="cb27-3"><a href="clustering.html#cb27-3"></a><span class="co"># See difference between the two matrices</span></span>
-<span id="cb27-4"><a href="clustering.html#cb27-4"></a><span class="kw">head</span>(spe.hel)  <span class="co"># Hellinger-transformed species data</span></span>
-<span id="cb27-5"><a href="clustering.html#cb27-5"></a><span class="kw">head</span>(spe.dhel)  <span class="co"># Hellinger distances among sites</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="clustering.html#cb26-1"></a>spe.dhel &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.hel, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co">#generates the distance matrix from Hellinger transformed data</span></span>
+<span id="cb26-2"><a href="clustering.html#cb26-2"></a></span>
+<span id="cb26-3"><a href="clustering.html#cb26-3"></a><span class="co"># See difference between the two matrices</span></span>
+<span id="cb26-4"><a href="clustering.html#cb26-4"></a><span class="kw">head</span>(spe.hel)  <span class="co"># Hellinger-transformed species data</span></span>
+<span id="cb26-5"><a href="clustering.html#cb26-5"></a><span class="kw">head</span>(spe.dhel)  <span class="co"># Hellinger distances among sites</span></span></code></pre></div>
 <p>Most clustering methods can be computed with the function hclust() of
 the stats package.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="clustering.html#cb28-1"></a><span class="co"># Faire le groupement à liens simples Perform single linkage</span></span>
-<span id="cb28-2"><a href="clustering.html#cb28-2"></a><span class="co"># clustering</span></span>
-<span id="cb28-3"><a href="clustering.html#cb28-3"></a>spe.dhel.single &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;single&quot;</span>)</span>
-<span id="cb28-4"><a href="clustering.html#cb28-4"></a><span class="kw">plot</span>(spe.dhel.single)</span>
-<span id="cb28-5"><a href="clustering.html#cb28-5"></a></span>
-<span id="cb28-6"><a href="clustering.html#cb28-6"></a><span class="co"># Perform complete linkage clustering</span></span>
-<span id="cb28-7"><a href="clustering.html#cb28-7"></a>spe.dhel.complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
-<span id="cb28-8"><a href="clustering.html#cb28-8"></a><span class="kw">plot</span>(spe.dhel.complete)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="clustering.html#cb27-1"></a><span class="co"># Faire le groupement à liens simples Perform single linkage</span></span>
+<span id="cb27-2"><a href="clustering.html#cb27-2"></a><span class="co"># clustering</span></span>
+<span id="cb27-3"><a href="clustering.html#cb27-3"></a>spe.dhel.single &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;single&quot;</span>)</span>
+<span id="cb27-4"><a href="clustering.html#cb27-4"></a><span class="kw">plot</span>(spe.dhel.single)</span>
+<span id="cb27-5"><a href="clustering.html#cb27-5"></a></span>
+<span id="cb27-6"><a href="clustering.html#cb27-6"></a><span class="co"># Perform complete linkage clustering</span></span>
+<span id="cb27-7"><a href="clustering.html#cb27-7"></a>spe.dhel.complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb27-8"><a href="clustering.html#cb27-8"></a><span class="kw">plot</span>(spe.dhel.complete)</span></code></pre></div>
 <p><img src="/clust_single.png" class="align-center" /><img src="/clust_complete.png" class="align-center" /></p>
 <p>Are there big differences between the two dendrograms?</p>
 <p>In single linkage clustering, chains of objets occur (e.g. 19, 29, 30,
@@ -274,15 +274,15 @@ with hclust(). However, the dendogram shows squared distances by
 default. In order to compare this dendrogram to the single and complete
 linkage clustering results, one must calculate the square root of the
 distances.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="clustering.html#cb29-1"></a><span class="co"># Perform Ward minimum variance clustering</span></span>
-<span id="cb29-2"><a href="clustering.html#cb29-2"></a>spe.dhel.ward &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
-<span id="cb29-3"><a href="clustering.html#cb29-3"></a><span class="kw">plot</span>(spe.dhel.ward)</span>
-<span id="cb29-4"><a href="clustering.html#cb29-4"></a></span>
-<span id="cb29-5"><a href="clustering.html#cb29-5"></a><span class="co"># Re-plot the dendrogram by using the square roots of the</span></span>
-<span id="cb29-6"><a href="clustering.html#cb29-6"></a><span class="co"># fusion levels</span></span>
-<span id="cb29-7"><a href="clustering.html#cb29-7"></a>spe.dhel.ward<span class="op">$</span>height &lt;-<span class="st"> </span><span class="kw">sqrt</span>(spe.dhel.ward<span class="op">$</span>height)</span>
-<span id="cb29-8"><a href="clustering.html#cb29-8"></a><span class="kw">plot</span>(spe.dhel.ward)</span>
-<span id="cb29-9"><a href="clustering.html#cb29-9"></a><span class="kw">plot</span>(spe.dhel.ward, <span class="dt">hang =</span> <span class="dv">-1</span>)  <span class="co"># hang=-1 aligns all objets on the same line</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="clustering.html#cb28-1"></a><span class="co"># Perform Ward minimum variance clustering</span></span>
+<span id="cb28-2"><a href="clustering.html#cb28-2"></a>spe.dhel.ward &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
+<span id="cb28-3"><a href="clustering.html#cb28-3"></a><span class="kw">plot</span>(spe.dhel.ward)</span>
+<span id="cb28-4"><a href="clustering.html#cb28-4"></a></span>
+<span id="cb28-5"><a href="clustering.html#cb28-5"></a><span class="co"># Re-plot the dendrogram by using the square roots of the</span></span>
+<span id="cb28-6"><a href="clustering.html#cb28-6"></a><span class="co"># fusion levels</span></span>
+<span id="cb28-7"><a href="clustering.html#cb28-7"></a>spe.dhel.ward<span class="op">$</span>height &lt;-<span class="st"> </span><span class="kw">sqrt</span>(spe.dhel.ward<span class="op">$</span>height)</span>
+<span id="cb28-8"><a href="clustering.html#cb28-8"></a><span class="kw">plot</span>(spe.dhel.ward)</span>
+<span id="cb28-9"><a href="clustering.html#cb28-9"></a><span class="kw">plot</span>(spe.dhel.ward, <span class="dt">hang =</span> <span class="dv">-1</span>)  <span class="co"># hang=-1 aligns all objets on the same line</span></span></code></pre></div>
 <p><img src="/clust_ward.png" class="align-center" />
 <img src="/clust_wardfinal.png" class="align-center" /></p>
 <p>The clusters generated using Ward’s method tend to be more spherical and
