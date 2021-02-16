@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Workshop 9: Multivariate Analyses in R</title>
+  <title>Chapter 8 Principal Coordinates Analysis | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Workshop 9: Multivariate Analyses in R" />
+  <meta property="og:title" content="Chapter 8 Principal Coordinates Analysis | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://github.com/qcbsRworkshops/" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Workshop 9: Multivariate Analyses in R" />
+  <meta name="twitter:title" content="Chapter 8 Principal Coordinates Analysis | Workshop 9: Multivariate Analyses in R" />
   
   <meta name="twitter:description" content="Multivariate Analyses in R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-
-<link rel="next" href="preparing-for-the-workshop.html"/>
+<link rel="prev" href="correspondence-analysis.html"/>
+<link rel="next" href="nonmetric-multidimensional-scaling.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -196,73 +196,76 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
-<div id="header">
-<h1 class="title">Workshop 9: Multivariate Analyses in <code>R</code></h1>
-<h2 class="subtitle"><em>QCBS R Workshop Series</em></h2>
-<p class="author"><em>Developed and maintained by the contributors of the QCBS R Workshop Series<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></em></p>
-<p class="date"><em>2021-02-16</em></p>
-</div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>This series of 10 workshops walks participants through the steps required to use R for a wide array of statistical analyses relevant to research in biology and ecology. These open-access workshops were created by members of the QCBS both for members of the QCBS and the larger community.</p>
-<p>The content of this workshop has been peer-reviewed by several QCBS members. If you would like to suggest modifications, please contact the current series coordinators, listed on the main Github page.</p>
-<div id="code-of-conduct" class="section level3">
-<h3><span class="header-section-number">0.0.1</span> Code of conduct</h3>
-<p>The QCBS R Workshop Series and the QCBS R Symposium are venues dedicated to providing a welcoming and supportive environment for all people, regardless of background or identity.</p>
-<p>Participants, presenters and organizers of the workshop series and other related activities accept this Code of Conduct when being present at any workshop-related activities.</p>
-<p>We do not tolerate behaviour that is disrespectful or that excludes, intimidates, or causes discomfort to others.</p>
-<p>We do not tolerate discrimination or harassment based on characteristics that include, but are not limited to, gender identity and expression, sexual orientation, disability, physical appearance, body size, citizenship, nationality, ethnic or social origin, pregnancy, familial status, genetic information, religion or belief (or lack thereof), membership of a national minority, property, age, education, socio-economic status, technical choices, and experience level.</p>
-<p>It applies to all spaces managed by or affiliated with the workshop, including, but not limited to, workshops, email lists, and online forums such as GitHub, Slack and Twitter.</p>
-<div id="expected-behaviour" class="section level5">
-<h5><span class="header-section-number">0.0.1.0.1</span> Expected behaviour</h5>
-<p>All participants are expected to show respect and courtesy to others. All interactions should be professional regardless of platform: either online or in-person. In order to foster a positive and professional learning environment we encourage the following kinds of behaviours in all workshop events and platforms:</p>
-<ul>
-<li>Use welcoming and inclusive language</li>
-<li>Be respectful of different viewpoints and experiences</li>
-<li>Gracefully accept constructive criticism</li>
-<li>Focus on what is best for the community</li>
-<li>Show courtesy and respect towards other community members</li>
-</ul>
-</div>
-<div id="unacceptable-behaviour" class="section level5">
-<h5><span class="header-section-number">0.0.1.0.2</span> Unacceptable behaviour</h5>
-<p>Examples of unacceptable behaviour by participants at any workshop event/platform include:</p>
-<ul>
-<li>written or verbal comments which have the effect of excluding people on the - basis of membership of any specific group;</li>
-<li>causing someone to fear for their safety, such as through stalking or intimidation;</li>
-<li>violent threats or language directed against another person;</li>
-<li>the display of sexual or violent images;</li>
-<li>unwelcome sexual attention;</li>
-<li>nonconsensual or unwelcome physical contact;</li>
-<li>insults or put-downs;</li>
-<li>sexist, racist, homophobic, transphobic, ableist, or exclusionary jokes;</li>
-<li>incitement to violence, suicide, or self-harm;</li>
-<li>continuing to initiate interaction (including photography or recording) with - someone after being asked to stop;</li>
-<li>publication of private communication without consent.</li>
-</ul>
-</div>
-</div>
-<div id="contributors" class="section level3">
-<h3><span class="header-section-number">0.0.2</span> Contributors</h3>
-<p>Originally developed by:</p>
-<p>Contributed with changes to the presentation:</p>
-<p>Contributed with changes to the written material:</p>
-<p>Contributed by reporting issues and suggesting modifications:</p>
-</div>
-<div id="contributing" class="section level3">
-<h3><span class="header-section-number">0.0.3</span> Contributing</h3>
-<p>Under construction.</p>
+<div id="principal-coordinates-analysis" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Principal Coordinates Analysis</h1>
+<p>PCA as well as CA impose the distance preserved among objects: the
+Euclidean distance (and several others with pre-transformations) for PCA
+and the Chi2 distance for CA. If one wishes to ordinate objects on the
+basis of another distance measure, more appropriate to the problem at
+hand, then PCoA is the method of choice. In PCA we rotated and plotted
+our data so that as much variation was explained by a first Principal
+Component and we can see how much "species", either actual species or
+environmental variables, contribute to each component by looking at the
+scores (also called loadings). Another type of unconstrained ordination
+is called Principal Coordinate Analysis (PCoA). In PCoA, points are
+added to plane space one at a time using Euclidean distance (<em>or
+whatever distance (dissimilarity) metric you choose</em>). Basically, one
+point is added, then a second so that it's distance is correct from the
+first point and then the third point and so on adding as many axes
+(dimensions) as necessary along the way. Choosing between PCA and PCoA
+can be tricky, but generally PCA is used to summarize multivariate data
+into as few dimensions as possible, whereas PCoA can be used to
+visualize distances between points. PCoA can be particularly suited for
+datasets that have more columns than rows. For example, if hundreds of
+species have been observed over a set of quadrats, then a approach based
+on a PCoA using Bray-Curtis similarity (see below) may be best suited.</p>
+<p>Run a PCoA on the Hellinger transformed species abundances (back to
+DoubsSpe):</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="principal-coordinates-analysis.html#cb46-1"></a><span class="co">#Using cmdscale()</span></span>
+<span id="cb46-2"><a href="principal-coordinates-analysis.html#cb46-2"></a>?cmdscale</span>
+<span id="cb46-3"><a href="principal-coordinates-analysis.html#cb46-3"></a><span class="kw">cmdscale</span>(<span class="kw">dist</span>(spe.hel), <span class="dt">k=</span>(<span class="kw">nrow</span>(spe)<span class="op">-</span><span class="dv">1</span>), <span class="dt">eig=</span><span class="ot">TRUE</span>)</span>
+<span id="cb46-4"><a href="principal-coordinates-analysis.html#cb46-4"></a></span>
+<span id="cb46-5"><a href="principal-coordinates-analysis.html#cb46-5"></a><span class="co">#Using pcoa()</span></span>
+<span id="cb46-6"><a href="principal-coordinates-analysis.html#cb46-6"></a>?pcoa</span>
+<span id="cb46-7"><a href="principal-coordinates-analysis.html#cb46-7"></a>spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(spe.hel))</span>
+<span id="cb46-8"><a href="principal-coordinates-analysis.html#cb46-8"></a></span>
+<span id="cb46-9"><a href="principal-coordinates-analysis.html#cb46-9"></a><span class="co"># Extract the results</span></span>
+<span id="cb46-10"><a href="principal-coordinates-analysis.html#cb46-10"></a>spe.h.pcoa </span>
+<span id="cb46-11"><a href="principal-coordinates-analysis.html#cb46-11"></a></span>
+<span id="cb46-12"><a href="principal-coordinates-analysis.html#cb46-12"></a><span class="co">#Construct the biplot</span></span>
+<span id="cb46-13"><a href="principal-coordinates-analysis.html#cb46-13"></a><span class="kw">biplot.pcoa</span>(spe .h.pcoa, spe.hel, <span class="dt">dir.axis2=</span><span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p>The output looks like this (and here
+<a href="https://www.youtube.com/watch?v=lRdX1qhI7Dw">here</a> is a video that
+might help with the explanation of eigenvalues in terms of ordination):</p>
+<p><img src="/pcoaoutput_1.png" width="800" /></p>
+<p><img src="/pcoaoutput_2.png" width="800" /></p>
+<p>And the PCoA biplot, like this:</p>
+<p><img src="/pcoa_spe.png" width="500" /></p>
+<p>You can also run a PCoA using a different distance measure (e.g.
+Bray-Curtis). Here is a PCoA run on a Bray-Curtis dissimilarity matrix:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="principal-coordinates-analysis.html#cb47-1"></a>spe.bray.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(spe.db) <span class="co">#where spe.db is the species dissimilarity matrix using Bray-Curtis. </span></span>
+<span id="cb47-2"><a href="principal-coordinates-analysis.html#cb47-2"></a>spe.bray.pcoa</span>
+<span id="cb47-3"><a href="principal-coordinates-analysis.html#cb47-3"></a><span class="kw">biplot.pcoa</span>(spe.bray.pcoa, spe.hel, <span class="dt">dir.axis2=</span><span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb47-4"><a href="principal-coordinates-analysis.html#cb47-4"></a><span class="co">#Note that the distance measure chosen strongly influences the results. </span></span></code></pre></div>
+<p><strong>Challenge 5</strong> Run a PCoA on the Hellinger-transformed <em>mite species</em>
+abundance data. What are the significant axes? Which groups of sites can
+you identify? Which species are related to each group of sites? How do
+the PCoA results compare with the PCA results?</p>
+<p><strong>Challenge 5 - Solution</strong> &lt;hidden&gt; Your code likely looks something
+like this:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="principal-coordinates-analysis.html#cb48-1"></a>mite.spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(mite.spe.hel))</span>
+<span id="cb48-2"><a href="principal-coordinates-analysis.html#cb48-2"></a>mite.spe.h.pcoa</span>
+<span id="cb48-3"><a href="principal-coordinates-analysis.html#cb48-3"></a><span class="kw">windows</span>()</span>
+<span id="cb48-4"><a href="principal-coordinates-analysis.html#cb48-4"></a><span class="kw">biplot.pcoa</span>(mite.spe.h.pcoa, mite.spe.hel, <span class="dt">dir.axis2=</span><span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p>And your biplot like this:</p>
+<p><img src="/pcoa_mite.png" width="500" /></p>
+<p>We see that species 16 and 31 are farther away from other species in
+terms of distance and therefore their distribution across the sites is
+highly dissimilar from the other species of mites (and each other). Site
+labels that practically overlap each other are good examples of sites
+with low dissimilarity (i.e. high similarity) to each other in terms of
+the species that are found at those sites. &lt;/hidden&gt;</p>
 
-</div>
-</div>
-
-
-
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>The QCBS R Workshop Series is part of the <a href="https://www.qcbs.ca">Québec Centre for Biodiversity Science</a>, and is maintained by the series coordinators and graduent student, postdoctoral, and research professional members. <strong>The contributors for this workshop can be accessed <a href="link">here</a></strong>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
 <hr>
 <center> 
@@ -275,8 +278,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="preparing-for-the-workshop.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="correspondence-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="nonmetric-multidimensional-scaling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

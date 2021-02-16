@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Principal Component Analysis | Workshop 9: Multivariate Analyses in R</title>
+  <meta name="description" content="Multivariate Analyses in R" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Principal Component Analysis | Workshop 9: Multivariate Analyses in R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://github.com/qcbsRworkshops/" />
+  <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+  <meta property="og:description" content="Multivariate Analyses in R" />
+  <meta name="github-repo" content="qcbsRworkshops/workshop09" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Principal Component Analysis | Workshop 9: Multivariate Analyses in R" />
+  
+  <meta name="twitter:description" content="Multivariate Analyses in R" />
+  <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+
+<meta name="author" content="Developed and maintained by the contributors of the QCBS R Workshop Series" />
+
+
+<meta name="date" content="2021-02-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="unconstrained-ordination.html"/>
+<link rel="next" href="correspondence-analysis.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets/qcbs-style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="assets/images/csbq_logo_gray_accueil.png"></a></li>
+<link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
+
+<li class="divider"></li>
+<li class="part"><span><b>QCBS R Workshop Series</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.0.1</b> Code of conduct</a></li>
+<li class="chapter" data-level="0.0.2" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>0.0.2</b> Contributors</a></li>
+<li class="chapter" data-level="0.0.3" data-path="index.html"><a href="index.html#contributing"><i class="fa fa-check"></i><b>0.0.3</b> Contributing</a></li>
+</ul></li>
+<li class="part"><span><b>Multivariate Analyses in <code>R</code></b></span></li>
+<li class="chapter" data-level="1" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>1</b> Preparing for the workshop</a></li>
+<li class="chapter" data-level="2" data-path="what-is-ordination.html"><a href="what-is-ordination.html"><i class="fa fa-check"></i><b>2</b> What is ordination?</a></li>
+<li class="chapter" data-level="3" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>3</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="3.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#species-data"><i class="fa fa-check"></i><b>3.1</b> Species data</a></li>
+<li class="chapter" data-level="3.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#environmental-data"><i class="fa fa-check"></i><b>3.2</b> Environmental data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="association-measures.html"><a href="association-measures.html"><i class="fa fa-check"></i><b>4</b> Association measures</a><ul>
+<li class="chapter" data-level="4.1" data-path="association-measures.html"><a href="association-measures.html#distance-measures"><i class="fa fa-check"></i><b>4.1</b> 2.1 Distance measures</a></li>
+<li class="chapter" data-level="4.2" data-path="association-measures.html"><a href="association-measures.html#transformations-of-community-composition-data"><i class="fa fa-check"></i><b>4.2</b> 2.2. Transformations of community composition data</a></li>
+<li class="chapter" data-level="4.3" data-path="association-measures.html"><a href="association-measures.html#clustering"><i class="fa fa-check"></i><b>4.3</b> 2.3 Clustering</a></li>
+</ul></li>
+<li class="part"><span><b>Unconstrained Ordination</b></span></li>
+<li class="chapter" data-level="5" data-path="unconstrained-ordination.html"><a href="unconstrained-ordination.html"><i class="fa fa-check"></i><b>5</b> Unconstrained Ordination</a></li>
+<li class="chapter" data-level="6" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>6</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="7" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>7</b> Correspondence Analysis</a></li>
+<li class="chapter" data-level="8" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>8</b> Principal Coordinates Analysis</a></li>
+<li class="chapter" data-level="9" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>9</b> Nonmetric MultiDimensional Scaling</a></li>
+<li class="part"><span><b>Final considerations</b></span></li>
+<li class="chapter" data-level="10" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>10</b> Summary</a></li>
+<li class="chapter" data-level="11" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>11</b> Additional resources</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Workshop 9: Multivariate Analyses in <code>R</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!------------------------ Hero Image Container --------------------------> 
+
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/6a26f47516.js"></script>
+  <script src="assets/qcbs-hideOutput.js"></script>
+  <link href="assets/qcbs-style.css" rel="stylesheet">
+</head>
+
+
+
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
+</div>
+<div id="principal-component-analysis" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Principal Component Analysis</h1>
+<p>Principal component analysis (PCA) was originally described by Pearson
+(1901) although it is more often attributed to Hotelling (1933) who
+proposed it independently. The method and several of its implications
+for data analysis are presented in the seminal paper of Rao (1964). PCA
+is used to generate a few key variables from a larger set of variables
+that still represent as much of the variation in the dataset as
+possible. PCA is a powerful technique to analyze quantitative
+descriptors (such as species abundances), but cannot be applied to
+binary data (such as species absence/presence).</p>
+<p>Based on a dataset containing normally distributed variables, the first
+axis (or principal-component axis) of a PCA is the line that goes
+through the greatest dimension of the concentration ellipsoid describing
+the multinormal distribution. Similarly, the following axes go through
+the dimensions of the concentration ellipsoid by decreasing length. One
+can thus derive a maximum of p principal axes form a data set containing
+p variables.</p>
+<p>For this, PCA rotates the original system of axes defined by the
+variables in a way that the successive new axes are orthogonal to one
+another and correspond to the successive dimensions of maximum variance
+of the scatter of points. The new variables produced in a PCA are
+uncorrelated with each other (axes are orthogonal to each other) and
+therefore may be used in other analyses such as multiple regression
+(Gotelli and Ellison 2004). The principal components give the positions
+of the objects in the new system of coordinates. PCA works on an
+association matrix among variables containing the variances and
+covariances of the variables. PCA preserves Euclidean distances and
+detects linear relationships. As a consequence, raw species abundance
+data are subjected to a pre-transformation (i.e. a Hellinger
+transformation) before computing a PCA.</p>
+<p><em>To do a PCA you need:</em> - A set of variables (with no distinction
+between independent or dependent variables, i.e. a set of species OR a
+set of environmental variables). - Samples that are measured for the
+same set of variables. - Generally a dataset that is longer than it is
+wide is preferred.</p>
+<p>PCA is most useful with data with more than two variables, but is easier
+to describe using a two dimensional example. In this example (derived
+from Clarke and Warwick 2001) , we have nine sites with abundance data
+for two species:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Site</th>
+<th align="left">Species 1</th>
+<th align="left">Species 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">6</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="left">0</td>
+<td align="left">0</td>
+</tr>
+<tr class="odd">
+<td align="left">C</td>
+<td align="left">5</td>
+<td align="left">8</td>
+</tr>
+<tr class="even">
+<td align="left">D</td>
+<td align="left">7</td>
+<td align="left">6</td>
+</tr>
+<tr class="odd">
+<td align="left">E</td>
+<td align="left">11</td>
+<td align="left">6</td>
+</tr>
+<tr class="even">
+<td align="left">F</td>
+<td align="left">10</td>
+<td align="left">10</td>
+</tr>
+<tr class="odd">
+<td align="left">G</td>
+<td align="left">15</td>
+<td align="left">8</td>
+</tr>
+<tr class="even">
+<td align="left">H</td>
+<td align="left">18</td>
+<td align="left">14</td>
+</tr>
+<tr class="odd">
+<td align="left">I</td>
+<td align="left">14</td>
+<td align="left">14</td>
+</tr>
+</tbody>
+</table>
+<p>If you plotted these samples in the two dimensions, the plot would look
+like this: <img src="/pcaex_1.png" width="500" /></p>
+<p>This is a straight forward scatter plot and is an ordination plot, but
+you can imagine that it is more difficult to produce and visualize such
+a plot if there were more than two species. In that case, you would want
+to reduce the number of variables to principal components. If the 2D
+plot above was too complex and we wanted to reduce the data into a
+single dimension, we would be doing so with a PCA:</p>
+<p><img src="/pcaex_2.png" width="500" /></p>
+<p>In this case, the first principal component is the line of best fit
+through the points (sites) with the sites perpendicular to the line.</p>
+<p>A second principal component is then added perpendicular to the first
+axis:</p>
+<p><img src="/pcaex_3.png" width="500" /></p>
+<p>The final plot then is the two PC axes rotated where the axes are now
+principal components as opposed to species:</p>
+<p><img src="/pcaex_4.png" width="500" /></p>
+<p>For PCAs with more than two variables, principal components are added
+like this (Clarke and Warwick 2001):</p>
+<p>PC1 = axis that maximises the variance of the points that are projected
+perpendicularly onto the axis. PC2 = must be perpendicular to PC1, but
+the direction is again the one in which variance is maximised when
+points are perpendicularly projected. PC3 and so on: perpendicular to
+the first two axes. Essentially, when there are more than two
+dimensions, PCA produces a new space in which all PCA axes are
+orthogonal (e.g. where the correlation among any two axes is null) and
+where the PCA axes are ordered according to the percent of the variance
+of the original data they explain.</p>
+<p>The “spe” data includes 27 fish taxa. To simplify the 27 fish taxa into
+a smaller number of fish-related variables or to identify where
+different sites or samples are associated with particular fish taxa we
+can run a PCA.</p>
+<p>Run a PCA on Hellinger-transformed species data:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="principal-component-analysis.html#cb29-1"></a><span class="co">#Run the PCA using the rda() function (NB: rda() is used for both PCA and RDA)</span></span>
+<span id="cb29-2"><a href="principal-component-analysis.html#cb29-2"></a>spe.h.pca &lt;-<span class="st"> </span><span class="kw">rda</span>(spe.hel)</span>
+<span id="cb29-3"><a href="principal-component-analysis.html#cb29-3"></a></span>
+<span id="cb29-4"><a href="principal-component-analysis.html#cb29-4"></a><span class="co">#Extract the results</span></span>
+<span id="cb29-5"><a href="principal-component-analysis.html#cb29-5"></a><span class="kw">summary</span>(spe.h.pca) <span class="co">#overall results</span></span></code></pre></div>
+<p>The summary looks like this:</p>
+<p><img src="/pcaoutput_1v2.png" width="800" /> <img src="/pcaoutput_2.png" width="800" />
+<img src="/pcaoutput_3.png" width="800" /></p>
+<p><strong>Interpretation of ordination results:</strong></p>
+<p>A new word from this output is "eigenvalue". An eigenvalue is the
+value of the change in the length of a vector, and for our purposes is
+the amount of variation explained by each axis in a PCA. As you can see,
+the summary function produces a fair amount of information. From the
+summary we can see how much of the variance in the data is explained by
+the unconstrained variables (i.e. variables where we have made no effort
+to define relationships between the variables). In this case, the total
+variance of the sites explained by the species is 0.5. The summary also
+tells you what proportion of the total explained variance is explained
+by each principal component in the PCA: the first axis of the PCA thus
+explains 51.33% of the variation, and the second axis 12.78%. You can
+also extract certain parts of the output, try this:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="principal-component-analysis.html#cb30-1"></a><span class="kw">summary</span>(spe.h.pca, <span class="dt">display=</span><span class="ot">NULL</span>) <span class="co"># only eigenvalues and their contribution to the variance</span></span>
+<span id="cb30-2"><a href="principal-component-analysis.html#cb30-2"></a><span class="kw">eigen</span>(<span class="kw">cov</span>(spe.hel)) <span class="co"># also compute the eigenvalues</span></span></code></pre></div>
+<p>Sometimes you may want to extract the scores (i.e. the coordinates
+within a PCA biplot) for either the “sites” (the rows in your dataset,
+whether they be actual sites or not) or the “species” (the variables in
+your data, whether they be actual species or some other variables). This
+is useful if you want to then use a principal component as a variable in
+another analysis, or to make additional graphics. For example, with the
+“spe” dataset, you might want to obtain a single variable that is a
+composite of all the fish abundance data and then use that use that
+variable in a regression with another variable, or plot across a spatial
+gradient. To extract scores from a PCA, use the scores() function:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="principal-component-analysis.html#cb31-1"></a>spe.scores &lt;-<span class="st"> </span><span class="kw">scores</span>(spe.h.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># species scores on the first two PCA axes</span></span>
+<span id="cb31-2"><a href="principal-component-analysis.html#cb31-2"></a>site.scores &lt;-<span class="st"> </span><span class="kw">scores</span>(spe.h.pca, <span class="dt">display=</span><span class="st">&quot;sites&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="co"># sites scores on the first two PCA axes</span></span>
+<span id="cb31-3"><a href="principal-component-analysis.html#cb31-3"></a><span class="co">#Note: if you don’t specify the number of principal components to extract (e.g. choices=c(1,2) or choices=c(1:2) then all of the scores will be extracted for all of the principal components. </span></span></code></pre></div>
+<p>The PCA on the “spe” fish data produces as many principal components as
+there are fish taxon (columns), which in this case means that 27
+principal components are produced. In many cases though, you may have
+done a PCA to reduce the number of variables to deal with and produce
+composite variables for the fish. In this case, you are likely
+interested in knowing how many of these principal components are
+actually significant or adding new information to the PCA (i.e. how many
+principal components do you need to retain before you aren’t really
+explaining any more variance with the additional principal components).
+To determine this, you can use the Kaiser-Guttman criterion and produce
+a barplot showing at what point the principal components are no longer
+explaining significant amount of variance. The code for the barplot
+below shows the point at which the variance explained by a new principal
+component explains less than the average amount explained by all of the
+eigenvalues:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="principal-component-analysis.html#cb32-1"></a><span class="co"># Identify the significant axis using the Kaiser-Guttman criterion</span></span>
+<span id="cb32-2"><a href="principal-component-analysis.html#cb32-2"></a>ev &lt;-<span class="st"> </span>spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig</span>
+<span id="cb32-3"><a href="principal-component-analysis.html#cb32-3"></a>ev[ev<span class="op">&gt;</span><span class="kw">mean</span>(ev)]</span>
+<span id="cb32-4"><a href="principal-component-analysis.html#cb32-4"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(ev)</span>
+<span id="cb32-5"><a href="principal-component-analysis.html#cb32-5"></a><span class="kw">barplot</span>(ev, <span class="dt">main=</span><span class="st">&quot;Eigenvalues&quot;</span>, <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">las=</span><span class="dv">2</span>)</span>
+<span id="cb32-6"><a href="principal-component-analysis.html#cb32-6"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(ev), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) </span>
+<span id="cb32-7"><a href="principal-component-analysis.html#cb32-7"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Average eigenvalue&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="/pca_sigaxes_sp.png" width="500" /></p>
+<p>From this barplot, you can see that once you reach PC6, the proportion
+of variance explained falls below the average proportion explained by
+the other components. If you take another look at the PCA summary, you
+will notice that by the time you reach PC5, the cumulative proportion of
+variance explained by the principal components is 85%.</p>
+<p>A PCA is not just for species data. It can also be run and interpreted
+in the same way using standardized environmental variables:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="principal-component-analysis.html#cb33-1"></a><span class="co">#Run the PCA</span></span>
+<span id="cb33-2"><a href="principal-component-analysis.html#cb33-2"></a>env.pca &lt;-<span class="st"> </span><span class="kw">rda</span>(env.z) <span class="co"># or rda(env, scale=TRUE)</span></span>
+<span id="cb33-3"><a href="principal-component-analysis.html#cb33-3"></a></span>
+<span id="cb33-4"><a href="principal-component-analysis.html#cb33-4"></a><span class="co">#Extract the results</span></span>
+<span id="cb33-5"><a href="principal-component-analysis.html#cb33-5"></a><span class="kw">summary</span>(env.pca)</span>
+<span id="cb33-6"><a href="principal-component-analysis.html#cb33-6"></a><span class="kw">summary</span>(env.pca, <span class="dt">scaling=</span><span class="dv">2</span>) </span></code></pre></div>
+<p>Scaling refers to what portion of the PCA is scaled to the eigenvalues.
+Scaling = 2 means that the species scores are scaled by eigenvalues,
+whereas scaling = 1 means that site scores are scaled by eigenvalues.
+Scaling = 3 means that both species and site scores are scaled
+symmetrically by square root of eigenvalues. Using scaling = 1 means
+that the Euclidean distances among objects (e.g. the rows in your data)
+are preserved, whereas scaling = 2 means that the correlations amongst
+descriptors (e.g. the columns in this data) are preserved. This means
+that when you look at a biplot of a PCA that has been run with
+scaling=2, the angle between descriptors represents correlation.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="principal-component-analysis.html#cb34-1"></a><span class="co"># Identify the significant axis using the Kaiser-Guttman criterion</span></span>
+<span id="cb34-2"><a href="principal-component-analysis.html#cb34-2"></a>ev &lt;-<span class="st"> </span>env.pca<span class="op">$</span>CA<span class="op">$</span>eig</span>
+<span id="cb34-3"><a href="principal-component-analysis.html#cb34-3"></a>ev[ev<span class="op">&gt;</span><span class="kw">mean</span>(ev)]</span>
+<span id="cb34-4"><a href="principal-component-analysis.html#cb34-4"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(ev)</span>
+<span id="cb34-5"><a href="principal-component-analysis.html#cb34-5"></a><span class="kw">barplot</span>(ev, <span class="dt">main=</span><span class="st">&quot;Eigenvalues&quot;</span>, <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">las=</span><span class="dv">2</span>)</span>
+<span id="cb34-6"><a href="principal-component-analysis.html#cb34-6"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(ev), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) </span>
+<span id="cb34-7"><a href="principal-component-analysis.html#cb34-7"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Average eigenvalue&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p>Compare this eigenvalue barplot with the one you created for the species
+PCA.</p>
+<p>As you saw in the explanation of the summary output, a lot of
+information can be extracted from a PCA before even plotting it.
+However, many of us interpret data best visually and a figure of a PCA
+is often the best way to convey major patterns. PCA biplots can be
+plotted in base R. A PCA biplot includes the x-axis as the first
+Principal Component and the y-axis as the second Principal Component.</p>
+<p>For some plotting exercises, let's start with the <em>species PCA</em>. A
+basic biplot without any customization could be plotted like this, where
+the site positions are shown by black numbers and species’ positions are
+shown by red species codes. Remember, species positions come from
+plotting species along PCs and the site positions are derived from the
+weighted sums of species scores.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="principal-component-analysis.html#cb35-1"></a><span class="kw">plot</span>(spe.h.pca)</span></code></pre></div>
+<p><img src="/spe_PCA1.png" width="800" /></p>
+<p>Basically, the plot above plots the PCA like this:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="principal-component-analysis.html#cb36-1"></a><span class="kw">plot</span>(spe.h.pca, <span class="dt">type=</span><span class="st">&quot;n&quot;</span>) <span class="co">#produces a blank biplot with nothing displayed but the axes</span></span>
+<span id="cb36-2"><a href="principal-component-analysis.html#cb36-2"></a><span class="kw">points</span>(spe.h.pca, <span class="dt">dis=</span><span class="st">&quot;sp&quot;</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>) <span class="co">#points are added for the species (columns) (dis=)</span></span>
+<span id="cb36-3"><a href="principal-component-analysis.html#cb36-3"></a><span class="co">#use text() instead of points() if you want the labels</span></span>
+<span id="cb36-4"><a href="principal-component-analysis.html#cb36-4"></a><span class="kw">points</span>(spe.h.pca, <span class="dt">dis=</span><span class="st">&quot;sites&quot;</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) <span class="co">#points are added for the sites (rows)</span></span></code></pre></div>
+<p><img src="/spe_PCA2.png" width="800" /></p>
+<p>To create more detailed plots and to play with aesthetics, try this
+code:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="principal-component-analysis.html#cb37-1"></a><span class="co">#Biplot of the PCA on transformed species data (scaling 1)</span></span>
+<span id="cb37-2"><a href="principal-component-analysis.html#cb37-2"></a><span class="kw">windows</span>()</span>
+<span id="cb37-3"><a href="principal-component-analysis.html#cb37-3"></a><span class="kw">plot</span>(spe.h.pca)</span>
+<span id="cb37-4"><a href="principal-component-analysis.html#cb37-4"></a><span class="kw">windows</span>()</span>
+<span id="cb37-5"><a href="principal-component-analysis.html#cb37-5"></a><span class="kw">biplot</span>(spe.h.pca)</span>
+<span id="cb37-6"><a href="principal-component-analysis.html#cb37-6"></a><span class="kw">windows</span>()</span>
+<span id="cb37-7"><a href="principal-component-analysis.html#cb37-7"></a><span class="kw">plot</span>(spe.h.pca, <span class="dt">scaling=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;none&quot;</span>, <span class="co"># scaling 1 = distance biplot : </span></span>
+<span id="cb37-8"><a href="principal-component-analysis.html#cb37-8"></a>                                        <span class="co"># distances among objects in the biplot approximate their Euclidean distances</span></span>
+<span id="cb37-9"><a href="principal-component-analysis.html#cb37-9"></a>                                        <span class="co"># but angles among descriptor vectors DO NOT reflect their correlation</span></span>
+<span id="cb37-10"><a href="principal-component-analysis.html#cb37-10"></a>     <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;PC1 (%)&quot;</span>, <span class="kw">round</span>((spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig[<span class="dv">1</span>]<span class="op">/</span><span class="kw">sum</span>(spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig))<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)), <span class="co">#this comes from the summary</span></span>
+<span id="cb37-11"><a href="principal-component-analysis.html#cb37-11"></a>     <span class="dt">ylab =</span> <span class="kw">c</span>(<span class="st">&quot;PC2 (%)&quot;</span>, <span class="kw">round</span>((spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig[<span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig))<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)))</span>
+<span id="cb37-12"><a href="principal-component-analysis.html#cb37-12"></a><span class="kw">points</span>(<span class="kw">scores</span>(spe.h.pca, <span class="dt">display=</span><span class="st">&quot;sites&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">scaling=</span><span class="dv">1</span>),</span>
+<span id="cb37-13"><a href="principal-component-analysis.html#cb37-13"></a>       <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb37-14"><a href="principal-component-analysis.html#cb37-14"></a><span class="kw">text</span>(<span class="kw">scores</span>(spe.h.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>), <span class="dt">scaling=</span><span class="dv">1</span>),</span>
+<span id="cb37-15"><a href="principal-component-analysis.html#cb37-15"></a>     <span class="kw">scores</span>(spe.h.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">2</span>), <span class="dt">scaling=</span><span class="dv">1</span>),</span>
+<span id="cb37-16"><a href="principal-component-analysis.html#cb37-16"></a>     <span class="dt">labels=</span><span class="kw">rownames</span>(<span class="kw">scores</span>(spe.h.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">scaling=</span><span class="dv">1</span>)),</span>
+<span id="cb37-17"><a href="principal-component-analysis.html#cb37-17"></a>     <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">cex=</span><span class="fl">0.8</span>)  </span></code></pre></div>
+<p>This code produces 3 plots, the final plot is the most visually
+pleasing: <img src="/spe_PCA3.png" width="800" /></p>
+<p>What conclusions can you draw from this plot? From the plot, you can see
+the site scores shown by the blue dots. If you superimposed site labels
+on top, you could see what sites are closer to each other in terms of
+the species found at those sites, but even without the specific labels,
+you can see that there are only a few sites that are farther away from
+the majority. The species names are shown by their names in red and from
+the plot, you can see for example that the species "ABL" is not found
+or not found in the same prevalence in the majority of sites as other
+species closer to the centre of the ordination.</p>
+<p>Biplots need to be interpreted in terms of angles from center of plot,
+not just in terms of proximity. Two variables at 90 degree angle are
+uncorrelated. Two variables in opposing directions are negatively
+correlated. Two variables very close together are strongly correlated,
+at least in the space described by these axes.</p>
+<p>Now let's look at a plot of the <em>environmental PCA</em>:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="principal-component-analysis.html#cb38-1"></a><span class="co">#Biplot of the PCA on the environmental variables (scaling 2)</span></span>
+<span id="cb38-2"><a href="principal-component-analysis.html#cb38-2"></a><span class="kw">windows</span>()</span>
+<span id="cb38-3"><a href="principal-component-analysis.html#cb38-3"></a><span class="kw">plot</span>(env.pca)</span>
+<span id="cb38-4"><a href="principal-component-analysis.html#cb38-4"></a><span class="kw">windows</span>()</span>
+<span id="cb38-5"><a href="principal-component-analysis.html#cb38-5"></a><span class="kw">plot</span>(env.pca, <span class="dt">scaling=</span><span class="dv">2</span>, <span class="dt">type=</span><span class="st">&quot;none&quot;</span>, <span class="co"># scaling 2 = correlation biplot : </span></span>
+<span id="cb38-6"><a href="principal-component-analysis.html#cb38-6"></a>                                      <span class="co"># distances among abjects in the biplot DO NOT approximate their Euclidean distances</span></span>
+<span id="cb38-7"><a href="principal-component-analysis.html#cb38-7"></a>                                      <span class="co"># but angles among descriptor vectors reflect their correlation</span></span>
+<span id="cb38-8"><a href="principal-component-analysis.html#cb38-8"></a>     <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;PC1 (%)&quot;</span>, <span class="kw">round</span>((env.pca<span class="op">$</span>CA<span class="op">$</span>eig[<span class="dv">1</span>]<span class="op">/</span><span class="kw">sum</span>(env.pca<span class="op">$</span>CA<span class="op">$</span>eig))<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)),</span>
+<span id="cb38-9"><a href="principal-component-analysis.html#cb38-9"></a>     <span class="dt">ylab =</span> <span class="kw">c</span>(<span class="st">&quot;PC2 (%)&quot;</span>, <span class="kw">round</span>((env.pca<span class="op">$</span>CA<span class="op">$</span>eig[<span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(env.pca<span class="op">$</span>CA<span class="op">$</span>eig))<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)),</span>
+<span id="cb38-10"><a href="principal-component-analysis.html#cb38-10"></a>     <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb38-11"><a href="principal-component-analysis.html#cb38-11"></a><span class="kw">points</span>(<span class="kw">scores</span>(env.pca, <span class="dt">display=</span><span class="st">&quot;sites&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">scaling=</span><span class="dv">2</span>), </span>
+<span id="cb38-12"><a href="principal-component-analysis.html#cb38-12"></a>       <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>) </span>
+<span id="cb38-13"><a href="principal-component-analysis.html#cb38-13"></a><span class="kw">text</span>(<span class="kw">scores</span>(env.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>), <span class="dt">scaling=</span><span class="dv">2</span>),</span>
+<span id="cb38-14"><a href="principal-component-analysis.html#cb38-14"></a>     <span class="kw">scores</span>(env.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">2</span>), <span class="dt">scaling=</span><span class="dv">2</span>),</span>
+<span id="cb38-15"><a href="principal-component-analysis.html#cb38-15"></a>     <span class="dt">labels=</span><span class="kw">rownames</span>(<span class="kw">scores</span>(env.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">scaling=</span><span class="dv">2</span>)),</span>
+<span id="cb38-16"><a href="principal-component-analysis.html#cb38-16"></a>     <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="/env_PCA1.png" width="800" /></p>
+<p>Remember that a PCA biplot is really just a scatter plot, where the axes
+are scores extracted from composite variables. This means that there are
+many different ways you can plot a PCA. For example, try using your
+ggplot() skills from Workshop 4 to extract PCA scores and plot an
+ordination in ggplot.</p>
+<p><strong>Use of PCA axis as composite explanatory variables:</strong></p>
+<p>In some cases, users want to reduce several environmental variables in a
+few numbers of composite variables. When PCA axes represent ecological
+gradients (i.e. when environmental variables are correlated with PCA
+axis in a meaningful way), users can use site scores along PCA Axis in
+further analyses instead of the raw environmental data. In other words,
+sites scores along PCA Axis represent linear combinations of descriptors
+and can consequently be used as proxy of ecological conditions in
+“post-ordination” analyses. In the example above, the first PCA axis can
+be related to a gradient from oligotrophic, oxygen-rich to eutrophic,
+oxygen-deprived water: from left to right, a first group display the
+highest values of altitude (alt) and slope (pen), and the lowest values
+in river discharge (deb) and distance from the source (das). The second
+group of sites has the highest values in oxygen content (oxy) and the
+lowest in nitrate concentration (nit). A third group shows intermediate
+values in almost all the measured variables. If users are then
+interested in identifying if a specific species is associated with
+ologotrophic or eutrophic water, one can correlate the species
+abundances to sites scores along PCA Axis 1. For example, if one want to
+assess if the species TRU prefers oligotrophic or eutrophic water, the
+following linear model can be used :</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="principal-component-analysis.html#cb39-1"></a>Sites_scores_Env_Axis1&lt;-<span class="st"> </span><span class="kw">scores</span>(env.pca, <span class="dt">display=</span><span class="st">&quot;sites&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>), <span class="dt">scaling=</span><span class="dv">2</span>)</span>
+<span id="cb39-2"><a href="principal-component-analysis.html#cb39-2"></a>spe<span class="op">$</span>ANG</span>
+<span id="cb39-3"><a href="principal-component-analysis.html#cb39-3"></a><span class="kw">plot</span>( Sites_scores_Env_Axis1, spe<span class="op">$</span>TRU)</span>
+<span id="cb39-4"><a href="principal-component-analysis.html#cb39-4"></a><span class="kw">summary</span>(<span class="kw">lm</span>(spe<span class="op">$</span>TRU<span class="op">~</span>Sites_scores_Env_Axis1))</span>
+<span id="cb39-5"><a href="principal-component-analysis.html#cb39-5"></a><span class="kw">abline</span>(<span class="kw">lm</span>(spe<span class="op">$</span>TRU<span class="op">~</span>Sites_scores_Env_Axis1))</span></code></pre></div>
+<p>This simple model shows that the abundance of species TRU is
+significantly dependent of site scores along PCA axis 1 (t = -5.30, p =
+1.35e-05, adj-R2 = 49.22%), i.e. depends of an oligotrophic-eutrophic
+gradient. The following plot identifies a preference of this species for
+oligotrophic water.</p>
+<p><strong>Challenge 3</strong> Run a PCA of the “mite” species abundance data. What are
+the significant axes of variation? Which groups of sites can you
+identify? Which species are related to each group of sites? Use:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="principal-component-analysis.html#cb40-1"></a>mite.spe &lt;-<span class="st"> </span>mite <span class="co">#mite data is from the vegan package</span></span></code></pre></div>
+<p><strong>Challenge 3 - Solution</strong> &lt;hidden&gt; Your code likely looks something
+like the following.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="principal-component-analysis.html#cb41-1"></a><span class="co">#Hellinger transformation of mite data and PCA</span></span>
+<span id="cb41-2"><a href="principal-component-analysis.html#cb41-2"></a>mite.spe.hel &lt;-<span class="st"> </span><span class="kw">decostand</span>(mite.spe, <span class="dt">method=</span><span class="st">&quot;hellinger&quot;</span>)</span>
+<span id="cb41-3"><a href="principal-component-analysis.html#cb41-3"></a>mite.spe.h.pca &lt;-<span class="st"> </span><span class="kw">rda</span>(mite.spe.hel)</span>
+<span id="cb41-4"><a href="principal-component-analysis.html#cb41-4"></a> </span>
+<span id="cb41-5"><a href="principal-component-analysis.html#cb41-5"></a><span class="co">#What are the significant axes?  </span></span>
+<span id="cb41-6"><a href="principal-component-analysis.html#cb41-6"></a>ev &lt;-<span class="st"> </span>mite.spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig </span>
+<span id="cb41-7"><a href="principal-component-analysis.html#cb41-7"></a>ev[ev<span class="op">&gt;</span><span class="kw">mean</span>(ev)]</span>
+<span id="cb41-8"><a href="principal-component-analysis.html#cb41-8"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(ev)</span>
+<span id="cb41-9"><a href="principal-component-analysis.html#cb41-9"></a><span class="kw">barplot</span>(ev, <span class="dt">main=</span><span class="st">&quot;Eigenvalues&quot;</span>, <span class="dt">col=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">las=</span><span class="dv">2</span>)</span>
+<span id="cb41-10"><a href="principal-component-analysis.html#cb41-10"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(ev), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>) </span>
+<span id="cb41-11"><a href="principal-component-analysis.html#cb41-11"></a><span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Average eigenvalue&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>, <span class="dt">col=</span><span class="dv">2</span>, <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>) </span>
+<span id="cb41-12"><a href="principal-component-analysis.html#cb41-12"></a></span>
+<span id="cb41-13"><a href="principal-component-analysis.html#cb41-13"></a><span class="co">#Output summary/results    </span></span>
+<span id="cb41-14"><a href="principal-component-analysis.html#cb41-14"></a><span class="kw">summary</span>(mite.spe.h.pca, <span class="dt">display=</span><span class="ot">NULL</span>) </span>
+<span id="cb41-15"><a href="principal-component-analysis.html#cb41-15"></a><span class="kw">windows</span>()</span>
+<span id="cb41-16"><a href="principal-component-analysis.html#cb41-16"></a></span>
+<span id="cb41-17"><a href="principal-component-analysis.html#cb41-17"></a><span class="co">#Plot the biplot</span></span>
+<span id="cb41-18"><a href="principal-component-analysis.html#cb41-18"></a><span class="kw">plot</span>(mite.spe.h.pca, <span class="dt">scaling=</span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;none&quot;</span>, </span>
+<span id="cb41-19"><a href="principal-component-analysis.html#cb41-19"></a>     <span class="dt">xlab=</span><span class="kw">c</span>(<span class="st">&quot;PC1 (%)&quot;</span>, <span class="kw">round</span>((mite.spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig[<span class="dv">1</span>]<span class="op">/</span><span class="kw">sum</span>(mite.spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig))<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>)),</span>
+<span id="cb41-20"><a href="principal-component-analysis.html#cb41-20"></a>     <span class="dt">ylab=</span><span class="kw">c</span>(<span class="st">&quot;PC2 (%)&quot;</span>, <span class="kw">round</span>((mite.spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig[<span class="dv">2</span>]<span class="op">/</span><span class="kw">sum</span>(mite.spe.h.pca<span class="op">$</span>CA<span class="op">$</span>eig))<span class="op">*</span><span class="dv">100</span>,<span class="dv">2</span>))) </span>
+<span id="cb41-21"><a href="principal-component-analysis.html#cb41-21"></a><span class="kw">points</span>(<span class="kw">scores</span>(mite.spe.h.pca, <span class="dt">display=</span><span class="st">&quot;sites&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">scaling=</span><span class="dv">1</span>),</span>
+<span id="cb41-22"><a href="principal-component-analysis.html#cb41-22"></a>       <span class="dt">pch=</span><span class="dv">21</span>, <span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">bg=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb41-23"><a href="principal-component-analysis.html#cb41-23"></a><span class="kw">text</span>(<span class="kw">scores</span>(mite.spe.h.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">1</span>), <span class="dt">scaling=</span><span class="dv">1</span>),</span>
+<span id="cb41-24"><a href="principal-component-analysis.html#cb41-24"></a>     <span class="kw">scores</span>(mite.spe.h.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">choices=</span><span class="kw">c</span>(<span class="dv">2</span>), <span class="dt">scaling=</span><span class="dv">1</span>),</span>
+<span id="cb41-25"><a href="principal-component-analysis.html#cb41-25"></a>     <span class="dt">labels=</span><span class="kw">rownames</span>(<span class="kw">scores</span>(mite.spe.h.pca, <span class="dt">display=</span><span class="st">&quot;species&quot;</span>, <span class="dt">scaling=</span><span class="dv">1</span>)),</span>
+<span id="cb41-26"><a href="principal-component-analysis.html#cb41-26"></a>     <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">cex=</span><span class="fl">0.8</span>)  </span></code></pre></div>
+<p>And your resulting biplot likely looks something like this:</p>
+<p><img src="/mite_pca.png" width="800" /></p>
+<p>A dense cluster of related species and sites can be seen in the biplot.
+&lt;/hidden&gt;</p>
+
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All the content of the workshop series is under a <a href="https://creativecommons.org/licenses/by-nc/2.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="unconstrained-ordination.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correspondence-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
