@@ -17,6 +17,7 @@ master.zip
 # qcbsR*
 !qcbsR-header.html
 !**/mathjax_header.html
+!**/assets
 
 ## Apple OS generated files
 .DS_Store
