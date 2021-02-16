@@ -87,7 +87,7 @@ Contributed by reporting issues and suggesting modifications:
 Under construction.
 
 
-```{r}
+```{r include=FALSE}
 library(knitr)
 opts_chunk$set(tidy.opts = list(width.cutoff = 60),
                tidy = TRUE)
