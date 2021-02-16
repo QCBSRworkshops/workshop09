@@ -24,7 +24,7 @@ config:
 
 # Preface {-}
 
-This series of 10 workshops walks participants through the steps required to use R for a wide array of statistical analyses relevant to research in biology and ecology. These open-access workshops were created by members of the QCBS both for members of the QCBS and the larger community.
+The **QCBS R Workshop Series** is a series of 10 workshops that walks participants through the steps required to use R for a wide array of statistical analyses relevant to research in biology and ecology. These open-access workshops were created by members of the QCBS both for members of the QCBS and the larger community.
 
 The content of this workshop has been peer-reviewed by several QCBS members. If you would like to suggest modifications, please contact the current series coordinators, listed on the main Github page.
 
@@ -69,6 +69,10 @@ Examples of unacceptable behaviour by participants at any workshop event/platfor
 
 ### Contributors
 
+```{r eval=FALSE, include=FALSE}
+THIS SECTION MUST ONLY BE EDITED BY THE COORDINATORS OF THE WORKSHOP SERIES
+```
+
 Originally developed by:
 
 Contributed with changes to the presentation:
@@ -81,3 +85,10 @@ Contributed by reporting issues and suggesting modifications:
 ### Contributing
 
 Under construction.
+
+
+```{r}
+library(knitr)
+opts_chunk$set(tidy.opts = list(width.cutoff = 60),
+               tidy = TRUE)
+```
