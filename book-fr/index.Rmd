@@ -3,7 +3,7 @@ title: "Atelier 9 : Analyses multivariées en `R`"
 subtitle: "Série d'ateliers R du CSBQ"
 author:
 - Développé et maintenu par les contributeurs et contributrices de la Série d'ateliers R du CSBQ^[La Série d'ateliers R du CSBQ fait partie du [Centre de la science de la biodiversité du Québec](https://www.qcbs.ca), et est maintenue par les coordonnateurs et les coordonnatrices de la série, et les membres étudiants diplômés, postdoctoraux et professionnels de la recherche. **Les contributeurs et contributrices de cet atelier sont accessibles[ici](lien)**].
-date: "`r Sys.Date()`"
+date: "`r Sys.time()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: ["references.bib"]

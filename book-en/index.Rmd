@@ -3,7 +3,7 @@ title: "Workshop 9: Multivariate Analyses in `R`"
 subtitle: "QCBS R Workshop Series"
 author:
 - Developed and maintained by the contributors of the QCBS R Workshop Series^[The QCBS R Workshop Series is part of the [Québec Centre for Biodiversity Science](https://www.qcbs.ca), and is maintained by the series coordinators and graduent student, postdoctoral, and research professional members. **The contributors for this workshop can be accessed [here](link)**.]
-date: "`r Sys.Date()`"
+date: "`r Sys.time()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: ["references.bib"]
