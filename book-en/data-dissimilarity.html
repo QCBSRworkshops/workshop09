@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Unconstrained Ordination | Workshop 9: Multivariate Analyses in R</title>
+  <title>Chapter 5 Data (dis)similarity | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Unconstrained Ordination | Workshop 9: Multivariate Analyses in R" />
+  <meta property="og:title" content="Chapter 5 Data (dis)similarity | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://github.com/qcbsRworkshops/" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Unconstrained Ordination | Workshop 9: Multivariate Analyses in R" />
+  <meta name="twitter:title" content="Chapter 5 Data (dis)similarity | Workshop 9: Multivariate Analyses in R" />
   
   <meta name="twitter:description" content="Multivariate Analyses in R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="association-measures.html"/>
-<link rel="next" href="principal-component-analysis.html"/>
+<link rel="prev" href="exploring-the-dataset.html"/>
+<link rel="next" href="quantifying-data-dissimilarity.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -141,27 +141,29 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="0.0.3" data-path="index.html"><a href="index.html#contributing"><i class="fa fa-check"></i><b>0.0.3</b> Contributing</a></li>
 </ul></li>
 <li class="part"><span><b>Multivariate Analyses in <code>R</code></b></span></li>
-<li class="chapter" data-level="1" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>1</b> Preparing for the workshop</a></li>
-<li class="chapter" data-level="2" data-path="what-is-ordination.html"><a href="what-is-ordination.html"><i class="fa fa-check"></i><b>2</b> What is ordination?</a></li>
-<li class="chapter" data-level="3" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>3</b> Exploring the dataset</a><ul>
-<li class="chapter" data-level="3.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#species-data"><i class="fa fa-check"></i><b>3.1</b> Species data</a></li>
-<li class="chapter" data-level="3.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#environmental-data"><i class="fa fa-check"></i><b>3.2</b> Environmental data</a></li>
+<li class="chapter" data-level="1" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>1</b> Learning objectives</a></li>
+<li class="chapter" data-level="2" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>2</b> Preparing for the workshop</a></li>
+<li class="chapter" data-level="3" data-path="what-is-ordination.html"><a href="what-is-ordination.html"><i class="fa fa-check"></i><b>3</b> What is ordination?</a></li>
+<li class="chapter" data-level="4" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>4</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="4.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#species-data"><i class="fa fa-check"></i><b>4.1</b> Species data</a></li>
+<li class="chapter" data-level="4.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#environmental-data"><i class="fa fa-check"></i><b>4.2</b> Environmental data</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="association-measures.html"><a href="association-measures.html"><i class="fa fa-check"></i><b>4</b> Association measures</a><ul>
-<li class="chapter" data-level="4.1" data-path="association-measures.html"><a href="association-measures.html#distance-measures"><i class="fa fa-check"></i><b>4.1</b> 2.1 Distance measures</a></li>
-<li class="chapter" data-level="4.2" data-path="association-measures.html"><a href="association-measures.html#transformations-of-community-composition-data"><i class="fa fa-check"></i><b>4.2</b> 2.2. Transformations of community composition data</a></li>
-<li class="chapter" data-level="4.3" data-path="association-measures.html"><a href="association-measures.html#clustering"><i class="fa fa-check"></i><b>4.3</b> 2.3 Clustering</a></li>
+<li class="part"><span><b>Measures of association</b></span></li>
+<li class="chapter" data-level="5" data-path="data-dissimilarity.html"><a href="data-dissimilarity.html"><i class="fa fa-check"></i><b>5</b> Data (dis)similarity</a></li>
+<li class="chapter" data-level="6" data-path="quantifying-data-dissimilarity.html"><a href="quantifying-data-dissimilarity.html"><i class="fa fa-check"></i><b>6</b> Quantifying data (dis)similarity</a><ul>
+<li class="chapter" data-level="6.1" data-path="quantifying-data-dissimilarity.html"><a href="quantifying-data-dissimilarity.html#transformations-of-community-composition-data"><i class="fa fa-check"></i><b>6.1</b> Transformations of community composition data</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering</a></li>
 <li class="part"><span><b>Unconstrained Ordination</b></span></li>
-<li class="chapter" data-level="5" data-path="unconstrained-ordination.html"><a href="unconstrained-ordination.html"><i class="fa fa-check"></i><b>5</b> Unconstrained Ordination</a></li>
-<li class="chapter" data-level="6" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>6</b> Principal Component Analysis</a></li>
-<li class="chapter" data-level="7" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>7</b> Correspondence Analysis</a></li>
-<li class="chapter" data-level="8" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>8</b> Principal Coordinates Analysis</a></li>
-<li class="chapter" data-level="9" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>9</b> Nonmetric MultiDimensional Scaling</a></li>
+<li class="chapter" data-level="8" data-path="what-does-unconstrained-mean.html"><a href="what-does-unconstrained-mean.html"><i class="fa fa-check"></i><b>8</b> What does “unconstrained” mean?</a></li>
+<li class="chapter" data-level="9" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="10" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>10</b> Correspondence Analysis</a></li>
+<li class="chapter" data-level="11" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Coordinates Analysis</a></li>
+<li class="chapter" data-level="12" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>12</b> Nonmetric MultiDimensional Scaling</a></li>
 <li class="part"><span><b>Final considerations</b></span></li>
-<li class="chapter" data-level="10" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>10</b> Summary</a></li>
-<li class="chapter" data-level="11" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>11</b> Additional resources</a></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary</a></li>
+<li class="chapter" data-level="14" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>14</b> Additional resources</a></li>
+<li class="chapter" data-level="15" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>15</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
 
@@ -196,28 +198,106 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
-<div id="unconstrained-ordination" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Unconstrained Ordination</h1>
-<p>Unconstrained ordination allows us to organize samples, sites or species
-along continuous gradients (e.g. ecological or environmental). The key
-difference between unconstrained and constrained ordination (discussed
-later in this workshop- see ‘Canonical Ordination’) is that in the
-unconstrained techniques we are not attempting to define a relationship
-between independent and dependent sets of variables.</p>
-<p>Unconstrained ordination can be used to:</p>
-<ul>
-<li>Assess relationships <em>within</em>
-a set of variables (not between sets).</li>
-<li>Find key components of
-variation between samples, sites, species etc.</li>
-<li>Reduce the number
-dimensions in multivariate data without substantial loss of information.</li>
-<li>Create new variables for use in subsequent analyses (such as
-regression). These principal components are weighted, linear
-combinations of the original variables in the ordination.</li>
-</ul>
-<p><a href="http://www.umass.edu/landeco/teaching/multivariate/schedule/ordination1.pdf">Source</a></p>
-
+<div id="data-dissimilarity" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Data (dis)similarity</h1>
+<p>Matrix algebra ultimately lies below all ordinations. A matrix consists
+of data (e.g. measured values) in rows and columns. Prior to starting
+multivariate analyses, you likely have matrices with ecological data
+(such as the DoubsEnv or DoubsSpe that we have used before), but in
+ordination methods, your original data matrices are used to create
+association matrices. Before launching into ordination methods, it is
+important to spend some time with your data matrices. Creating an
+association matrix between objects or among descriptors allows for
+calculations of similarity or distance between objects or descriptors
+(Legendre and Legendre 2012). Exploring the possible association
+measures that can be generated from your data prior to running
+ordinations can help you to better understand what distance measure to
+use within ordination methods. At this point in time, it may be
+difficult to see the purpose behind different dissimilarity indices, or
+describing what they do to your multivariate data, but we will need this
+knowledge when we consider canonical ordination methods later on.</p>
+<p>IN SUMMARY: To ordinate objects you need to compute distances among
+them. Distances can be computed in several ways, taking into account
+abundance or presence/absence data. More importantly, they are several
+properties that are important for distance metrics that are explored
+with the data examples below. For more information about the properties
+of distance metrics and some key terms, click on the hidden section
+below.</p>
+<p><strong>Some key terms:</strong></p>
+<p><strong>Association -</strong> “general term to describe any measure or coefficient
+to quantify the resemblance or difference between objects or
+descriptors. In an analysis between descriptors, zero means no
+association.” (Legendre and Legendre 2012).</p>
+<p><strong>Similarity -</strong> a measure that is “maximum (S=1) when two objects are
+identical and minimum when two objects are completely different.”
+(Legendre and Legendre 2012).</p>
+<p><strong>Distance (also called dissimilarity) -</strong> a measure that is “maximum
+(D=1) when two objects are completely different”. (Legendre and Legendre
+2012). Distance or dissimilarity (D) = 1-S</p>
+<p>Choosing an association measure depends on your data, but also on what
+you know, ecologically about your data. For example, Euclidean distance
+is a very common and easy to use distance measure and is useful for
+understanding how different two samples are based on co-occurrence of
+species. The way Euclidean distance is calculated though relies on zeros
+in the dataset, meaning that two samples or sites without any species in
+common may appear more similar than two samples that share a few
+species. This could be misleading and it would be best to choose a
+different distance measure if you have a lot of zeros in your species
+matrix. This is commonly referred to the “double zero” problem in
+ordination analyses.</p>
+<p>Here are some commonly used dissimilarity (distance) measures (recreated
+from Gotelli and Ellison 2004):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Measure name</th>
+<th align="left">Property</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Euclidean</td>
+<td align="left">Metric</td>
+<td align="left">Distance between two points in 2D space.</td>
+</tr>
+<tr class="even">
+<td align="left">Manhattan</td>
+<td align="left">Metric</td>
+<td align="left">Distance between two points, where the distance is the sum of differences of their Cartesian coordinates, i.e. if you were to make a right able between the points.</td>
+</tr>
+<tr class="odd">
+<td align="left">Chord</td>
+<td align="left">Metric</td>
+<td align="left">This distance is generally used to assess differences due to genetic drift.</td>
+</tr>
+<tr class="even">
+<td align="left">Mahalanobis</td>
+<td align="left">Metric</td>
+<td align="left">Distance between a point and a set distribution, where the distance is the number of standard deviations of the point from the mean of the distribution.</td>
+</tr>
+<tr class="odd">
+<td align="left">Chi-square</td>
+<td align="left">Metric</td>
+<td align="left">Similar to Euclidean.</td>
+</tr>
+<tr class="even">
+<td align="left">Bray-Curtis</td>
+<td align="left">Semi-metric</td>
+<td align="left">Dissimilarity between two samples (or sites) where the sum of lower values for species present in both samples are divided by the sum of the species counted in each sample.</td>
+</tr>
+<tr class="odd">
+<td align="left">Jaccard</td>
+<td align="left">Metric</td>
+<td align="left"><a href="http://en.wikipedia.org/wiki/Jaccard_index">Description</a></td>
+</tr>
+<tr class="even">
+<td align="left">Sorensen's</td>
+<td align="left">Semi-metric</td>
+<td align="left">Bray-Curtis is 1 - Sorensen</td>
+</tr>
+</tbody>
+</table>
 </div>
 <hr>
 <center> 
@@ -230,8 +310,8 @@ combinations of the original variables in the ordination.</li>
           </div>
         </div>
       </div>
-<a href="association-measures.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="principal-component-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exploring-the-dataset.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="quantifying-data-dissimilarity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
