@@ -1,0 +1,1821 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Workshop 9: Multivariate Analyses in R},
+  pdfauthor={QCBS R Workshop Series; Developed and maintained by the contributors of the QCBS R Workshop Series},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+
+\title{Workshop 9: Multivariate Analyses in \texttt{R}}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{QCBS R Workshop Series}
+\author{QCBS R Workshop Series\footnote{The QCBS R Workshop Series is part of the Québec Centre for Biodiversity Science, and is maintained by the series coordinators and graduent student, postdoctoral, and research professional members. \url{https://www.qcbs.ca}} \and Developed and maintained by the contributors of the QCBS R Workshop Series\footnote{The contributors for this workshop can be accessed \href{link}{here}.}}
+\date{2021-02-16}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{part-qcbs-r-workshop-series}{%
+\part{QCBS R Workshop Series}\label{part-qcbs-r-workshop-series}}
+
+\hypertarget{preface}{%
+\chapter*{Preface}\label{preface}}
+\addcontentsline{toc}{chapter}{Preface}
+
+This series of 10 workshops walks participants through the steps required to use R for a wide array of statistical analyses relevant to research in biology and ecology. These open-access workshops were created by members of the QCBS both for members of the QCBS and the larger community.
+
+The content of this workshop has been peer-reviewed by several QCBS members. If you would like to suggest modifications, please contact the current series coordinators, listed on the main Github page.
+
+\hypertarget{series-learning-objectives}{%
+\subsection{Series learning objectives}\label{series-learning-objectives}}
+
+\hypertarget{contributors}{%
+\subsection{Contributors}\label{contributors}}
+
+\hypertarget{code-of-conduct}{%
+\subsection{Code of conduct}\label{code-of-conduct}}
+
+The QCBS R Workshop Series and the QCBS R Symposium are venues dedicated to providing a welcoming and supportive environment for all people, regardless of background or identity.
+
+Participants, presenters and organizers of the workshop series and other related activities accept this Code of Conduct when being present at any workshop-related activities.
+
+We do not tolerate behaviour that is disrespectful or that excludes, intimidates, or causes discomfort to others.
+
+We do not tolerate discrimination or harassment based on characteristics that include, but are not limited to, gender identity and expression, sexual orientation, disability, physical appearance, body size, citizenship, nationality, ethnic or social origin, pregnancy, familial status, genetic information, religion or belief (or lack thereof), membership of a national minority, property, age, education, socio-economic status, technical choices, and experience level.
+
+It applies to all spaces managed by or affiliated with the workshop, including, but not limited to, workshops, email lists, and online forums such as GitHub, Slack and Twitter.
+
+\hypertarget{expected-behaviour}{%
+\paragraph{Expected behaviour}\label{expected-behaviour}}
+
+All participants are expected to show respect and courtesy to others. All interactions should be professional regardless of platform: either online or in-person. In order to foster a positive and professional learning environment we encourage the following kinds of behaviours in all workshop events and platforms:
+
+\begin{itemize}
+\tightlist
+\item
+  Use welcoming and inclusive language
+\item
+  Be respectful of different viewpoints and experiences
+\item
+  Gracefully accept constructive criticism
+\item
+  Focus on what is best for the community
+\item
+  Show courtesy and respect towards other community members
+\end{itemize}
+
+\hypertarget{unacceptable-behaviour}{%
+\paragraph{Unacceptable behaviour}\label{unacceptable-behaviour}}
+
+Examples of unacceptable behaviour by participants at any workshop event/platform include:
+
+\begin{itemize}
+\tightlist
+\item
+  written or verbal comments which have the effect of excluding people on the - basis of membership of any specific group;
+\item
+  causing someone to fear for their safety, such as through stalking or intimidation;
+\item
+  violent threats or language directed against another person;
+\item
+  the display of sexual or violent images;
+\item
+  unwelcome sexual attention;
+\item
+  nonconsensual or unwelcome physical contact;
+\item
+  insults or put-downs;
+\item
+  sexist, racist, homophobic, transphobic, ableist, or exclusionary jokes;
+\item
+  incitement to violence, suicide, or self-harm;
+\item
+  continuing to initiate interaction (including photography or recording) with - someone after being asked to stop;
+\item
+  publication of private communication without consent.
+\end{itemize}
+
+\hypertarget{contributing}{%
+\subsection{Contributing}\label{contributing}}
+
+\hypertarget{part-workshop-9-multivariate-analyses-in-r}{%
+\chapter*{\texorpdfstring{(PART*) Workshop 9: Multivariate Analyses in \texttt{R}}{(PART*) Workshop 9: Multivariate Analyses in R}}\label{part-workshop-9-multivariate-analyses-in-r}}
+\addcontentsline{toc}{part}{Workshop 9: Multivariate Analyses in \texttt{R}}
+
+\hypertarget{preparing-for-the-workshop}{%
+\chapter{Preparing for the workshop}\label{preparing-for-the-workshop}}
+
+To prepare for this workshop, you must do the following steps:
+
+Download the R script and data required for this workshop:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://qcbs.ca/wiki/_media/multivar1_e.r}{R Script}
+\item
+  \href{http://qcbs.ca/wiki/_media/DoubsEnv.csv}{DoubsEnv data}
+\item
+  \href{http://qcbs.ca/wiki/_media/DoubsSpe.csv}{DoubsSpe data}
+\item
+  \href{http://qcbs.ca/wiki/_media/coldiss.R}{Coldiss R function}
+\end{itemize}
+
+Make sure to load the following packages (see how in the R script):
+
+\begin{itemize}
+\tightlist
+\item
+  \href{http://cran.r-project.org/web/packages/vegan/index.html}{vegan (for multivariate
+  analyses)}
+\item
+  \href{http://cran.r-project.org/web/packages/gclus/index.html}{gclus (for clustering
+  graphics)}
+\item
+  \href{http://cran.r-project.org/web/packages/ape/index.html}{ape (for
+  phylogenetics)}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"vegan"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"gclus"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"ape"}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(vegan)}
+\FunctionTok{library}\NormalTok{(gclus)}
+\FunctionTok{library}\NormalTok{(ape)}
+
+\FunctionTok{source}\NormalTok{(}\FunctionTok{file.choose}\NormalTok{()) }\CommentTok{\# use coldiss.R which you have downloaded to your own directory}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{what-is-ordination}{%
+\chapter{What is ordination?}\label{what-is-ordination}}
+
+Ordination is a set of methods for depicting samples in multiple
+dimensions (Clarke and Warwick 2011) and often feels like a catch-all
+term in ecological statistics. Ecologists are often told to ``run a PCA''
+in the face of complex and messy multivariate data. R code for
+ordination techniques is readily available and relatively
+straight-forward to implement for most data. Interpretation of
+ordination analyses can be more difficult, especially if you are unsure
+of the specific questions you wish to explore with a particular
+ordination method. As such, while ordination methods are very useful for
+helping simplify and make sense of multivariate data, careful
+consideration of why the methods are being used and which ones are most
+appropriate is necessary for strong ecological analyses!
+
+When you use an ordination method, you are taking a set of variables and
+creating new principal axes along which samples (sites etc.) are scored
+or ordered (Gotelli and Ellison 2004), in order to reduce or simplify
+the data, i.e.~to create new axes that represent most of the variation
+in the data. As an example, a dataset with 24 variables may be reduced
+to five principal components that represent the main patterns of
+variation amongst samples. Unconstrained ordination methods are
+generally not frameworks for hypotheses testing, rather they are best
+suited for exploratory data analysis. The different types of ordination
+can be useful for many different questions; see (\href{http://ordination.okstate.edu/}{the Ordination
+Website}) for an overview of different
+types of ordination).
+
+\hypertarget{getting-started-with-data}{%
+\chapter{Getting started with data}\label{getting-started-with-data}}
+
+We will use two main data sets in the first part of this workshop.
+``DoubsSpe.csv'' is a data frame of fish community data where the first
+column contains site names from 1 to 30 and the remaining columns are
+fish taxa. The taxa columns are populated by fish abundance data
+(counts). ``DoubsEnv.csv'' is a data frame of environmental data for the
+same sites contained in the fish community data frame. Again, the first
+column contains site names from 1 to 30. The remaining columns contain
+measurements for 11 abiotic variables. Note that data used in ordination
+analyses is generally in
+\href{http://en.wikipedia.org/wiki/Wide_and_narrow_data}{wide-format}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Species community data frame (fish abundance): “DoubsSpe.csv”}
+\NormalTok{spe}\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\FunctionTok{file.choose}\NormalTok{(), }\AttributeTok{row.names=}\DecValTok{1}\NormalTok{)}
+\NormalTok{spe}\OtherTok{\textless{}{-}}\NormalTok{ spe[}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{,] }\CommentTok{\#Site number 8 contains no species and so row 8 (site 8) is removed. Be careful to}
+\CommentTok{\#only run this command line once as you are overwriting "spe" each time. }
+
+\CommentTok{\#Environmental data frame: “DoubsEnv.csv”}
+\NormalTok{env}\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\FunctionTok{file.choose}\NormalTok{(), }\AttributeTok{row.names=}\DecValTok{1}\NormalTok{)}
+\NormalTok{env}\OtherTok{\textless{}{-}}\NormalTok{ env[}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{,] }\CommentTok{\#Remove corresponding abiotic data for site 8 (since removed from fish data). }
+\CommentTok{\#Again, be careful to only run the last line once. }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{explore-the-data}{%
+\chapter{Explore the data}\label{explore-the-data}}
+
+\hypertarget{species-data}{%
+\section{Species data}\label{species-data}}
+
+We can use summary functions to explore the ``spe'' data (fish community
+data) and discover things like the dimensions of the matrix, column
+headings and summary statistics for the columns. This is a review from
+===== Workshop 2.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(spe) }\CommentTok{\#see names of columns in spe}
+\FunctionTok{dim}\NormalTok{(spe) }\CommentTok{\#dimensions of spe; number of columns and rows }
+\FunctionTok{str}\NormalTok{(spe) }\CommentTok{\#displays internal structure of objects}
+\FunctionTok{head}\NormalTok{(spe) }\CommentTok{\#first few rows of the data frame}
+\FunctionTok{summary}\NormalTok{(spe) }\CommentTok{\#summary statistics for each column; min value, median value, max value, mean value etc.  }
+\end{Highlighting}
+\end{Shaded}
+
+Look at the species' distribution frequencies.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Species distribution}
+\NormalTok{(ab }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(}\FunctionTok{unlist}\NormalTok{(spe))) }\CommentTok{\#note that when you put an entire line of code in brackets like this, the output for that operation is displayed right away in the R console}
+
+\FunctionTok{barplot}\NormalTok{(ab, }\AttributeTok{las=}\DecValTok{1}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"Abundance class"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Frequency"}\NormalTok{, }\AttributeTok{col=}\FunctionTok{grey}\NormalTok{(}\DecValTok{5}\SpecialCharTok{:}\DecValTok{0}\SpecialCharTok{/}\DecValTok{5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=3.125in,height=\textheight]{/spe_barplot.png} Can see that there is a high
+frequency of zeros in the abundance data.
+
+See how many absences there are in the fish community data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(spe}\SpecialCharTok{==}\DecValTok{0}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+Look at the proportion of zeros in the fish community data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(spe}\SpecialCharTok{==}\DecValTok{0}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(spe)}\SpecialCharTok{*}\FunctionTok{ncol}\NormalTok{(spe))}
+\end{Highlighting}
+\end{Shaded}
+
+The proportion of zeros in the dataset is \textasciitilde0.5.
+
+See the frequency at which different numbers of species occur together.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spe.pres }\OtherTok{\textless{}{-}} \FunctionTok{colSums}\NormalTok{(spe}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{) }\CommentTok{\#compute the number of sites where each species is present. }
+\FunctionTok{hist}\NormalTok{(spe.pres, }\AttributeTok{main=}\StringTok{"Species occurrence"}\NormalTok{, }\AttributeTok{las=}\DecValTok{1}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"Frequency of occurrences"}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{30}\NormalTok{, }\AttributeTok{by=}\DecValTok{5}\NormalTok{), }\AttributeTok{col=}\StringTok{"grey"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Can see that an intermediate number of sites contain the highest number
+of species.
+
+Calculate the number of species that occur at each site. This is a
+simplistic way of calculating species richness for each site. In some
+cases, the number of individuals found in a site may differ between
+sites. Because there may be a relationship between the number of
+individuals counted in a site or sample and the taxa or species
+richness, \href{http://cc.oulu.fi/~jarioksa/softhelp/vegan/html/diversity.html}{rarefied species
+richness}
+may be a more appropriate metric than total richness. The rarefy()
+function in vegan can be used to generate rarefied species richness.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{site.pres }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{(spe}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{) }\CommentTok{\#number of species with a value greater than 0 in that site row}
+\FunctionTok{hist}\NormalTok{(site.pres, }\AttributeTok{main=}\StringTok{"Species richness"}\NormalTok{, }\AttributeTok{las=}\DecValTok{1}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"Frequency of sites"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Number of species"}\NormalTok{, }\AttributeTok{breaks=}\FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{30}\NormalTok{, }\AttributeTok{by=}\DecValTok{5}\NormalTok{), }\AttributeTok{col=}\StringTok{"grey"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{environmental-data}{%
+\section{Environmental data}\label{environmental-data}}
+
+Explore the environmental data and create a panel of plots to compare
+collinearity:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(env)}
+\FunctionTok{dim}\NormalTok{(env)}
+\FunctionTok{str}\NormalTok{(env)}
+\FunctionTok{head}\NormalTok{(env)}
+\FunctionTok{summary}\NormalTok{(env)}
+\FunctionTok{pairs}\NormalTok{(env, }\AttributeTok{main=}\StringTok{"Bivariate Plots of the Environmental Data"}\NormalTok{ ) }
+\end{Highlighting}
+\end{Shaded}
+
+In this case, the environmental data (explanatory variables) are all in
+different units and need to be standardized prior to computing distance
+measures to perform most ordination analyses. Standardize the
+environmental data (11 variables) using the function decostand() in
+vegan.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env.z }\OtherTok{\textless{}{-}} \FunctionTok{decostand}\NormalTok{(env, }\AttributeTok{method=}\StringTok{"standardize"}\NormalTok{)}
+\FunctionTok{apply}\NormalTok{(env.z, }\DecValTok{2}\NormalTok{, mean) }\CommentTok{\# the data are now centered (means\textasciitilde{}0)}
+\FunctionTok{apply}\NormalTok{(env.z, }\DecValTok{2}\NormalTok{, sd)   }\CommentTok{\# the data are now scaled (standard deviations=1)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unconstrained-ordination}{%
+\chapter{Unconstrained Ordination}\label{unconstrained-ordination}}
+
+Unconstrained ordination allows us to organize samples, sites or species
+along continuous gradients (e.g.~ecological or environmental). The key
+difference between unconstrained and constrained ordination (discussed
+later in this workshop- see `Canonical Ordination') is that in the
+unconstrained techniques we are not attempting to define a relationship
+between independent and dependent sets of variables.
+
+Unconstrained ordination can be used to: - Assess relationships \emph{within}
+a set of variables (not between sets). - Find key components of
+variation between samples, sites, species etc. - Reduce the number
+dimensions in multivariate data without substantial loss of information.
+- Create new variables for use in subsequent analyses (such as
+regression). These principal components are weighted, linear
+combinations of the original variables in the ordination.
+\href{http://www.umass.edu/landeco/teaching/multivariate/schedule/ordination1.pdf}{Source}
+
+\hypertarget{association-measures}{%
+\chapter{Association measures}\label{association-measures}}
+
+Matrix algebra ultimately lies below all ordinations. A matrix consists
+of data (e.g.~measured values) in rows and columns. Prior to starting
+multivariate analyses, you likely have matrices with ecological data
+(such as the DoubsEnv or DoubsSpe that we have used before), but in
+ordination methods, your original data matrices are used to create
+association matrices. Before launching into ordination methods, it is
+important to spend some time with your data matrices. Creating an
+association matrix between objects or among descriptors allows for
+calculations of similarity or distance between objects or descriptors
+(Legendre and Legendre 2012). Exploring the possible association
+measures that can be generated from your data prior to running
+ordinations can help you to better understand what distance measure to
+use within ordination methods. At this point in time, it may be
+difficult to see the purpose behind different dissimilarity indices, or
+describing what they do to your multivariate data, but we will need this
+knowledge when we consider canonical ordination methods later on.
+
+IN SUMMARY: To ordinate objects you need to compute distances among
+them. Distances can be computed in several ways, taking into account
+abundance or presence/absence data. More importantly, they are several
+properties that are important for distance metrics that are explored
+with the data examples below. For more information about the properties
+of distance metrics and some key terms, click on the hidden section
+below.
+
+\textless hidden\textgreater{} \textbf{Some key terms:}
+
+\textbf{Association -} ``general term to describe any measure or coefficient
+to quantify the resemblance or difference between objects or
+descriptors. In an analysis between descriptors, zero means no
+association.'' (Legendre and Legendre 2012).
+
+\textbf{Similarity -} a measure that is ``maximum (S=1) when two objects are
+identical and minimum when two objects are completely different.''
+(Legendre and Legendre 2012).
+
+\textbf{Distance (also called dissimilarity) -} a measure that is ``maximum
+(D=1) when two objects are completely different''. (Legendre and Legendre
+2012). Distance or dissimilarity (D) = 1-S
+
+Choosing an association measure depends on your data, but also on what
+you know, ecologically about your data. For example, Euclidean distance
+is a very common and easy to use distance measure and is useful for
+understanding how different two samples are based on co-occurrence of
+species. The way Euclidean distance is calculated though relies on zeros
+in the dataset, meaning that two samples or sites without any species in
+common may appear more similar than two samples that share a few
+species. This could be misleading and it would be best to choose a
+different distance measure if you have a lot of zeros in your species
+matrix. This is commonly referred to the ``double zero'' problem in
+ordination analyses.
+
+Here are some commonly used dissimilarity (distance) measures (recreated
+from Gotelli and Ellison 2004):
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Measure name & Property & Description\tabularnewline
+\midrule
+\endhead
+Euclidean & Metric & Distance between two points in 2D space.\tabularnewline
+Manhattan & Metric & Distance between two points, where the distance is the sum of differences of their Cartesian coordinates, i.e.~if you were to make a right able between the points.\tabularnewline
+Chord & Metric & This distance is generally used to assess differences due to genetic drift.\tabularnewline
+Mahalanobis & Metric & Distance between a point and a set distribution, where the distance is the number of standard deviations of the point from the mean of the distribution.\tabularnewline
+Chi-square & Metric & Similar to Euclidean.\tabularnewline
+Bray-Curtis & Semi-metric & Dissimilarity between two samples (or sites) where the sum of lower values for species present in both samples are divided by the sum of the species counted in each sample.\tabularnewline
+Jaccard & Metric & \href{http://en.wikipedia.org/wiki/Jaccard_index}{Description}\tabularnewline
+Sorensen's & Semi-metric & Bray-Curtis is 1 - Sorensen\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textless/hidden\textgreater{}
+
+\hypertarget{distance-measures}{%
+\section{2.1 Distance measures}\label{distance-measures}}
+
+\textbf{Quantitative species data} We can use the vegdist() function to
+compute dissimilarity indices for community composition data. These can
+then be visualized as a matrix if desired.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spe.db}\OtherTok{\textless{}{-}}\FunctionTok{vegdist}\NormalTok{(spe, }\AttributeTok{method=}\StringTok{"bray"}\NormalTok{) }\CommentTok{\# "bray" with presence{-}absence data is Sorensen dissimilarity }
+\NormalTok{spe.dj}\OtherTok{\textless{}{-}}\FunctionTok{vegdist}\NormalTok{(spe, }\AttributeTok{method=}\StringTok{"jac"}\NormalTok{) }\CommentTok{\# Jaccard dissimilarity}
+\NormalTok{spe.dg}\OtherTok{\textless{}{-}}\FunctionTok{vegdist}\NormalTok{(spe, }\AttributeTok{method=}\StringTok{"gower"}\NormalTok{) }\CommentTok{\# Gower dissimilarity }
+\NormalTok{spe.db}\OtherTok{\textless{}{-}}\FunctionTok{as.matrix}\NormalTok{(spe.db) }\CommentTok{\#Put in matrix form (can visualize, write to .csv etc)}
+\end{Highlighting}
+\end{Shaded}
+
+A condensed version of the spe.db matrix where the numbers represent the
+distance(dissimilarity) between the first 3 species in DoubsSpe would
+look like this:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+& Species 1 & Species 2 & Species 3\tabularnewline
+\midrule
+\endhead
+Species 1 & 0.0 & 0.6 & 0.68\tabularnewline
+Species 2 & 0.6 & 0.0 & 0.14\tabularnewline
+Species 3 & 0.68 & 0.14 & 0.0\tabularnewline
+\bottomrule
+\end{longtable}
+
+You can see that when comparing a species to itself (e.g.~Species 1 to
+Species 1), the distance = 0, because species 1 is like itself and
+distance is maximum when the species compared are 100\% different.
+
+These same distance measures can be calculated from presence-absence
+data by setting binary=TRUE in the vegdist() function. This will give
+slightly different distance measures.
+
+You can also create graphical depictions of these association matrices
+using a function called coldiss. \textless hidden\textgreater{} This function can be sourced
+using the script coldiss.R:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{coldiss}\NormalTok{(spe.db, }\AttributeTok{byrank=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{diag=}\ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Heat map of Bray{-}Curtis dissimilarity}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{coldiss}\NormalTok{(spe.dj, }\AttributeTok{byrank=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{diag=}\ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Heat map of Jaccard dissimilarity}
+\FunctionTok{windows}\NormalTok{() }
+\FunctionTok{coldiss}\NormalTok{(spe.dg, }\AttributeTok{byrank=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{diag=}\ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# Heat map of Gower dissimilarity}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=8.33333in,height=\textheight]{/coldiss_Bray.png}
+
+The figure shows a dissimilarity matrix which mirrors what you would see
+if you exported the matrix or viewed it within the R console. The `hot'
+colour (purple) shows areas of high dissimilarity. \textless/hidden\textgreater{}
+
+\textbf{Quantitative environmental data} Let's look at \emph{associations} between
+environmental variables (also known as Q mode):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?dist }\CommentTok{\# this function also compute dissimilarity matrix}
+\NormalTok{env.de}\OtherTok{\textless{}{-}}\FunctionTok{dist}\NormalTok{(env.z, }\AttributeTok{method =} \StringTok{"euclidean"}\NormalTok{) }\CommentTok{\# euclidean distance matrix of the standardized environmental variables }
+\FunctionTok{windows}\NormalTok{() }\CommentTok{\#Creates a separate graphical window}
+\FunctionTok{coldiss}\NormalTok{(env.de, }\AttributeTok{diag=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can then look at the \emph{dependence} between environmental variables
+(also known as R mode):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(env.pearson}\OtherTok{\textless{}{-}}\FunctionTok{cor}\NormalTok{(env)) }\CommentTok{\# Pearson r linear correlation}
+\FunctionTok{round}\NormalTok{(env.pearson, }\DecValTok{2}\NormalTok{) }\CommentTok{\#Rounds the coefficients to 2 decimal points }
+\NormalTok{(env.ken}\OtherTok{\textless{}{-}}\FunctionTok{cor}\NormalTok{(env, }\AttributeTok{method=}\StringTok{"kendall"}\NormalTok{)) }\CommentTok{\# Kendall tau rank correlation}
+\FunctionTok{round}\NormalTok{(env.ken, }\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+The Pearson correlation measures the linear correlation between two
+variables. The Kendall tau is a rank correlation which means that it
+quantifies the relationship between two descriptors or variables when
+the data are ordered within each variable.
+
+In some cases, there may be mixed types of environmental variables. Q
+mode can still be used to find associations between these environmental
+variables. We'll do this by first creating an example dataframe:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{var.g1}\OtherTok{\textless{}{-}}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{var.g2}\OtherTok{\textless{}{-}}\FunctionTok{runif}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{var.g3}\OtherTok{\textless{}{-}}\FunctionTok{gl}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{var.g4}\OtherTok{\textless{}{-}}\FunctionTok{gl}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\NormalTok{(dat2}\OtherTok{\textless{}{-}}\FunctionTok{data.frame}\NormalTok{(var.g1, var.g2, var.g3, var.g4))}
+\FunctionTok{str}\NormalTok{(dat2)}
+\FunctionTok{summary}\NormalTok{(dat2)}
+\end{Highlighting}
+\end{Shaded}
+
+A dissimilarity matrix can be generated for these mixed variables using
+the Gower dissimilarity matrix:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?daisy }\CommentTok{\#This function can handle NAs in the data}
+\NormalTok{(dat2.dg}\OtherTok{\textless{}{-}}\FunctionTok{daisy}\NormalTok{(dat2, }\AttributeTok{metric=}\StringTok{"gower"}\NormalTok{))}
+\FunctionTok{coldiss}\NormalTok{(dat2.dg)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Challenge 1 - Introductory} Discuss with your neighbour: How can we
+tell how similar objects are when we have multivariate data? Make a list
+of all your suggestions.
+
+\textbf{Challenge 1 - Introductory Solution} \textless hidden\textgreater{} Discuss as a group.
+\textless/hidden\textgreater{}
+
+\textbf{Challenge 1 - Advanced} Calculate the Bray-Curtis and the Gower
+dissimilarity of species abundance CHA, TRU and VAI for sites 1, 2 and 3
+(using the ``spe'' and ``env'' dataframes) \emph{without using the decostand()
+function.}
+
+\textbf{Challenge 1 - Advanced Solution} \textless hidden\textgreater{}
+
+First, it is helpful to know the formula for Bray-Curtis dissimilarity
+Bray-Curtis dissimilarity : d\[jk\] = (sum abs(x\[ij\]-x\[ik\]))/(sum
+(x\[ij\]+x\[ik\]))
+
+Next, subset the species data so that only sites 1, 2 are included and
+only the species CHA, TRU and VAI
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spe.challenge}\OtherTok{\textless{}{-}}\NormalTok{spe[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{] }\CommentTok{\#”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in \#this case the three variables of interest)}
+\end{Highlighting}
+\end{Shaded}
+
+Determine total species abundance for each site of interest (sum of the
+3 rows). This will be for the denominator in the above equation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(Abund.s1}\OtherTok{\textless{}{-}}\FunctionTok{sum}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,]))}
+\NormalTok{(Abund.s2}\OtherTok{\textless{}{-}}\FunctionTok{sum}\NormalTok{(spe.challenge[}\DecValTok{2}\NormalTok{,]))}
+\NormalTok{(Abund.s3}\OtherTok{\textless{}{-}}\FunctionTok{sum}\NormalTok{(spe.challenge[}\DecValTok{3}\NormalTok{,]))}
+\CommentTok{\#() around code will cause output to print right away in console}
+\end{Highlighting}
+\end{Shaded}
+
+Now calculate the difference in species abundances for each pair of
+sites. For example, what is the difference between the abundance of CHA
+and TRU in site 1? You need to calculate the following differences: CHA
+and TRU site 1 CHA and VAI site 1 TRU and VAI site 1 CHA and TRU site 2
+CHA and VAI site 2 TRU and VAI site 2 CHA and TRU site 3 CHA and VAI
+site 3 TRU and VAI site 3
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Spec.s1s2}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{Spec.s1s3}\OtherTok{\textless{}{-}}\DecValTok{0}
+\NormalTok{Spec.s2s3}\OtherTok{\textless{}{-}}\DecValTok{0}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{) \{}
+\NormalTok{  Spec.s1s2}\OtherTok{\textless{}{-}}\NormalTok{Spec.s1s2}\SpecialCharTok{+}\FunctionTok{abs}\NormalTok{(}\FunctionTok{sum}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,i]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{2}\NormalTok{,i]))}
+\NormalTok{  Spec.s1s3}\OtherTok{\textless{}{-}}\NormalTok{Spec.s1s3}\SpecialCharTok{+}\FunctionTok{abs}\NormalTok{(}\FunctionTok{sum}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,i]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,i]))}
+\NormalTok{  Spec.s2s3}\OtherTok{\textless{}{-}}\NormalTok{Spec.s2s3}\SpecialCharTok{+}\FunctionTok{abs}\NormalTok{(}\FunctionTok{sum}\NormalTok{(spe.challenge[}\DecValTok{2}\NormalTok{,i]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,i])) \}}
+\end{Highlighting}
+\end{Shaded}
+
+Now take the differences you have calculated as the numerator in the
+equation for Bray-Curtis dissimilarity and the total species abundance
+that you already calculated as the denominator.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(db.s1s2}\OtherTok{\textless{}{-}}\NormalTok{Spec.s1s2}\SpecialCharTok{/}\NormalTok{(Abund.s1}\SpecialCharTok{+}\NormalTok{Abund.s2)) }\CommentTok{\#Site 1 compared to site 2}
+\NormalTok{(db.s1s3}\OtherTok{\textless{}{-}}\NormalTok{Spec.s1s3}\SpecialCharTok{/}\NormalTok{(Abund.s1}\SpecialCharTok{+}\NormalTok{Abund.s3)) }\CommentTok{\#Site 1 compared to site 3}
+\NormalTok{(db.s2s3}\OtherTok{\textless{}{-}}\NormalTok{Spec.s2s3}\SpecialCharTok{/}\NormalTok{(Abund.s2}\SpecialCharTok{+}\NormalTok{Abund.s3)) }\CommentTok{\#Site 2 compared to site 3 }
+\end{Highlighting}
+\end{Shaded}
+
+You should find values of 0.5 for site 1 to site 2, 0.538 for site 1 to
+site 3 and 0.053 for site 2 to 3.
+
+Check your manual results with what you would find using the function
+vegdist() with the Bray-Curtis method:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(spe.db.challenge}\OtherTok{\textless{}{-}}\FunctionTok{vegdist}\NormalTok{(spe.challenge, }\AttributeTok{method=}\StringTok{"bray"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+A matrix looking like this is produced, which should be the same as your
+manual calculations:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+& Site 1 & Site 2\tabularnewline
+\midrule
+\endhead
+Site 2 & 0.5 & -\/-\tabularnewline
+Site 3 & 0.538 & 0.0526\tabularnewline
+\bottomrule
+\end{longtable}
+
+For the Gower dissimilarity, proceed in the same way but use the
+appropriate equation: Gower dissimilarity : d\[jk\] = (1/M)
+sum(abs(x\[ij\]-x\[ik\])/(max(x\[i\])-min(x\[i\])))
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate the number of columns in your dataset}
+\NormalTok{M}\OtherTok{\textless{}{-}}\FunctionTok{ncol}\NormalTok{(spe.challenge)}
+
+\CommentTok{\# Calculate the species abundance differences between pairs of sites for each species}
+\NormalTok{Spe1.s1s2}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+\NormalTok{Spe2.s1s2}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{])}
+\NormalTok{Spe3.s1s2}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{])}
+\NormalTok{Spe1.s1s3}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+\NormalTok{Spe2.s1s3}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{])}
+\NormalTok{Spe3.s1s3}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{])}
+\NormalTok{Spe1.s2s3}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{])}
+\NormalTok{Spe2.s2s3}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{])}
+\NormalTok{Spe3.s2s3}\OtherTok{\textless{}{-}}\FunctionTok{abs}\NormalTok{(spe.challenge[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{]}\SpecialCharTok{{-}}\NormalTok{spe.challenge[}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{])}
+
+\CommentTok{\# Calculate the range of each species abundance between sites  }
+\NormalTok{Range.spe1}\OtherTok{\textless{}{-}}\FunctionTok{max}\NormalTok{(spe.challenge[,}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{ (spe.challenge[,}\DecValTok{1}\NormalTok{])}
+\NormalTok{Range.spe2}\OtherTok{\textless{}{-}}\FunctionTok{max}\NormalTok{(spe.challenge[,}\DecValTok{2}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{ (spe.challenge[,}\DecValTok{2}\NormalTok{])}
+\NormalTok{Range.spe3}\OtherTok{\textless{}{-}}\FunctionTok{max}\NormalTok{(spe.challenge[,}\DecValTok{3}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{ (spe.challenge[,}\DecValTok{3}\NormalTok{])}
+
+\CommentTok{\# Calculate the Gower dissimilarity  }
+\NormalTok{(dg.s1s2}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\NormalTok{M)}\SpecialCharTok{*}\NormalTok{((Spe2.s1s2}\SpecialCharTok{/}\NormalTok{Range.spe2)}\SpecialCharTok{+}\NormalTok{(Spe3.s1s2}\SpecialCharTok{/}\NormalTok{Range.spe3)))}
+\NormalTok{(dg.s1s3}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\NormalTok{M)}\SpecialCharTok{*}\NormalTok{((Spe2.s1s3}\SpecialCharTok{/}\NormalTok{Range.spe2)}\SpecialCharTok{+}\NormalTok{(Spe3.s1s3}\SpecialCharTok{/}\NormalTok{Range.spe3)))}
+\NormalTok{(dg.s2s3}\OtherTok{\textless{}{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\NormalTok{M)}\SpecialCharTok{*}\NormalTok{((Spe2.s2s3}\SpecialCharTok{/}\NormalTok{Range.spe2)}\SpecialCharTok{+}\NormalTok{(Spe3.s2s3}\SpecialCharTok{/}\NormalTok{Range.spe3)))}
+
+\CommentTok{\# Compare your results}
+\NormalTok{(spe.db.challenge}\OtherTok{\textless{}{-}}\FunctionTok{vegdist}\NormalTok{(spe.challenge, }\AttributeTok{method=}\StringTok{"gower"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\textless/hidden\textgreater{}
+
+\hypertarget{transformations-of-community-composition-data}{%
+\section{2.2. Transformations of community composition data}\label{transformations-of-community-composition-data}}
+
+Sometimes species/community data may also need to be standardized or
+transformed. The decostand() function in vegan provides standardization
+and transformation options for community composition data.
+
+Transforming abundance or count data to presence-absence data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spe.pa}\OtherTok{\textless{}{-}}\FunctionTok{decostand}\NormalTok{(spe, }\AttributeTok{method=}\StringTok{"pa"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+Other transformations can be used to correct for the influence of rare
+species, e.g.~the Hellinger transformation:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Hellinger transformation}
+\NormalTok{spe.hel}\OtherTok{\textless{}{-}}\FunctionTok{decostand}\NormalTok{(spe, }\AttributeTok{method=}\StringTok{"hellinger"}\NormalTok{) }\CommentTok{\#can also use method=”hell”}
+
+\CommentTok{\#Chi{-}square transformation}
+\NormalTok{spe.chi}\OtherTok{\textless{}{-}}\FunctionTok{decostand}\NormalTok{(spe, }\AttributeTok{method=}\StringTok{"chi.square"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Optional Challenge 2 - Advanced} Produce Hellinger and Chi-square
+transformed abundance data for the ``spe'' data without using decostand().
+
+\textbf{Optional Challenge 2 - Advanced Solution} \textless hidden\textgreater{} The Hellinger
+transformation is a transformation that down-weights the importance
+given to rare species in a sample.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Hellinger transformation}
+\CommentTok{\# First calculate the total species abundances by site}
+\NormalTok{(}\AttributeTok{site.totals=}\FunctionTok{apply}\NormalTok{(spe, }\DecValTok{1}\NormalTok{, sum))}
+
+\CommentTok{\# Scale species abundances by dividing them by site totals}
+\NormalTok{(scale.spe}\OtherTok{\textless{}{-}}\NormalTok{spe}\SpecialCharTok{/}\NormalTok{site.totals)}
+
+\CommentTok{\# Calculate the square root of scaled species abundances}
+\NormalTok{(sqrt.scale.spe}\OtherTok{\textless{}{-}}\FunctionTok{sqrt}\NormalTok{(scale.spe))}
+
+\CommentTok{\# Compare the results}
+\NormalTok{sqrt.scale.spe}
+\NormalTok{spe.hel}
+\NormalTok{sqrt.scale.spe}\SpecialCharTok{{-}}\NormalTok{spe.hel }\CommentTok{\# or: sqrt.scale.spe/spe.hel}
+
+\CommentTok{\# Chi{-}square transformation}
+\CommentTok{\# First calculate the total species abundances by site}
+\NormalTok{(site.totals}\OtherTok{\textless{}{-}}\FunctionTok{apply}\NormalTok{(spe, }\DecValTok{1}\NormalTok{, sum))}
+
+\CommentTok{\# Then calculate the square root of total species abundances}
+\NormalTok{(sqrt.spe.totals}\OtherTok{\textless{}{-}}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{apply}\NormalTok{(spe, }\DecValTok{2}\NormalTok{, sum)))}
+
+\CommentTok{\# Scale species abundances by dividing them by the site totals and the species totals}
+\NormalTok{scale.spe2}\OtherTok{\textless{}{-}}\NormalTok{spe}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(spe)) \{}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(spe)) \{}
+\NormalTok{   (scale.spe2[i,j]}\OtherTok{=}\NormalTok{scale.spe2[i,j]}\SpecialCharTok{/}\NormalTok{(site.totals[i]}\SpecialCharTok{*}\NormalTok{sqrt.spe.totals[j]))   \}\}}
+
+\CommentTok{\#Adjust the scale abundance species by multiplying by the square root of the species matrix total                                         }
+\NormalTok{(adjust.scale.spe2}\OtherTok{\textless{}{-}}\NormalTok{scale.spe2}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{sum}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(spe))))}
+
+\CommentTok{\# Compare the results}
+\NormalTok{adjust.scale.spe2}
+\NormalTok{spe.chi}
+\NormalTok{adjust.scale.spe2}\SpecialCharTok{{-}}\NormalTok{spe.chi }\CommentTok{\# or: adjust.scale.spe2/spe.chi}
+\end{Highlighting}
+\end{Shaded}
+
+\textless/hidden\textgreater{}
+
+\hypertarget{clustering}{%
+\section{2.3 Clustering}\label{clustering}}
+
+One application of association matrices is clustering. It is not a
+statistical method per se, because it does not test a hypothesis, but it
+highlights structures in the data by partitioning either the objects or
+the descriptors. As a result, similar objects are combined into groups,
+allowing distinctions -- or contrasts -- between groups to be
+identified. One goal of ecologists could be to divide a set of sites
+into groups with respect to their environmental conditions or their
+community composition.
+
+Clustering results are often represented as dendrograms (trees), where
+objects agglomerate into groups. There are several families of
+clustering methods, but for the purpose of this workshop, we will
+present an overview of three hierarchical agglomerative clustering
+methods: single linkage, complete linkage, and Ward's minimum variance
+clustering. See chapter 8 of Legendre and Legendre 2012 for more details
+on the different families of clustering methods.
+
+In hierarchical methods, elements of lower clusters (or groups) become
+members of larger, higher ranking clusters, e.g.~species, genus, family,
+order. Prior to clustering, one needs to create an association matrix
+among the objects. Distance matrix is the default choice of clustering
+functions in R. The association matrix is first sorted in increasing
+distance order (or decreasing similarities). Then, groups are formed
+hierarchically following rules specific to each method.
+
+Let's take a simple example of a euclidean distance matrix between 5
+objets which were sorted in ascending order.
+
+\includegraphics{/cluster.example.png}
+
+In single linkage agglomerative clustering (also called nearest
+neighbour sorting), the objects at the closest distances agglomerate.
+The two closest objects agglomerate first, the next two closest
+objects/clusters are then linked, and so on, which often generates long
+thin clusters or chains of objects (see how objets 1 to 5 cluster
+successively). Conversely, in complete linkage agglomerative clustering,
+an object agglomerates to a group only when linked to the furthest
+element of the group, which in turn links it to all members of that
+group (in the above example, the group formed of objets 3 and 4 only
+clusters with group 1-2 at 0.4, a distance at which objets 1, 2, 3 and 4
+are all linked). As a result, complete linkage clustering will form many
+small separate groups, and is more appropriate to look for contrasts,
+discontinuities in the data.
+
+Let's compare the single and complete linkage clustering methods using
+the Doubs fish species data.
+
+Species data were already Hellinger-transformed. The cluster analysis
+requiring similarity or dissimilarity indices, the first step will be to
+generate the Hellinger distance indices.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spe.dhel}\OtherTok{\textless{}{-}}\FunctionTok{vegdist}\NormalTok{(spe.hel,}\AttributeTok{method=}\StringTok{"euclidean"}\NormalTok{) }\CommentTok{\#generates the distance matrix from Hellinger transformed data}
+
+\CommentTok{\#See difference between the two matrices}
+\FunctionTok{head}\NormalTok{(spe.hel)}\CommentTok{\# Hellinger{-}transformed species data}
+\FunctionTok{head}\NormalTok{(spe.dhel)}\CommentTok{\# Hellinger distances among sites}
+\end{Highlighting}
+\end{Shaded}
+
+Most clustering methods can be computed with the function hclust() of
+the stats package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Faire le groupement à liens simples}
+\CommentTok{\#Perform single linkage clustering}
+\NormalTok{spe.dhel.single}\OtherTok{\textless{}{-}}\FunctionTok{hclust}\NormalTok{(spe.dhel, }\AttributeTok{method=}\StringTok{"single"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(spe.dhel.single)}
+
+\CommentTok{\#Perform complete linkage clustering}
+\NormalTok{spe.dhel.complete}\OtherTok{\textless{}{-}}\FunctionTok{hclust}\NormalTok{(spe.dhel, }\AttributeTok{method=}\StringTok{"complete"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(spe.dhel.complete)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/clust_single.png}\includegraphics{/clust_complete.png}
+
+Are there big differences between the two dendrograms?
+
+In single linkage clustering, chains of objets occur (e.g.~19, 29, 30,
+20, 26, etc.), whereas more contrasted groups are formed in the complete
+linkage clustering.
+
+Ward's minimum variance clustering differ from these two methods in that
+it clusters objects into groups using the criterion of least squares
+(similar to linear models). At the beginning, each object is considered
+being a cluster of its own. At each step, the pair of clusters merging
+is the one leading to minimum increase in total within-group sum of
+squares.
+
+Again, it is possible to generate a Ward's minimum variance clustering
+with hclust(). However, the dendogram shows squared distances by
+default. In order to compare this dendrogram to the single and complete
+linkage clustering results, one must calculate the square root of the
+distances.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Perform Ward minimum variance clustering}
+\NormalTok{spe.dhel.ward}\OtherTok{\textless{}{-}}\FunctionTok{hclust}\NormalTok{(spe.dhel, }\AttributeTok{method=}\StringTok{"ward.D2"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(spe.dhel.ward)}
+
+\CommentTok{\#Re{-}plot the dendrogram by using the square roots of the fusion levels}
+\NormalTok{spe.dhel.ward}\SpecialCharTok{$}\NormalTok{height}\OtherTok{\textless{}{-}}\FunctionTok{sqrt}\NormalTok{(spe.dhel.ward}\SpecialCharTok{$}\NormalTok{height)}
+\FunctionTok{plot}\NormalTok{(spe.dhel.ward)}
+\FunctionTok{plot}\NormalTok{(spe.dhel.ward, }\AttributeTok{hang=}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{) }\CommentTok{\# hang={-}1 aligns all objets on the same line}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/clust_ward.png}
+\includegraphics{/clust_wardfinal.png}
+
+The clusters generated using Ward's method tend to be more spherical and
+to contain similar numbers of objects.
+
+One must be careful in the choice of an association measure and
+clustering method in order to correctly address a problem. What are you
+most interested in: gradients? Contrasts? In addition, the results
+should be interpreted with respect to the properties of the method used.
+If more than one method seems suitable to an ecological question,
+computing them all and compare the results would be the way to go. As a
+reminder, clustering is not a statistical method, but further steps can
+be taken to identify interpretable clusters (e.g.~where to cut the
+tree), or to compute clustering statistics. Clustering can also be
+combined to ordination in order to distinguish groups of sites. These go
+beyond the scope of this workshop, but see Borcard et al.~2011 for more
+details.
+
+\hypertarget{principal-component-analysis}{%
+\chapter{Principal Component Analysis}\label{principal-component-analysis}}
+
+Principal component analysis (PCA) was originally described by Pearson
+(1901) although it is more often attributed to Hotelling (1933) who
+proposed it independently. The method and several of its implications
+for data analysis are presented in the seminal paper of Rao (1964). PCA
+is used to generate a few key variables from a larger set of variables
+that still represent as much of the variation in the dataset as
+possible. PCA is a powerful technique to analyze quantitative
+descriptors (such as species abundances), but cannot be applied to
+binary data (such as species absence/presence).
+
+Based on a dataset containing normally distributed variables, the first
+axis (or principal-component axis) of a PCA is the line that goes
+through the greatest dimension of the concentration ellipsoid describing
+the multinormal distribution. Similarly, the following axes go through
+the dimensions of the concentration ellipsoid by decreasing length. One
+can thus derive a maximum of p principal axes form a data set containing
+p variables.
+
+For this, PCA rotates the original system of axes defined by the
+variables in a way that the successive new axes are orthogonal to one
+another and correspond to the successive dimensions of maximum variance
+of the scatter of points. The new variables produced in a PCA are
+uncorrelated with each other (axes are orthogonal to each other) and
+therefore may be used in other analyses such as multiple regression
+(Gotelli and Ellison 2004). The principal components give the positions
+of the objects in the new system of coordinates. PCA works on an
+association matrix among variables containing the variances and
+covariances of the variables. PCA preserves Euclidean distances and
+detects linear relationships. As a consequence, raw species abundance
+data are subjected to a pre-transformation (i.e.~a Hellinger
+transformation) before computing a PCA.
+
+\emph{To do a PCA you need:} - A set of variables (with no distinction
+between independent or dependent variables, i.e.~a set of species OR a
+set of environmental variables). - Samples that are measured for the
+same set of variables. - Generally a dataset that is longer than it is
+wide is preferred.
+
+PCA is most useful with data with more than two variables, but is easier
+to describe using a two dimensional example. In this example (derived
+from Clarke and Warwick 2001) , we have nine sites with abundance data
+for two species:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Site & Species 1 & Species 2\tabularnewline
+\midrule
+\endhead
+A & 6 & 2\tabularnewline
+B & 0 & 0\tabularnewline
+C & 5 & 8\tabularnewline
+D & 7 & 6\tabularnewline
+E & 11 & 6\tabularnewline
+F & 10 & 10\tabularnewline
+G & 15 & 8\tabularnewline
+H & 18 & 14\tabularnewline
+I & 14 & 14\tabularnewline
+\bottomrule
+\end{longtable}
+
+If you plotted these samples in the two dimensions, the plot would look
+like this: \includegraphics[width=5.20833in,height=\textheight]{/pcaex_1.png}
+
+This is a straight forward scatter plot and is an ordination plot, but
+you can imagine that it is more difficult to produce and visualize such
+a plot if there were more than two species. In that case, you would want
+to reduce the number of variables to principal components. If the 2D
+plot above was too complex and we wanted to reduce the data into a
+single dimension, we would be doing so with a PCA:
+
+\includegraphics[width=5.20833in,height=\textheight]{/pcaex_2.png}
+
+In this case, the first principal component is the line of best fit
+through the points (sites) with the sites perpendicular to the line.
+
+A second principal component is then added perpendicular to the first
+axis:
+
+\includegraphics[width=5.20833in,height=\textheight]{/pcaex_3.png}
+
+The final plot then is the two PC axes rotated where the axes are now
+principal components as opposed to species:
+
+\includegraphics[width=5.20833in,height=\textheight]{/pcaex_4.png}
+
+For PCAs with more than two variables, principal components are added
+like this (Clarke and Warwick 2001):
+
+PC1 = axis that maximises the variance of the points that are projected
+perpendicularly onto the axis. PC2 = must be perpendicular to PC1, but
+the direction is again the one in which variance is maximised when
+points are perpendicularly projected. PC3 and so on: perpendicular to
+the first two axes. Essentially, when there are more than two
+dimensions, PCA produces a new space in which all PCA axes are
+orthogonal (e.g.~where the correlation among any two axes is null) and
+where the PCA axes are ordered according to the percent of the variance
+of the original data they explain.
+
+The ``spe'' data includes 27 fish taxa. To simplify the 27 fish taxa into
+a smaller number of fish-related variables or to identify where
+different sites or samples are associated with particular fish taxa we
+can run a PCA.
+
+Run a PCA on Hellinger-transformed species data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Run the PCA using the rda() function (NB: rda() is used for both PCA and RDA)}
+\NormalTok{spe.h.pca }\OtherTok{\textless{}{-}} \FunctionTok{rda}\NormalTok{(spe.hel)}
+
+\CommentTok{\#Extract the results}
+\FunctionTok{summary}\NormalTok{(spe.h.pca) }\CommentTok{\#overall results}
+\end{Highlighting}
+\end{Shaded}
+
+The summary looks like this:
+
+\includegraphics[width=8.33333in,height=\textheight]{/pcaoutput_1v2.png} \includegraphics[width=8.33333in,height=\textheight]{/pcaoutput_2.png}
+\includegraphics[width=8.33333in,height=\textheight]{/pcaoutput_3.png}
+
+\textbf{Interpretation of ordination results:}
+
+A new word from this output is "eigenvalue". An eigenvalue is the
+value of the change in the length of a vector, and for our purposes is
+the amount of variation explained by each axis in a PCA. As you can see,
+the summary function produces a fair amount of information. From the
+summary we can see how much of the variance in the data is explained by
+the unconstrained variables (i.e.~variables where we have made no effort
+to define relationships between the variables). In this case, the total
+variance of the sites explained by the species is 0.5. The summary also
+tells you what proportion of the total explained variance is explained
+by each principal component in the PCA: the first axis of the PCA thus
+explains 51.33\% of the variation, and the second axis 12.78\%. You can
+also extract certain parts of the output, try this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(spe.h.pca, }\AttributeTok{display=}\ConstantTok{NULL}\NormalTok{) }\CommentTok{\# only eigenvalues and their contribution to the variance}
+\FunctionTok{eigen}\NormalTok{(}\FunctionTok{cov}\NormalTok{(spe.hel)) }\CommentTok{\# also compute the eigenvalues}
+\end{Highlighting}
+\end{Shaded}
+
+Sometimes you may want to extract the scores (i.e.~the coordinates
+within a PCA biplot) for either the ``sites'' (the rows in your dataset,
+whether they be actual sites or not) or the ``species'' (the variables in
+your data, whether they be actual species or some other variables). This
+is useful if you want to then use a principal component as a variable in
+another analysis, or to make additional graphics. For example, with the
+``spe'' dataset, you might want to obtain a single variable that is a
+composite of all the fish abundance data and then use that use that
+variable in a regression with another variable, or plot across a spatial
+gradient. To extract scores from a PCA, use the scores() function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spe.scores }\OtherTok{\textless{}{-}} \FunctionTok{scores}\NormalTok{(spe.h.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\CommentTok{\# species scores on the first two PCA axes}
+\NormalTok{site.scores }\OtherTok{\textless{}{-}} \FunctionTok{scores}\NormalTok{(spe.h.pca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\CommentTok{\# sites scores on the first two PCA axes}
+\CommentTok{\#Note: if you don’t specify the number of principal components to extract (e.g. choices=c(1,2) or choices=c(1:2) then all of the scores will be extracted for all of the principal components. }
+\end{Highlighting}
+\end{Shaded}
+
+The PCA on the ``spe'' fish data produces as many principal components as
+there are fish taxon (columns), which in this case means that 27
+principal components are produced. In many cases though, you may have
+done a PCA to reduce the number of variables to deal with and produce
+composite variables for the fish. In this case, you are likely
+interested in knowing how many of these principal components are
+actually significant or adding new information to the PCA (i.e.~how many
+principal components do you need to retain before you aren't really
+explaining any more variance with the additional principal components).
+To determine this, you can use the Kaiser-Guttman criterion and produce
+a barplot showing at what point the principal components are no longer
+explaining significant amount of variance. The code for the barplot
+below shows the point at which the variance explained by a new principal
+component explains less than the average amount explained by all of the
+eigenvalues:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Identify the significant axis using the Kaiser{-}Guttman criterion}
+\NormalTok{ev }\OtherTok{\textless{}{-}}\NormalTok{ spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig}
+\NormalTok{ev[ev}\SpecialCharTok{\textgreater{}}\FunctionTok{mean}\NormalTok{(ev)]}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ev)}
+\FunctionTok{barplot}\NormalTok{(ev, }\AttributeTok{main=}\StringTok{"Eigenvalues"}\NormalTok{, }\AttributeTok{col=}\StringTok{"grey"}\NormalTok{, }\AttributeTok{las=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\FunctionTok{mean}\NormalTok{(ev), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{) }
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\StringTok{"Average eigenvalue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{1}\NormalTok{, }\AttributeTok{col=}\DecValTok{2}\NormalTok{, }\AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=5.20833in,height=\textheight]{/pca_sigaxes_sp.png}
+
+From this barplot, you can see that once you reach PC6, the proportion
+of variance explained falls below the average proportion explained by
+the other components. If you take another look at the PCA summary, you
+will notice that by the time you reach PC5, the cumulative proportion of
+variance explained by the principal components is 85\%.
+
+A PCA is not just for species data. It can also be run and interpreted
+in the same way using standardized environmental variables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Run the PCA}
+\NormalTok{env.pca }\OtherTok{\textless{}{-}} \FunctionTok{rda}\NormalTok{(env.z) }\CommentTok{\# or rda(env, scale=TRUE)}
+
+\CommentTok{\#Extract the results}
+\FunctionTok{summary}\NormalTok{(env.pca)}
+\FunctionTok{summary}\NormalTok{(env.pca, }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+Scaling refers to what portion of the PCA is scaled to the eigenvalues.
+Scaling = 2 means that the species scores are scaled by eigenvalues,
+whereas scaling = 1 means that site scores are scaled by eigenvalues.
+Scaling = 3 means that both species and site scores are scaled
+symmetrically by square root of eigenvalues. Using scaling = 1 means
+that the Euclidean distances among objects (e.g.~the rows in your data)
+are preserved, whereas scaling = 2 means that the correlations amongst
+descriptors (e.g.~the columns in this data) are preserved. This means
+that when you look at a biplot of a PCA that has been run with
+scaling=2, the angle between descriptors represents correlation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Identify the significant axis using the Kaiser{-}Guttman criterion}
+\NormalTok{ev }\OtherTok{\textless{}{-}}\NormalTok{ env.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig}
+\NormalTok{ev[ev}\SpecialCharTok{\textgreater{}}\FunctionTok{mean}\NormalTok{(ev)]}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ev)}
+\FunctionTok{barplot}\NormalTok{(ev, }\AttributeTok{main=}\StringTok{"Eigenvalues"}\NormalTok{, }\AttributeTok{col=}\StringTok{"grey"}\NormalTok{, }\AttributeTok{las=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\FunctionTok{mean}\NormalTok{(ev), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{) }
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\StringTok{"Average eigenvalue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{1}\NormalTok{, }\AttributeTok{col=}\DecValTok{2}\NormalTok{, }\AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Compare this eigenvalue barplot with the one you created for the species
+PCA.
+
+As you saw in the explanation of the summary output, a lot of
+information can be extracted from a PCA before even plotting it.
+However, many of us interpret data best visually and a figure of a PCA
+is often the best way to convey major patterns. PCA biplots can be
+plotted in base R. A PCA biplot includes the x-axis as the first
+Principal Component and the y-axis as the second Principal Component.
+
+For some plotting exercises, let's start with the \emph{species PCA}. A
+basic biplot without any customization could be plotted like this, where
+the site positions are shown by black numbers and species' positions are
+shown by red species codes. Remember, species positions come from
+plotting species along PCs and the site positions are derived from the
+weighted sums of species scores.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(spe.h.pca)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=8.33333in,height=\textheight]{/spe_PCA1.png}
+
+Basically, the plot above plots the PCA like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(spe.h.pca, }\AttributeTok{type=}\StringTok{"n"}\NormalTok{) }\CommentTok{\#produces a blank biplot with nothing displayed but the axes}
+\FunctionTok{points}\NormalTok{(spe.h.pca, }\AttributeTok{dis=}\StringTok{"sp"}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{) }\CommentTok{\#points are added for the species (columns) (dis=)}
+\CommentTok{\#use text() instead of points() if you want the labels}
+\FunctionTok{points}\NormalTok{(spe.h.pca, }\AttributeTok{dis=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{col=}\StringTok{"red"}\NormalTok{) }\CommentTok{\#points are added for the sites (rows)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=8.33333in,height=\textheight]{/spe_PCA2.png}
+
+To create more detailed plots and to play with aesthetics, try this
+code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Biplot of the PCA on transformed species data (scaling 1)}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(spe.h.pca)}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{biplot}\NormalTok{(spe.h.pca)}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(spe.h.pca, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{, }\CommentTok{\# scaling 1 = distance biplot : }
+                                        \CommentTok{\# distances among objects in the biplot approximate their Euclidean distances}
+                                        \CommentTok{\# but angles among descriptor vectors DO NOT reflect their correlation}
+     \AttributeTok{xlab =} \FunctionTok{c}\NormalTok{(}\StringTok{"PC1 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)), }\CommentTok{\#this comes from the summary}
+     \AttributeTok{ylab =} \FunctionTok{c}\NormalTok{(}\StringTok{"PC2 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)))}
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.h.pca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+       \AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.h.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \FunctionTok{scores}\NormalTok{(spe.h.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.h.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{)),}
+     \AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+This code produces 3 plots, the final plot is the most visually
+pleasing: \includegraphics[width=8.33333in,height=\textheight]{/spe_PCA3.png}
+
+What conclusions can you draw from this plot? From the plot, you can see
+the site scores shown by the blue dots. If you superimposed site labels
+on top, you could see what sites are closer to each other in terms of
+the species found at those sites, but even without the specific labels,
+you can see that there are only a few sites that are farther away from
+the majority. The species names are shown by their names in red and from
+the plot, you can see for example that the species "ABL" is not found
+or not found in the same prevalence in the majority of sites as other
+species closer to the centre of the ordination.
+
+Biplots need to be interpreted in terms of angles from center of plot,
+not just in terms of proximity. Two variables at 90 degree angle are
+uncorrelated. Two variables in opposing directions are negatively
+correlated. Two variables very close together are strongly correlated,
+at least in the space described by these axes.
+
+Now let's look at a plot of the \emph{environmental PCA}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Biplot of the PCA on the environmental variables (scaling 2)}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(env.pca)}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(env.pca, }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{, }\CommentTok{\# scaling 2 = correlation biplot : }
+                                      \CommentTok{\# distances among abjects in the biplot DO NOT approximate their Euclidean distances}
+                                      \CommentTok{\# but angles among descriptor vectors reflect their correlation}
+     \AttributeTok{xlab =} \FunctionTok{c}\NormalTok{(}\StringTok{"PC1 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((env.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(env.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{ylab =} \FunctionTok{c}\NormalTok{(}\StringTok{"PC2 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((env.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(env.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(env.pca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{), }
+       \AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"darkgreen"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{) }
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(env.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{),}
+     \FunctionTok{scores}\NormalTok{(env.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(env.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=8.33333in,height=\textheight]{/env_PCA1.png}
+
+Remember that a PCA biplot is really just a scatter plot, where the axes
+are scores extracted from composite variables. This means that there are
+many different ways you can plot a PCA. For example, try using your
+ggplot() skills from Workshop 4 to extract PCA scores and plot an
+ordination in ggplot.
+
+\textbf{Use of PCA axis as composite explanatory variables:}
+
+In some cases, users want to reduce several environmental variables in a
+few numbers of composite variables. When PCA axes represent ecological
+gradients (i.e.~when environmental variables are correlated with PCA
+axis in a meaningful way), users can use site scores along PCA Axis in
+further analyses instead of the raw environmental data. In other words,
+sites scores along PCA Axis represent linear combinations of descriptors
+and can consequently be used as proxy of ecological conditions in
+``post-ordination'' analyses. In the example above, the first PCA axis can
+be related to a gradient from oligotrophic, oxygen-rich to eutrophic,
+oxygen-deprived water: from left to right, a first group display the
+highest values of altitude (alt) and slope (pen), and the lowest values
+in river discharge (deb) and distance from the source (das). The second
+group of sites has the highest values in oxygen content (oxy) and the
+lowest in nitrate concentration (nit). A third group shows intermediate
+values in almost all the measured variables. If users are then
+interested in identifying if a specific species is associated with
+ologotrophic or eutrophic water, one can correlate the species
+abundances to sites scores along PCA Axis 1. For example, if one want to
+assess if the species TRU prefers oligotrophic or eutrophic water, the
+following linear model can be used :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Sites\_scores\_Env\_Axis1}\OtherTok{\textless{}{-}} \FunctionTok{scores}\NormalTok{(env.pca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{)}
+\NormalTok{spe}\SpecialCharTok{$}\NormalTok{ANG}
+\FunctionTok{plot}\NormalTok{( Sites\_scores\_Env\_Axis1, spe}\SpecialCharTok{$}\NormalTok{TRU)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(spe}\SpecialCharTok{$}\NormalTok{TRU}\SpecialCharTok{\textasciitilde{}}\NormalTok{Sites\_scores\_Env\_Axis1))}
+\FunctionTok{abline}\NormalTok{(}\FunctionTok{lm}\NormalTok{(spe}\SpecialCharTok{$}\NormalTok{TRU}\SpecialCharTok{\textasciitilde{}}\NormalTok{Sites\_scores\_Env\_Axis1))}
+\end{Highlighting}
+\end{Shaded}
+
+This simple model shows that the abundance of species TRU is
+significantly dependent of site scores along PCA axis 1 (t = -5.30, p =
+1.35e-05, adj-R2 = 49.22\%), i.e.~depends of an oligotrophic-eutrophic
+gradient. The following plot identifies a preference of this species for
+oligotrophic water.
+
+\textbf{Challenge 3} Run a PCA of the ``mite'' species abundance data. What are
+the significant axes of variation? Which groups of sites can you
+identify? Which species are related to each group of sites? Use:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mite.spe }\OtherTok{\textless{}{-}}\NormalTok{ mite }\CommentTok{\#mite data is from the vegan package}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Challenge 3 - Solution} \textless hidden\textgreater{} Your code likely looks something
+like the following.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Hellinger transformation of mite data and PCA}
+\NormalTok{mite.spe.hel }\OtherTok{\textless{}{-}} \FunctionTok{decostand}\NormalTok{(mite.spe, }\AttributeTok{method=}\StringTok{"hellinger"}\NormalTok{)}
+\NormalTok{mite.spe.h.pca }\OtherTok{\textless{}{-}} \FunctionTok{rda}\NormalTok{(mite.spe.hel)}
+ 
+\CommentTok{\#What are the significant axes?  }
+\NormalTok{ev }\OtherTok{\textless{}{-}}\NormalTok{ mite.spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig }
+\NormalTok{ev[ev}\SpecialCharTok{\textgreater{}}\FunctionTok{mean}\NormalTok{(ev)]}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ev)}
+\FunctionTok{barplot}\NormalTok{(ev, }\AttributeTok{main=}\StringTok{"Eigenvalues"}\NormalTok{, }\AttributeTok{col=}\StringTok{"grey"}\NormalTok{, }\AttributeTok{las=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\FunctionTok{mean}\NormalTok{(ev), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{) }
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\StringTok{"Average eigenvalue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{1}\NormalTok{, }\AttributeTok{col=}\DecValTok{2}\NormalTok{, }\AttributeTok{bty=}\StringTok{"n"}\NormalTok{) }
+
+\CommentTok{\#Output summary/results    }
+\FunctionTok{summary}\NormalTok{(mite.spe.h.pca, }\AttributeTok{display=}\ConstantTok{NULL}\NormalTok{) }
+\FunctionTok{windows}\NormalTok{()}
+
+\CommentTok{\#Plot the biplot}
+\FunctionTok{plot}\NormalTok{(mite.spe.h.pca, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{, }
+     \AttributeTok{xlab=}\FunctionTok{c}\NormalTok{(}\StringTok{"PC1 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((mite.spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(mite.spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{ylab=}\FunctionTok{c}\NormalTok{(}\StringTok{"PC2 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((mite.spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(mite.spe.h.pca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{))) }
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.h.pca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+       \AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.h.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \FunctionTok{scores}\NormalTok{(mite.spe.h.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.h.pca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{)),}
+     \AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)  }
+\end{Highlighting}
+\end{Shaded}
+
+And your resulting biplot likely looks something like this:
+
+\includegraphics[width=8.33333in,height=\textheight]{/mite_pca.png}
+
+A dense cluster of related species and sites can be seen in the biplot.
+\textless/hidden\textgreater{}
+
+\hypertarget{correspondence-analysis}{%
+\section{3.2. Correspondence Analysis}\label{correspondence-analysis}}
+
+One of the key assumptions made in PCA is that species are related to
+each other linearly and that they respond linearly to ecological
+gradients. This is not necessarily the case with a lot of ecological
+data (e.g.~many species have unimodal species distributions). Using PCA
+on data with unimodal species distributions or a lot of zero values may
+lead to a phenomenon called the ``horseshoe effect'', and can occur with
+long ecological gradients. As such, a CA or Correspondence Analysis may
+be a better option for this type of data, see Legendre and Legendre
+(2012) for further information. As CA preserves Chi2 distances (while
+PCA preserves Euclidean distances), this technique is indeed better
+suited to ordinate datasets containing unimodal species distributions,
+and has, for a long time, been one of the favourite tools for the
+analysis of species presence--absence or abundance data. In CA, the raw
+data are first transformed into a matrix Q of cell-by-cell contributions
+to the Pearson Chi2 statistic, and the resulting table is submitted to a
+singular value decomposition to compute its eigenvalues and
+eigenvectors. The result is an ordination, where it is the Chi2 distance
+that is preserved among sites instead of the Euclidean distance in PCA.
+The Chi2 distance is not influenced by the double zeros. Therefore, CA
+is a method adapted to the analysis of species abundance data without
+pre-transformation. Contrary to PCA, CA can also be applied to analyze
+both quantitative and binary data (such as species abundances or
+absence/presence). As in PCA, the Kaiser-Guttman criterion can be
+applied to determine the significant axes of a CA, and ordination axes
+can be extracted to be used in multiples regressions.
+
+Run a CA on species data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Run the CA using the cca() function (NB: cca() is used for both CA and CCA)}
+\NormalTok{spe.ca }\OtherTok{\textless{}{-}} \FunctionTok{cca}\NormalTok{(spe)}
+ 
+\CommentTok{\# Identify the significant axes}
+\NormalTok{ev}\OtherTok{\textless{}{-}}\NormalTok{spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig}
+\NormalTok{ev[ev}\SpecialCharTok{\textgreater{}}\FunctionTok{mean}\NormalTok{(ev)]}
+\NormalTok{n}\OtherTok{=}\FunctionTok{length}\NormalTok{(ev)}
+\FunctionTok{barplot}\NormalTok{(ev, }\AttributeTok{main=}\StringTok{"Eigenvalues"}\NormalTok{, }\AttributeTok{col=}\StringTok{"grey"}\NormalTok{, }\AttributeTok{las=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\FunctionTok{mean}\NormalTok{(ev), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\StringTok{"Average eigenvalue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{1}\NormalTok{, }\AttributeTok{col=}\DecValTok{2}\NormalTok{, }\AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/ca_guttmankaiser.png}
+
+From this barplot, you can see that once you reach C6, the proportion of
+variance explained falls below the average proportion explained by the
+other components. If you take another look at the CA summary, you will
+notice that by the time you reach CA5, the cumulative proportion of
+variance explained by the principal components is 84.63\%.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(spe.h.pca) }\CommentTok{\#overall results}
+\FunctionTok{summary}\NormalTok{(spe.h.pca, }\AttributeTok{diplay=}\ConstantTok{NULL}\NormalTok{)}\CommentTok{\# only axis eigenvalues and contribution}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/ca_summary.png}
+
+CA results are presented in a similar manner as PCA results. You can see
+here that CA1 explains 51.50\% of the variation in species abundances,
+while CA2 explain 12.37\% of the variation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\DocumentationTok{\#\#\#\# scaling 1}
+\FunctionTok{plot}\NormalTok{(spe.ca, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{, }\AttributeTok{main=}\StringTok{\textquotesingle{}CA {-} biplot scaling 1\textquotesingle{}}\NormalTok{, }\AttributeTok{xlab=}\FunctionTok{c}\NormalTok{(}\StringTok{"CA1 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+\AttributeTok{ylab=}\FunctionTok{c}\NormalTok{(}\StringTok{"CA2 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)))}
+
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{), }\AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{)),}\AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+
+\DocumentationTok{\#\#\#\# scaling 2}
+\FunctionTok{plot}\NormalTok{(spe.ca, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{, }\AttributeTok{main=}\StringTok{\textquotesingle{}CA {-} biplot scaling 2\textquotesingle{}}\NormalTok{, }\AttributeTok{xlab=}\FunctionTok{c}\NormalTok{(}\StringTok{"CA1 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{ylab=}\FunctionTok{c}\NormalTok{(}\StringTok{"CA2 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)), }\AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{), }\AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{),}
+     \FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{scaling=}\DecValTok{2}\NormalTok{)),}\AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/ca_biplot.png}
+
+These biplots show that a group of sites located in the left part with
+similar fish community characterized by numerous species such as GAR,
+TAN, PER, ROT, PSO and CAR; in the upper right corner, an other site
+cluster characterized by the species LOC, VAI and TRU is identified; the
+last site cluster in the lower right corner of the biplot is
+characterized by the species BLA, CHA and OMB.
+
+\textbf{Challenge 4} Run a CA of the ``mite'' species abundance data. What are
+the significant axes of variation? Which groups of sites can you
+identify? Which species are related to each group of sites?
+
+\textbf{Challenge 4 - Solution} \textless hidden\textgreater{} Your code likely looks something
+like the following:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# CA on mite species }
+\NormalTok{mite.spe.ca}\OtherTok{\textless{}{-}}\FunctionTok{cca}\NormalTok{(mite.spe)}
+
+\CommentTok{\#What are the significant axes ?  }
+\NormalTok{ev}\OtherTok{\textless{}{-}}\NormalTok{mite.spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig}
+\NormalTok{ev[ev}\SpecialCharTok{\textgreater{}}\FunctionTok{mean}\NormalTok{(ev)]}
+\NormalTok{n}\OtherTok{=}\FunctionTok{length}\NormalTok{(ev)}
+\FunctionTok{barplot}\NormalTok{(ev, }\AttributeTok{main=}\StringTok{"Eigenvalues"}\NormalTok{, }\AttributeTok{col=}\StringTok{"grey"}\NormalTok{, }\AttributeTok{las=}\DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h=}\FunctionTok{mean}\NormalTok{(ev), }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\StringTok{"Average eigenvalue"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{1}\NormalTok{, }\AttributeTok{col=}\DecValTok{2}\NormalTok{, }\AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+
+\CommentTok{\#Output summary/results  }
+\FunctionTok{summary}\NormalTok{(mite.spe.ca, }\AttributeTok{display=}\ConstantTok{NULL}\NormalTok{)}
+
+\CommentTok{\#Plot the biplot}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(mite.spe.ca, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{,}
+     \AttributeTok{xlab=}\FunctionTok{c}\NormalTok{(}\StringTok{"PC1 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((mite.spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(mite.spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{ylab=}\FunctionTok{c}\NormalTok{(}\StringTok{"PC2 (\%)"}\NormalTok{, }\FunctionTok{round}\NormalTok{((mite.spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(mite.spe.ca}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{,}\DecValTok{2}\NormalTok{)))}
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.ca, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+       \AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \FunctionTok{scores}\NormalTok{(mite.spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{), }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.ca, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{scaling=}\DecValTok{1}\NormalTok{)),}
+     \AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+And your resulting biplot likely looks something like this:
+
+\includegraphics{/ca_mite_biplot.png}
+
+\textless/hidden\textgreater{}
+
+\hypertarget{principal-coordinates-analysis}{%
+\chapter{Principal Coordinates Analysis}\label{principal-coordinates-analysis}}
+
+PCA as well as CA impose the distance preserved among objects: the
+Euclidean distance (and several others with pre-transformations) for PCA
+and the Chi2 distance for CA. If one wishes to ordinate objects on the
+basis of another distance measure, more appropriate to the problem at
+hand, then PCoA is the method of choice. In PCA we rotated and plotted
+our data so that as much variation was explained by a first Principal
+Component and we can see how much "species", either actual species or
+environmental variables, contribute to each component by looking at the
+scores (also called loadings). Another type of unconstrained ordination
+is called Principal Coordinate Analysis (PCoA). In PCoA, points are
+added to plane space one at a time using Euclidean distance (\emph{or
+whatever distance (dissimilarity) metric you choose}). Basically, one
+point is added, then a second so that it's distance is correct from the
+first point and then the third point and so on adding as many axes
+(dimensions) as necessary along the way. Choosing between PCA and PCoA
+can be tricky, but generally PCA is used to summarize multivariate data
+into as few dimensions as possible, whereas PCoA can be used to
+visualize distances between points. PCoA can be particularly suited for
+datasets that have more columns than rows. For example, if hundreds of
+species have been observed over a set of quadrats, then a approach based
+on a PCoA using Bray-Curtis similarity (see below) may be best suited.
+
+Run a PCoA on the Hellinger transformed species abundances (back to
+DoubsSpe):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Using cmdscale()}
+\NormalTok{?cmdscale}
+\FunctionTok{cmdscale}\NormalTok{(}\FunctionTok{dist}\NormalTok{(spe.hel), }\AttributeTok{k=}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(spe)}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{), }\AttributeTok{eig=}\ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\#Using pcoa()}
+\NormalTok{?pcoa}
+\NormalTok{spe.h.pcoa }\OtherTok{\textless{}{-}} \FunctionTok{pcoa}\NormalTok{(}\FunctionTok{dist}\NormalTok{(spe.hel))}
+
+\CommentTok{\# Extract the results}
+\NormalTok{spe.h.pcoa }
+
+\CommentTok{\#Construct the biplot}
+\FunctionTok{biplot.pcoa}\NormalTok{(spe .h.pcoa, spe.hel, }\AttributeTok{dir.axis2=}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The output looks like this (and here
+\href{https://www.youtube.com/watch?v=lRdX1qhI7Dw}{here} is a video that
+might help with the explanation of eigenvalues in terms of ordination):
+
+\includegraphics[width=8.33333in,height=\textheight]{/pcoaoutput_1.png}
+
+\includegraphics[width=8.33333in,height=\textheight]{/pcoaoutput_2.png}
+
+And the PCoA biplot, like this:
+
+\includegraphics[width=5.20833in,height=\textheight]{/pcoa_spe.png}
+
+You can also run a PCoA using a different distance measure (e.g.
+Bray-Curtis). Here is a PCoA run on a Bray-Curtis dissimilarity matrix:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spe.bray.pcoa }\OtherTok{\textless{}{-}} \FunctionTok{pcoa}\NormalTok{(spe.db) }\CommentTok{\#where spe.db is the species dissimilarity matrix using Bray{-}Curtis. }
+\NormalTok{spe.bray.pcoa}
+\FunctionTok{biplot.pcoa}\NormalTok{(spe.bray.pcoa, spe.hel, }\AttributeTok{dir.axis2=}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\CommentTok{\#Note that the distance measure chosen strongly influences the results. }
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Challenge 5} Run a PCoA on the Hellinger-transformed \emph{mite species}
+abundance data. What are the significant axes? Which groups of sites can
+you identify? Which species are related to each group of sites? How do
+the PCoA results compare with the PCA results?
+
+\textbf{Challenge 5 - Solution} \textless hidden\textgreater{} Your code likely looks something
+like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mite.spe.h.pcoa }\OtherTok{\textless{}{-}} \FunctionTok{pcoa}\NormalTok{(}\FunctionTok{dist}\NormalTok{(mite.spe.hel))}
+\NormalTok{mite.spe.h.pcoa}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{biplot.pcoa}\NormalTok{(mite.spe.h.pcoa, mite.spe.hel, }\AttributeTok{dir.axis2=}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+And your biplot like this:
+
+\includegraphics[width=5.20833in,height=\textheight]{/pcoa_mite.png}
+
+We see that species 16 and 31 are farther away from other species in
+terms of distance and therefore their distribution across the sites is
+highly dissimilar from the other species of mites (and each other). Site
+labels that practically overlap each other are good examples of sites
+with low dissimilarity (i.e.~high similarity) to each other in terms of
+the species that are found at those sites. \textless/hidden\textgreater{}
+
+\hypertarget{nonmetric-multidimensional-scaling}{%
+\chapter{Nonmetric MultiDimensional Scaling}\label{nonmetric-multidimensional-scaling}}
+
+The unconstrained ordination methods presented above allow to organize
+objects (e.g.~sites) characterized by descriptors (e.g.~species) in
+full-dimensional space. In other words, PCA, CA and PCoA computes a
+large number of ordination axes (proportional to the number of
+descriptors) representing the variation of descriptors among sites and
+preserve distance among objects (the Euclidean distances in PCA, the
+Chi2 distances in CA and the type of distances defined by the user in
+PCoA). Users can then select the axis of interest (generally the first
+two ones as the explained the larger part of the variation) to represent
+objects in an ordination plot. The produced biplot thus represents well
+the distance among objects (e.g.~the between-sites similarity), but
+fails to represent the whole variation dimensions of the ordination
+space (as Axis3, Axis4,\ldots, Axisn are not represented on the biplot, but
+still contribute to explain the variation among objects).
+
+In some case, the priority is not to preserve the exact distances among
+sites, but rather to represent as accurately as possible the
+relationships among objects in a small and number of axes (generally two
+or three) specified by the user. In such cases, nonmetric
+multidimensional scaling (NMDS) is the solution. If two axes are
+selected, the biplot produced from NMDS is the better 2D graphical
+representation of between-objects similarity: dissimilar objects are far
+apart in the ordination space and similar objects close to one another.
+Moreover, NMDS allows users to choose the distance measure applied to
+calculate the ordination.
+
+To find the best representation of objects, NMDS applies an iterative
+procedure that tries to position the objects in the requested number of
+dimensions in such a way as to minimize a stress function (scaled from 0
+to 1) which measure the goodness-of-fit of the distance adjustment in
+the reduced-space configuration. Consequently, the lower the stress
+value, the better the representation of objects in the ordination-space
+is. An additional way to assess the appropriateness of an NDMS is to
+construct a Shepard diagram which plot distances among objects in the
+ordination plot against the original distances. The R2 obtained from the
+regression between these two distances measure the goodness-of-fit of
+the NMDS ordination.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Run the NMDS}
+\NormalTok{spe.nmds}\OtherTok{\textless{}{-}}\FunctionTok{metaMDS}\NormalTok{(spe, }\AttributeTok{distance=}\StringTok{\textquotesingle{}bray\textquotesingle{}}\NormalTok{, }\AttributeTok{k=}\DecValTok{2}\NormalTok{)}
+ 
+\DocumentationTok{\#\#\# Extract the results}
+\NormalTok{spe.nmds}
+
+\DocumentationTok{\#\#\# Assess the goodness of fit and draw a Shepard plot}
+\NormalTok{spe.nmds}\SpecialCharTok{$}\NormalTok{stress}
+\FunctionTok{stressplot}\NormalTok{(spe.nmds, }\AttributeTok{main=}\StringTok{\textquotesingle{}Shepard plot\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# Construct the biplot}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(spe.nmds, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{, }\AttributeTok{main=}\FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}NMDS/Bray {-} Stress=\textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(spe.nmds}\SpecialCharTok{$}\NormalTok{stress, }\DecValTok{3}\NormalTok{)),}
+     \AttributeTok{xlab=}\FunctionTok{c}\NormalTok{(}\StringTok{"NMDS1"}\NormalTok{),}
+     \AttributeTok{ylab=}\FunctionTok{c}\NormalTok{(}\StringTok{"NMDS2"}\NormalTok{))}
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.nmds, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+       \AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.nmds, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{)),}
+     \FunctionTok{scores}\NormalTok{(spe.nmds, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(spe.nmds, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{)),}
+     \AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{/shepard_plot.png}
+
+The Shepard plot identifies a strong correlation between observed
+dissimilarity and ordination distance (R2 \textgreater{} 0.95), highlighting a high
+goodness-of-fit of the NMDS.
+
+\includegraphics{/nmds_biplot.png}
+
+The biplot of the NMDS shows a group of closed sites characterized by
+the species BLA, TRU, VAI, LOC, CHA and OMB, while the other species
+form a cluster of sites in the upper right part of the graph. Four sites
+in the lower part of the graph are strongly different from the others.
+
+\textbf{Challenge 6} Run the NMDS of the mite species abundances in 2
+dimensions based on a Bray-Curtis distance. Assess the goodness-of-fit
+of the ordination and interpret the biplot.
+
+\textbf{Challenge 6 - Solution} \textless hidden\textgreater{} Your code likely looks something
+like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mite.spe.nmds}\OtherTok{\textless{}{-}}\FunctionTok{metaMDS}\NormalTok{(mite.spe, }\AttributeTok{distance=}\StringTok{\textquotesingle{}bray\textquotesingle{}}\NormalTok{, }\AttributeTok{k=}\DecValTok{2}\NormalTok{)}
+\DocumentationTok{\#\#\# Extract the results}
+\NormalTok{mite.spe.nmds}
+
+\DocumentationTok{\#\#\# Assess the goodness of fit}
+\NormalTok{mite.spe.nmds}\SpecialCharTok{$}\NormalTok{stress}
+\FunctionTok{stressplot}\NormalTok{(mite.spe.nmds, }\AttributeTok{main=}\StringTok{\textquotesingle{}Shepard plot\textquotesingle{}}\NormalTok{)}
+
+\DocumentationTok{\#\#\# Construct the biplot}
+\FunctionTok{windows}\NormalTok{()}
+\FunctionTok{plot}\NormalTok{(mite.spe.nmds, }\AttributeTok{type=}\StringTok{"none"}\NormalTok{, }\AttributeTok{main=}\FunctionTok{paste}\NormalTok{(}\StringTok{\textquotesingle{}NMDS/Bray {-} Stress=\textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(mite.spe.nmds}\SpecialCharTok{$}\NormalTok{stress, }\DecValTok{3}\NormalTok{)),}
+     \AttributeTok{xlab=}\FunctionTok{c}\NormalTok{(}\StringTok{"NMDS1"}\NormalTok{),}
+     \AttributeTok{ylab=}\FunctionTok{c}\NormalTok{(}\StringTok{"NMDS2"}\NormalTok{))}
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.nmds, }\AttributeTok{display=}\StringTok{"sites"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)),}
+       \AttributeTok{pch=}\DecValTok{21}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{, }\AttributeTok{bg=}\StringTok{"steelblue"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{1.2}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.nmds, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{)),}
+     \FunctionTok{scores}\NormalTok{(mite.spe.nmds, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{, }\AttributeTok{choices=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{)),}
+     \AttributeTok{labels=}\FunctionTok{rownames}\NormalTok{(}\FunctionTok{scores}\NormalTok{(mite.spe.nmds, }\AttributeTok{display=}\StringTok{"species"}\NormalTok{)),}
+     \AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+And your plots like this:
+
+\includegraphics{/nmds_mite_shepard.png}
+
+The correlation between observed dissimilarity and ordination distance
+(R2 \textgreater{} 0.91) and the stress value relatively low, showing together a
+good accuracy of the NMDS ordination.
+
+\includegraphics{/nmds_mite_biplot.png}
+
+No cluster of sites can be precisely defined from the NMDS biplot
+showing that most of the species occurred in most of the sites, i.e.~a
+few sites shelter specific communities. \textless/hidden\textgreater{}
+
+\hypertarget{final-considerations}{%
+\chapter{Final considerations}\label{final-considerations}}
+
+Ordination is a powerful statistical tecnhique for studying the
+relationships of objects characterized by several descriptors (e.g.
+sites described by biotic communities, or environmental variables), but
+serveral ordination methods exist. These methods mainly differ in the
+type of distance preserved, the type of variables allowed and the
+dimensions of the ordination space. To better guide your choice of the
+ordination method to use, the following table identify the main
+characteristics of the four ordination methods presented :
+
+\includegraphics{/summary_ordination.jpg}
+
+In the next workshop, you will see how to identify the relationships
+between biotic communities and sets of environmental variables
+describing the same sites, using canonical analyses.
+
+  \bibliography{packages.bib}
+
+\end{document}
