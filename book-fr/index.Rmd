@@ -28,7 +28,7 @@ La **Série d'ateliers R du CSBQ** est une série de 10 ateliers qui guide les p
 
 Le contenu de cet atelier a été revu par plusieurs membres du CSBQ. Si vous souhaitez suggérer des modifications, veuillez contacter les coordinateurs de la série actuelle, dont la liste figure sur la page principale de Github
 
-### Code of conduct
+## Code of conduct
 
 La Série d'ateliers R du CSBQ et le Symposium R du CSBQ sont des lieux dédiés à fournir un environnement accueillant et favorable à toutes les personnes, indépendamment de leurs origines ou de leur identité.
 
@@ -40,7 +40,7 @@ Nous ne tolérons pas la discrimination ou le harcèlement fondés sur des carac
 
 Il s'applique à tous les espaces gérés par l'atelier ou affiliés à celui-ci, y compris, mais sans s'y limiter, les ateliers, les listes de diffusion et les forums en ligne tels que GitHub, Slack et Twitter.
 
-#### Comportement attendu
+### Comportement attendu
 
 Tous les participants sont tenus de faire preuve de respect et de courtoisie envers les autres. Toutes les interactions doivent être professionnelles, quelle que soit la plateforme utilisée : en ligne ou en personne. 
 
@@ -52,7 +52,7 @@ Afin de favoriser un environnement d'apprentissage positif et professionnel, nou
 - Se concentrer sur ce qui est le mieux pour la communauté ;
 - Faire preuve de courtoisie et de respect envers les autres membres de la communauté.
 
-#### Comportements inacceptables
+### Comportements inacceptables
 
 Voici quelques exemples de comportements inacceptables de la part des participants à tout événement ou plateforme d'atelier :
 
@@ -68,7 +68,7 @@ Voici quelques exemples de comportements inacceptables de la part des participan
 - la poursuite de l'interaction (y compris la photographie ou l'enregistrement) avec une personne après qu'on - lui a demandé d'arrêter ;
 - la publication d'une communication privée sans consentement.
 
-### Contributeurs et contributrices
+## Contributeurs et contributrices
 
 ```{r eval=FALSE, include=FALSE}
 CETTE SECTION NE DOIT ÊTRE ÉDITÉE QUE PAR LES COORDINATEURS DE LA SÉRIE D'ATELIERS
@@ -83,7 +83,7 @@ Contribution avec des changements à la documentation écrite :
 Contribution en signalant des problèmes et en suggérant des modifications :
 
 
-### Contribuez à la série!
+## Contribuez à la série!
 
 En construction.
 

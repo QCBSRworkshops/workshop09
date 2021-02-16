@@ -28,7 +28,7 @@ The **QCBS R Workshop Series** is a series of 10 workshops that walks participan
 
 The content of this workshop has been peer-reviewed by several QCBS members. If you would like to suggest modifications, please contact the current series coordinators, listed on the main Github page.
 
-### Code of conduct
+## Code of conduct
 
 The QCBS R Workshop Series and the QCBS R Symposium are venues dedicated to providing a welcoming and supportive environment for all people, regardless of background or identity.
 
@@ -40,7 +40,7 @@ We do not tolerate discrimination or harassment based on characteristics that in
 
 It applies to all spaces managed by or affiliated with the workshop, including, but not limited to, workshops, email lists, and online forums such as GitHub, Slack and Twitter.
 
-##### Expected behaviour
+### Expected behaviour
 
 All participants are expected to show respect and courtesy to others. All interactions should be professional regardless of platform: either online or in-person. In order to foster a positive and professional learning environment we encourage the following kinds of behaviours in all workshop events and platforms:
 
@@ -50,7 +50,7 @@ All participants are expected to show respect and courtesy to others. All intera
 - Focus on what is best for the community
 - Show courtesy and respect towards other community members
 
-##### Unacceptable behaviour
+### Unacceptable behaviour
 
 Examples of unacceptable behaviour by participants at any workshop event/platform include:
 
@@ -67,7 +67,7 @@ Examples of unacceptable behaviour by participants at any workshop event/platfor
 - publication of private communication without consent.
 
 
-### Contributors
+## Contributors
 
 ```{r eval=FALSE, include=FALSE}
 THIS SECTION MUST ONLY BE EDITED BY THE COORDINATORS OF THE WORKSHOP SERIES
@@ -82,7 +82,7 @@ Contributed with changes to the written material:
 Contributed by reporting issues and suggesting modifications:
 
 
-### Contributing
+## Contributing
 
 Under construction.
 
