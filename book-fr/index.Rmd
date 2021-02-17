@@ -2,7 +2,7 @@
 title: "Atelier 9 : Analyses multivariées en `R`"
 subtitle: "Série d'ateliers R du CSBQ"
 author:
-- Développé et maintenu par les contributeurs et contributrices de la Série d'ateliers R du CSBQ^[La Série d'ateliers R du CSBQ fait partie du [Centre de la science de la biodiversité du Québec](https://www.qcbs.ca), et est maintenue par les coordonnateurs et les coordonnatrices de la série, et les membres étudiants diplômés, postdoctoraux et professionnels de la recherche. **Les contributeurs et contributrices de cet atelier sont accessibles[ici](lien)**].
+- Développé et entretenu par les contributeurs et les contributrices de la Série d'ateliers R du CSBQ^[La Série d'ateliers R du CSBQ fait partie du [Centre de la science de la biodiversité du Québec](https://www.qcbs.ca), et est maintenue par les coordonnateurs et les coordonnatrices de la série, et les membres étudiants diplômés, postdoctoraux et professionnels de la recherche. **La liste des contributeurs et des contributrices de cet atelier sont accessibles[ici](lien)**].
 date: "`r Sys.time()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -28,7 +28,7 @@ La **Série d'ateliers R du CSBQ** est une série de 10 ateliers qui guide les p
 
 Le contenu de cet atelier a été revu par plusieurs membres du CSBQ. Si vous souhaitez suggérer des modifications, veuillez contacter les coordinateurs de la série actuelle, dont la liste figure sur la page principale de Github
 
-## Code of conduct
+## Code de conduite
 
 La Série d'ateliers R du CSBQ et le Symposium R du CSBQ sont des lieux dédiés à fournir un environnement accueillant et favorable à toutes les personnes, indépendamment de leurs origines ou de leur identité.
 
@@ -71,7 +71,7 @@ Voici quelques exemples de comportements inacceptables de la part des participan
 ## Contributeurs et contributrices
 
 ```{r eval=FALSE, include=FALSE}
-CETTE SECTION NE DOIT ÊTRE ÉDITÉE QUE PAR LES COORDINATEURS DE LA SÉRIE D'ATELIERS
+CETTE SECTION NE DOIT ÊTRE ÉDITÉE QUE PAR LES COORDINATEURS DE LA SÉRIE D'ATELIERS R
 ```
 
 Développé à l'origine par :
