@@ -1,4 +1,4 @@
-code-of-conduct
+code-de-conduite
 comportement-attendu
 comportements-inacceptables
 contributeurs-et-contributrices
