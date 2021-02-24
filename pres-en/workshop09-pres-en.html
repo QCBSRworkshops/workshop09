@@ -2054,38 +2054,40 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477816 
-# Run 1 stress 0.1111009 
-# Run 2 stress 0.1111014 
-# Run 3 stress 0.07477823 
-# ... Procrustes: rmse 0.0004586668  max resid 0.002200693 
+# Run 1 stress 0.1164449 
+# Run 2 stress 0.08917056 
+# Run 3 stress 0.1104423 
+# Run 4 stress 0.07506675 
+# ... Procrustes: rmse 0.01482291  max resid 0.06358393 
+# Run 5 stress 0.1222124 
+# Run 6 stress 0.07477819 
+# ... Procrustes: rmse 1.910413e-05  max resid 8.307929e-05 
 # ... Similar to previous best
-# Run 4 stress 0.1227031 
-# Run 5 stress 0.1203423 
-# Run 6 stress 0.07506674 
-# ... Procrustes: rmse 0.01475583  max resid 0.06363291 
-# Run 7 stress 0.07376254 
+# Run 7 stress 0.1224601 
+# Run 8 stress 0.07429326 
 # ... New best solution
-# ... Procrustes: rmse 0.0194188  max resid 0.09464611 
-# Run 8 stress 0.07376219 
+# ... Procrustes: rmse 0.02394485  max resid 0.09221022 
+# Run 9 stress 0.07478414 
+# ... Procrustes: rmse 0.02353853  max resid 0.09307509 
+# Run 10 stress 0.07376228 
 # ... New best solution
-# ... Procrustes: rmse 0.0003527929  max resid 0.001693116 
+# ... Procrustes: rmse 0.01462727  max resid 0.06327901 
+# Run 11 stress 0.07383677 
+# ... Procrustes: rmse 0.003814092  max resid 0.01485505 
+# Run 12 stress 0.074778 
+# Run 13 stress 0.1118888 
+# Run 14 stress 0.1134129 
+# Run 15 stress 0.07376224 
+# ... New best solution
+# ... Procrustes: rmse 0.0002761693  max resid 0.001324832 
 # ... Similar to previous best
-# Run 9 stress 0.1125693 
-# Run 10 stress 0.1226134 
-# Run 11 stress 0.1209425 
-# Run 12 stress 0.07477826 
-# Run 13 stress 0.08886177 
-# Run 14 stress 0.07376234 
-# ... Procrustes: rmse 0.0001018107  max resid 0.0004847537 
+# Run 16 stress 0.07376231 
+# ... Procrustes: rmse 4.936613e-05  max resid 0.0002370949 
 # ... Similar to previous best
-# Run 15 stress 0.1152377 
-# Run 16 stress 0.07506673 
-# Run 17 stress 0.1127534 
-# Run 18 stress 0.1251247 
-# Run 19 stress 0.07376227 
-# ... Procrustes: rmse 0.0002283524  max resid 0.001098444 
-# ... Similar to previous best
-# Run 20 stress 0.1111717 
+# Run 17 stress 0.113413 
+# Run 18 stress 0.1222117 
+# Run 19 stress 0.09222733 
+# Run 20 stress 0.1204796 
 # *** Solution reached
 ```
 
@@ -2106,7 +2108,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376219
+# [1] 0.07376224
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
