@@ -9,7 +9,7 @@ bookdown::gitbook:
       collapse: section
       before: |
         <li class="toc-logo"><a href="./"><img src="assets/images/csbq_logo_gray_accueil.png"></a></li>
-        <link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
+        <link rel="icon" type="image/png" href="images/favicon.ico"/>
       after: |
         <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
     download: ["rmd"]
