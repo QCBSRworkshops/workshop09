@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Workshop 9: Multivariate analyses</title>
+    <title>Workshop 9: Multivariate Analyses</title>
     <meta charset="utf-8" />
     <meta name="author" content="Québec Centre for Biodiversity Science" />
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
@@ -14,16 +14,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Workshop 9: Multivariate analyses
+# Workshop 9: Multivariate Analyses
 ## QCBS R Workshop Series
 ### Québec Centre for Biodiversity Science
 
 ---
 
-
-
-
 class: inverse, center, middle
+
+
 
 
 
@@ -44,7 +43,8 @@ class: inverse, center, middle
 
 &lt;br&gt;
 
-```R
+
+```r
 install.packages(c('ape', 'gclus', 'vegan'))
 ```
 
@@ -60,6 +60,7 @@ install.packages(c('ape', 'gclus', 'vegan'))
 class: inverse, center, middle
 
 # 1. Introduction
+
 ## What is ordination?
 
 
@@ -105,27 +106,33 @@ What if we are interested in this response for different species of algae involv
 - A global understanding is enough in order to use ordination methods adequately
 
 
-
 ---
 # Methods for scientific research
 
 --
+
 - **Questions / Hypothesis**
+
 --
 
 - **Experimental design**
 
 --
+
 - **Data Collection**
+
 --
 
 - **Transformation / Distance**
+
 --
 
 - **Analysis**
+
 --
 
 - **Redaction**
+
 --
 
 - **Communication**
@@ -149,7 +156,9 @@ Verneaux (1973) dataset:
 ]
 
 .pull.right[
+
 ![:scale 50%](images/DoubsRiver.png)
+
 ]
 
 ---
@@ -172,7 +181,6 @@ env &lt;- env[-8,] # remove site with no data
 ```
 
 .alert[Proceed with caution, only execute once]
-
 
 ---
 # Expore Doubs Dataset
@@ -218,7 +226,7 @@ barplot(ab, las = 1, col = grey(5:0/5),
         xlab = "Abundance class", ylab = "Frequency")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 .alert[Note the proportion of 0s]
 
@@ -254,13 +262,12 @@ barplot(site.pre, main = "Species richness",
         col = "grey ", las = 1)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # Understand your data!
 
 .center[...to choose the appropiate transformation and distance]
-
 
 - Are there many zeros?
 
@@ -322,7 +329,6 @@ Reducing the weight of very abundant species
 ```r
 spe.pa &lt;- decostand(spe,method = "log")
 ```
-
 
 
 ---
@@ -388,7 +394,6 @@ apply(env.z, 2, sd)
 # das alt pen deb  pH dur pho nit amm oxy dbo 
 #   1   1   1   1   1   1   1   1   1   1   1
 ```
-
 
 
 ---
@@ -458,9 +463,9 @@ Distance: D = 1-S]
 
 
 --
-&lt;br/&gt;
-&lt;br/&gt;
-&lt;br/&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 .alert[Each of these will be useful in different situations]
 
@@ -499,15 +504,15 @@ spe.db.pa &lt;- vegdist(spe, method = "bray")
 ---
 # Challenge #1 ![:cube]()
 
-&lt;br/&gt;
+&lt;br&gt;
 
 Discuss with your neighbor:
 
-&lt;br/&gt;
+&lt;br&gt;
 
 .center[**How can we tell how similar objects are when we have multivariate data?**]
 
-&lt;br/&gt;
+&lt;br&gt;
 
 - Make a list of all your suggestions
 
@@ -529,7 +534,8 @@ With ordination methods, we order our objects (site) according to their similari
 # Schematic analysis of multivariate analysis
 
 .center[
-![:scale 70%](images/ Schema1.png)]
+![:scale 70%](images/Schema1.png)
+]
 
 ---
 # Clustering
@@ -541,7 +547,8 @@ With ordination methods, we order our objects (site) according to their similari
 - Not a statistical method
 
 .center[
-![:scale 80%](images/cluster1.png)]
+![:scale 80%](images/cluster1.png)
+]
 
 ---
 # Overview of 3 hierarchical methods
@@ -577,9 +584,10 @@ A distance matrix is first sorted in increasing distance order
 .pull-left[
 
 ![:scale 50%](images/singleClust1.png)
---
 
 ]
+
+--
 
 .pull-right[
 
@@ -624,7 +632,7 @@ spe.dhe1.single &lt;- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-19-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-20-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -664,12 +672,12 @@ spe.dhel.ward$height &lt;- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-20-1.png" width="648" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-21-1.png" width="648" style="display: block; margin: auto;" /&gt;
 
 ---
 # Ward's method
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-21-1.png" width="648" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-22-1.png" width="648" style="display: block; margin: auto;" /&gt;
 
 Clusters generated using this method tend to be more spherical and to contain similar number of objects
 
@@ -698,23 +706,29 @@ class: inverse, center, middle
 --
 
 - **Variance:** measure of a variable `\(y_j\)` dispersion from its mean
+
 --
 
 - **Co-variance:** measure of co-dispersion of variables `\(y_j\)` et `\(y_i\)` from their means
 
 --
+
 - **Correlation:** measure of the link strength between 2 variables: `\(r_{ij} = (d_{ij} / d_j x d_k)\)`
 
 --
+
 - **Eigenvalues:** Proportio of variance (dispersion) represented by one ordination axe.
 
 --
+
 - **Orthogonality:** right angle between 2 axis or 2 arrows which means that these 2 are independent = non correlated.
 
 --
+
 - **Score:** position of a dot on an axis. All the scores of a dot give its coordinates in the multidimensional space. They can be used as new variable for other analyses (e.g. linear combination of measured variables).
 
 --
+
 - **Dispersion** (inertia): Measure of the total variability of the scatter plot (descriptors) in the multidimensional space with regards to its center of gravity.
 
 ---
@@ -757,7 +771,7 @@ class: inverse, center, middle
 ---
 # PCA - Walkthrough
 
-&lt;br/&gt;&lt;br/&gt;
+&lt;br&gt;&lt;br&gt;
 
 
 |Site|Species 1| Species 2|
@@ -809,13 +823,13 @@ class: inverse, center, middle
 ---
 # PCA - Multidimensional case
 
-&lt;br/&gt;&lt;br/&gt;
+&lt;br&gt;&lt;br&gt;
 
 - **PC1** --&gt; axis that maximizes the variance of the points that are projected perpendicularly onto the axis.
 - **PC2** --&gt; must be perpendicular to PC1, but the direction is again the one in which variance is maximized when points are perpendicularly projected
 - **PC3** --&gt; and so on: perpendicular to the first two axes
 
-&lt;br/&gt;
+&lt;br&gt;
 
 .alert[When there are more than two dimensions, PCA produces a new spaces in which all PCA axes are orthogonal (i.e. non-correlated)  and where the PCA axes are ordered according to the percent of variance of the original data they explain]
 
@@ -964,7 +978,7 @@ rda(Y) or rda(X) ![:faic](arrow-right) PCA ]]
 ---
 # PCA - Interpretation of Output
 
-&lt;br/&gt;
+&lt;br&gt;
 
 .center[
 ![:scale 80%](images/PCAout2.png)
@@ -973,13 +987,13 @@ rda(Y) or rda(X) ![:faic](arrow-right) PCA ]]
 
 - List the eigenvalues associated to each Principal Component (in this output there are 27 PCs, as this is the number of dimensions in the data)
 
-&lt;br/&gt;
+&lt;br&gt;
 
 .alert[
 An eigenvalue is the value of the change in the length of a vector, and for our purposes is the amount of variation explained by Principal Component
 ]
 
-&lt;br/&gt;
+&lt;br&gt;
 
 .center[0.258 + 0.064 + ... = 0.5025 Total explained variance]
 
@@ -992,7 +1006,7 @@ An eigenvalue is the value of the change in the length of a vector, and for our 
 
 - List of the proportion of variance explained by each Principal Component (as well as cumulative)
 
-&lt;br/&gt;
+&lt;br&gt;
 
 .center[51.3% of 0.5025 is 0.258]
 
@@ -1003,7 +1017,7 @@ An eigenvalue is the value of the change in the length of a vector, and for our 
 
 - There are two ways to represent an ordination in 2D, here the output is informing us that it used the default scaling, which is type 2...
 
-&lt;br/&gt;&lt;br/&gt;
+&lt;br&gt;&lt;br&gt;
 
 --
 
@@ -1175,33 +1189,33 @@ eigen(cov(spec.hel))
 # [26,] -0.289091422 -1.567421e-01  0.34575306 -1.653173e-01  0.25023307
 # [27,] -0.115604287 -1.656960e-01  0.02369596 -1.003356e-01 -0.21515621
 #             [,16]        [,17]         [,18]       [,19]        [,20]
-#  [1,] -0.22297857 -0.029695770  0.0369983843 -0.04070760 -0.073488990
-#  [2,]  0.11758248 -0.094655191 -0.3039813363  0.11286530  0.299642984
-#  [3,]  0.16117496 -0.495586427 -0.1044359243  0.12856875  0.013599789
-#  [4,] -0.16061501  0.426591745 -0.0700878681  0.04243889  0.181772967
-#  [5,]  0.11416978  0.234783573 -0.2024171014 -0.11756635 -0.011973397
-#  [6,] -0.02236301 -0.025369853  0.0193321574  0.12426941  0.322316778
-#  [7,]  0.32588153  0.255676104  0.0836105212 -0.01276921 -0.083323060
-#  [8,]  0.05278065  0.094429985 -0.4016015744  0.08989816  0.048646388
-#  [9,]  0.06586493 -0.015362879 -0.0149894684 -0.09279079 -0.102439703
-# [10,]  0.21439494 -0.076520520 -0.0438275294  0.10630753  0.384704993
-# [11,]  0.40582706 -0.226264310  0.2531720192  0.35500305 -0.198035086
-# [12,] -0.22343643 -0.136365379  0.2231584172 -0.31860481  0.285984792
-# [13,] -0.05557784  0.044039568 -0.3686499771 -0.15179616 -0.072002029
-# [14,]  0.30779187 -0.117211955 -0.0130182734 -0.21646165  0.029597144
-# [15,] -0.10526778  0.346563681  0.2121059495  0.30923016 -0.017471685
-# [16,] -0.03403174  0.017495879 -0.1220422599  0.06909829 -0.078513734
-# [17,]  0.08609131 -0.140926709  0.1227082448 -0.15559985  0.164321594
-# [18,]  0.06232076  0.125052490  0.2153262828  0.24582813  0.527750155
-# [19,] -0.13539555  0.053580142 -0.1421409249  0.07438860 -0.089636202
-# [20,] -0.33914754 -0.320857989 -0.1424350464 -0.08650200  0.115010361
-# [21,]  0.15124184  0.128069950 -0.3301085643  0.07436707  0.129946113
-# [22,] -0.01113887 -0.009198274 -0.1837530613  0.12666570 -0.081687057
-# [23,] -0.31488220 -0.214773321 -0.0321193373  0.49225288  0.015647490
-# [24,]  0.18249725 -0.072631142 -0.2987937434  0.07741704 -0.083649110
-# [25,]  0.24864024  0.021664187  0.0298929458 -0.29184758  0.250656528
-# [26,] -0.10772295 -0.033545836 -0.1814804392  0.04637292  0.214002704
-# [27,] -0.11681150 -0.098699646 -0.0002682813 -0.23907156  0.002993534
+#  [1,] -0.22297857 -0.029695770  0.0369983843  0.04070760 -0.073488990
+#  [2,]  0.11758248 -0.094655191 -0.3039813363 -0.11286530  0.299642984
+#  [3,]  0.16117496 -0.495586427 -0.1044359243 -0.12856875  0.013599789
+#  [4,] -0.16061501  0.426591745 -0.0700878681 -0.04243889  0.181772967
+#  [5,]  0.11416978  0.234783573 -0.2024171014  0.11756635 -0.011973397
+#  [6,] -0.02236301 -0.025369853  0.0193321574 -0.12426941  0.322316778
+#  [7,]  0.32588153  0.255676104  0.0836105212  0.01276921 -0.083323060
+#  [8,]  0.05278065  0.094429985 -0.4016015744 -0.08989816  0.048646388
+#  [9,]  0.06586493 -0.015362879 -0.0149894684  0.09279079 -0.102439703
+# [10,]  0.21439494 -0.076520520 -0.0438275294 -0.10630753  0.384704993
+# [11,]  0.40582706 -0.226264310  0.2531720192 -0.35500305 -0.198035086
+# [12,] -0.22343643 -0.136365379  0.2231584172  0.31860481  0.285984792
+# [13,] -0.05557784  0.044039568 -0.3686499771  0.15179616 -0.072002029
+# [14,]  0.30779187 -0.117211955 -0.0130182734  0.21646165  0.029597144
+# [15,] -0.10526778  0.346563681  0.2121059495 -0.30923016 -0.017471685
+# [16,] -0.03403174  0.017495879 -0.1220422599 -0.06909829 -0.078513734
+# [17,]  0.08609131 -0.140926709  0.1227082448  0.15559985  0.164321594
+# [18,]  0.06232076  0.125052490  0.2153262828 -0.24582813  0.527750155
+# [19,] -0.13539555  0.053580142 -0.1421409249 -0.07438860 -0.089636202
+# [20,] -0.33914754 -0.320857989 -0.1424350464  0.08650200  0.115010361
+# [21,]  0.15124184  0.128069950 -0.3301085643 -0.07436707  0.129946113
+# [22,] -0.01113887 -0.009198274 -0.1837530613 -0.12666570 -0.081687057
+# [23,] -0.31488220 -0.214773321 -0.0321193373 -0.49225288  0.015647490
+# [24,]  0.18249725 -0.072631142 -0.2987937434 -0.07741704 -0.083649110
+# [25,]  0.24864024  0.021664187  0.0298929458  0.29184758  0.250656528
+# [26,] -0.10772295 -0.033545836 -0.1814804392 -0.04637292  0.214002704
+# [27,] -0.11681150 -0.098699646 -0.0002682813  0.23907156  0.002993534
 #             [,21]        [,22]         [,23]       [,24]        [,25]
 #  [1,] -0.23699102 -0.006673203  0.2150504253  0.16746060 -0.154668929
 #  [2,] -0.15419656  0.046253218 -0.0067084047  0.09885408 -0.078608286
@@ -1231,33 +1245,33 @@ eigen(cov(spec.hel))
 # [26,] -0.01372967  0.005518255 -0.0851270189  0.04835800  0.010916689
 # [27,]  0.02170163  0.299274679 -0.0384912363  0.19527646  0.138899872
 #              [,26]        [,27]
-#  [1,]  0.286444574  0.160115454
-#  [2,] -0.004346981  0.020253239
-#  [3,] -0.018510820  0.008667706
-#  [4,]  0.012547754  0.008152367
-#  [5,] -0.280152618 -0.176124136
-#  [6,]  0.050969707  0.059394910
-#  [7,]  0.173278980  0.050786372
-#  [8,]  0.094611255  0.166874398
-#  [9,] -0.034886498 -0.013455934
-# [10,]  0.010993922  0.027774588
-# [11,] -0.133708827  0.003576285
-# [12,] -0.096209440 -0.136306223
-# [13,]  0.030967117 -0.001104217
-# [14,]  0.030111639 -0.022329185
-# [15,] -0.067849606  0.126779482
-# [16,]  0.506057486 -0.347584407
-# [17,]  0.124873480 -0.177187525
-# [18,]  0.102384832 -0.028288166
-# [19,] -0.502490829 -0.367340373
-# [20,]  0.018992525 -0.141581060
-# [21,] -0.158654849  0.124060624
-# [22,]  0.393638849 -0.003437816
-# [23,] -0.159732210  0.104801206
-# [24,] -0.033666811  0.066412841
-# [25,] -0.111096800  0.012335431
-# [26,]  0.010694156 -0.038642171
-# [27,] -0.090405565  0.729577313
+#  [1,]  0.286444574 -0.160115454
+#  [2,] -0.004346981 -0.020253239
+#  [3,] -0.018510820 -0.008667706
+#  [4,]  0.012547754 -0.008152367
+#  [5,] -0.280152618  0.176124136
+#  [6,]  0.050969707 -0.059394910
+#  [7,]  0.173278980 -0.050786372
+#  [8,]  0.094611255 -0.166874398
+#  [9,] -0.034886498  0.013455934
+# [10,]  0.010993922 -0.027774588
+# [11,] -0.133708827 -0.003576285
+# [12,] -0.096209440  0.136306223
+# [13,]  0.030967117  0.001104217
+# [14,]  0.030111639  0.022329185
+# [15,] -0.067849606 -0.126779482
+# [16,]  0.506057486  0.347584407
+# [17,]  0.124873480  0.177187525
+# [18,]  0.102384832  0.028288166
+# [19,] -0.502490829  0.367340373
+# [20,]  0.018992525  0.141581060
+# [21,] -0.158654849 -0.124060624
+# [22,]  0.393638849  0.003437816
+# [23,] -0.159732210 -0.104801206
+# [24,] -0.033666811 -0.066412841
+# [25,] -0.111096800 -0.012335431
+# [26,]  0.010694156  0.038642171
+# [27,] -0.090405565 -0.729577313
 ```
 
 
@@ -1331,7 +1345,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-30-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1454,7 +1468,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 # PCA - Visualization
@@ -1468,7 +1482,7 @@ The abundance of information produced by PCA is easier to understand and interpr
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-34-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-35-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 # PCA basic biplot with plot()
@@ -1499,7 +1513,7 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-35-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-36-1.png" width="324" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1552,7 +1566,7 @@ use the `arrows()` function in  `graphics` to add vectors
 ---
 # Advanced "biplotting"
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-37-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-38-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # EASTER EGG: ggvegan
@@ -1621,7 +1635,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
 ---
 # Solution #3
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-43-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1633,7 +1647,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
 biplot(mite.spe.h.pca, col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-44-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-45-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1875,7 +1889,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ---
 # Solution #4
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-50-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-51-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # 4.3. Principal Coordinates Analysis
@@ -1947,7 +1961,7 @@ We can display, in 2D, the distances between sites using the `biplot.pcoa()` fun
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-54-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-55-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1979,7 +1993,7 @@ spe.bray.pcoa &lt;- pcoa(spe.db.pa, correction = "cailliez")
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-57-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-58-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -2018,7 +2032,7 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-60-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-61-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2053,41 +2067,35 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
-# Run 0 stress 0.07477816 
-# Run 1 stress 0.1164449 
-# Run 2 stress 0.08917056 
-# Run 3 stress 0.1104423 
-# Run 4 stress 0.07506675 
-# ... Procrustes: rmse 0.01482291  max resid 0.06358393 
-# Run 5 stress 0.1222124 
-# Run 6 stress 0.07477819 
-# ... Procrustes: rmse 1.910413e-05  max resid 8.307929e-05 
+# Run 0 stress 0.07477809 
+# Run 1 stress 0.1208399 
+# Run 2 stress 0.112748 
+# Run 3 stress 0.0747781 
+# ... Procrustes: rmse 9.475938e-06  max resid 3.345068e-05 
 # ... Similar to previous best
-# Run 7 stress 0.1224601 
-# Run 8 stress 0.07429326 
-# ... New best solution
-# ... Procrustes: rmse 0.02394485  max resid 0.09221022 
-# Run 9 stress 0.07478414 
-# ... Procrustes: rmse 0.02353853  max resid 0.09307509 
-# Run 10 stress 0.07376228 
-# ... New best solution
-# ... Procrustes: rmse 0.01462727  max resid 0.06327901 
-# Run 11 stress 0.07383677 
-# ... Procrustes: rmse 0.003814092  max resid 0.01485505 
-# Run 12 stress 0.074778 
-# Run 13 stress 0.1118888 
-# Run 14 stress 0.1134129 
-# Run 15 stress 0.07376224 
-# ... New best solution
-# ... Procrustes: rmse 0.0002761693  max resid 0.001324832 
+# Run 4 stress 0.112569 
+# Run 5 stress 0.08696382 
+# Run 6 stress 0.1127683 
+# Run 7 stress 0.1124392 
+# Run 8 stress 0.1232691 
+# Run 9 stress 0.1136318 
+# Run 10 stress 0.1226964 
+# Run 11 stress 0.07477844 
+# ... Procrustes: rmse 0.0001395607  max resid 0.000661845 
 # ... Similar to previous best
-# Run 16 stress 0.07376231 
-# ... Procrustes: rmse 4.936613e-05  max resid 0.0002370949 
+# Run 12 stress 0.08841667 
+# Run 13 stress 0.08841675 
+# Run 14 stress 0.08801545 
+# Run 15 stress 0.07478403 
+# ... Procrustes: rmse 0.003628763  max resid 0.01419842 
+# Run 16 stress 0.111129 
+# Run 17 stress 0.07506669 
+# ... Procrustes: rmse 0.01480271  max resid 0.06360155 
+# Run 18 stress 0.1203765 
+# Run 19 stress 0.1115942 
+# Run 20 stress 0.07477823 
+# ... Procrustes: rmse 8.577829e-05  max resid 0.0004119709 
 # ... Similar to previous best
-# Run 17 stress 0.113413 
-# Run 18 stress 0.1222117 
-# Run 19 stress 0.09222733 
-# Run 20 stress 0.1204796 
 # *** Solution reached
 ```
 
@@ -2108,11 +2116,11 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376224
+# [1] 0.07477809
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-62-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-63-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 # NMDS on fish abundances
@@ -2288,8 +2296,8 @@ class: inverse, center, bottom
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="qcbsR-macros.js"></script>
 <script>var slideshow = remark.create({
-"countIncrementalSlides": false,
-"highlightLines": false
+"countIncrementalSlides": true,
+"highlightLines": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
@@ -2355,7 +2363,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {
