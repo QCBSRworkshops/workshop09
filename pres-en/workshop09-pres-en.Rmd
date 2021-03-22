@@ -17,6 +17,8 @@ output:
 class: inverse, center, middle
 
 ```{r setup2, echo = FALSE}
+library(knitr)
+
 ## Setup for your presentation
 knitr::opts_chunk$set(
   eval = TRUE,
@@ -25,16 +27,35 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
   message = FALSE,
-  fig.width=5, fig.height=5, fig.retina=3,
+  fig.width = 5, fig.height = 5, fig.retina = 3,
   fig.align = 'center'
 )
-options(repos=structure(c(CRAN="http://cran.r-project.org")))
+
+options(repos = structure(
+  c(CRAN = "http://cran.r-project.org")
+  )
+  )
+
+# Install xaringanExtra
+
+if(nzchar(system.file(package = "xaringanExtra")) == FALSE) {remotes::install_github("gadenbuie/xaringanExtra", upgrade = "always")}
+
+# Include copy-to-clipboard icons
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fas fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
 ```
 
 ```{r install_pkgs, message=FALSE, warning=FALSE, include=FALSE, results=0}
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan")
+list.of.packages <- c("ape", "gclus", "vegan", "GGally")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -53,20 +74,72 @@ if(length(new.packages) > 0) {
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.pdf)
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.R)
 
+
 ---
 
-# Required packages
+<p style="font-size:75%">
 
-* [ape](https://cran.r-project.org/package=ape)
-* [gclus](https://cran.r-project.org/package=gclus)
-* [vegan](https://cran.r-project.org/package=vegan)
+.center[
+**Contributors to the development of this workshop**
+
+by modifying and improving its content as part of the <br> *Le*arning *a*nd *D*evelopment *A*ward
+]
+
+
+.pull-left[
+.right[
+
+ **2022** - **2021** - **2020**
+
+
+
+]
+]
+
+.pull-right[
+.left[
+**2019** - **2018** - **2017**
+
+
+
+**2016** - **2015** - **2014**
+
+
+
+]
+
+]
+</p>
+
+---
+
+# Required material
+
+To follow this workshop, you are required to have downloaded and installed the earliest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
 
 <br>
 
-```{r, echo = TRUE, eval = FALSE}
-install.packages(c('ape', 'gclus', 'vegan'))
+.pull-left[
+You must also use these packages:
+1. [ape](https://cran.r-project.org/package=ape)
+3. [gclus](https://cran.r-project.org/package=gclus)
+4. [vegan](https://cran.r-project.org/package=vegan)
+]
+
+.pull-right[
+
+
+To install them from CRAN, run:
+
+```{r eval = FALSE}
+install.packages(
+  c("ape", 
+    "gclus", 
+    "vegan")
+)
 ```
 
+]
 ---
 # Learning objectives
 
@@ -662,42 +735,347 @@ Clusters generated using this method tend to be more spherical and to contain si
   - combine clustering to ordination to distinguish groups of sites
 
 
+---
+## Now, what?
+
+While **cluster analysis** looks for *discontinuities* in a dataset, **ordination** extracts the main trends in the form of continuous axes.
+
+From now, we will look into four types of **unconstrained ordination methods**...
+
+--
+
+.right[...**wait**, what do we mean about **unconstrained ordinations**? *Anyone*?]
+
+--
+<br>
+.center[*If no one speaks out, choose a "voluntary", presenter!*]
+
+--
+
+<br>
+**Unconstrained ordinations** assess relationships within a single set of variables. *No attempt* is made to define the relationship between a set of independent variables and one or more dependent variables.
+
+--
+
+In other words, the interpretation of potential effects of other factors that generated observed patterns can only be made indirectly, because those factors are *not* explicitly included in the analyses.
+
+--
+
+Here, we will explore:
+
+.center[
+.pull-left[
+**P**rincipal **C**omponent **A**nalysis
+
+**P**rincipal **Co**ordinate **A**nalysis
+]
+
+.pull-right[
+**C**orrespondence **A**nalysis
+
+**N**on-**M**etric Multi**D**imensional **S**caling
+]
+]
 
 ---
 class: inverse, center, middle
 # 4. Unconstrained ordination
 
+---
+
+### But first, let us *recap*...
+
+
+We already understand the meaning of **variance** and **mean**, and how to calculate them:
+
+.pull-left[
+$$\sigma_x^2 = \frac{\sum_{i=1}^{n}(x_i - \mu)^2} {n}$$
+]
+
+.pull-right[
+$$\mu_x = \frac{1}{n} \sum_{i=i}^{n} x_{i}$$
+]
+
+These are very useful to understand the *centre* and the *dispersion* of a given variable or dimension.
+
+Nevertheless, we are often interested **in more than one dimension**, and want to measure how much of each dimension vary from the mean with *respect to each other*.
+
+--
+
+**Covariance** is such a measure, which can depict how **two dimensions co-vary**:
+
+.pull-left[
+$$var_x = \sigma_x^2 = \frac{\sum_{i=1}^{n}(x_i - \mu)^2} {n}$$
+]
+
+.pull-right[
+$$cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
+]
 
 ---
-# Definitions
+### But first, let us *recap*...
+
+Intuitively, we can measure the **covariance** between more than two variables. Let us say, between the variables $x$, $y$, and $z$:
+
+.pull-left[
+$$cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
+]
+
+.pull-right[
+$$cov_{x,z}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(z_{i}-\bar{z})}{N-1}$$
+]
+
+
+$$cov_{z,y}=\frac{\sum_{i=1}^{N}(z_{i}-\bar{z})(y_{i}-\bar{y})}{N-1}$$
+We can represent these calculations in a **covariance matrix**:
+
+$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+cov_{x,x} & cov_{y,x} & cov_{z,x} \\
+cov_{x,y} & cov_{y,y} & cov_{z,y} \\
+cov_{x,z} & cov_{y,z} & cov_{z,z}   
+\end{array} \right]$$
 
 --
 
-- **Variance:** measure of a variable $y_j$ dispersion from its mean
+.center[**QUIZ TIME**
+
+*What are the diagonals?* *And, what happens if variables are independent?*
+] 
+
+---
+#### Still *recapping*...
+
+.center[***What are the diagonals?***]
+
+If, $cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$, then:
+
+$$cov_{x,x}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(x_{i}-\bar{x})}{N} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2} {N} = var_x$$
+So, that:
+
+$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+cov_{x,x} & cov_{y,x} & cov_{z,x} \\
+cov_{x,y} & cov_{y,y} & cov_{z,y} \\
+cov_{x,z} & cov_{y,z} & cov_{z,z}   
+\end{array} \right] = \left[ \begin{array}{ccc} 
+var_{x} & cov_{y,x} & cov_{z,x} \\
+cov_{x,y} & var_{y} & cov_{z,y} \\
+cov_{x,z} & cov_{y,z} & var_{z}   
+\end{array} \right]$$
+
+ <br>
+ 
+.center[The covariance of a variable with itself is its *variance*!]
+
+---
+
+#### Still *recapping*...
+
+.center[***What happens if the variables are independent?***]
+
+.pull-left[
+```{r xyz-norm, echo=TRUE}
+x <- rnorm(5000, mean = 0, sd = 1)
+y <- rnorm(5000, mean = 0, sd = 1)
+z <- rnorm(5000, mean = 0, sd = 1)
+
+xyz <- data.frame(x, y, z)
+
+GGally::ggpairs(xyz) 
+```
+]
 
 --
 
-- **Co-variance:** measure of co-dispersion of variables $y_j$ et $y_i$ from their means
+.pull-right[
+```{r xyz-cov, echo=TRUE, eval = FALSE}
+cov(xyz)
+```
+
+```{r xyz-cov-2, echo=FALSE, eval = TRUE}
+round(cov(xyz), digits = 5)
+```
+
+
+If variables are perfectly independent (or uncorrelated), the covariance matrix $C(x, y, z)$ is:
+
+$${C(x, y, z)} =  \left[ \begin{array}{ccc} 
+var_{x} & 0 & 0 \\
+0 & var_{y} & 0 \\
+0 & 0 & var_{z}   
+\end{array} \right]$$
+
+*i*.*e*. a covariance closer to $1$ means that variables are *colinear*.
+
+And, here, $var_{x} = var_{y} = var_{z} = 1$.
+
+]
+
+---
+## Linear transformations
+
+We are often interested in observing variables in *different ways*. 
+
+In this process, we create a new variable, let us say $x_{new}$, by multiplying and/or adding the values of the original variable $x$ by constants. For instance:
 
 --
 
-- **Correlation:** measure of the link strength between 2 variables: $r_{ij} = (d_{ij} / d_j x d_k)$
+.pull-left[
+We can transform a variable of distances measured in kilometres $d_{km}$ into miles, as:
+$$d_{mi} = 0.62 \times d_{km}$$
+]
+
+
+.pull-right[
+We can also transform Fahrenheit degrees to Celsius degrees as: 
+
+$$T_{C} = 0.5556\times T_{Fahr} - 17.778$$
+]
+
+These are examples of **linear transformations**: the transformed variables are linearly related to the original variabels and the shapes of the distribution are not changed.
 
 --
 
-- **Eigenvalues:** Proportio of variance (dispersion) represented by one ordination axe.
+Two types of transformations are very important for us:
 
---
+.pull-left[
+**Centering**, which subtracts the values of a predictor by the mean:
 
-- **Orthogonality:** right angle between 2 axis or 2 arrows which means that these 2 are independent = non correlated.
+$$x' = x_i - \bar{x}$$
+]
 
---
+.pull-right[
+**Scaling**, which divides the predictor variables by their standard deviation:
 
-- **Score:** position of a dot on an axis. All the scores of a dot give its coordinates in the multidimensional space. They can be used as new variable for other analyses (e.g. linear combination of measured variables).
+$$x'' = \frac{x_i}{\sigma_x}$$
+]
 
---
+??? 
 
-- **Dispersion** (inertia): Measure of the total variability of the scatter plot (descriptors) in the multidimensional space with regards to its center of gravity.
+Centering is basically a technique where mean of independent variables is subtracted from all the values. It means all independent variables have zero mean. Scaling is similar to centering. Predictor variables are divided by their standard deviation. 
+
+The presenter should mention here that centering brings the mean to zero and scaling brings the standard deviation to one-unit. They also should mention that variables become comparable when scaling, as their unit is lost.
+
+---
+
+## Eigendecomposition
+
+**Square matrices**, such as the **covariance matrix**, can be decomposed into *Eigenvalues* and *Eigenvectors*.
+
+For a square matrix, $A_{n \times n}$, a vector $v$ is an *Eigenvector* of $A$, if there is a *scalar*, $\lambda$, for which:
+
+.center[ 
+$A_{n \times n} v_{n \times 1} = \lambda  v_{n \times 1}$, or $\left(\begin{matrix}a_{11}&\cdots&a_{1n}\\\vdots&\ddots&\vdots\\a_{1n}&\cdots&a_{nn}\\\end{matrix}\right)\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)=\lambda\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)$ 
+]
+
+with the value of $\lambda$ being the corresponding *Eigenvalue*.
+
+In other words, the matrix $A$ effectively *stretches* the Eigenvector $v$ by the amount specified by the Eigenvalue (*scalar*) $\lambda$.
+
+An *Eigenvector* is a vector whose direction remains unchanged when a **linear transformation** is applied to it.
+
+Hopefully, this becomes more clear if we represent it!
+
+---
+
+We can transform a square into a parallelogram using a single-axis **shear transformation**. 
+
+For example, if we represent our matrix in the Cartesian place:
+
+$A = \left[\begin{array}{cc} 1 & 0 \\ 0 & 1 \end{array}\right]$
+
+
+$B = \left[\begin{array}{cc} 1 & 0 \\ 1 & 1 \end{array}\right]$
+
+
+
+
+Visually, this corresponds to:
+
+
+<br>
+
+*Include visual explanation*.
+
+<br>
+
+
+---
+## Eigendecomposition: implications
+
+*We are not torturing you with algebra just for fun!* 
+
+*This understanding is useful to depict some of the applied implications of Eigenvalues and Eigenvectors! *
+
+### Orthogonality
+
+We can rearrange $Av = \lambda v$, so that it becomes...
+
+The covariance matrix of the transformed variables $C = V \Lambda V^T$, gives us:
+
+
+
+Remember what a covariance matrix represented as *diagonal matrix* means? Uncorrelated variables!
+
+We have just seen that **Eigenvectors are orthogonal** or uncorrelated! 
+
+*Include visual explanation*
+
+---
+## Eigendecomposition: implications
+
+*We are not torturing you with algebra just for fun*! This understanding is useful to depict some of the applied implications of *Eigenvalues* and *Eigenvectors*! 
+
+### Maximization
+
+We can find a vector $v$
+
+*Include visual explanation of the maximization of variances*
+
+
+*In a nutshell*, we can obtain new orthogonal vectors that emphasize the variation among observations;
+
+This allows us to condense a larger number of original variables into a smaller set of selected vectors with minimal loss of information (i.e. ***dimensionallity reduction***). 
+
+---
+# Principal Component Analysis
+
+.pull-left[
+1. Starting point: a matrix of $n$ continuous variables
+
+2\. Standardization
+
+By centering, as in $x' = x_i - \bar{x}$, and
+
+then scaling, as in $x'' = \frac{x_i}{\sigma_x}$. Or, directly:
+
+$$x_z = \frac{x_i - \bar{x}}{\sigma_x}$$
+
+3\. Compute the covariance matrix 
+
+4\. Obtain the Eigenvectors and Eigenvalues from the covariance matrix
+
+5\. Project the new data onto the feature space
+]
+
+.pull-right[
+```{r}
+data(varechem)
+
+scaled_features <- as.matrix(scale(varechem))
+
+Cx <- cov(scaled_features)
+
+eigenvalues <- eigen(Cx)$values
+
+eigenvectors <- eigen(Cx)$vectors
+
+PC <- scaled_features %*% eigenvectors
+
+Cy <- cov(PC)
+```
+
+
+]
 
 ---
 # Unconstrained ordination
@@ -712,13 +1090,8 @@ class: inverse, center, middle
 
 
 ---
-# 4.1. Principal Component Analysis (PCA)
+# Principal Component Analysis
 
-.center[
-![:scale 90%](images/Ord1.png)]
-
-- Preserves, in 2D, the maximum amount of variation in the data
-- The resulting, synthetic variables are orthogonal (and therefore uncorrelated)
 
 ---
 # PCA - What you need
