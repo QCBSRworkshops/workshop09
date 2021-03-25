@@ -1525,7 +1525,7 @@ Intuitively, one can obtain the relative influence of each *Eigenvector* $v_{k}$
 
 $$\text{Explained variance of}~v_{k} = \frac{\lambda_{v_k}}{\sum^p_{i=1}{\lambda_{v}}}$$
 
-By doing this, we can say that the $\text{PC}1$ explains `r round(eigen(cov_Y_std)$values[1]/sum(eigen(cov_Y_std)$values) * 100)`% of the variance in the data, while $\text{PC}2$ explains `r round(eigen(cov_Y_std)$values[2]/sum(eigen(cov_Y_std)$values) * 100)`% of the variance.
+By doing this, we can say that the $\text{PC}1$ explains `r round(eigen(cov(Y_std))$values[1]/sum(eigen(cov(Y_std))$values) * 100)`% of the variance in the data, while $\text{PC}2$ explains `r round(eigen(cov(Y_std))$values[2]/sum(eigen(cov(Y_std))$values) * 100)`% of the variance.
 
 --
 
