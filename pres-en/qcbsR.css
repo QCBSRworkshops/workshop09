@@ -341,7 +341,7 @@ table, td, th {
 }
 .pull-right2 {
   float: right;
-  width: 30%;
+  width: 31%;
 }
 
 .pull-right2, .pull-right2 p {
@@ -354,7 +354,7 @@ table, td, th {
 }
 .pull-right3 {
   float: right;
-  width: 40%;
+  width: 42%;
 }
 
 .pull-right3, .pull-right3 p {
@@ -396,3 +396,7 @@ table, td, th {
 .column-left{ float: left; width: 31.333%; }
 .column-right{ float: right; width: 31.333%; }
 .column-centre{ display: inline-block; width: 31.333%; }
+
+
+.red { color: red; }
+.lightgray  { color: lightgray; }
