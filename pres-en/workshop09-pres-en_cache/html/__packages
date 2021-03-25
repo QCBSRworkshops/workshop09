@@ -1,12 +1,7 @@
 base
 knitr
-ape
-cluster
-gclus
 permute
 lattice
 vegan
-ggplot2
-GGally
 PlaneGeometry
-remotes
+ape
