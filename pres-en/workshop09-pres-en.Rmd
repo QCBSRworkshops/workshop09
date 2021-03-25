@@ -2082,8 +2082,6 @@ legend("topright", "Average eigenvalue",
 
 Here, we have 27 principal components. However, we can apply algorithms to select the lowest number of principal components that still account for a large variance in the data.
 
---
-
 #### Broken-stick model
 
 .pull-left[
@@ -2283,28 +2281,15 @@ biplot(mite.spe.h.pca,
 ---
 # Principal Coordinates Analysis
 
-.center[![:scale 90%](images/Ord1.png)]
+The **PCoA** is similar in spirit to PCA, but it takes *dissimilarities* as input data! 
 
-In a PCA, we preserve the maximum amount of variation in the data
+It was previously called as *Classical Multidimensional Scaling* (MDS) and it aims at faithfully representing distances with the lowest possible dimensional space.
 
-In a PCoA, we preserve as best we can the Euclidean distances between each object in multidimensional space
+It begins with the (i) computation of a distance matrix for the $p$ elements, then (ii) the centering of the matrix by rows and columns, and finally, the (iii) *Eigendecomposition* of the centered distance matrix.
 
-.alert[PCoA can be especially useful when the dataset is wider than it is long.]
-
----
-# Principal Coordinates Analysis
+--
 
 To compute a PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages:
-
-```{R, include = FALSE}
-library(ape)
-```
-
-```{r, eval = FALSE}
-?cmdscale
-library(ape)
-?pcoa
-```
 
 Run a PCoA on the Hellinger distance-transformed fish dataset:
 
