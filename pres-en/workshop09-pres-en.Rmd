@@ -2294,6 +2294,7 @@ To compute a PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the
 Run a PCoA on the Hellinger distance-transformed fish dataset:
 
 ```{r}
+library(ape)
 spe.h.pcoa <- pcoa(dist(spec.hel))
 summary(spe.h.pcoa)
 ```
