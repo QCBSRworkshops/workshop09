@@ -5,6 +5,12 @@
     <meta charset="utf-8" />
     <meta name="author" content="Québec Centre for Biodiversity Science" />
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="assets/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="assets/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="assets/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fas fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
+    <link href="assets/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="assets/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css">
     <link rel="stylesheet" href="qcbsR.css" type="text/css" />
@@ -23,6 +29,59 @@ class: center, middle, inverse, title-slide
 class: inverse, center, middle
 
 
+```
+## Using bundled GitHub PAT. Please add your own PAT to the env var `GITHUB_PAT`
+```
+
+```
+## Downloading GitHub repo gadenbuie/xaringanExtra@HEAD
+```
+
+```
+## uuid (NA -&gt; 0.1-4) [CRAN]
+```
+
+```
+## Installing 1 packages: uuid
+```
+
+```
+## Installing package into '/home/runner/work/_temp/Library'
+## (as 'lib' is unspecified)
+```
+
+```
+##   
+   checking for file ‘/tmp/RtmpdEtUKk/remotes36ec7a080e04/gadenbuie-xaringanExtra-f7687fc/DESCRIPTION’ ...
+  
+✔  checking for file ‘/tmp/RtmpdEtUKk/remotes36ec7a080e04/gadenbuie-xaringanExtra-f7687fc/DESCRIPTION’
+## 
+  
+─  preparing ‘xaringanExtra’:
+## 
+  
+   checking DESCRIPTION meta-information ...
+  
+✔  checking DESCRIPTION meta-information
+## 
+  
+─  checking for LF line-endings in source and make files and shell scripts
+## 
+  
+─  checking for empty or unneeded directories
+## 
+  
+─  building ‘xaringanExtra_0.3.1.tar.gz’
+## 
+  
+   
+## 
+```
+
+```
+## Installing package into '/home/runner/work/_temp/Library'
+## (as 'lib' is unspecified)
+```
 
 
 
@@ -33,21 +92,73 @@ class: inverse, center, middle
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.pdf)
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=script&amp;message=09&amp;color=2a50b8&amp;logo=r)](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.R)
 
+
 ---
 
-# Required packages
+&lt;p style="font-size:75%"&gt;
 
-* [ape](https://cran.r-project.org/package=ape)
-* [gclus](https://cran.r-project.org/package=gclus)
-* [vegan](https://cran.r-project.org/package=vegan)
+.center[
+**Contributors to the development of this workshop**
+
+by modifying and improving its content as part of the &lt;br&gt; *Le*arning *a*nd *D*evelopment *A*ward
+]
+
+
+.pull-left[
+.right[
+
+ **2022** - **2021** - **2020**
+
+
+
+]
+]
+
+.pull-right[
+.left[
+**2019** - **2018** - **2017**
+
+
+
+**2016** - **2015** - **2014**
+
+
+
+]
+
+]
+&lt;/p&gt;
+
+---
+
+# Required material
+
+To follow this workshop, you are required to have downloaded and installed the earliest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
 
 &lt;br&gt;
 
+.pull-left[
+You must also use these packages:
+1. [ape](https://cran.r-project.org/package=ape)
+3. [gclus](https://cran.r-project.org/package=gclus)
+4. [vegan](https://cran.r-project.org/package=vegan)
+]
+
+.pull-right[
+
+
+To install them from CRAN, run:
+
 
 ```r
-install.packages(c('ape', 'gclus', 'vegan'))
+install.packages(
+  c("ape", 
+    "gclus", 
+    "vegan")
+)
 ```
 
+]
 ---
 # Learning objectives
 
@@ -694,648 +805,1077 @@ Clusters generated using this method tend to be more spherical and to contain si
   - combine clustering to ordination to distinguish groups of sites
 
 
+---
+## Now, what?
+
+While **cluster analysis** looks for *discontinuities* in a dataset, **ordination** extracts the main trends in the form of continuous axes.
+
+From now, we will look into four types of **unconstrained ordination methods**...
+
+--
+
+.right[...**wait**, what do we mean about **unconstrained ordinations**? *Anyone*?]
+
+--
+&lt;br&gt;
+.center[*If no one speaks out, choose a "voluntary", presenter!*]
+
+--
+
+&lt;br&gt;
+**Unconstrained ordinations** assess relationships within a single set of variables. *No attempt* is made to define the relationship between a set of independent variables and one or more dependent variables.
+
+--
+
+In other words, the interpretation of potential effects of other factors that generated observed patterns can only be made indirectly, because those factors are *not* explicitly included in the analyses.
+
+--
+
+Here, we will explore:
+
+.center[
+.pull-left[
+**P**rincipal **C**omponent **A**nalysis
+
+**P**rincipal **Co**ordinate **A**nalysis
+]
+
+.pull-right[
+**C**orrespondence **A**nalysis
+
+**N**on-**M**etric Multi**D**imensional **S**caling
+]
+]
 
 ---
 class: inverse, center, middle
 # 4. Unconstrained ordination
 
-
 ---
-# Definitions
 
---
-
-- **Variance:** measure of a variable `\(y_j\)` dispersion from its mean
-
---
-
-- **Co-variance:** measure of co-dispersion of variables `\(y_j\)` et `\(y_i\)` from their means
-
---
-
-- **Correlation:** measure of the link strength between 2 variables: `\(r_{ij} = (d_{ij} / d_j x d_k)\)`
-
---
-
-- **Eigenvalues:** Proportio of variance (dispersion) represented by one ordination axe.
-
---
-
-- **Orthogonality:** right angle between 2 axis or 2 arrows which means that these 2 are independent = non correlated.
-
---
-
-- **Score:** position of a dot on an axis. All the scores of a dot give its coordinates in the multidimensional space. They can be used as new variable for other analyses (e.g. linear combination of measured variables).
-
---
-
-- **Dispersion** (inertia): Measure of the total variability of the scatter plot (descriptors) in the multidimensional space with regards to its center of gravity.
-
----
-# Unconstrained ordination
-
-- Asses relationships **within** a set of variables (species or environmental variables, not **between** sets, i.e. constrained analysis)
-
-- Find key components of variation between samples, sites, species, etc... ç
-
-- Reduce the number of dimensions in multivariate data without substantial loss of information
-
-- Create new variables for use in subsequent analysis (such as regression)
+### But first, let us *recap*...
 
 
----
-# 4.1. Principal Component Analysis (PCA)
-
-.center[
-![:scale 90%](images/Ord1.png)]
-
-- Preserves, in 2D, the maximum amount of variation in the data
-- The resulting, synthetic variables are orthogonal (and therefore uncorrelated)
-
----
-# PCA - What you need
-
-- A set of variables that are response variables (e.g. community composition) OR explanatory variables (e.g. environmental variables)
-
-**NOT BOTH!**
+We already understand the meaning of **variance** and **mean**, and how to calculate them:
 
 .pull-left[
-- Samples that are measured for the same set of variables
-- Generally a dataset that is longer than it is wide is preferred
+`$$\sigma_x^2 = \frac{\sum_{i=1}^{n}(x_i - \mu)^2} {n}$$`
 ]
 
 .pull-right[
-![:scale 80%](images/PCAMatrix.png)
+`$$\mu_x = \frac{1}{n} \sum_{i=i}^{n} x_{i}$$`
+]
+
+These are very useful to understand the *centre* and the *dispersion* of a given variable or dimension.
+
+Nevertheless, we are often interested **in more than one dimension**, and want to measure how much of each dimension vary from the mean with *respect to each other*.
+
+--
+
+**Covariance** is such a measure, which can depict how **two dimensions co-vary**:
+
+.pull-left[
+`$$var_x = \sigma_x^2 = \frac{\sum_{i=1}^{n}(x_i - \mu)^2} {n}$$`
+]
+
+.pull-right[
+`$$cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$`
 ]
 
 ---
-# PCA - Walkthrough
+### But first, let us *recap*...
 
-&lt;br&gt;&lt;br&gt;
+Intuitively, we can measure the **covariance** between more than two variables. Let us say, between the variables `\(x\)`, `\(y\)`, and `\(z\)`:
 
+.pull-left[
+`$$cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$`
+]
 
-|Site|Species 1| Species 2|
-|---|------|------|
-|A|7|3|
-|B|4|3|
-|C|12|10|
-|D|23|11|
-|E|13|13|
-|F|15|16|
-|G|18|14|
+.pull-right[
+`$$cov_{x,z}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(z_{i}-\bar{z})}{N-1}$$`
+]
 
 
-.alert[ A simplified example ]
+`$$cov_{z,y}=\frac{\sum_{i=1}^{N}(z_{i}-\bar{z})(y_{i}-\bar{y})}{N-1}$$`
+We can represent these calculations in a **covariance matrix**:
 
----
-# PCA - Walkthrough
+`$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+cov_{x,x} &amp; cov_{y,x} &amp; cov_{z,x} \\
+cov_{x,y} &amp; cov_{y,y} &amp; cov_{z,y} \\
+cov_{x,z} &amp; cov_{y,z} &amp; cov_{z,z}   
+\end{array} \right]$$`
 
-.center[
-![:scale 70%](images/DispPlot.png)]
+--
 
-.small[
-.alert[In 2D, we would plot the sites like this... Notice the dispersion in the scatterplot]]
+.center[**QUIZ TIME**
 
----
-# PCA - Walkthrough
-
-.center[
-![:scale 60%](images/PCA1.png)]
-
-.small[
-.alert[Our first component is essentially drawn trough the maximum amount of observed variation... or the best fit line through the points]]
+*What are the diagonals?* *And, what happens if variables are independent?*
+] 
 
 ---
-# PCA - Walkthrough
+#### Still *recapping*...
 
-.center[
-![:scale 70%](images/PCA2.png)]
-.small[
-.alert[A second principal component is then added perpendicular (90 degrees in 2D) to the first axis]]
+.center[***What are the diagonals?***]
+
+If, `\(cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}\)`, then:
+
+`$$cov_{x,x}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(x_{i}-\bar{x})}{N} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2} {N} = var_x$$`
+So, that:
+
+`$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+cov_{x,x} &amp; cov_{y,x} &amp; cov_{z,x} \\
+cov_{x,y} &amp; cov_{y,y} &amp; cov_{z,y} \\
+cov_{x,z} &amp; cov_{y,z} &amp; cov_{z,z}   
+\end{array} \right] = \left[ \begin{array}{ccc} 
+var_{x} &amp; cov_{y,x} &amp; cov_{z,x} \\
+cov_{x,y} &amp; var_{y} &amp; cov_{z,y} \\
+cov_{x,z} &amp; cov_{y,z} &amp; var_{z}   
+\end{array} \right]$$`
+
+ &lt;br&gt;
+ 
+.center[The covariance of a variable with itself is its *variance*!]
 
 ---
-# PCA - Walkthrough
 
-.center[
-![:scale 70%](images/PCA3.png)]
+#### Still *recapping*...
 
-.small[ The final plot then is the two PC axes rotated where the axes are now principal components as opposed to species]
+.center[***What happens if the variables are independent?***]
+
+.pull-left[
+
+```r
+x &lt;- rnorm(5000, mean = 0, sd = 1)
+y &lt;- rnorm(5000, mean = 0, sd = 1)
+z &lt;- rnorm(5000, mean = 0, sd = 1)
+
+xyz &lt;- data.frame(x, y, z)
+
+GGally::ggpairs(xyz) 
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/xyz-norm-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+```r
+cov(xyz)
+```
+
+
+```
+#          x        y        z
+# x  0.98743 -0.00184 -0.00207
+# y -0.00184  0.99104 -0.02593
+# z -0.00207 -0.02593  1.03940
+```
+
+
+If variables are perfectly independent (or uncorrelated), the covariance matrix `\(C(x, y, z)\)` is:
+
+`$${C(x, y, z)} =  \left[ \begin{array}{ccc} 
+var_{x} &amp; 0 &amp; 0 \\
+0 &amp; var_{y} &amp; 0 \\
+0 &amp; 0 &amp; var_{z}   
+\end{array} \right]$$`
+
+*i*.*e*. a covariance closer to `\(1\)` means that variables are *colinear*.
+
+And, here, `\(var_{x} = var_{y} = var_{z} = 1\)`.
+
+]
+
 ---
-# PCA - Multidimensional case
+## Linear transformations
 
-&lt;br&gt;&lt;br&gt;
+We are often interested in observing variables in *different ways*. 
 
-- **PC1** --&gt; axis that maximizes the variance of the points that are projected perpendicularly onto the axis.
-- **PC2** --&gt; must be perpendicular to PC1, but the direction is again the one in which variance is maximized when points are perpendicularly projected
-- **PC3** --&gt; and so on: perpendicular to the first two axes
+In this process, we create a new variable, let us say `\(x_{new}\)`, by multiplying and/or adding the values of the original variable `\(x\)` by constants. For instance:
+
+--
+
+.pull-left[
+We can transform a variable of distances measured in kilometres `\(d_{km}\)` into miles, as:
+`$$d_{mi} = 0.62 \times d_{km}$$`
+]
+
+
+.pull-right[
+We can also transform Fahrenheit degrees to Celsius degrees as: 
+
+`$$T_{C} = 0.5556\times T_{Fahr} - 17.778$$`
+]
+
+These are examples of **linear transformations**: the transformed variables are linearly related to the original variabels and the shapes of the distribution are not changed.
+
+--
+
+Two types of transformations are very important for us:
+
+.pull-left[
+**Centering**, which subtracts the values of a predictor by the mean:
+
+`$$x' = x_i - \bar{x}$$`
+]
+
+.pull-right[
+**Scaling**, which divides the predictor variables by their standard deviation:
+
+`$$x'' = \frac{x_i}{\sigma_x}$$`
+]
+
+??? 
+
+Centering is basically a technique where mean of independent variables is subtracted from all the values. It means all independent variables have zero mean. Scaling is similar to centering. Predictor variables are divided by their standard deviation. 
+
+The presenter should mention here that centering brings the mean to zero and scaling brings the standard deviation to one-unit. They also should mention that variables become comparable when scaling, as their unit is lost.
+
+---
+
+## Eigendecomposition
+
+**Square matrices**, such as the **covariance matrix**, can be decomposed into *Eigenvalues* and *Eigenvectors*.
+
+For a square matrix, `\(A_{n \times n}\)`, a vector `\(v\)` is an *Eigenvector* of `\(A\)`, if there is a *scalar*, `\(\lambda\)`, for which:
+
+.center[ 
+`\(A_{n \times n} v_{n \times 1} = \lambda  v_{n \times 1}\)`, or `\(\left(\begin{matrix}a_{11}&amp;\cdots&amp;a_{1n}\\\vdots&amp;\ddots&amp;\vdots\\a_{1n}&amp;\cdots&amp;a_{nn}\\\end{matrix}\right)\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)=\lambda\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)\)` 
+]
+
+with the value of `\(\lambda\)` being the corresponding *Eigenvalue*.
+
+--
+
+In other words, the matrix `\(A\)` effectively *stretches* the Eigenvector `\(v\)` by the amount specified by the Eigenvalue (*scalar*) `\(\lambda\)`.
+
+An *Eigenvector* is a vector whose direction remains unchanged when a **linear transformation** is applied to it.
 
 &lt;br&gt;
 
-.alert[When there are more than two dimensions, PCA produces a new spaces in which all PCA axes are orthogonal (i.e. non-correlated)  and where the PCA axes are ordered according to the percent of variance of the original data they explain]
+.center[Wait! What do we mean by *unchanged direction*?]
+
+---
+## Eigendecomposition
+
+.center[Wait! What do we mean by *unchanged direction*?]
+&lt;br&gt;
+
+Let us represent this with this simple example.
+
+We can transform a square into a parallelogram using a single-axis **shear transformation**. 
+.pull-left[
+Let `\(S\)` be the square with vertices `\((0,0),\,(1,0),\,(1,1),\,(1,0)\)` that will be shear-transformed to the `\(P\)` parallelogram with vertices `\((0,0),\,(1,0),\,(1,1.57),\,(1,0.57)\)`.
+
+We can see that after the linear transformation, the purple arrow has not changed direction, *i.e.* it is an *Eigenvector* of `\(S\)`.
+
+On the other hand, the red arrow changed direction, and thus is *not* an *Eigenvector* of `\(S\)`.
+]
+
+.pull-right[
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-23-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+
+---
+## Eigendecomposition: implications
+
+.center[
+*Keep up with the algebra torture!* 
+]
+
+### Orthogonality
+
+A *fabulous* and *simple* property of *symmetric* matrices that we can explain here!
+
+.pull-left[
+Let us assume that `\(x\)` is an eigenvector of `\(A\)` corresponding to the eigenvalue `\(λ_1\)` and `\(y\)` an eigenvector of `\(A\)` corresponding to the eigenvalue `\(λ_2\)`, with `\(λ_1≠λ_2\)`.
+
+`$$Ax=\lambda_1x \\
+Ay=\lambda_2y$$`
+
+Let us multiply each one by the other transposed *Eigenvector*.
+`$$y^{\intercal}Ax=\lambda_1y^{\intercal}x \\ x^{\intercal}A^{\intercal}y=\lambda_2x^{\intercal}y$$`
+
+]
+
+--
+
+.pull-right[
+Now subtract the second equation from the first one and use the commutativity of the scalar product:
+
+`\(y^{\intercal}Ax-x^{\intercal}A^{\intercal}y=\lambda_1y^{\intercal}x - \lambda_2x^{\intercal}y \\ 0 = (\lambda_1 - \lambda_2)y^{\intercal}x\)`
+
+Because we know that `\(\lambda_1-\lambda_2\neq 0\)`, then 
+`\(y^{\intercal}x = 0\)`, *i*.*e*., `\(\mathbf{x}\perp\mathbf{y}\)`, *i*.*e*. are **orthogonal**!
+
+&lt;br&gt;
+
+&lt;br&gt;
+*So, what does the Eigendecomposition of a variance-covariance matrix tell us?*
+]
+
+???
+
+Hi, Presenter. The explanation of this part is very useful and quite simple, so everyone can understand what orthogonality is. It is a matter of simple equation operations and subtractions. 
+
+---
+## Eigendecomposition: implications
+
+.center[
+*Keep up with the algebra torture!* 
+]
+
+### Maximization
+
+.pull-left[
+If `\(v_i' v_i = 1\)`, then `\(Av_i=\lambda_iv_i\)` can be written as:
+`$$v_i' A v_i = \lambda_i$$`
+In fact, `\(v' A v\)` is the variance of a linear combination with weights in `\(v\)`, *i*.*e*. `\(\text{Var}(v_i'\,A)=v_i'\,\text{Var}(A)\,v_i\)`.
+
+*Hence, we can connect the dots!*
+
+]
+
+--
+
+.pull-right[
+Remember that the *Eigenvalues* in our *variance-covariance matrix* `\(A\)` are directly related to the variance!
+
+Thus, to find a vector `\(v\)` that maximizes the variance, `\(v' A v\)`, all we must do is to choose the *Eigenvector* corresponding to the largest *Eigenvalue* `\(\lambda_i\)`!
+
+So that the maximum variance is `\(\lambda_1\)`!
+]
+
+--
+
+The *explained variance* of each *Eigenvector* obeys the order: `\(\lambda_1 &gt; \lambda_2 &gt; \dots &gt; \lambda_k\)`.
+
+This allows us to condense a larger number of original variables into a smaller set of selected vectors with minimal loss of information (i.e. ***dimensionallity reduction***).
+
+---
+# Unconstrained ordination methods
+
+This is a good startpoint to set us in the direction of the **unconstrained ordination methods** we will study today!
+
+.pull-left[
+They allow us to:
+- Assess relationships *within* a set of variables (species or environmental variables);
+
+- Find key components of variation among samples, sites, species;
+
+- Reduce the number of dimensions in multivariate data while limiting substantial loss of information;
+
+- Create new variables for use in subsequent analyses.
+]
+
+.pull-right[
+Here, we will learn:
+
+1. **P**rincipal **C**omponent **A**nalysis;
+
+2. **P**rincipal **Co**ordinate **A**nalysis;
+
+3. **N**on-Metric **M**ulti**d**imensional **S**caling;
+]
+---
+# Principal Component Analysis
+
+The Principal Component Analysis (PCA) is a  *linear*  dimensionality-reduction technique, *i.e.* it reduces strongly correlated data.
+
+In a nutshell, the PCA *linearly* transforms the feature from the original space to a new feature space, containing **principal components** that explain most of the variance in the dataset, i.e. maximize the separation between the data.
+
+--
+
+The *principal component space* can be written as:
+
+`$$Z_p = ∑_{j=1}^p ϕ_j * X_j$$`
+where, 
+
+1. `\(Z_p\)` is the principal component `\(p\)`;
+2. `\(ϕ_j\)` is the loading vector comprising the `\(j\)` loadings for the `\(p\)` principal component, i.e. the coefficients of the linear combination of the original variables from which the principal components are constructed;
+3. `\(X_j\)` is the normalized predictors, i.e. with means equal to zero and standard deviations equal to one.
+
+---
+# Principal Component Analysis
+
+PCA can be computed in at least *four* different ways.
+
+For the sake of simplicity, we will focus here on how to obtain principal components from a correlation matrix.
+
+We will learn how to do it from "scratch" and then how to use `R` packages to compute the principal components.
 
 
 ---
-# PCA - Let's try it on Fish Species!
 
-- For both PCA and RDA, we will be using the `rda()` function in the vegan package
+# Principal Component Analysis: step-by-step
 
-- Run a PCA on the Hellinger-transformed fish data and extract the results
+.pull-left3[
+1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
+
+2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`;
+
+3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
+
+4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
+
+5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
+]
+
+.pull-right3[
+In `R`, from scratch!
+
+
+```r
+data(varechem)
+
+str(varechem)
+# 'data.frame':	24 obs. of  14 variables:
+#  $ N       : num  19.8 13.4 20.2 20.6 23.8 22.8 26.6 24.2 29.8 28.1 ...
+#  $ P       : num  42.1 39.1 67.7 60.8 54.5 40.9 36.7 31 73.5 40.5 ...
+#  $ K       : num  140 167 207 234 181 ...
+#  $ Ca      : num  519 357 973 834 777 ...
+#  $ Mg      : num  90 70.7 209.1 127.2 125.8 ...
+#  $ S       : num  32.3 35.2 58.1 40.7 39.5 40.8 33.8 27.1 42.5 60.2 ...
+#  $ Al      : num  39 88.1 138 15.4 24.2 ...
+#  $ Fe      : num  40.9 39 35.4 4.4 3 ...
+#  $ Mn      : num  58.1 52.4 32.1 132 50.1 ...
+#  $ Zn      : num  4.5 5.4 16.8 10.7 6.6 9.1 7.4 5.2 9.3 9.1 ...
+#  $ Mo      : num  0.3 0.3 0.8 0.2 0.3 0.4 0.3 0.3 0.3 0.5 ...
+#  $ Baresoil: num  43.9 23.6 21.2 18.7 46 40.5 23 29.8 17.6 29.9 ...
+#  $ Humdepth: num  2.2 2.2 2 2.9 3 3.8 2.8 2 3 2.2 ...
+#  $ pH      : num  2.7 2.8 3 2.8 2.7 2.7 2.8 2.8 2.8 2.8 ...
+```
+
+]
+
+---
+
+# Principal Component Analysis: step-by-step
+
+.pull-left3[
+1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
+
+2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`; 
+
+3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
+
+4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
+
+5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
+]
+
+.pull-right3[
+In `R`, from scratch!
+
+
+```r
+data(varechem)
+
+# Step 1 
+Y &lt;- varechem[, 1:2]
+
+head(Y)
+#       N    P
+# 18 19.8 42.1
+# 15 13.4 39.1
+# 24 20.2 67.7
+# 27 20.6 60.8
+# 23 23.8 54.5
+# 19 22.8 40.9
+```
+
+]
+
+---
+# Principal Component Analysis: step-by-step
+
+.pull-left3[
+1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
+
+2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`; 
+
+3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
+
+4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
+
+5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
+]
+
+.pull-right3[
+In `R`, from scratch!
+
+
+```r
+data(varechem)
+
+# Step 1 
+Y &lt;- varechem[, 1:2]
+
+# Step 2
+Y_std &lt;- as.matrix(scale(Y))
+
+head(Y_std)
+#              N          P
+# 18 -0.46731082 -0.1993234
+# 15 -1.62503567 -0.4000407
+# 24 -0.39495301  1.5134640
+# 27 -0.32259521  1.0518143
+# 23  0.25626722  0.6303080
+# 19  0.07537271 -0.2796103
+
+round(apply(Y_std, 2, mean))
+# N P 
+# 0 0
+round(apply(Y_std, 2, sd))
+# N P 
+# 1 1
+```
+
+]
+
+---
+
+# Principal Component Analysis: step-by-step
+
+.pull-left3[
+1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
+
+2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`; 
+
+3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
+
+4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
+
+5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
+]
+
+.pull-right3[
+In `R`, from scratch!
+
+
+```r
+data(varechem)
+
+# Step 1 
+Y &lt;- varechem[, 1:2]
+
+# Step 2
+Y_std &lt;- as.matrix(scale(Y))
+
+# Step 3
+Y_R &lt;- cov(Y_std)
+
+# Step 4 
+(Eigenvalues &lt;- eigen(Y_R)$values)
+# [1] 1.2511603 0.7488397
+
+(Eigenvectors &lt;- eigen(Y_R)$vectors)
+#            [,1]       [,2]
+# [1,] -0.7071068 -0.7071068
+# [2,]  0.7071068 -0.7071068
+```
+]
+
+---
+# Principal Component Analysis: step-by-step
+
+The *Eigenvectors* here are the **Principal Components**, and as we have seen, each *Eigenvector* has its corresponding *Eigenvalue*.
+
+.pull-left[
+
+We can represent the distances from the observations to the first Eigenvector (`PC1`, in red).
+
+The first principal component is drawn so that the variation of the values along its line is maximal. 
+
+The arrows on the principal components are obtained by multiplying their *Eigenvalues* by the *Eigenvectors*.
+]
+
+.pull-right[
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-28-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Principal Component Analysis: step-by-step
+
+The *Eigenvectors* here are the **Principal Components**, and as we have seen, each *Eigenvector* has its corresponding *Eigenvalue*.
+
+.pull-left[
+We can then represent the distances from the observations to the second Eigenvector (`PC2`, in orange).
+
+The second principal component is also drawn maximizing the variance of the data.
+
+Note how the principal components are orthogonal!
+]
+
+.pull-right[
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-29-1.png" width="360" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+.pull-left[
+*We represented the Eigenvectors, i.e. the principal components!* 
+
+*But, what is the use of the Eigenvalues?*
+]
+
+---
+# Principal Component Analysis: step-by-step
+
+We have seen that the *Eigenvalues* represent the magnitude (the variance) in the principal components.
+
+.pull-left[
+In fact, the sum of all *Eigenvalues* is equal to the sum of variances, which are represented on the diagonal of the variance-covariance matrix.
+]
+
+.pull-right[
+
+```r
+sum(diag(cov(Y_std)))
+# [1] 2
+sum(eigen(cov(Y_std))$values)
+# [1] 2
+```
+]
+
+--
+
+Intuitively, one can obtain the relative influence of each *Eigenvector* `\(v_{k}\)` (or `\(\text{PC}_{k}\)`)  by dividing their values by the sum of all *Eigenvalues*.
+
+`$$\text{Explained variance of}~v_{k} = \frac{\lambda_{v_k}}{\sum^p_{i=1}{\lambda_{v}}}$$`
+
+By doing this, we can say that the `\(\text{PC}1\)` explains 63% of the variance in the data, while `\(\text{PC}2\)` explains 37% of the variance.
+
+--
+
+Finally, we can proceed to the last step of our computation of principal components!
+
+---
+
+# Principal Component Analysis: step-by-step
+
+.pull-left3[
+1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
+
+2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`;
+
+3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
+
+4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
+
+5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
+]
+
+.pull-right3[
+In `R`, from scratch!
+
+
+```r
+# Step 1 
+Y &lt;- varechem[, 1:2]
+
+# Step 2
+Y_std &lt;- as.matrix(scale(Y))
+
+# Step 3
+Y_R &lt;- cov(Y_std)
+
+# Step 4 
+Eigenvalues &lt;- eigen(Y_R)$values
+Eigenvectors &lt;- eigen(Y_R)$vectors
+
+# Step 5
+F_PrComps &lt;- Y_std %*% Eigenvectors
+head(F_PrComps)
+#          [,1]       [,2]
+# 18  0.1894957  0.4713816
+# 15  0.8662023  1.4319452
+# 24  1.3494546 -0.7909067
+# 27  0.9718543 -0.5156358
+# 23  0.2644868 -0.6269034
+# 19 -0.2510109  0.1444178
+```
+]
+
+---
+# Principal Component Analysis: step-by-step
+
+The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new data space, so it is represented in relation to the principal components.
+
+.pull-left[
+.center[ 
+`\(\text{N}\)` ~ `\(\text{P}\)` 
+]
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-32-1.png" width="252" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.center[ 
+`\(\text{PC}1\)` ~ `\(\text{PC}2\)` 
+]
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-33-1.png" width="252" style="display: block; margin: auto;" /&gt;
+]
+
+???
+The axis labels are not being printed. I included them at the top of each plot while this is not fixed.
+
+The presenter here should emphasize the rotation, and speak about what the scores are. This understand will be useful when the participants are going to use the PCA functions that are implemented in R.
+
+---
+# Principal Component Analysis: step-by-step
+
+PCA can also be computed using the `stats::prcomp()`, `stats::princomp()`, `vegan::rda()`, and `ade4::dudi.pca()` functions.
+
+.pull-left[
+How our PCA from scratch compares
+
+
+```r
+data(varechem)
+
+Y &lt;- varechem[, 1:2] 
+Y_std &lt;- as.matrix(scale(Y))
+Y_R &lt;- cov(Y_std)
+
+Eigenvalues &lt;- eigen(Y_R)$values
+Eigenvectors &lt;- eigen(Y_R)$vectors
+
+F_PrComps &lt;- Y_std %*% Eigenvectors
+
+head(F_PrComps)
+#          [,1]       [,2]
+# 18  0.1894957  0.4713816
+# 15  0.8662023  1.4319452
+# 24  1.3494546 -0.7909067
+# 27  0.9718543 -0.5156358
+# 23  0.2644868 -0.6269034
+# 19 -0.2510109  0.1444178
+```
+]
+
+.pull-right[
+to `stats::prcomp()`?
+
+```r
+PCA_prcomp &lt;- prcomp(Y, 
+                     center = TRUE, 
+                     scale = TRUE)
+
+# or PCA_prcomp &lt;- prcomp(Y_std)
+
+head(PCA_prcomp$x)
+#           PC1        PC2
+# 18 -0.1894957 -0.4713816
+# 15 -0.8662023 -1.4319452
+# 24 -1.3494546  0.7909067
+# 27 -0.9718543  0.5156358
+# 23 -0.2644868  0.6269034
+# 19  0.2510109 -0.1444178
+```
+]
+
+---
+# Principal Component Analysis: step-by-step
+
+PCA can also be computed using the `stats::prcomp()`, `stats::princomp()`, `vegan::rda()`, and `ade4::dudi.pca()` functions.
+
+.pull-left[
+How our PCA from scratch compares
+
+
+```r
+data(varechem)
+
+Y &lt;- varechem[, 1:2] 
+Y_std &lt;- as.matrix(scale(Y))
+Y_R &lt;- cov(Y_std)
+
+Eigenvalues &lt;- eigen(Y_R)$values
+Eigenvectors &lt;- eigen(Y_R)$vectors
+
+F_PrComps &lt;- Y_std %*% Eigenvectors
+
+head(F_PrComps)
+#          [,1]       [,2]
+# 18  0.1894957  0.4713816
+# 15  0.8662023  1.4319452
+# 24  1.3494546 -0.7909067
+# 27  0.9718543 -0.5156358
+# 23  0.2644868 -0.6269034
+# 19 -0.2510109  0.1444178
+```
+]
+
+.pull-right[
+to `stats::princomp()`?
+
+```r
+PCA_princomp &lt;- princomp(Y_std)
+
+head(PCA_princomp$scores)
+#        Comp.1     Comp.2
+# 18 -0.1894957 -0.4713816
+# 15 -0.8662023 -1.4319452
+# 24 -1.3494546  0.7909067
+# 27 -0.9718543  0.5156358
+# 23 -0.2644868  0.6269034
+# 19  0.2510109 -0.1444178
+```
+]
+
+---
+# Principal Component Analysis: step-by-step
+
+PCA can also be computed using the `stats::prcomp()`, `stats::princomp()`, `vegan::rda()`, and `ade4::dudi.pca()` functions.
+
+.pull-left[
+How our PCA from scratch compares
+
+
+```r
+data(varechem)
+
+Y &lt;- varechem[, 1:2] 
+Y_std &lt;- as.matrix(scale(Y))
+Y_R &lt;- cov(Y_std)
+
+Eigenvalues &lt;- eigen(Y_R)$values
+Eigenvectors &lt;- eigen(Y_R)$vectors
+
+F_PrComps &lt;- Y_std %*% Eigenvectors
+
+head(F_PrComps)
+#          [,1]       [,2]
+# 18  0.1894957  0.4713816
+# 15  0.8662023  1.4319452
+# 24  1.3494546 -0.7909067
+# 27  0.9718543 -0.5156358
+# 23  0.2644868 -0.6269034
+# 19 -0.2510109  0.1444178
+```
+]
+
+.pull-right[
+to `vegan::rda()`?
+
+```r
+PCA_vegan_rda &lt;- rda(Y_std)
+
+scores(PCA_vegan_rda, 
+       display = "sites", 
+       scaling = 1,
+       choices = seq_len(PCA_vegan_rda$CA$rank),
+       const = sqrt(PCA_vegan_rda$tot.chi * (nrow(PCA_vegan_rda$CA$u) - 1)))[1:5, ]
+#           PC1        PC2
+# 18 -0.1894957 -0.4713816
+# 15 -0.8662023 -1.4319452
+# 24 -1.3494546  0.7909067
+# 27 -0.9718543  0.5156358
+# 23 -0.2644868  0.6269034
+```
+
+`vegan::rda()` is a bit special. It uses alternative scalings. We will not cover them here, but you can study the `vignette("decision-vegan")`.
+]
+
+???
+
+Tell participants that the name `rda` refers to a diferent type of constrained ordination technique, but that if we run `rda()` with just one variable, it will execute a PCA.
+
+---
+# Principal Component Analysis
+
+We have implemented PCA on a two-variables dataset, for simplicity.
+
+Let us advance and apply it to our fish species dataset.
+
+
+For this, we will use the `vegan::rda()` function on the *Hellinger-transformed* fish data and summarise the results:
 
 
 ```r
 spe.h.pca &lt;- rda(spec.hel)
 
-summary(spe.h.pca)
-# 
-# Call:
-# rda(X = spec.hel) 
-# 
-# Partitioning of variance:
-#               Inertia Proportion
-# Total          0.5025          1
-# Unconstrained  0.5025          1
-# 
-# Eigenvalues, and their contribution to the variance 
-# 
-# Importance of components:
-#                          PC1     PC2     PC3     PC4     PC5     PC6     PC7
-# Eigenvalue            0.2580 0.06424 0.04632 0.03850 0.02197 0.01675 0.01472
-# Proportion Explained  0.5133 0.12784 0.09218 0.07662 0.04371 0.03334 0.02930
-# Cumulative Proportion 0.5133 0.64118 0.73337 0.80999 0.85370 0.88704 0.91634
-#                           PC8      PC9     PC10     PC11     PC12     PC13
-# Eigenvalue            0.01156 0.006936 0.006019 0.004412 0.002982 0.002713
-# Proportion Explained  0.02300 0.013803 0.011978 0.008781 0.005935 0.005399
-# Cumulative Proportion 0.93934 0.953144 0.965123 0.973903 0.979838 0.985237
-#                           PC14     PC15     PC16      PC17      PC18      PC19
-# Eigenvalue            0.001835 0.001455 0.001118 0.0008309 0.0005415 0.0004755
-# Proportion Explained  0.003651 0.002895 0.002225 0.0016535 0.0010776 0.0009463
-# Cumulative Proportion 0.988888 0.991783 0.994008 0.9956612 0.9967389 0.9976852
-#                            PC20      PC21      PC22      PC23      PC24
-# Eigenvalue            0.0003680 0.0002765 0.0002253 0.0001429 7.618e-05
-# Proportion Explained  0.0007324 0.0005503 0.0004483 0.0002845 1.516e-04
-# Cumulative Proportion 0.9984176 0.9989678 0.9994161 0.9997006 9.999e-01
-#                           PC25      PC26      PC27
-# Eigenvalue            4.99e-05 1.526e-05 9.118e-06
-# Proportion Explained  9.93e-05 3.036e-05 1.814e-05
-# Cumulative Proportion 1.00e+00 1.000e+00 1.000e+00
-# 
-# Scaling 2 for species and site scores
-# * Species are scaled proportional to eigenvalues
-# * Sites are unscaled: weighted dispersion equal on all dimensions
-# * General scaling constant of scores:  1.93676 
-# 
-# 
-# Species scores
-# 
-#          PC1      PC2       PC3        PC4        PC5       PC6
-# CHA  0.17336  0.08295 -0.064963  0.2539861 -0.0285801  0.019057
-# TRU  0.64860  0.01162 -0.261994 -0.1606020 -0.0745819 -0.088616
-# VAI  0.51810  0.14773  0.165304  0.0241017  0.1012928  0.104748
-# LOC  0.38606  0.16615  0.242995 -0.0275216  0.1258011  0.048299
-# OMB  0.16893  0.06274 -0.096143  0.2426514  0.0140574  0.062117
-# BLA  0.07786  0.14644 -0.031402  0.2339394 -0.1032338 -0.040810
-# HOT -0.18491  0.04901 -0.045107  0.0199377  0.0687305  0.009650
-# TOX -0.14644  0.17834 -0.010937  0.0649955 -0.0006229 -0.106955
-# VAN -0.11436  0.15673  0.142223 -0.0127266 -0.1989404  0.013897
-# CHE -0.09682 -0.15449  0.242943  0.1124210  0.0233830 -0.039996
-# BAR -0.19826  0.21211 -0.053980  0.0969899  0.0067098 -0.035442
-# SPI -0.17689  0.16250 -0.033112  0.0397113  0.0323159 -0.072908
-# GOU -0.23138  0.09782  0.064144 -0.0013887 -0.1503303  0.130575
-# BRO -0.15129  0.12804  0.040303 -0.1203826 -0.1006077  0.066242
-# PER -0.15719  0.18144  0.057029 -0.0940032 -0.0412984 -0.060409
-# BOU -0.22853  0.13870 -0.062197 -0.0125024  0.0798647 -0.006907
-# PSO -0.22790  0.08231 -0.065797  0.0172143  0.0611434 -0.001407
-# ROT -0.19221  0.03090 -0.006264 -0.0739133 -0.0731548  0.074581
-# CAR -0.18699  0.13388 -0.050804  0.0001803  0.0403961 -0.031005
-# TAN -0.19169  0.15719  0.114415 -0.0818330  0.0142624 -0.072024
-# BCO -0.20174  0.08807 -0.067086 -0.0529106  0.0737228  0.037312
-# PCH -0.14717  0.05829 -0.067311 -0.0458414  0.0501013  0.031605
-# GRE -0.30155 -0.01785 -0.084333 -0.0181797  0.0226500  0.126639
-# GAR -0.35245 -0.14076  0.168014  0.0185946  0.0213462 -0.129788
-# BBO -0.24317  0.03679 -0.082731 -0.0384489  0.0939828  0.063369
-# ABL -0.42536 -0.26155 -0.054190  0.1021959 -0.0078085  0.044540
-# ANG -0.20631  0.11889 -0.062079 -0.0175733  0.0718743 -0.001956
-# 
-# 
-# Site scores (weighted sums of species scores)
-# 
-#          PC1      PC2      PC3      PC4       PC5       PC6
-# 1   0.367401 -0.39935 -1.08857 -0.63304 -0.512027 -0.858378
-# 2   0.503582 -0.05683 -0.19259 -0.43441  0.389533  0.069451
-# 3   0.461709  0.02262 -0.06522 -0.49798  0.309425  0.270577
-# 4   0.298336  0.15130  0.26748 -0.53196  0.003088  0.184821
-# 5  -0.002222  0.07631  0.54769 -0.50936 -0.780261 -0.169353
-# 6   0.212816  0.08345  0.55091 -0.42210 -0.139518 -0.104278
-# 7   0.438055 -0.06114  0.15590 -0.31150  0.158686  0.036565
-# 9   0.040794 -0.44269  0.89022  0.09609  0.641193 -0.646943
-# 10  0.298011 -0.01094  0.56837 -0.10013 -0.088124  0.515072
-# 11  0.467609 -0.12622 -0.15505  0.29459  0.325464  0.200912
-# 12  0.476845 -0.07691 -0.16329  0.29384  0.360112  0.194576
-# 13  0.483620  0.06649 -0.44723  0.53734  0.048587  0.182565
-# 14  0.371728  0.16555 -0.21939  0.62130 -0.183604  0.364847
-# 15  0.277048  0.23525  0.08928  0.61773 -0.475769  0.124107
-# 16  0.077024  0.47455  0.17116  0.34361 -0.570434 -0.572740
-# 17 -0.053860  0.42290  0.02810  0.42376 -0.059203 -0.586419
-# 18 -0.135418  0.37780  0.03233  0.39706 -0.007199 -0.347064
-# 19 -0.269281  0.30751  0.18022  0.09354  0.178657 -0.016299
-# 20 -0.378830  0.19764  0.04939 -0.03438  0.157660 -0.056696
-# 21 -0.409369  0.22888 -0.08401 -0.12823  0.152787  0.096105
-# 22 -0.443679  0.17698 -0.13708 -0.13152  0.103294  0.030004
-# 23 -0.242292 -1.11711  0.15254  0.40512  0.045573 -0.576778
-# 24 -0.358333 -0.83372 -0.17314  0.27200  0.181192  0.347231
-# 25 -0.325288 -0.61983  0.10487  0.01059 -1.034438  0.750325
-# 26 -0.441703  0.02111 -0.13742 -0.14346  0.200775  0.244356
-# 27 -0.444529  0.12735 -0.15915 -0.14112  0.179240  0.123487
-# 28 -0.446407  0.12774 -0.18830 -0.15467  0.239617  0.117101
-# 29 -0.355788  0.28044 -0.28006 -0.02003  0.110181  0.079568
-# 30 -0.467578  0.20086 -0.29797 -0.21269  0.065512  0.003276
+# summary(spe.h.pca)
 ```
 
 ---
-# Function `rda()`
+# Principal Component Analysis
 
-- RDA is in 2 steps
-
-  - multiple regressions
-  - PCA on regressed values
-
-- If we give only one table to the function `rda()` it does directly a PCA without doing regression
-
-.center[
-.alert[ rda(Y~X) ![:faic](arrow-right) RDA
-
-rda(Y) or rda(X) ![:faic](arrow-right) PCA ]]
-
----
-#PCA - Interpretation of Output
-
-.center[
-![:scale 80%](images/PCAout1.png)]
-
-- Total variance explained by the descriptors (here the fish species)
-- In PCA, not that the "Total" and "Unconstrained" portion of the explained variance is identical
-
----
-# PCA - Interpretation of Output
-
-&lt;br&gt;
-
-.center[
-![:scale 80%](images/PCAout2.png)
+.pull-left[
+The first lines of `summary.rda()` tell us about the *Total variance* and *Unconstrained variance* in our model.
 ]
 
+.pull-right[
 
-- List the eigenvalues associated to each Principal Component (in this output there are 27 PCs, as this is the number of dimensions in the data)
 
-&lt;br&gt;
-
-.alert[
-An eigenvalue is the value of the change in the length of a vector, and for our purposes is the amount of variation explained by Principal Component
+```
+# [1] "Partitioning of variance:"        "              Inertia Proportion"
+# [3] "Total          0.5025          1" "Unconstrained  0.5025          1"
+```
 ]
-
-&lt;br&gt;
-
-.center[0.258 + 0.064 + ... = 0.5025 Total explained variance]
-
----
-# PCA - Interpretation of Output
-
-![:scale 70%](images/PCAout1.png)
-
-![](images/PCAout2.png)
-
-- List of the proportion of variance explained by each Principal Component (as well as cumulative)
-
-&lt;br&gt;
-
-.center[51.3% of 0.5025 is 0.258]
-
----
-# PCA - Interpretation of Output
-
-![](images/PCAout3.png)
-
-- There are two ways to represent an ordination in 2D, here the output is informing us that it used the default scaling, which is type 2...
-
-&lt;br&gt;&lt;br&gt;
 
 --
 
-More on this later!
-
----
-# PCA - Interpretation of Output
-
-![](images/PCAout4.png)
-
-- Species refers to your descriptors (i.e. the columns in your dataset), which here are the Fish species
-- Scores refer to the position of every species in the PC. Essentially they are the coordinates of each species along the principal component
-
----
-# PCA - Interpretation of Output
-
-![](images/PCAout5.png)
-
-- Site refers to the rows in your dataset, which here are the different sites along the Doubs river (but it can be points in time, etc)
+.pull-left2[
 
 
----
-# Accessing Parts of the Output
+```
+#  [1] "Importance of components:"                                                   
+#  [2] "                         PC1     PC2     PC3     PC4     PC5     PC6     PC7"
+#  [3] "Eigenvalue            0.2580 0.06424 0.04632 0.03850 0.02197 0.01675 0.01472"
+#  [4] "Proportion Explained  0.5133 0.12784 0.09218 0.07662 0.04371 0.03334 0.02930"
+#  [5] "Cumulative Proportion 0.5133 0.64118 0.73337 0.80999 0.85370 0.88704 0.91634"
+#  [6] "                          PC8      PC9     PC10     PC11     PC12     PC13"  
+#  [7] "Eigenvalue            0.01156 0.006936 0.006019 0.004412 0.002982 0.002713"  
+#  [8] "Proportion Explained  0.02300 0.013803 0.011978 0.008781 0.005935 0.005399"  
+#  [9] "Cumulative Proportion 0.93934 0.953144 0.965123 0.973903 0.979838 0.985237"  
+# [10] "7   0.438055 -0.06114  0.15590 -0.31150  0.158686  0.036565"                 
+# [11] "9   0.040794 -0.44269  0.89022  0.09609  0.641193 -0.646943"                 
+# [12] "10  0.298011 -0.01094  0.56837 -0.10013 -0.088124  0.515072"                 
+# [13] "11  0.467609 -0.12622 -0.15505  0.29459  0.325464  0.200912"                 
+# [14] "12  0.476845 -0.07691 -0.16329  0.29384  0.360112  0.194576"                 
+# [15] "13  0.483620  0.06649 -0.44723  0.53734  0.048587  0.182565"                 
+# [16] "14  0.371728  0.16555 -0.21939  0.62130 -0.183604  0.364847"                 
+# [17] "15  0.277048  0.23525  0.08928  0.61773 -0.475769  0.124107"
+```
 
-The output is very dense, but you can access specific information if needed. For example, you can access the eigenvalues associated contribution to variance :
+]
+
+.pull-right2[
+
+This is followed by the *Eigenvalues*, and their contribution to the variance.
+
+
+In fact, if we sum all our *Eigenvalues*, we will obtain the amount of uncostrained variance explained by the analysis!
 
 
 ```r
-summary(spe.h.pca, display = NULL)
-# 
-# Call:
-# rda(X = spec.hel) 
-# 
-# Partitioning of variance:
-#               Inertia Proportion
-# Total          0.5025          1
-# Unconstrained  0.5025          1
-# 
-# Eigenvalues, and their contribution to the variance 
-# 
-# Importance of components:
-#                          PC1     PC2     PC3     PC4     PC5     PC6     PC7
-# Eigenvalue            0.2580 0.06424 0.04632 0.03850 0.02197 0.01675 0.01472
-# Proportion Explained  0.5133 0.12784 0.09218 0.07662 0.04371 0.03334 0.02930
-# Cumulative Proportion 0.5133 0.64118 0.73337 0.80999 0.85370 0.88704 0.91634
-#                           PC8      PC9     PC10     PC11     PC12     PC13
-# Eigenvalue            0.01156 0.006936 0.006019 0.004412 0.002982 0.002713
-# Proportion Explained  0.02300 0.013803 0.011978 0.008781 0.005935 0.005399
-# Cumulative Proportion 0.93934 0.953144 0.965123 0.973903 0.979838 0.985237
-#                           PC14     PC15     PC16      PC17      PC18      PC19
-# Eigenvalue            0.001835 0.001455 0.001118 0.0008309 0.0005415 0.0004755
-# Proportion Explained  0.003651 0.002895 0.002225 0.0016535 0.0010776 0.0009463
-# Cumulative Proportion 0.988888 0.991783 0.994008 0.9956612 0.9967389 0.9976852
-#                            PC20      PC21      PC22      PC23      PC24
-# Eigenvalue            0.0003680 0.0002765 0.0002253 0.0001429 7.618e-05
-# Proportion Explained  0.0007324 0.0005503 0.0004483 0.0002845 1.516e-04
-# Cumulative Proportion 0.9984176 0.9989678 0.9994161 0.9997006 9.999e-01
-#                           PC25      PC26      PC27
-# Eigenvalue            4.99e-05 1.526e-05 9.118e-06
-# Proportion Explained  9.93e-05 3.036e-05 1.814e-05
-# Cumulative Proportion 1.00e+00 1.000e+00 1.000e+00
-# 
-# Scaling 2 for species and site scores
-# * Species are scaled proportional to eigenvalues
-# * Sites are unscaled: weighted dispersion equal on all dimensions
-# * General scaling constant of scores:
+sum(spe.h.pca$CA$eig)
+# [1] 0.5025103
 ```
+
+]
+
+???
+
+Since we have not constrained our ordination, the proportional unconstrained variance is equal to the total variance.
+
+Take a moment to explain the proportion explained, and show that the cummulative proportion will equal to 1 at the 27th PC.
 
 ---
-# Accessing Parts of the Output
+# Principal Component Analysis
 
-You can calculate the eigenvalues from scratch
+The next information is related to the *scaling*, to the *species scores*, and to the *site scores*.
 
 
-```r
-eigen(cov(spec.hel))
-# eigen() decomposition
-# $values
-#  [1] 2.579605e-01 6.424089e-02 4.632294e-02 3.850244e-02 2.196526e-02
-#  [6] 1.675463e-02 1.472430e-02 1.155759e-02 6.936149e-03 6.019271e-03
-# [11] 4.412388e-03 2.982309e-03 2.713021e-03 1.834874e-03 1.454670e-03
-# [16] 1.117858e-03 8.308832e-04 5.415301e-04 4.755244e-04 3.680458e-04
-# [21] 2.765106e-04 2.252760e-04 1.429425e-04 7.618319e-05 4.989831e-05
-# [26] 1.525627e-05 9.117507e-06
-# 
-# $vectors
-#              [,1]        [,2]        [,3]          [,4]         [,5]
-#  [1,] -0.12492725 -0.11979088 -0.11047444  0.4737644443  0.070581708
-#  [2,] -0.46740781 -0.01678206 -0.44554311 -0.2995735541  0.184188349
-#  [3,] -0.37336215 -0.21333150  0.28111355  0.0449572376 -0.250153773
-#  [4,] -0.27821421 -0.23994030  0.41323337 -0.0513364598 -0.310679865
-#  [5,] -0.12173642 -0.09059800 -0.16349912  0.4526216196 -0.034716207
-#  [6,] -0.05610722 -0.21147318 -0.05340233  0.4363710457  0.254947303
-#  [7,]  0.13325245 -0.07077305 -0.07670861  0.0371901204 -0.169737613
-#  [8,]  0.10553143 -0.25754282 -0.01860002  0.1212372044  0.001538404
-#  [9,]  0.08240964 -0.22633305  0.24186207 -0.0237391101  0.491305413
-# [10,]  0.06977391  0.22309480  0.41314626  0.2097008258 -0.057746857
-# [11,]  0.14287815 -0.30629980 -0.09179824  0.1809168920 -0.016570564
-# [12,]  0.12747277 -0.23466960 -0.05630920  0.0740741884 -0.079807600
-# [13,]  0.16674041 -0.14126479  0.10908251 -0.0025902725  0.371257345
-# [14,]  0.10902847 -0.18489900  0.06853886 -0.2245517214  0.248461973
-# [15,]  0.11327432 -0.26201530  0.09698255 -0.1753458131  0.101990914
-# [16,]  0.16468619 -0.20028850 -0.10577151 -0.0233209939 -0.197234780
-# [17,]  0.16423411 -0.11885539 -0.11189266  0.0321101179 -0.151000389
-# [18,]  0.13851267 -0.04462111 -0.01065276 -0.1378716381  0.180663942
-# [19,]  0.13475615 -0.19333722 -0.08639631  0.0003363296 -0.099762622
-# [20,]  0.13814201 -0.22699492  0.19457272 -0.1526445449 -0.035222643
-# [21,]  0.14538492 -0.12717573 -0.11408552 -0.0986949356 -0.182066526
-# [22,]  0.10605502 -0.08418031 -0.11446859 -0.0855088113 -0.123730627
-# [23,]  0.21730821  0.02578243 -0.14341490 -0.0339108533 -0.055936589
-# [24,]  0.25399136  0.20327524  0.28572212  0.0346847713 -0.052716826
-# [25,]  0.17523797 -0.05313205 -0.14069192 -0.0717194255 -0.232100922
-# [26,]  0.30653184  0.37769472 -0.09215443  0.1906277303  0.019284009
-# [27,]  0.14867527 -0.17168899 -0.10557045 -0.0327798312 -0.177501675
-#               [,6]        [,7]         [,8]        [,9]        [,10]
-#  [1,] -0.053887689 -0.24810037 -0.012835717 -0.10905228 -0.095263427
-#  [2,]  0.250578050  0.04342150  0.045242245 -0.01657237 -0.233552880
-#  [3,] -0.296193043  0.14902952 -0.284313668 -0.21706810 -0.017643581
-#  [4,] -0.136573518  0.19249109  0.035593297  0.23883835  0.107345114
-#  [5,] -0.175647314 -0.35879328 -0.125731280 -0.23247198 -0.081584893
-#  [6,]  0.115397447  0.02602402 -0.008985920  0.46782610  0.253931194
-#  [7,] -0.027287149  0.17191656 -0.056903256  0.12241555 -0.267914356
-#  [8,]  0.302432690  0.31491218 -0.121242398 -0.08140984 -0.001023017
-#  [9,] -0.039296150  0.27420594  0.382252543 -0.34522935  0.075797190
-# [10,]  0.113094938 -0.15366272  0.316740555 -0.19574474 -0.422805581
-# [11,]  0.100219643  0.05701771  0.110743898  0.11071563  0.013570308
-# [12,]  0.206160040  0.20915112 -0.127314825 -0.20541064 -0.018588210
-# [13,] -0.369222609  0.06892519  0.050259104  0.21861324 -0.286513706
-# [14,] -0.187310981 -0.21267218 -0.459306683  0.10824041  0.047613459
-# [15,]  0.170817866 -0.15781651 -0.341981765 -0.13144198 -0.427792205
-# [16,]  0.019529799  0.02492789 -0.005265647 -0.19601787  0.034928730
-# [17,]  0.003979634  0.12082789  0.073067830  0.16278240 -0.215420671
-# [18,] -0.210892020 -0.16084279 -0.049480403 -0.26577752  0.348175747
-# [19,]  0.087671511  0.03926802  0.065931818 -0.10755312  0.076887825
-# [20,]  0.203659075 -0.36689854  0.033797632  0.19059986 -0.118195939
-# [21,] -0.105506691 -0.13126545  0.154555558 -0.06167506  0.189787850
-# [22,] -0.089369346 -0.18747260  0.189322337 -0.11164462  0.114566376
-# [23,] -0.358094688  0.03849187  0.078583251  0.14414986 -0.155532257
-# [24,]  0.366999468 -0.16992091 -0.186036644  0.09141482  0.234279411
-# [25,] -0.179186418 -0.05488683  0.175277903  0.16731333 -0.082295798
-# [26,] -0.125944557  0.36767940 -0.361679629 -0.10571257 -0.048657458
-# [27,]  0.005531863 -0.01735104  0.033932091 -0.17997124  0.055928515
-#              [,11]         [,12]       [,13]         [,14]       [,15]
-#  [1,]  0.064193899  9.272200e-02 -0.16614224 -1.007045e-01  0.52078261
-#  [2,]  0.006090464 -1.767707e-01 -0.01500439 -2.138553e-01  0.01505748
-#  [3,]  0.198674624  1.187412e-01  0.22387562  1.401732e-01 -0.03706442
-#  [4,] -0.181337621 -1.793234e-01 -0.12099866 -3.195848e-01  0.11696265
-#  [5,]  0.109901333 -1.909575e-01  0.01986808 -1.990958e-01 -0.21073314
-#  [6,] -0.027035432  1.424063e-01  0.29676760  1.727283e-02 -0.33039629
-#  [7,]  0.329498373 -1.902815e-01  0.03643482 -3.420115e-02 -0.03199007
-#  [8,]  0.074565567  2.624298e-01 -0.33066385  2.194720e-01  0.18081461
-#  [9,]  0.162759574 -1.177892e-02  0.22408341 -3.976988e-01  0.07703691
-# [10,] -0.273052803  6.843350e-02 -0.16901293  3.681540e-02 -0.14394441
-# [11,] -0.301652467 -3.531787e-01 -0.04554730  2.941090e-02  0.19171054
-# [12,]  0.013541172 -9.662652e-02 -0.18461360  5.282229e-02 -0.23627348
-# [13,]  0.023653254 -1.620604e-01 -0.08583841  3.682820e-01 -0.12706188
-# [14,] -0.342951550  1.478914e-01 -0.29079127 -2.863970e-01  0.00525299
-# [15,]  0.019534596  1.804957e-01  0.33595365  1.170536e-02 -0.03963800
-# [16,] -0.058319853 -2.819689e-01 -0.01082354 -4.162952e-05 -0.23904975
-# [17,]  0.155396405  2.942242e-01 -0.02065819 -2.919909e-01  0.05106059
-# [18,]  0.247446631 -1.217100e-01 -0.15658543  1.691032e-01  0.12555708
-# [19,] -0.109497442  2.568847e-01 -0.06684604  1.299928e-02  0.05793150
-# [20,]  0.054654572 -2.904371e-01  0.21585911  2.487916e-02  0.25823489
-# [21,] -0.092448479  9.914451e-05  0.17856405  1.587817e-01  0.15049262
-# [22,] -0.232342259  3.477822e-01  0.18661740 -1.375730e-01 -0.18295055
-# [23,]  0.205833044  2.307896e-02 -0.29488518 -2.919401e-01 -0.15684106
-# [24,]  0.385104579 -7.652965e-02 -0.06032102 -2.649237e-01 -0.07243513
-# [25,]  0.178519580  1.478969e-01  0.18711090  2.255094e-02  0.22092863
-# [26,] -0.289091422 -1.567421e-01  0.34575306 -1.653173e-01  0.25023307
-# [27,] -0.115604287 -1.656960e-01  0.02369596 -1.003356e-01 -0.21515621
-#             [,16]        [,17]         [,18]       [,19]        [,20]
-#  [1,] -0.22297857 -0.029695770  0.0369983843  0.04070760 -0.073488990
-#  [2,]  0.11758248 -0.094655191 -0.3039813363 -0.11286530  0.299642984
-#  [3,]  0.16117496 -0.495586427 -0.1044359243 -0.12856875  0.013599789
-#  [4,] -0.16061501  0.426591745 -0.0700878681 -0.04243889  0.181772967
-#  [5,]  0.11416978  0.234783573 -0.2024171014  0.11756635 -0.011973397
-#  [6,] -0.02236301 -0.025369853  0.0193321574 -0.12426941  0.322316778
-#  [7,]  0.32588153  0.255676104  0.0836105212  0.01276921 -0.083323060
-#  [8,]  0.05278065  0.094429985 -0.4016015744 -0.08989816  0.048646388
-#  [9,]  0.06586493 -0.015362879 -0.0149894684  0.09279079 -0.102439703
-# [10,]  0.21439494 -0.076520520 -0.0438275294 -0.10630753  0.384704993
-# [11,]  0.40582706 -0.226264310  0.2531720192 -0.35500305 -0.198035086
-# [12,] -0.22343643 -0.136365379  0.2231584172  0.31860481  0.285984792
-# [13,] -0.05557784  0.044039568 -0.3686499771  0.15179616 -0.072002029
-# [14,]  0.30779187 -0.117211955 -0.0130182734  0.21646165  0.029597144
-# [15,] -0.10526778  0.346563681  0.2121059495 -0.30923016 -0.017471685
-# [16,] -0.03403174  0.017495879 -0.1220422599 -0.06909829 -0.078513734
-# [17,]  0.08609131 -0.140926709  0.1227082448  0.15559985  0.164321594
-# [18,]  0.06232076  0.125052490  0.2153262828 -0.24582813  0.527750155
-# [19,] -0.13539555  0.053580142 -0.1421409249 -0.07438860 -0.089636202
-# [20,] -0.33914754 -0.320857989 -0.1424350464  0.08650200  0.115010361
-# [21,]  0.15124184  0.128069950 -0.3301085643 -0.07436707  0.129946113
-# [22,] -0.01113887 -0.009198274 -0.1837530613 -0.12666570 -0.081687057
-# [23,] -0.31488220 -0.214773321 -0.0321193373 -0.49225288  0.015647490
-# [24,]  0.18249725 -0.072631142 -0.2987937434 -0.07741704 -0.083649110
-# [25,]  0.24864024  0.021664187  0.0298929458  0.29184758  0.250656528
-# [26,] -0.10772295 -0.033545836 -0.1814804392 -0.04637292  0.214002704
-# [27,] -0.11681150 -0.098699646 -0.0002682813  0.23907156  0.002993534
-#             [,21]        [,22]         [,23]       [,24]        [,25]
-#  [1,] -0.23699102 -0.006673203  0.2150504253  0.16746060 -0.154668929
-#  [2,] -0.15419656  0.046253218 -0.0067084047  0.09885408 -0.078608286
-#  [3,] -0.05256293  0.019359564  0.0157935753  0.07403182 -0.007679928
-#  [4,] -0.11922265  0.034171553 -0.0921754116 -0.02641738 -0.041708919
-#  [5,]  0.15675411 -0.016382824 -0.2392621523 -0.21441061  0.120130707
-#  [6,]  0.10304062  0.029520263  0.1445333785  0.12969633 -0.041582122
-#  [7,]  0.11447334 -0.382187902  0.0345617270  0.52628189  0.130188947
-#  [8,]  0.35742023 -0.010269888 -0.2170804342 -0.18712889  0.025799589
-#  [9,]  0.11857691 -0.067729604  0.0696803012 -0.03292835 -0.054141786
-# [10,]  0.06410052  0.010662229  0.1013814451  0.12164894 -0.020966944
-# [11,] -0.16664663  0.032456581 -0.2018014752 -0.12893277 -0.040193655
-# [12,] -0.30440951 -0.426137953  0.0004305712 -0.11427417 -0.222875681
-# [13,] -0.38180475  0.127858213 -0.1022442675  0.01866138  0.003199344
-# [14,]  0.16015665 -0.092748003  0.1521319540  0.09192202 -0.045663839
-# [15,] -0.10920996  0.100235497  0.0558832865 -0.14393925 -0.102532789
-# [16,]  0.15076000  0.359021371  0.3335644539 -0.03027825 -0.182409390
-# [17,] -0.22199225  0.255910958  0.0211511138 -0.22348748  0.570074992
-# [18,] -0.05903632  0.130256109 -0.1931041416  0.13744937  0.157243132
-# [19,] -0.09080438  0.206395852  0.0414079719  0.56114128  0.012920746
-# [20,]  0.28579768 -0.143344064 -0.1585208609  0.07093030  0.162651785
-# [21,] -0.14384975 -0.336903092  0.5426784348 -0.22794946  0.185841056
-# [22,] -0.21430560 -0.290323080 -0.4742989109  0.09398279 -0.059637704
-# [23,]  0.15837319 -0.135723150  0.0876146386 -0.09325476 -0.146564489
-# [24,] -0.36618777  0.089487942  0.0042739214 -0.00175145 -0.159327548
-# [25,]  0.11492131  0.195702984 -0.1191717904 -0.08069023 -0.594202836
-# [26,] -0.01372967  0.005518255 -0.0851270189  0.04835800  0.010916689
-# [27,]  0.02170163  0.299274679 -0.0384912363  0.19527646  0.138899872
-#              [,26]        [,27]
-#  [1,]  0.286444574 -0.160115454
-#  [2,] -0.004346981 -0.020253239
-#  [3,] -0.018510820 -0.008667706
-#  [4,]  0.012547754 -0.008152367
-#  [5,] -0.280152618  0.176124136
-#  [6,]  0.050969707 -0.059394910
-#  [7,]  0.173278980 -0.050786372
-#  [8,]  0.094611255 -0.166874398
-#  [9,] -0.034886498  0.013455934
-# [10,]  0.010993922 -0.027774588
-# [11,] -0.133708827 -0.003576285
-# [12,] -0.096209440  0.136306223
-# [13,]  0.030967117  0.001104217
-# [14,]  0.030111639  0.022329185
-# [15,] -0.067849606 -0.126779482
-# [16,]  0.506057486  0.347584407
-# [17,]  0.124873480  0.177187525
-# [18,]  0.102384832  0.028288166
-# [19,] -0.502490829  0.367340373
-# [20,]  0.018992525  0.141581060
-# [21,] -0.158654849 -0.124060624
-# [22,]  0.393638849  0.003437816
-# [23,] -0.159732210 -0.104801206
-# [24,] -0.033666811 -0.066412841
-# [25,] -0.111096800 -0.012335431
-# [26,]  0.010694156  0.038642171
-# [27,] -0.090405565 -0.729577313
 ```
-
-
+#  [1] "17 -0.053860  0.42290  0.02810  0.42376 -0.059203 -0.586419"
+#  [2] "18 -0.135418  0.37780  0.03233  0.39706 -0.007199 -0.347064"
+#  [3] "19 -0.269281  0.30751  0.18022  0.09354  0.178657 -0.016299"
+#  [4] "20 -0.378830  0.19764  0.04939 -0.03438  0.157660 -0.056696"
+#  [5] "22 -0.443679  0.17698 -0.13708 -0.13152  0.103294  0.030004"
+#  [6] "23 -0.242292 -1.11711  0.15254  0.40512  0.045573 -0.576778"
+#  [7] "25 -0.325288 -0.61983  0.10487  0.01059 -1.034438  0.750325"
+#  [8] "26 -0.441703  0.02111 -0.13742 -0.14346  0.200775  0.244356"
+#  [9] "27 -0.444529  0.12735 -0.15915 -0.14112  0.179240  0.123487"
+# [10] "28 -0.446407  0.12774 -0.18830 -0.15467  0.239617  0.117101"
+# [11] "29 -0.355788  0.28044 -0.28006 -0.02003  0.110181  0.079568"
+# [12] "30 -0.467578  0.20086 -0.29797 -0.21269  0.065512  0.003276"
+# [13] ""                                                           
+# [14] "NA"                                                         
+# [15] "NA"                                                         
+# [16] "NA"                                                         
+# [17] "NA"                                                         
+# [18] "NA"                                                         
+# [19] "NA"                                                         
+# [20] "NA"
+```
+]
 
 ---
-# Accessing Parts of the Output
+# Principal Component Analysis
 
-You may wish to extract the scores (either from species or sites) for use in subsequent analysis or for plotting
+.pull-left[
+*Species* refer to your descriptors (i.e. the columns in your dataset), which here are the fish species.
 
-- Access the species scores along the 1st and 2nd PC:
+*Scores* refer to the position of every species along the principal components.
+]
 
-```r
-spe.scores &lt;- scores(spe.h.pca,
-                     display = "species",
-                     choices = c(1,2))
+.pull-right[
+
 ```
-
-- Access the site scores along the 1st and 2nd PC:
-
-
-```r
-site.scores &lt;- scores(spe.h.pca,
-                      display = "sites",
-                      choices = c(1,2))
+# [1] "23 -0.242292 -1.11711  0.15254  0.40512  0.045573 -0.576778"
+# [2] "25 -0.325288 -0.61983  0.10487  0.01059 -1.034438  0.750325"
+# [3] "26 -0.441703  0.02111 -0.13742 -0.14346  0.200775  0.244356"
+# [4] "27 -0.444529  0.12735 -0.15915 -0.14112  0.179240  0.123487"
+# [5] "28 -0.446407  0.12774 -0.18830 -0.15467  0.239617  0.117101"
+# [6] "29 -0.355788  0.28044 -0.28006 -0.02003  0.110181  0.079568"
+# [7] "30 -0.467578  0.20086 -0.29797 -0.21269  0.065512  0.003276"
+# [8] ""
 ```
-
----
-# Selecting Significant PCs
-
-&lt;br&gt;
-
-- The strength of PCA is that we can condense the variance contained in a huge dataset into a set of synthetic variables that is manageable
-
-- In our case, there are still 27 Principal Components, but only the first few account for any significant amount of variance, while the rest can simply be discarded as noise...
-
+]
 
 --
 
-.alert[How do we manage this?]
+&lt;br&gt;
+
+.pull-left2[
+
+```
+# [1] "NA" "NA" "NA" "NA" "NA" "NA"
+```
+]
+
+.pull-right2[
+*Sites* represent the rows in your dataset, which here are the different sites along the *Doubs* river.
+]
+
+--
+
+&lt;br&gt;
+
+.pull-left[
+This information can be obtained with the `score()` function that we used before:
+]
+
+.pull-right[
+
+```r
+scores(spe.h.pca,
+       display = "species" or "sites")
+```
+
+]
 
 ---
-# Kaiser - Guttman criterion
+# Principal Component Analysis: condensing data
 
-Selects principal components which capture more variance than the average of all PCs
+Here, we have 27 principal components. However, we can apply algorithms to select the lowest number of principal components that still account for a large variance in the data.
 
-- Extract the eigenvalues associated to the PCs
+--
+
+#### Kaiser-Guttman criterion
+
+.pull-left[
+We can select the principal components that capture more variance than the average explanation of all principal components. We do this by:
+
+1. Extracting the *Eigenvalues* associated to the principal components;
+
+2. Subsetting the *Eigenvalues* above the mean *Eigenvalue*:
+
 
 ```r
 ev &lt;- spe.h.pca$CA$eig
+# ev[ev &gt; mean(ev)]
 ```
+]
 
-- Select all eigenvalues above average
-
-
-```r
-ev[ev&gt;mean(ev)]
-#        PC1        PC2        PC3        PC4        PC5 
-# 0.25796049 0.06424089 0.04632294 0.03850244 0.02196526
-```
-
-
----
-# Kaiser - Guttman criterion (visualization)
-
+.pull-right[
 
 ```r
 n &lt;- length(ev)
@@ -1345,107 +1885,59 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-30-1.png" width="720" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-49-1.png" width="720" style="display: block; margin: auto;" /&gt;
+]
 
 ---
-# PCA - environmental variables
+# Principal Component Analysis: condensing data
 
-We can also run PCAs on standardized environmental variables, to compare sites for example, or how variables are correlated...
+Here, we have 27 principal components. However, we can apply algorithms to select the lowest number of principal components that still account for a large variance in the data.
 
-- Run a PCA on the standardized environmental variables and extract the results
+#### Broken-stick model
+
+.pull-left[
+The broken-stick model retains components that explain more variance than would be expected by randomly dividing the variance into `\(p\)` parts.
+
+
+```r
+head(bstick(spe.h.pca))
+#        PC1        PC2        PC3        PC4        PC5        PC6 
+# 0.07242581 0.05381432 0.04450858 0.03830475 0.03365187 0.02992957
+```
+]
+
+.pull-right[
+
+```r
+screeplot(spe.h.pca, 
+          bstick = TRUE, type = "lines")
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-51-1.png" width="324" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Principal Component Analysis
+
+All that is left is to discuss *scaling* and to *visualize* our results.
+
+Let us practice and compute a PCA on the standardized environmental variables for the same dataset.
+
 
 ```r
 env.pca &lt;- rda(env.z)
-summary(env.pca, scaling  = 2) # default
-# 
-# Call:
-# rda(X = env.z) 
-# 
-# Partitioning of variance:
-#               Inertia Proportion
-# Total              11          1
-# Unconstrained      11          1
-# 
-# Eigenvalues, and their contribution to the variance 
-# 
-# Importance of components:
-#                          PC1    PC2     PC3     PC4     PC5     PC6     PC7
-# Eigenvalue            6.0980 2.1671 1.03760 0.70351 0.35185 0.31913 0.16455
-# Proportion Explained  0.5544 0.1970 0.09433 0.06396 0.03199 0.02901 0.01496
-# Cumulative Proportion 0.5544 0.7514 0.84570 0.90966 0.94164 0.97066 0.98561
-#                           PC8      PC9     PC10      PC11
-# Eigenvalue            0.11171 0.023109 0.017361 0.0060618
-# Proportion Explained  0.01016 0.002101 0.001578 0.0005511
-# Cumulative Proportion 0.99577 0.997871 0.999449 1.0000000
-# 
-# Scaling 2 for species and site scores
-# * Species are scaled proportional to eigenvalues
-# * Sites are unscaled: weighted dispersion equal on all dimensions
-# * General scaling constant of scores:  4.189264 
-# 
-# 
-# Species scores
-# 
-#          PC1     PC2       PC3      PC4      PC5      PC6
-# das  1.08432  0.5148 -0.257430 -0.16170  0.21140 -0.09500
-# alt -1.04356 -0.5946  0.179904  0.12274  0.12527  0.14024
-# pen -0.57520 -0.5104 -0.554958 -0.80205  0.02798  0.20064
-# deb  0.95767  0.6412 -0.306547 -0.19434  0.18417  0.03031
-# pH  -0.05863  0.4820  1.034452 -0.51376  0.14431  0.05791
-# dur  0.90722  0.6182 -0.022833  0.15761 -0.27763  0.50792
-# pho  1.04604 -0.6092  0.187347 -0.11866 -0.15094  0.04919
-# nit  1.14317 -0.1290  0.012045 -0.18470 -0.21343 -0.34870
-# amm  0.99541 -0.6989  0.186019 -0.08271 -0.19250 -0.04935
-# oxy -1.00895  0.4578 -0.009183 -0.23449 -0.50559 -0.05661
-# dbo  0.98991 -0.6835  0.119635  0.03647  0.08580  0.21975
-# 
-# 
-# Site scores (weighted sums of species scores)
-# 
-#         PC1      PC2      PC3      PC4      PC5      PC6
-# 1  -1.41239 -1.47577 -1.74581 -2.95537  0.23122  0.49150
-# 2  -1.04170 -0.81766  0.34078  0.54374  0.92518 -1.77040
-# 3  -0.94878 -0.48825  1.36061 -0.21762  1.05157 -0.69842
-# 4  -0.88068 -0.29459  0.21011  0.66428 -0.23902 -0.06353
-# 5  -0.42586 -0.66501  0.77630  0.78778  0.63144  1.17725
-# 6  -0.77727 -0.74517 -0.06763  0.90844  0.46895 -0.32998
-# 7  -0.78154 -0.09447  0.39332  0.23074 -0.45171  1.17422
-# 9  -0.28731 -0.47351  0.29470  1.13214  0.69989  1.05202
-# 10 -0.49324 -0.44889 -1.31855  0.78932 -0.38490  0.41677
-# 11 -0.28012  0.43092  0.12222 -0.11792 -1.07089  0.46021
-# 12 -0.44851  0.33198 -0.53100  0.60347 -0.96624  0.11902
-# 13 -0.38853  0.68557  0.10459  0.08106 -1.10784  0.84740
-# 14 -0.25000  0.74161  0.88640 -0.46709 -0.96780  0.74880
-# 15 -0.31334  0.93929  1.93010 -1.27074  0.06309  0.14747
-# 16 -0.14333  0.31109 -0.21270  0.24369 -0.61836 -0.52781
-# 17  0.08992  0.29897 -0.18640  0.23392 -0.73322 -0.44217
-# 18  0.05684  0.34974 -0.22088  0.14163 -0.76214 -0.60351
-# 19  0.04508  0.40785  0.12274 -0.20084 -0.49815 -0.87652
-# 20  0.16121  0.36121 -0.28792 -0.05336 -0.79530 -1.36030
-# 21  0.16001  0.32539 -0.74769  0.41012  0.17144 -0.90680
-# 22  0.14172  0.53543 -0.08102 -0.07015  0.58783 -0.24777
-# 23  1.37609 -1.19053  0.74781 -0.35057 -0.22819  0.75871
-# 24  0.98255 -0.51442  0.01132  0.40988  1.01286  0.84623
-# 25  2.18629 -2.04865  0.35038 -0.29562 -1.26072 -0.38758
-# 26  0.88331 -0.11824 -0.64837  0.33902  0.86015 -0.14587
-# 27  0.63976  0.39427 -0.15988 -0.30084  1.09735 -0.66720
-# 28  0.75826  0.80550  0.51025 -0.96862  0.41900 -0.74380
-# 29  0.65317  1.09395 -1.68223  0.37783  0.43878  0.65258
-# 30  0.73840  1.36241 -0.27154 -0.62832  1.42571  0.87947
+# summary(env.pca, scaling  = 2)
 ```
 
+--
 
----
-# PCA - environmental variables
+Determine our subset of *Eigenvalues* and their corresponding *Eigenvectors*:
 
-- Extract the eigenvalues associated to the PCs:
+.pull-left[
 
 ```r
 ev &lt;- env.pca$CA$eig
 ```
-
-- Select all the eigenvalues above average
 
 
 ```r
@@ -1453,102 +1945,538 @@ ev[ev&gt;mean(ev)]
 #      PC1      PC2      PC3 
 # 6.097995 2.167126 1.037603
 ```
+]
+
+--
+
+.pull-right[
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-55-1.png" width="576" style="display: block; margin: auto;" /&gt;
+]
 
 ---
-# PCA - environmental variables
+# Principal Component Analysis: `plot()`
 
-- Plot the eigenvalues above average
+The information coomputed by the PCA can be represented with *biplots*.
 
-
-```r
-n &lt;- length(ev)
-barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
-abline(h = mean(ev), col = "red3", lwd = 2)
-legend("topright", "Average eigenvalue",
-       lwd = 2, col = "red3" , bty = "n")
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;" /&gt;
-
----
-# PCA - Visualization
-
-The abundance of information produced by PCA is easier to understand and interpret using biplots to visualize patterns
-
-- We can produce a quick biplot of the PCA using the function `plot()` in base R
+We can produce a *quick and dirty* biplot of the PCA using the function `plot()` in base `R`.
 
 
 ```r
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-35-1.png" width="360" style="display: block; margin: auto;" /&gt;
-
----
-# PCA basic biplot with plot()
-
-.center[
-![:scale 70%](images/biplotPCA.png)]
-
-
-.comment[
-`plot()` is quick but its hard to interpret the angles between species
-]
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-56-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 
 ---
-# PCA basic `biplot()`
+# Principal Component Analysis: `biplot()`
 
-- Using the function `biplot()` from base R, arrows are plotted to show the directionality and angle of the descriptors in the ordination
+`biplot()` from base `R` allows for a better interpretation.
 
-.alert[
-.small[
-- Descriptors at 180 degrees of each other are negatively correlated
-- Descriptors at 90 degrees of each other have zero correlation
-- Descriptors at 0 degrees of each other are positively correlated
-]]
-
+.pull-left2[
 
 ```r
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-36-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-57-1.png" width="468" style="display: block; margin: auto;" /&gt;
+]
 
+.pull-right2[
 
+The arrows are plotted to show the directionality and angle of the descriptors in the ordination.
 
----
-# PCA scaling types
+Descriptors at 180 degrees of each other are negatively correlated;
 
+Descriptors at 90 degrees of each other have zero correlation;
 
-
-![](images/Scaling.png)
-
-
-.pull_left[
-.small[Type 2 scaling (DEFAULT): distances among objects are not approximations of Euclidean distances; angles between descriptor (species) vectors reflect their correlations.]
-
-.alert[
-.small[**Best for interpreting relationships among descriptors (species)!**]]]
-
-
-.pull_right[
-.small[Type 1 scaling: attempts to preserve the Euclidean distance (in multidimensional space)
-among objects (sites): the angles among descriptor (species) vector are meaningless.]
-
-.alert[
-.small[**Best for interpreting relationships among objects (sites)!**]]]
-
+Descriptors at 0 degrees of each other are positively correlated.
+]
 
 ---
-# Advanced "biplotting"
+# Principal Component Analysis: *Scaling*
 
-- By extracting specific parts of the PCA output, we can build more detailed and aesthetic plots:
+.small[
+*Type 2 scaling* (`default`): distances among objects are not approximations of Euclidean distances; angles between descriptor (species) vectors reflect their correlations.
+]
+
+.small[
+*Type 1 scaling*: attempts to preserve the Euclidean distance (in multidimensional space)
+among objects (sites): the angles among descriptor (species) vector are not meaningful.
+]
+
+.pull-left[
+
+```r
+biplot(spe.h.pca, scaling = 1)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-58-1.png" width="324" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+```r
+biplot(spe.h.pca, scaling = 2)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-59-1.png" width="324" style="display: block; margin: auto;" /&gt;
+]
+
+???
+2: **Best for interpreting relationships among descriptors (species)!**
+
+
+1: **Best for interpreting relationships among objects (sites)!**
+
+---
+# Challenge # 3 ![:cube]()
+
+Using everything you have learned, compute a PCA on the mite species abundance data
 
 
 ```r
-plot(spe.h.pca, scaling  = 1, type = "none",
-     xlab = c("PC1 (%)", round(spe.h.pca$CA$eig[1]/sum(spe.h.pca$CAeig)*100,2)),
+data(mite)
+```
+
+Be ready to discuss and answer:
+- What are the *most relevant* principal components, i.e. subset them?
+- Which groups of sites can you identify?
+- Which groups of species are related to these groups of sites?
+
+---
+
+# Solution #3
+
+Compute PCA on the Hellinger-transformed species data
+
+
+```r
+mite.spe.hel &lt;- decostand(mite, 
+                          method = "hellinger")
+
+mite.spe.h.pca &lt;- rda(mite.spe.hel)
+```
+
+--
+
+.pull-left[
+Apply the Kaiser-Guttman criterion
+
+
+```r
+ev &lt;- mite.spe.h.pca$CA$eig
+ev[ev&gt;mean(ev)]
+n &lt;- length(ev)
+barplot(ev, main = "Eigenvalues", 
+        col = "grey", las = 2)
+abline(h = mean(ev),
+       col = "red3", lwd = 2)
+legend("topright", 
+       "Average eigenvalue", 
+       lwd = 2, 
+       col = "red3", bty = "n")
+```
+]
+
+.pull-right[
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-63-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Solution #3
+
+
+```r
+biplot(mite.spe.h.pca, 
+       col = c("red3", "grey15"))
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-64-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+# Principal Coordinates Analysis
+
+The **PCoA** is similar in spirit to PCA, but it takes *dissimilarities* as input data! 
+
+It was previously called as *Classical Multidimensional Scaling* (MDS) and it aims at faithfully representing distances with the lowest possible dimensional space.
+
+It begins with the (i) computation of a distance matrix for the `\(p\)` elements, then (ii) the centering of the matrix by rows and columns, and finally, the (iii) *Eigendecomposition* of the centered distance matrix.
+
+--
+
+To compute a PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages:
+
+Run a PCoA on the Hellinger distance-transformed fish dataset:
+
+
+```r
+library(ape)
+spe.h.pcoa &lt;- pcoa(dist(spec.hel))
+summary(spe.h.pcoa)
+#            Length Class      Mode     
+# correction   2    -none-     character
+# note         1    -none-     character
+# values       5    data.frame list     
+# vectors    783    -none-     numeric  
+# trace        1    -none-     numeric
+```
+
+---
+# Principal Coordinates Analysis
+
+
+```r
+head(spe.h.pcoa$values)
+#   Eigenvalues Relative_eig Broken_stick Cumul_eig Cumul_br_stick
+# 1   7.2228939   0.51334374   0.14412803 0.5133437      0.1441280
+# 2   1.7987449   0.12783995   0.10709099 0.6411837      0.2512190
+# 3   1.2970423   0.09218307   0.08857247 0.7333668      0.3397915
+# 4   1.0780684   0.07662021   0.07622679 0.8099870      0.4160183
+# 5   0.6150273   0.04371107   0.06696753 0.8536980      0.4829858
+# 6   0.4691296   0.03334186   0.05956013 0.8870399      0.5425459
+```
+
+---
+# Principal Coordinates Analysis
+
+We can also see the *Eigenvectors* associated to each *Eigenvalue* containing the coordinates in the Euclidean space for each site.
+
+
+
+```r
+head(spe.h.pcoa$vectors)[, 1:5]
+#         Axis.1      Axis.2      Axis.3     Axis.4       Axis.5
+# 1 -0.509824403 -0.27654372  0.64011383 -0.3393734  0.207330880
+# 2 -0.698794880 -0.03935586  0.11324989 -0.2328859 -0.157730682
+# 3 -0.640690642  0.01566707  0.03835044 -0.2669706 -0.125293094
+# 4 -0.413985947  0.10477084 -0.15728486 -0.2851828 -0.001250382
+# 5  0.003083242  0.05284310 -0.32206098 -0.2730693  0.315944703
+# 6 -0.295314224  0.05778805 -0.32395301 -0.2262902  0.056493824
+```
+
+---
+# Principal Coordinates Analysis: `biplot.pcoa()`
+
+We can display, the distances between sites using the `biplot.pcoa()` function, as well as represent the species associated to each site.
+
+
+```r
+biplot.pcoa(spe.h.pcoa, spec.hel)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-68-1.png" width="576" style="display: block; margin: auto;" /&gt;
+
+---
+### Principal Coordinates Analysis: non-metric distances
+
+PCoA can also be used to capture information contained in non-metric distances, such as the popular Bray-Curtis distance. Let us give it a try:
+
+.pull-left[
+
+```r
+spe.bray.pcoa &lt;- pcoa(spe.db.pa)
+```
+
+
+```r
+spe.bray.pcoa$values$Eigenvalues
+#  [1]  3.695331e+00  1.098472e+00  7.104740e-01  4.149729e-01  3.045604e-01
+#  [6]  1.917884e-01  1.569703e-01  1.319099e-01  1.294251e-01  8.667896e-02
+# [11]  4.615780e-02  3.864487e-02  2.745800e-02  1.306508e-02  7.087896e-03
+# [16]  4.039469e-03  1.300594e-03  0.000000e+00 -3.534426e-05 -3.940676e-03
+# [21] -8.956051e-03 -1.461149e-02 -1.598905e-02 -2.145686e-02 -3.017013e-02
+# [26] -3.432671e-02 -3.760052e-02 -6.037087e-02 -6.880061e-02
+```
+]
+
+.pull-right[
+Note the negative eigenvalues! 
+
+This is because non-metric distances cannot be represented in Euclidean space without corrections (*see* Legendre &amp; Legendre 2012 for more details on this):
+
+
+```r
+spe.bray.pcoa &lt;- pcoa(spe.db.pa, 
+                      correction = "cailliez")
+```
+]
+
+---
+### Principal Coordinates Analysis: non-metric distances
+
+.pull-left[
+The corrected Eigenvalues are now on a new column!
+
+
+```r
+spe.bray.pcoa$values$Corr_eig
+#  [1] 5.20461437 1.60465006 1.09152082 0.68985417 0.52129425 0.38710929
+#  [7] 0.36447367 0.29671255 0.27559544 0.21600584 0.15419396 0.15378333
+# [13] 0.11812808 0.08848541 0.07304055 0.06999353 0.05712927 0.05587583
+# [19] 0.05432215 0.04912221 0.04100207 0.03777775 0.03451234 0.02959507
+# [25] 0.02436729 0.01902747 0.00284371 0.00000000 0.00000000
+```
+
+]
+
+.pull-right[
+Use a biplot without the species to represent it!
+
+
+```r
+biplot.pcoa(spe.bray.pcoa)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-73-1.png" width="432" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+# Challenge #5 ![:cube]()
+
+Compute a PCoA on the Hellinger-transformed mite species abundance data
+
+Be ready to answer:
+
+- What are the significant *Eigenvectors* and *Eigenvalues*?
+- Which groups of sites can you identify?
+- Which groups of species are related to these groups of sites
+- How do the PCoA results compare with the PCA results?
+
+---
+# Solution #5
+
+- Hellinger transform the species data
+
+```r
+mite.spe &lt;- mite
+mite.spe.hel &lt;- decostand(mite.spe, method = "hellinger")
+```
+
+- Compute PCoA
+
+
+```r
+mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
+```
+
+---
+# Solution #5
+
+- Build a biplot to visualize the data:
+
+```r
+biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-76-1.png" width="432" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Non-metric Multidimensional Scaling
+
+- In PCA and PCoA, objects are ordinated in a few number of dimensions (generally &gt; 2);
+
+- 2D-biplots may not represent all the variation within the dataset;
+
+- Sometimes, we aim at representing the data in a specified smaller number of dimensions;
+
+- How can we plot the ordination space to represent the most variation as possible in the data?
+
+--
+
+We can attempt using *non-metric multidimensional scaling*!
+
+* NMDS is the non-metric counterpart of PCoA;
+* It uses an iterative optimization algorithm to find the best representation of distances in reduced space;
+
+---
+# Non-metric Multidimensional Scaling
+
+- NMDS applies an iterative procedure that tries to position the objects in the requested number of dimensions in such a way as to minimize a stress function (scaled from 0 to 1), which measures the goodness-of-fit of the distance adjustment in the reduced-space configuration.
+
+- Consequently, the lower the stress value, the better the representation of objects in the ordination-space is.
+
+-  nMDS is implemented in `vegan` as `metaMDS()` where:
+  - `distance` specifies the distance metric to use;
+  - `k` specifies the number of dimensions.
+
+
+```r
+spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
+```
+
+
+
+---
+#### Non-metric Multidimensional Scaling: *goodness-of-fit*
+
+The *Shepard* diagram and stress values can be obtained from `stressplot()`:
+
+
+```r
+spe.nmds$stress
+# [1] 0.07376216
+stressplot(spe.nmds, main = "Shepard plot")
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-79-1.png" width="360" style="display: block; margin: auto;" /&gt;
+
+The Shepard plot identifies a strong correlation between observed dissimilarity and ordination distance (R2 &gt; 0.95) highlighting a high goodness of fit of the NMDS.
+
+---
+# Non-metric Multidimensional Scaling: `biplot()`
+
+Construct the biplot
+
+
+```r
+plot(spe.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(spe.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+
+points(scores(spe.nmds, display = "sites",
+              choiches = c(1,2),
+              pch = 21,
+              col = "black",
+              g = "steelblue",
+              cex = 1.2))
+text(scores(spe.nmds, display = "species", choices = c(1)),
+            scores(spe.nmds, display = "species", choices = c(2)),
+            labels = rownames(scores(spe.nmds, display = "species")),
+            col = "red", cex = 0.8)
+```
+
+---
+# Non-metric Multidimensional Scaling: `biplot()`
+
+.pull-left[
+
+The biplot of the NMDS shows a group of closed sites characterized by the species BLA, TRU, VAI, LOC, CHA and OMB,
+while the other species form a cluster of sites in the upper right part of the graph. 
+
+Four sites in the lower part of the graph are strongly different from the others.
+]
+
+.pull-right[
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-81-1.png" width="360" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Challenge #6 ![:cube]()
+
+&lt;br&gt;
+
+Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance.
+
+Assess the goodness-of-fit of the ordination and interprete the biplot.
+
+---
+# Solution #6
+
+.pull-left[
+![](images/SheplSol6.png)
+]
+
+.pull-right[
+The correlation between observed dissimilarity and ordination distance (R2 &gt; 0.91) and the stress value relatively low, showing together a good accuracy of the NMDS ordination
+]
+
+---
+# Solution #6
+
+.pull-left[
+![](images/NMDSSol61.png)
+]
+
+.pull-right[
+No cluster of sites can be precisely defined from the NMDS biplot showing that most of the species occurred in most of the sites, i.e. a few sites shelter specific communities
+]
+
+---
+# Conclusion
+
+.alert[Many ordination techniques exist, but their specificity should guide your choices on which methods to use]
+
+|   | Distance preserved | Variables | Maximum number of axis |
+|---|---------|--------------|------|
+|PCA| Euclidean | Quantitative data, linear relationships | p |
+|CA| Chi2 | Non-negative, quantitative homogeneous data, binary data | p-1 |
+|PCoA| User defined | Quantitative, semi-quantitative, mixed data| p-1|
+|NMDS| User defined | Quantitative, semi-quantitative, mixed data| User defined|
+
+---
+# Prime time 4 quiz time
+
+.alert[What does PCA stand for?]
+
+--
+
+Principal Component Analysis
+
+--
+
+.alert[Which one is the best way to visualize the *distances* between the community composition of many sites?]
+
+--
+
+Principal Coordinate Analysis (PCoA)
+
+--
+
+.alert[What does an eigenvalue represent in PCA?]
+
+--
+
+The proportion of variance explained by a principal component
+
+---
+# Prime time 4 quiz time
+
+Spot what is sketchy
+
+![:scale 90%](images/Chall7.png)
+
+--
+.alert[
+- Data non centered, Yikes!
+]
+
+---
+# Prime time 4 quiz time
+
+Spot what is sketchy
+
+![:scale 90%](images/Chall7_2.png)
+
+--
+
+.alert[
+- 2 first PCs explain 100% of the variation!
+]
+
+---
+class: inverse, center, bottom
+
+# Thank you for attending this workshop!
+
+![:scale 50%](images/qcbs_logo.png)
+
+
+---
+
+### Principal Component Analysis: *Improved visualization*
+
+We can build more detailed and aesthetic plots:
+
+
+```r
+plot(spe.h.pca, scaling  = 1, 
+     type = "none",
+     xlab = c("PC1 (%)", 
+              round(spe.h.pca$CA$eig[1]/sum(spe.h.pca$CAeig)*100,2)),
      ylab = c("PC2 (%)", round(spe.h.pca$CA$eig[2]/sum(spe.h.pca$CA$eig)*100,2)))
 points(scores(spe.h.pca, display = "sites", choices = c(1,2), scaling = 1),
        pch=21, col = "black", bg = "steelblue" , cex  = 1.2)
@@ -1560,127 +2488,15 @@ spe.cs &lt;- scores(spe.h.pca, choices = 1:2, scaling = 1 , display = "sp")
 arrows(0, 0, spe.cs[,1], spe.cs[,2], length = 0)
 ```
 
-use the `arrows()` function in  `graphics` to add vectors
+---
+
+### Principal Component Analysis: *Improved visualization*
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-83-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
-# Advanced "biplotting"
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-38-1.png" width="504" style="display: block; margin: auto;" /&gt;
-
----
-# EASTER EGG: ggvegan
-
-- A set of tools for producing biplots using ggplot2
-
-
-```r
-install.packages("devtools")
-require("devtools")
-install_github("ggvegan", "gavinsimpson")
-require("ggvegan")
-autoplot()
-```
-
----
-# EASTER EGG: rgl and vegan 3d
-
-Interactive 3D biplots using rgl
-
-```r
-require(rgl)
-require(vegan3d)
-ordirgl(spe.h.pca)
-```
-
-![](images/Vegan3d.png)
----
-# Challenge # 3 ![:cube]()
-
-Using everything you have learned to execute a PCA on the mite species abundance data
-
-
-```r
-data(mite)
-```
-
-- What are the significant axes?
-- Which groups of sites can you identify?
-- Which groups of species are related to these groups of sites?
-
----
-# Solution #3
-
-- Compute PCA on the Hellinger-transformed species data
-
-
-```r
-mite.spe.hel &lt;- decostand(mite, method = "hellinger")
-
-mite.spe.h.pca &lt;- rda(mite.spe.hel)
-```
-
-- Check significant axes using the Guttman-Kaiser criterion
-
-
-```r
-ev &lt;- mite.spe.h.pca$CA$eig
-ev[ev&gt;mean(ev)]
-n &lt;- length(ev)
-barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
-abline(h = mean(ev), col = "red3", lwd = 2)
-legend("topright", "Average eigenvalue", lwd = 2, col = "red3", bty = "n")
-```
-
----
-# Solution #3
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Solution #3
-
-
-```r
-biplot(mite.spe.h.pca, col = c("red3", "grey15"))
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-45-1.png" width="504" style="display: block; margin: auto;" /&gt;
-
-
----
-# Warnings
-
-- PCA is a linear method and thus relies on a few assumptions
-
---
-
-  - multinormal distribution of the data (only if you wish to make inferences)
-
---
-
-  - not too many zeros
-
---
-
-  - the gradient of interest is causing the majority of the variance in the dataset
-
-.alert[
-.small[
-Violation of these can cause a horseshoe shape in your biplots, where opposite ends of the horseshoe are close together but in reality represent opposite ends of a gradient]
-]
-
----
-# Warnings
-
-- We can avoid some of these problems in PCA by choosing appropriate transformations for your community composition data or environmental data
-
-- In some cases, such as studies that cover very large environmental gradients, it may be appropriate to use other types of unconstrained ordinations
-
----
-# 4.1. Correspondance Analysis (CA)
+# Correspondence Analysis (CA)
 
 ## Euclidean vs Chi&lt;sup&gt;2&lt;/sup&gt; distances
 
@@ -1889,408 +2705,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ---
 # Solution #4
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-51-1.png" width="720" style="display: block; margin: auto;" /&gt;
-
----
-# 4.3. Principal Coordinates Analysis
-
-.center[![:scale 90%](images/Ord1.png)]
-
-- In PCA, we preserve the maximum amount of variation in the data
-
-- In PCoA, we preserve as best we can in 2D (Euclidean) distances between each object in multidimensional space
-
-.alert[ PCoA can be especially useful when the dataset is wider than it is long (Typical problem in Genetics)]
-
----
-# PCoA - Let's try it on Fish species!
-
-- For computing PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages:
-
-
-
-
-```r
-?cmdscale
-library(ape)
-?pcoa
-```
-
-- Run a PCoA on the Hellinger-distances of the fish dataset and extract the results
-
-```r
-spe.h.pcoa &lt;- pcoa(dist(spec.hel))
-summary(spe.h.pcoa)
-#            Length Class      Mode     
-# correction   2    -none-     character
-# note         1    -none-     character
-# values       5    data.frame list     
-# vectors    783    -none-     numeric  
-# trace        1    -none-     numeric
-```
-
-
----
-# PCoA - Interpretation of Output
-
-.center[![](images/PCoAInt.png)]
-
-- Eigenvalues
-- Relative eigenvalues
-- Broken stick model: to evaluate which axes are significant
-- Cumulative eigenvalues: cumulative value of the relative eigenvalues
-- Cumulative broken stick: cumulative value of the broken stick model
-
----
-# PCoA - Interpretation of Output
-
-![](images/PCoA2.png)
-
-- Vectors: the eigenvectors associated to each eigenvalue contain the coordinates, in Euclidean space, of each site.
-
-.alert[ These are the most useful for subsequent analysis as they capture the distance among objects very well]
-
-
----
-# PCoA biplot with `biplot.pcoa()`
-
-We can display, in 2D, the distances between sites using the `biplot.pcoa()` function, as well as the species associated to each site
-
-
-```r
-biplot.pcoa(spe.h.pcoa, spec.hel)
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-55-1.png" width="576" style="display: block; margin: auto;" /&gt;
-
-
----
-# PCoA and non-metric distances
-
-- PCoA can also be used to capture information contained in non-metric distances, such as the popular Bray-Curtis distance. Let's give it a try:
-
-
-```r
-spe.bray.pcoa &lt;- pcoa(spe.db.pa)
-# spe.bray.pcoa
-```
-
-- Examine the output and notice the negative eigenvalues. This is because non-metric distances cannot be represented in Euclidean space without corrections (*see* Legendre &amp; Legendre 2012 for more details on this):
-
-
-```r
-spe.bray.pcoa &lt;- pcoa(spe.db.pa, correction = "cailliez")
-# spe.bray.pcoa
-```
-
----
-# PCoA and non-metric distances
-
-- Now let's visualize this using a biplot without the species (more common approach for PCoA)
-
-
-```r
-biplot.pcoa(spe.bray.pcoa)
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-58-1.png" width="432" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Challenge #5 ![:cube]()
-
-Execute a PCoA on the Hellinger-transformed mite species abundance data
-
-- What are the significant axes?
-- Which groups of sites can you identify?
-- Which groups of species are related to these groups of sites
-- How do the PCoA results compare with the PCA results?
-
----
-# Solution #5
-
-- Hellinger transform the species data
-
-```r
-mite.spe.hel &lt;- decostand(mite.spe, method = "hellinger")
-```
-
-- Compute PCoA
-
-
-```r
-mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
-```
-
----
-# Solution #5
-
-- Build a biplot to visualize the data:
-
-```r
-biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-61-1.png" width="432" style="display: block; margin: auto;" /&gt;
-
-
----
-# Non-metric Multidimensional scaling (NMDS)
-
-- In PCA, CA and PCoA, objects are ordinated in a few number of dimensions (i.e. axis) generally &gt; 2
-
-- Consequently, 2D-biplots can fail to represent all the variation of the dataset
-
-- In some cases, the objective is however to represent the data in a specified small number of dimensions
-
-- Then, how do you plot the ordination space to represent all the variation in the data?
-
----
-# Principles of NMDS
-
-- NMDS
-  - is the non-metric counterpart of PCoA
-  - uses an iterative optimization algorithm to find the best representation of distances in reduced space
-  - increasingly popular
-- In NMDS, users can thus specify;
-  - the number of dimensions
-  - the distance measure
-
----
-# How to run a NMDS
-
--  nMDS is implemented in the `vegan` package using function `metaMDS()` where
-  - *distance* specifies the distance measure to use
-  - *k* specifies the number of dimensions
-
-
-```r
-spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
-# Run 0 stress 0.07477809 
-# Run 1 stress 0.1208399 
-# Run 2 stress 0.112748 
-# Run 3 stress 0.0747781 
-# ... Procrustes: rmse 9.475938e-06  max resid 3.345068e-05 
-# ... Similar to previous best
-# Run 4 stress 0.112569 
-# Run 5 stress 0.08696382 
-# Run 6 stress 0.1127683 
-# Run 7 stress 0.1124392 
-# Run 8 stress 0.1232691 
-# Run 9 stress 0.1136318 
-# Run 10 stress 0.1226964 
-# Run 11 stress 0.07477844 
-# ... Procrustes: rmse 0.0001395607  max resid 0.000661845 
-# ... Similar to previous best
-# Run 12 stress 0.08841667 
-# Run 13 stress 0.08841675 
-# Run 14 stress 0.08801545 
-# Run 15 stress 0.07478403 
-# ... Procrustes: rmse 0.003628763  max resid 0.01419842 
-# Run 16 stress 0.111129 
-# Run 17 stress 0.07506669 
-# ... Procrustes: rmse 0.01480271  max resid 0.06360155 
-# Run 18 stress 0.1203765 
-# Run 19 stress 0.1115942 
-# Run 20 stress 0.07477823 
-# ... Procrustes: rmse 8.577829e-05  max resid 0.0004119709 
-# ... Similar to previous best
-# *** Solution reached
-```
-
-
-
----
-# NMDS: goodness-of-fit
-
-- NMDS applies an iterative procedure that tries to position the objects in the requested number of dimensions in such a way as to minimize a stress function (scaled from 0 to 1) which measure the goodness-of-fit of the distance adjustment in the reduced-space configuration.
-
-- Consequently, the lower the stress value, the better the representation of objects in the ordination-space is.
-
----
-# NMDS: goodness-of-fit
-
-- The Shepard diagram and stress values can be obtained from:
-
-
-```r
-spe.nmds$stress
-# [1] 0.07477809
-stressplot(spe.nmds, main = "Shepard plot")
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-63-1.png" width="360" style="display: block; margin: auto;" /&gt;
-
----
-# NMDS on fish abundances
-
-- Run the NMDS and assess the goodness of fit
-
-
-```r
-spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
-spe.nmds$stress
-stressplot(spe.nmds, main = "Shepard plot")
-```
-
----
-# NMDS on fish abundances
-
-.pull-left[
-![](images/ShepNMDS.png)
-]
-
-.pull-right[
-- The Shepard plot identifies a strong correlation between observed dissimilarity and ordination distance (R2 &gt; 0.95) highlighting a high goodness of fit of the NMDS
-]
-
----
-# NMDS on fish abundances
-
-- Construct the biplot
-
-
-```r
-plot(spe.nmds, type = "none",
-     main = paste("NMDS/Bray - Stress =",
-                  round(spe.nmds$stress, 3)),
-     xlab = c("NMDS1"), ylab = "NMDS2")
-
-points(scores(spe.nmds, display = "sites",
-              choiches = c(1,2),
-              pch = 21,
-              col = "black",
-              g = "steelblue",
-              cex = 1.2))
-text(scores(spe.nmds, display = "species", choices = c(1)),
-            scores(spe.nmds, display = "species", choices = c(2)),
-            labels = rownames(scores(spe.nmds, display = "species")),
-            col = "red", cex = 0.8)
-```
-
----
-# NMDS on fish abundances
-
-.pull-left[
-
-The biplot of the NMDS shows a group of closed sites characterized by the species BLA, TRU, VAI, LOC, CHA and OMB,
-while the other species form a cluster of sites in the upper right part of the graph. Four sites in the lower part of the graph are strongly different from the others
-]
-
-.pull-right[
-![](images/NMDSbiplot1.png)
-]
-
-
-
-
----
-# Challenge #6 ![:cube]()
-
-&lt;br&gt;
-
-- Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance.
-
-- Assess the goodness-of-fit of the ordination and interpret the biplot
-
----
-# Solution #6
-
-.pull-left[
-![](images/SheplSol6.png)
-]
-
-.pull-right[
-The correlation between observed dissimilarity and ordination distance (R2 &gt; 0.91) and the stress value relatively low, showing together a good accuracy of the NMDS ordination
-]
-
----
-# Solution #6
-
-.pull-left[
-![](images/NMDSSol61.png)
-]
-
-.pull-right[
-No cluster of sites can be precisely defined from the NMDS biplot showing that most of the species occurred in most of the sites, i.e. a few sites shelter specific communities
-]
-
----
-# Conclusion
-
-.alert[Many ordination techniques exist, but their specificity should guide your choices on which methods to use]
-
-|   | Distance preserved | Variables | Maximum number of axis |
-|---|---------|--------------|------|
-|PCA| Euclidean | Quantitative data, linear relationships | p |
-|CA| Chi2 | Non-negative, quantitative homogeneous data, binary data | p-1 |
-|PCoA| User defined | Quantitative, semi-quantitative, mixed data| p-1|
-|NMDS| User defined | Quantitative, semi-quantitative, mixed data| User defined|
-
----
-# Prime time 4 quiz time
-
-.alert[What does PCA stand for?]
-
---
-
-Principal Component Analysis
-
---
-
-.alert[Which one is the best way to visualize the *distances* between the community composition of many sites?]
-
---
-
-Principal Coordinate Analysis (PCoA)
-
---
-
-.alert[What does an eigenvalue represent in PCA?]
-
---
-
-The proportion of variance explained by a principal component
-
----
-# Prime time 4 quiz time
-
-Spot what is sketchy
-
-![:scale 90%](images/Chall7.png)
-
---
-.alert[
-- Data non centered, Yikes!
-]
-
----
-# Prime time 4 quiz time
-
-Spot what is sketchy
-
-![:scale 90%](images/Chall7_2.png)
-
---
-
-.alert[
-- 2 first PCs explain 100% of the variation!
-]
-
-
----
-# Live Long and Ordinate
-
-.center[![](images/LLaO.png)]
-
-
----
-class: inverse, center, bottom
-
-# Thank you for attending this workshop!
-
-![:scale 50%](images/qcbs_logo.png)
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-89-1.png" width="720" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -1,5 +1,12 @@
 base
+knitr
+ape
+cluster
+gclus
 permute
 lattice
 vegan
-ape
+ggplot2
+GGally
+PlaneGeometry
+remotes
