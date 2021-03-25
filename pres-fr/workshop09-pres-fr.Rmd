@@ -15,7 +15,9 @@ output:
       highlightLines: false
 ---
 
-```{r setup2, echo = FALSE}
+```{r setup, echo = FALSE, message=FALSE, warning=FALSE, include = FALSE}
+library(knitr)
+
 ## Setup for your presentation
 knitr::opts_chunk$set(
   eval = TRUE,
@@ -24,18 +26,35 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
   message = FALSE,
-  fig.width=5, fig.height=5, fig.retina=3,
+  fig.width = 5, fig.height = 5, fig.retina = 3,
   fig.align = 'center'
 )
-options(repos=structure(c(CRAN="http://cran.r-project.org")))
-```
 
-class: inverse, center, middle
+options(repos = structure(
+  c(CRAN = "http://cran.r-project.org")
+  )
+  )
+
+# Install xaringanExtra
+
+if(nzchar(system.file(package = "xaringanExtra")) == FALSE) {remotes::install_github("gadenbuie/xaringanExtra", upgrade = "always", quiet = TRUE)}
+
+# Include copy-to-clipboard icons
+
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fas fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+```
 
 ```{r install_pkgs, message=FALSE, warning=FALSE, include=FALSE, results=0}
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan")
+list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -44,10 +63,13 @@ if(length(new.packages) > 0) {
   print(paste0("The following package was installed:", new.packages)) 
 } else if(length(new.packages) == 0) {
     print("All packages were already installed previously")
-  }
+}
+
+# Load all required libraries at once
+lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 ```
 
-# À propos de cet atelier
+# ? propos de cet atelier
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=repo&message=dev&color=6f42c1&logo=github)](https://github.com/QCBSRworkshops/workshop09)
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_atelier9)
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Diapos&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.html)

@@ -16,7 +16,7 @@ output:
 ---
 class: inverse, center, middle
 
-```{r setup2, echo = FALSE}
+```{r setup, echo = FALSE, message=FALSE, warning=FALSE, include = FALSE}
 library(knitr)
 
 ## Setup for your presentation
@@ -38,7 +38,7 @@ options(repos = structure(
 
 # Install xaringanExtra
 
-if(nzchar(system.file(package = "xaringanExtra")) == FALSE) {remotes::install_github("gadenbuie/xaringanExtra", upgrade = "always")}
+if(nzchar(system.file(package = "xaringanExtra")) == FALSE) {remotes::install_github("gadenbuie/xaringanExtra", upgrade = "always", quiet = TRUE)}
 
 # Include copy-to-clipboard icons
 
