@@ -2372,9 +2372,6 @@ biplot.pcoa(spe.bray.pcoa)
 
 ]
 
-
-
-
 ---
 # Challenge #5 ![:cube]()
 
@@ -2607,16 +2604,12 @@ Spot what is sketchy
 - 2 first PCs explain 100% of the variation!
 ]
 
-
----
-
 ---
 class: inverse, center, bottom
 
 # Thank you for attending this workshop!
 
 ![:scale 50%](images/qcbs_logo.png)
-
 
 
 ---
