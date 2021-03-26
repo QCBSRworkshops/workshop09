@@ -2047,39 +2047,33 @@ biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```r
 spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 # Run 0 stress 0.07477809 
-# Run 1 stress 0.08891867 
-# Run 2 stress 0.09288416 
-# Run 3 stress 0.1112133 
-# Run 4 stress 0.09201547 
-# Run 5 stress 0.08845296 
-# Run 6 stress 0.07477813 
-# ... Procrustes: rmse 0.0003581066  max resid 0.001719157 
-# ... Similar to previous best
-# Run 7 stress 0.07376243 
+# Run 1 stress 0.1257068 
+# Run 2 stress 0.08801539 
+# Run 3 stress 0.1118901 
+# Run 4 stress 0.1111093 
+# Run 5 stress 0.1223641 
+# Run 6 stress 0.07478401 
+# ... Procrustes: rmse 0.00362698  max resid 0.01421858 
+# Run 7 stress 0.1226315 
+# Run 8 stress 0.1204797 
+# Run 9 stress 0.07376224 
 # ... New best solution
-# ... Procrustes: rmse 0.01938603  max resid 0.09467482 
-# Run 8 stress 0.08930115 
-# Run 9 stress 0.07376246 
-# ... Procrustes: rmse 0.0004576338  max resid 0.002199077 
-# ... Similar to previous best
-# Run 10 stress 0.08841674 
-# Run 11 stress 0.1203424 
-# Run 12 stress 0.1209554 
-# Run 13 stress 0.1117189 
-# Run 14 stress 0.1123504 
-# Run 15 stress 0.1210357 
-# Run 16 stress 0.0747781 
-# Run 17 stress 0.07376233 
-# ... New best solution
-# ... Procrustes: rmse 3.209638e-05  max resid 9.468784e-05 
-# ... Similar to previous best
-# Run 18 stress 0.08695586 
-# Run 19 stress 0.07376223 
-# ... New best solution
-# ... Procrustes: rmse 0.0003054616  max resid 0.001468744 
-# ... Similar to previous best
-# Run 20 stress 0.09234812 
-# *** Solution reached
+# ... Procrustes: rmse 0.01938876  max resid 0.09466336 
+# Run 10 stress 0.1227031 
+# Run 11 stress 0.1204796 
+# Run 12 stress 0.07429331 
+# Run 13 stress 0.08696386 
+# Run 14 stress 0.07383677 
+# ... Procrustes: rmse 0.003800103  max resid 0.01471107 
+# Run 15 stress 0.08841669 
+# Run 16 stress 0.1175224 
+# Run 17 stress 0.074778 
+# Run 18 stress 0.1164369 
+# Run 19 stress 0.1123501 
+# Run 20 stress 0.07477839 
+# *** No convergence -- monoMDS stopping criteria:
+#     19: stress ratio &gt; sratmax
+#      1: scale factor of the gradient &lt; sfgrmin
 ```
 
 ---
@@ -2097,7 +2091,7 @@ spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
 
 ```r
 spe.nmds$stress
-# [1] 0.07376223
+# [1] 0.07376224
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
