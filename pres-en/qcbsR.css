@@ -378,7 +378,6 @@ table, td, th {
   padding-left: 0rem ;
 }
 
-
 .pull-left4 {
   float: left;
   width: 37%;
@@ -397,6 +396,7 @@ table, td, th {
 .column-right{ float: right; width: 31.333%; }
 .column-centre{ display: inline-block; width: 31.333%; }
 
+/* Font colour */
 
 .red { color: red; }
 .lightgray  { color: lightgray; }
