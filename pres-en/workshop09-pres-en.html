@@ -109,9 +109,15 @@ install.packages(
 ---
 # Learning objectives
 
-##### Use R to perform an unconstrained ordination
+####    
+
+#### Use R to perform an unconstrained ordination
+
+####    
 
 #### Use R to create dendrogram
+
+
 
 ---
 
@@ -147,26 +153,37 @@ What if we are interested in this response for different species of algae involv
 
 .center[![:scale 70%](images/4dim.png)]
 
-
+???
+In ecology, several descriptors are usually observed for each object under study. In most instances, ecologists are interested in characterizing the main trends of variation of the objects with respect to all descriptors, not only a few of them. Looking at scatter plots of the objects with respect to all possible pairs of descriptors is a tedious approach, which generally does not shed much light on the problem at hand.
+Even with multivariate approach, it is not possible to draw such a diagram on paper with more than three dimensions, however, even though it is a perfectly valid mathematical construct.
 ---
 # Ordination in reduced space
 
 .center[![:scale 70%](images/Ord1.png)]
 
+???
+Note: 
+Ordination refers to the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.It addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
+
+
+
 ---
 # Ordination in reduced space
 
 
-.center[![:scale 70%](images/Ord2.png)]
+.center[![:scale 70%](images/Ord3.png)]
 
 - Matrix algebra is complex and hard to understand
 
 - A global understanding is enough in order to use ordination methods adequately
 
-
+???
+Note: Replaced the image to fix the typo "objets"
+Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
 ---
 # Methods for scientific research
 
+.pull-right[![:scale 100%](images/SciMed.png)]
 --
 
 - **Questions / Hypothesis**
@@ -194,7 +211,6 @@ What if we are interested in this response for different species of algae involv
 --
 
 - **Communication**
-
 
 ---
 class: inverse, center, middle
@@ -591,10 +607,10 @@ With ordination methods, we order our objects (site) according to their similari
 ---
 # Schematic analysis of multivariate analysis
 
-.center[
-![:scale 70%](images/Schema1.png)
-]
+.center[![:scale 120%](images/Schema2.png)]
 
+???
+Note: re-added the picture, rename it as Schema 2.
 ---
 # Clustering
 
@@ -604,9 +620,7 @@ With ordination methods, we order our objects (site) according to their similari
 
 - Not a statistical method
 
-.center[
-![:scale 80%](images/cluster1.png)
-]
+.center[![:scale 80%](images/cluster1.png)]
 
 ---
 # Overview of 3 hierarchical methods
@@ -911,9 +925,9 @@ cov(xyz)
 
 ```
 #          x        y        z
-# x  0.99083 -0.00158 -0.00162
-# y -0.00158  0.98730 -0.00337
-# z -0.00162 -0.00337  1.00093
+# x  1.03379  0.01139 -0.01067
+# y  0.01139  0.97333 -0.00061
+# z -0.01067 -0.00061  1.00062
 ```
 
 
@@ -2272,7 +2286,7 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07376219
+# [1] 0.07376228
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
