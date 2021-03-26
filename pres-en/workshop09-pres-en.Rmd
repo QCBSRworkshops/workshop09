@@ -781,10 +781,6 @@ Here, we will explore:
 ]
 
 ---
-class: inverse, center, middle
-# 4. Unconstrained ordination
-
----
 
 ### But first, let us *recap*...
 
@@ -991,6 +987,9 @@ An *Eigenvector* is a vector whose direction remains unchanged when a **linear t
 Let us represent this with this simple example.
 
 We can transform a square into a parallelogram using a single-axis **shear transformation**. 
+
+--
+
 .pull-left[
 Let $S$ be the square with vertices $(0,0),\,(1,0),\,(1,1),\,(1,0)$ that will be shear-transformed to the $P$ parallelogram with vertices $(0,0),\,(1,0),\,(1,1.57),\,(1,0.57)$.
 
@@ -1185,14 +1184,6 @@ We will learn how to do it from "scratch" and then how to use `R` packages to co
 
 .pull-left3[
 1. Starting point: a matrix $Y$ of $n$ observations and $p$ normally distributed continuous variables;
-
-2. Standardizing observations, as in $Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}$; which is the same as centring, as in $y_c = [y_i - \bar{y}]$, and then scaling, as in $y_s = \frac{y_i}{\sigma_y}$;
-
-3. Compute the variance-covariance matrix $R = cov(Y_{std})$;
-
-4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix $U$ of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying $U$ with the standardized matrix $Y_{std}$, *i*.*e*. the *score matrix* $F$.
 ]
 
 .pull-right3[
@@ -1212,14 +1203,6 @@ str(varechem)
 
 .pull-left3[
 1. Starting point: a matrix $Y$ of $n$ observations and $p$ normally distributed continuous variables;
-
-2. Standardizing observations, as in $Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}$; which is the same as centring, as in $y_c = [y_i - \bar{y}]$, and then scaling, as in $y_s = \frac{y_i}{\sigma_y}$; 
-
-3. Compute the variance-covariance matrix $R = cov(Y_{std})$;
-
-4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix $U$ of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying $U$ with the standardized matrix $Y_{std}$, *i*.*e*. the *score matrix* $F$.
 ]
 
 .pull-right3[
@@ -1242,13 +1225,7 @@ head(Y)
 .pull-left3[
 1. Starting point: a matrix $Y$ of $n$ observations and $p$ normally distributed continuous variables;
 
-2. Standardizing observations, as in $Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}$; which is the same as centring, as in $y_c = [y_i - \bar{y}]$, and then scaling, as in $y_s = \frac{y_i}{\sigma_y}$; 
-
-3. Compute the variance-covariance matrix $R = cov(Y_{std})$;
-
-4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix $U$ of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying $U$ with the standardized matrix $Y_{std}$, *i*.*e*. the *score matrix* $F$.
+2. Standardizing observations, as in $Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}$; which is the same as centring, as in $y_c = [y_i - \bar{y}]$, and then scaling, as in $y_s = \frac{y_i}{\sigma_y}$;
 ]
 
 .pull-right3[
@@ -1282,10 +1259,37 @@ round(apply(Y_std, 2, sd))
 2. Standardizing observations, as in $Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}$; which is the same as centring, as in $y_c = [y_i - \bar{y}]$, and then scaling, as in $y_s = \frac{y_i}{\sigma_y}$; 
 
 3. Compute the variance-covariance matrix $R = cov(Y_{std})$;
+]
+
+.pull-right3[
+In `R`, from scratch!
+
+```{r}
+data(varechem)
+
+# Step 1 
+Y <- varechem[, 1:2]
+
+# Step 2
+Y_std <- as.matrix(scale(Y))
+
+# Step 3
+(Y_R <- cov(Y_std))
+```
+]
+
+---
+
+# Principal Component Analysis: step-by-step
+
+.pull-left3[
+1. Starting point: a matrix $Y$ of $n$ observations and $p$ normally distributed continuous variables;
+
+2. Standardizing observations, as in $Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}$; which is the same as centring, as in $y_c = [y_i - \bar{y}]$, and then scaling, as in $y_s = \frac{y_i}{\sigma_y}$; 
+
+3. Compute the variance-covariance matrix $R = cov(Y_{std})$;
 
 4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix $U$ of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying $U$ with the standardized matrix $Y_{std}$, *i*.*e*. the *score matrix* $F$.
 ]
 
 .pull-right3[
@@ -1309,7 +1313,6 @@ Y_R <- cov(Y_std)
 (Eigenvectors <- eigen(Y_R)$vectors)
 ```
 ]
-
 ---
 # Principal Component Analysis: step-by-step
 
@@ -2040,6 +2043,7 @@ This information can be obtained with the `score()` function that we used before
 ]
 
 .pull-right[
+
 ```{r, eval = FALSE, echo = TRUE}
 scores(spe.h.pca,
        display = "species" or "sites")

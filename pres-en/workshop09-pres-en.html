@@ -795,10 +795,6 @@ Here, we will explore:
 ]
 
 ---
-class: inverse, center, middle
-# 4. Unconstrained ordination
-
----
 
 ### But first, let us *recap*...
 
@@ -914,10 +910,10 @@ cov(xyz)
 
 
 ```
-#         x       y       z
-# x 1.01109 0.02637 0.00732
-# y 0.02637 0.99141 0.00056
-# z 0.00732 0.00056 0.99799
+#          x        y        z
+# x  0.99890  0.00577 -0.01213
+# y  0.00577  1.01337 -0.00956
+# z -0.01213 -0.00956  1.02156
 ```
 
 
@@ -1013,6 +1009,9 @@ An *Eigenvector* is a vector whose direction remains unchanged when a **linear t
 Let us represent this with this simple example.
 
 We can transform a square into a parallelogram using a single-axis **shear transformation**. 
+
+--
+
 .pull-left[
 Let `\(S\)` be the square with vertices `\((0,0),\,(1,0),\,(1,1),\,(1,0)\)` that will be shear-transformed to the `\(P\)` parallelogram with vertices `\((0,0),\,(1,0),\,(1,1.57),\,(1,0.57)\)`.
 
@@ -1160,14 +1159,6 @@ We will learn how to do it from "scratch" and then how to use `R` packages to co
 
 .pull-left3[
 1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
-
-2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`;
-
-3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
-
-4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
 ]
 
 .pull-right3[
@@ -1203,14 +1194,6 @@ str(varechem)
 
 .pull-left3[
 1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
-
-2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`; 
-
-3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
-
-4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
 ]
 
 .pull-right3[
@@ -1241,13 +1224,7 @@ head(Y)
 .pull-left3[
 1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
 
-2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`; 
-
-3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
-
-4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
+2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`;
 ]
 
 .pull-right3[
@@ -1292,10 +1269,41 @@ round(apply(Y_std, 2, sd))
 2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`; 
 
 3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
+]
+
+.pull-right3[
+In `R`, from scratch!
+
+
+```r
+data(varechem)
+
+# Step 1 
+Y &lt;- varechem[, 1:2]
+
+# Step 2
+Y_std &lt;- as.matrix(scale(Y))
+
+# Step 3
+(Y_R &lt;- cov(Y_std))
+#            N          P
+# N  1.0000000 -0.2511603
+# P -0.2511603  1.0000000
+```
+]
+
+---
+
+# Principal Component Analysis: step-by-step
+
+.pull-left3[
+1. Starting point: a matrix `\(Y\)` of `\(n\)` observations and `\(p\)` normally distributed continuous variables;
+
+2. Standardizing observations, as in `\(Y_{std} = \frac{y_i - \bar{y}}{\sigma_y}\)`; which is the same as centring, as in `\(y_c = [y_i - \bar{y}]\)`, and then scaling, as in `\(y_s = \frac{y_i}{\sigma_y}\)`; 
+
+3. Compute the variance-covariance matrix `\(R = cov(Y_{std})\)`;
 
 4. Perform the Eigendecomposition of the covariance matrix to obtain the matrix `\(U\)` of Eigenvectors, containing the *Principal Components*;
-
-5. Obtain the feature space by multiplying `\(U\)` with the standardized matrix `\(Y_{std}\)`, *i*.*e*. the *score matrix* `\(F\)`.
 ]
 
 .pull-right3[
@@ -1324,7 +1332,6 @@ Y_R &lt;- cov(Y_std)
 # [2,]  0.7071068 -0.7071068
 ```
 ]
-
 ---
 # Principal Component Analysis: step-by-step
 
@@ -1340,7 +1347,7 @@ The arrows on the principal components are obtained by multiplying their *Eigenv
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-28-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-29-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1358,7 +1365,7 @@ Note how the principal components are orthogonal!
 
 .pull-right[
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-29-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-30-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1457,7 +1464,7 @@ The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new d
 `\(\text{N}\)` ~ `\(\text{P}\)` 
 ]
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-32-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-33-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1465,7 +1472,7 @@ The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new d
 `\(\text{PC}1\)` ~ `\(\text{PC}2\)` 
 ]
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-33-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-34-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1792,6 +1799,7 @@ This information can be obtained with the `score()` function that we used before
 
 .pull-right[
 
+
 ```r
 scores(spe.h.pca,
        display = "species" or "sites")
@@ -1832,7 +1840,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-49-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-50-1.png" width="720" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1860,7 +1868,7 @@ screeplot(spe.h.pca,
           bstick = TRUE, type = "lines")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-51-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-52-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1897,7 +1905,7 @@ ev[ev&gt;mean(ev)]
 --
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-55-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-56-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1912,7 +1920,7 @@ We can produce a *quick and dirty* biplot of the PCA using the function `plot()`
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-56-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-57-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1926,7 +1934,7 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-57-1.png" width="468" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-58-1.png" width="468" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right2[
@@ -1958,7 +1966,7 @@ among objects (sites): the angles among descriptor (species) vector are not mean
 biplot(spe.h.pca, scaling = 1)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-58-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-59-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1967,7 +1975,7 @@ biplot(spe.h.pca, scaling = 1)
 biplot(spe.h.pca, scaling = 2)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-59-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-60-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2027,7 +2035,7 @@ legend("topright",
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-63-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-64-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2039,7 +2047,7 @@ biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-64-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-65-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # Principal Coordinates Analysis
@@ -2112,7 +2120,7 @@ We can display, the distances between sites using the `biplot.pcoa()` function, 
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-68-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-69-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Principal Coordinates Analysis: non-metric distances
@@ -2175,7 +2183,7 @@ Use a biplot without the species to represent it!
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-73-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-74-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -2217,7 +2225,7 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-76-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-77-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2264,11 +2272,11 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07376222
+# [1] 0.07376216
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-79-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-80-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 The Shepard plot identifies a strong correlation between observed dissimilarity and ordination distance (R2 &gt; 0.95) highlighting a high goodness of fit of the NMDS.
 
@@ -2308,7 +2316,7 @@ Four sites in the lower part of the graph are strongly different from the others
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-81-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-82-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2439,7 +2447,7 @@ arrows(0, 0, spe.cs[,1], spe.cs[,2], length = 0)
 
 ### Principal Component Analysis: *Improved visualization*
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-83-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-84-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2652,7 +2660,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ---
 # Solution #4
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-89-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-90-1.png" width="720" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
