@@ -110,13 +110,18 @@ install.packages(
 # Learning objectives
 
 ####    
+#### Learn the basics of multivariate analysis to reveal patterns in community composition data
 
 #### Use R to perform an unconstrained ordination
 
-####    
+####    Choose approprite distance metrics and transformations to perform multivariate analysis
+- Clustering analysis
+- Principal Component Analysis (PCA)
+- Correspondence Analysis (CA)
+- Principal Coordinate Analysis (PCoA)
+- Non-Metric MultiDimensional Scaling (NMDS)
 
 #### Use R to create dendrogram
-
 
 
 ---
@@ -153,6 +158,8 @@ What if we are interested in this response for different species of algae involv
 
 .center[![:scale 70%](images/4dim.png)]
 
+- Not possible to draw a diagram more than 3D
+
 ???
 In ecology, several descriptors are usually observed for each object under study. In most instances, ecologists are interested in characterizing the main trends of variation of the objects with respect to all descriptors, not only a few of them. Looking at scatter plots of the objects with respect to all possible pairs of descriptors is a tedious approach, which generally does not shed much light on the problem at hand.
 Even with multivariate approach, it is not possible to draw such a diagram on paper with more than three dimensions, however, even though it is a perfectly valid mathematical construct.
@@ -161,57 +168,46 @@ Even with multivariate approach, it is not possible to draw such a diagram on pa
 
 .center[![:scale 70%](images/Ord1.png)]
 
+- Ordination: the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.
+
+- Reduced space: a space with reduced dimensionality relative to origial dataset.
+
 ???
 Note: 
-Ordination refers to the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.It addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
+Ordination: the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.It addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
+Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 
 
 
 ---
+
 # Ordination in reduced space
 
 
 .center[![:scale 70%](images/Ord3.png)]
 
-- Matrix algebra is complex and hard to understand
+- For the benefit of analysis, project the scatter of ecological projects from multidimensional space into a smaller number of dimensions of descriptors. 
 
-- A global understanding is enough in order to use ordination methods adequately
+- Axes represent a large fraction of the variability of the multidimensional data matrix
+
 
 ???
 Note: Replaced the image to fix the typo "objets"
 Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
 ---
+exclude: true
+
 # Methods for scientific research
 
 .pull-right[![:scale 100%](images/SciMed.png)]
---
 
 - **Questions / Hypothesis**
-
---
-
 - **Experimental design**
-
---
-
 - **Data Collection**
-
---
-
 - **Transformation / Distance**
-
---
-
 - **Analysis**
-
---
-
 - **Redaction**
-
---
-
 - **Communication**
-
 ---
 class: inverse, center, middle
 # 2. Exploring data
@@ -244,6 +240,11 @@ Load the Doubs River species data (Doubs.Spe.csv)
 ```r
 spe &lt;- read.csv("data/doubsspe.csv", row.names = 1)
 spe &lt;-  spe[-8,] # remove site with no data
+# for larger datasets:
+row_sub = apply(spe, 1, function(row) any(row !=0 ))
+#go through each row, and determine if any value in this row is zero
+spe &lt;- spe[row_sub,]
+#remove the rows with no species data.   
 ```
 
 Load the Doubs River environmental data (Doubs.Env.csv)
@@ -341,14 +342,15 @@ barplot(site.pre, main = "Species richness",
 ---
 # Understand your data!
 
-.center[...to choose the appropiate transformation and distance]
+####To choose the appropiate transformation and distance
 
-- Are there many zeros?
+- Are there any zeros?
 
 - What do they mean?
 
 
-.alert[A measured 0 (e.g 0mg/L, 0°C) is not the same than a 0 representing an absence observations]
+.alert[A measured 0 (e.g 0mg/L, 0°C)]
+.alert[is not the same as a 0 representing an absence observations]
 
 
 ---
@@ -380,7 +382,7 @@ barplot(site.pre, main = "Species richness",
 ---
 # Transforming your community data
 
-## Examples
+#### Examples
 
 Transforming counts into presence - absence
 
@@ -433,14 +435,14 @@ Explore colinearity by visualizing correlations between variables
 
 
 ```r
-pairs(env, main = "Bivariate Plots of the Environmental Data")
+GGally::ggpairs(env, main="Bivariate Plots of the Environmental Data")
 ```
 
 
 ---
 # Doubs Environmental Data
 
-![](images/EnvDat1.png)
+![](images/EnvDat1Revised.png)
 
 ---
 # Standardization
@@ -479,10 +481,21 @@ class: inverse, center, middle
 # Association measures
 
 Matrix algebra is at the heart of all ordinations
+$$
+`\begin{bmatrix}
+    a_{1,1} &amp; a_{1,2} &amp; a_{1,3} &amp; \dots  &amp; a_{1,n} \\
+    a_{2,1} &amp; a_{2,2} &amp; a_{2,3} &amp; \dots  &amp; a_{2,n} \\
+    a_{3,1} &amp; a_{3,2} &amp; a_{3,3} &amp; \dots  &amp; a_{3,n} \\
+    \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    a_{m,1} &amp; a_{m,2} &amp; a_{m,3} &amp; \dots  &amp; a_{m,n}
+\end{bmatrix}`
+$$
 
-.center[![](images/MatrixAlgebra.png)]
 
 - Exploring various measures of distance between objects provides some understanding of the engine under the hood
+
+???
+.center[![](images/MatrixAlgebra.png)]
 
 ---
 # Breaking out of 1D
@@ -525,21 +538,38 @@ Distance: D = 1-S]
 
 .pull-left[
 - Euclidean
+    * d[jk] = sqrt(sum((x[ij]-x[ik])^2))
+    * Used in PCA and RDA
 - Manhattan
+    * d[jk] = sum(abs(x[ij] - x[ik]))
+    * similar to Euclidean, suffer from double zero problem
 - Chord
+    * the Euclidean distance calculated for a row standardised matrix
 ]
 
 .pull-right[
 - Hellinger
+    * square roots of conditional probabilities 
+    * performs well in linear ordination
 - Chi-square
+    * d[jk] = sum( (x[ij]-x[ik])^2 / (x[ij]+x[ik]) ) / 2 
+    * used in CA
 - Bray-Curtis
+    * semimetric: d[jk] = (sum abs(x[ij]-x[ik]))/(sum (x[ij]+x[ik]))
+    * used in PCoA and NMDS
 ]
 
+.center[     
+
+_Where x[ij] x[ik] refer to the quantity on species (column) i and sites (rows) j &amp; k._]
+
+
+???
+Notes: Ref: 
+https://sites.google.com/site/mb3gustame/reference/dissimilarity
+Euclidean: A simple, symmetrical metric using the Pythagorean formula. The more variables present in a data set, the larger one may expect Euclidean distances to be. Further, double zeros result in decreased distances. This property makes the Euclidean distance unsuitable for many ecological data sets and ecologically-motivated transformations should be considered.  Principal components analysis  and redundancy analysis ordinate objects using Euclidean distances.
 
 --
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
 
 .alert[Each of these will be useful in different situations]
 
@@ -552,27 +582,45 @@ The `vegdist()` function contains all common distances
 ```r
 ?vegdist
 ```
-
+--
 How different is the community composition across the 30 sites of the Doubs River?
 
 
 ```r
 spe.db.pa &lt;- vegdist(spe, method = "bray")
+spe.db&lt;-as.matrix(spe.db.pa)
+
+#         1         2         3         4         5         6         7         9
+# 1  0.0000000 0.6000000 0.6842105 0.7500000 0.8918919 0.7500000 0.6842105 1.0000000
+# 2  0.6000000 0.0000000 0.1428571 0.3333333 0.6956522 0.3939394 0.1428571 0.6923077
+# 3  0.6842105 0.1428571 0.0000000 0.1891892 0.6800000 0.2972973 0.1250000 0.7333333
+#...
 ```
+--
+- Diagnal is zero
+- Site 3 and 7 most similar 
+- Site 1 and 9 most different
 
 ---
+exclude: true
+
 # Comparing Doubs Sites
 
 .center[![](images/Doubs1.png)]
 
 ---
+exclude: true
+
 # Comparing Doubs Sites
 
 .center[![](images/Doubs2.png)]
 
 ---
 # Visualization of distance matrices
-
+```
+windows()
+coldiss(spe.db, byrank=FALSE, diag=TRUE) 
+```
 .center[![](images/MatrxViz.png)]
 
 ---
@@ -580,7 +628,7 @@ spe.db.pa &lt;- vegdist(spe, method = "bray")
 
 &lt;br&gt;
 
-Discuss with your neighbor:
+Discuss with your neighbour:
 
 &lt;br&gt;
 
@@ -592,10 +640,12 @@ Discuss with your neighbor:
 
 
 ---
+
 # And what about ordination?
 
 
 With ordination methods, we order our objects (site) according to their similarity
+
 
 
 - The more the sites are similar, the closer they are in the ordination space (smaller distances)
@@ -620,37 +670,80 @@ Note: re-added the picture, rename it as Schema 2.
 
 - Not a statistical method
 
-.center[![:scale 80%](images/cluster1.png)]
+```r
+spe.dhel&lt;-vegdist(spe.hel,method="euclidean")
+spe.dhel.ward&lt;-hclust(spe.dhel, method="ward.D2")
+spe.dhel.ward$height&lt;-sqrt(spe.dhel.ward$height)
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /&gt;
+
+???
+.center[![:scale 80%](images/cluster1_revised.jpg)]
 
 ---
 # Overview of 3 hierarchical methods
 
 &lt;br&gt;
 
-- Single linkage agglomerative clustering
+1 Single linkage agglomerative clustering ("single")
 
 &lt;br&gt;
 
-- Complete linkage, agglomerative clustering
+2 Complete linkage, agglomerative clustering ("complete")
 
 &lt;br&gt;
 
-- Ward's minimum variance clustering
+3 Ward's minimum variance clustering ("ward.D2")
 
 &lt;br&gt;
 
 - Elements of lower are nested in higher ranking clusters
    - (e.g. species, genus, family, order)
 
+???
+In single linkage agglomerative clustering (also called nearest
+neighbour sorting), the objects at the closest distances agglomerate.
+which often generates long thin clusters or chains of objects. Conversely, in complete linkage agglomerative clustering, an object agglomerates to a group only when linked to the furthest element of the group, which in turn links it to all members of that group. It  will form many small separate groups, and is more appropriate to look for contrasts, discontinuities in the data.
+Ward's minimum variance clustering differ from these two methods in that
+it clusters objects into groups using the criterion of least squares
+(similar to linear models). Its dendogram shows squared distances by default. To compare with other methods, calculate the sqaure root of the distances first. 
+
 ---
 # Hierarchical methods
 
-A distance matrix is first sorted in increasing distance order
 
-![](images/Hierachic1.png)
+.pull-left[
+- A distance matrix is first sorted in increasing distance order
+![:scale 200%](images/Hierachic1.png)]
 
+.pull-right[
 
+- The two closest objects merge
+- The next two closest objects/clusters merge
+- and so on
+
+![](images/singleClust2.png)]
+
+???
+Alternative programme:
+
+```r
+x &lt;- matrix(abs(rnorm(1:40)),nrow=5,byrow=TRUE)
+x.hel &lt;- decostand(x,method="hellinger")
+x.dhel &lt;- vegdist(x.hel, method="euclidean")
+x.dhel.single &lt;- hclust(x.dhel, method="single")
+x.dhel.complete &lt;- hclust(x.dhel, method="complete")
+plot &lt;- par(mfrow=c(1,2),mar=c(5,2,4,2))
+plot(as.dendrogram(x.dhel.single), horiz=TRUE, main="Single linkage clustering")
+plot(as.dendrogram(x.dhel.complete), horiz=TRUE, main = "Complete linkage clustering")
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-21-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ---
+exclude: true
+
 # Single linkage clustering
 
 .pull-left[
@@ -659,7 +752,6 @@ A distance matrix is first sorted in increasing distance order
 
 ]
 
---
 
 .pull-right[
 
@@ -684,9 +776,11 @@ A distance matrix is first sorted in increasing distance order
 
 .pull-right[
 
-- The two closest objects merge
+- The objects divided into small groups (1-2, 3-4, 5)
 
-- The next two objects/cluster will agglomerate when linked to the furthest element of the group
+- Connect small groups using the largest distance between their elements 
+  * (1-3=0.15, 2-4=0.35, 2-3=0.6, select 0.6 to connect group 1-2 and 3-4)
+
 
 ![](images/compleClust2.png)
 ]
@@ -704,14 +798,21 @@ spe.dhe1.single &lt;- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-20-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-22-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
 # Comparison
 
-![](images/comparison.png)
 
+```r
+spe.dhe1 &lt;- vegdist(spec.hel, method = "euclidean")
+spe.dhe1.complete &lt;- hclust(spe.dhe1, method = "complete")
+plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
+plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-23-1.png" width="1080" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
 
@@ -725,6 +826,9 @@ Chains of objects occur (e.g. 19,29,30,26)
 **Complete linkage:**
 Contrasted groups are formed of objects occur
 ]
+
+???
+![](images/comparison.png)
 
 ---
 # Ward's minimum variance method
@@ -744,12 +848,13 @@ spe.dhel.ward$height &lt;- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-21-1.png" width="648" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-24-1.png" width="360" style="display: block; margin: auto;" /&gt;
+- Clusters generated using this method tend to be more spherical and to contain similar number of objects
 ---
+exclude: true
 # Ward's method
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-22-1.png" width="648" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-25-1.png" width="648" style="display: block; margin: auto;" /&gt;
 
 Clusters generated using this method tend to be more spherical and to contain similar number of objects
 
@@ -811,7 +916,6 @@ Here, we will explore:
 ---
 
 ### But first, let us *recap*...
-
 
 We already understand the meaning of **variance** and **mean**, and how to calculate them:
 
@@ -925,9 +1029,9 @@ cov(xyz)
 
 ```
 #          x        y        z
-# x  1.03379  0.01139 -0.01067
-# y  0.01139  0.97333 -0.00061
-# z -0.01067 -0.00061  1.00062
+# x  1.00387  0.02250 -0.04315
+# y  0.02250  0.98479 -0.00621
+# z -0.04315 -0.00621  0.98867
 ```
 
 
@@ -1035,7 +1139,7 @@ On the other hand, the red arrow changed direction, and thus is *not* an *Eigenv
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-23-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-26-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1361,7 +1465,7 @@ The arrows on the principal components are obtained by multiplying their *Eigenv
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-29-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-32-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1379,7 +1483,7 @@ Note how the principal components are orthogonal!
 
 .pull-right[
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-30-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-33-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1478,7 +1582,7 @@ The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new d
 `\(\text{N}\)` ~ `\(\text{P}\)` 
 ]
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-33-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-36-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1486,7 +1590,7 @@ The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new d
 `\(\text{PC}1\)` ~ `\(\text{PC}2\)` 
 ]
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-34-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-37-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1854,7 +1958,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-50-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-53-1.png" width="720" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1882,7 +1986,7 @@ screeplot(spe.h.pca,
           bstick = TRUE, type = "lines")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-52-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-55-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1919,7 +2023,7 @@ ev[ev&gt;mean(ev)]
 --
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-56-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-59-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1934,7 +2038,7 @@ We can produce a *quick and dirty* biplot of the PCA using the function `plot()`
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-57-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-60-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1948,7 +2052,7 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-58-1.png" width="468" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-61-1.png" width="468" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right2[
@@ -1980,7 +2084,7 @@ among objects (sites): the angles among descriptor (species) vector are not mean
 biplot(spe.h.pca, scaling = 1)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-59-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-62-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1989,7 +2093,7 @@ biplot(spe.h.pca, scaling = 1)
 biplot(spe.h.pca, scaling = 2)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-60-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-63-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2049,7 +2153,7 @@ legend("topright",
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-64-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-67-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2061,7 +2165,7 @@ biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-65-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-68-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # Principal Coordinates Analysis
@@ -2134,7 +2238,7 @@ We can display, the distances between sites using the `biplot.pcoa()` function, 
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-69-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-72-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Principal Coordinates Analysis: non-metric distances
@@ -2197,7 +2301,7 @@ Use a biplot without the species to represent it!
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-74-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-77-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -2239,7 +2343,7 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-77-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-80-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2286,11 +2390,11 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07376228
+# [1] 0.07376219
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-80-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-83-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 The Shepard plot identifies a strong correlation between observed dissimilarity and ordination distance (R2 &gt; 0.95) highlighting a high goodness of fit of the NMDS.
 
@@ -2330,7 +2434,7 @@ Four sites in the lower part of the graph are strongly different from the others
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-82-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-85-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2461,7 +2565,7 @@ arrows(0, 0, spe.cs[,1], spe.cs[,2], length = 0)
 
 ### Principal Component Analysis: *Improved visualization*
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-84-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-87-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2674,7 +2778,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ---
 # Solution #4
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-90-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-93-1.png" width="720" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
