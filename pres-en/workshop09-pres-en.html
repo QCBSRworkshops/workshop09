@@ -82,13 +82,15 @@ by modifying and improving its content as part of the &lt;br&gt; *Le*arning *a*n
 
 To follow this workshop, you are required to have downloaded and installed the earliest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
 
-&lt;br&gt;
-
 .pull-left[
 You must also use these packages:
-1. [ape](https://cran.r-project.org/package=ape)
-3. [gclus](https://cran.r-project.org/package=gclus)
-4. [vegan](https://cran.r-project.org/package=vegan)
+* [ape](https://cran.r-project.org/package=ape)
+* [gclus](https://cran.r-project.org/package=gclus)
+* [vegan](https://cran.r-project.org/package=vegan)
+* [GGally](https://cran.r-project.org/package=GGally)
+* [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
+* [remotes](https://cran.r-project.org/package=remotes)
+
 ]
 
 .pull-right[
@@ -98,30 +100,47 @@ To install them from CRAN, run:
 
 
 ```r
-install.packages(
-  c("ape", 
-    "gclus", 
-    "vegan")
-)
+install.packages(c("ape", 
+                   "gclus", 
+                   "vegan",
+                   "GGally", 
+                   "PlaneGeometry", 
+                   "remotes"))
 ```
 
 ]
+
+&lt;br&gt;
+
+.pull-left2[
+Throughout this workshop, there will be a series of **challenges** that you can recognize by this rubix cube.
+
+**During these challenges, do not hesitate to collaborate!**
+]
+
+.pull-right2[
+
+.center[
+![:scale 45%](images/rubicub.png)
+]
+]
+
+
 ---
 # Learning objectives
 
-####    
-#### Learn the basics of multivariate analysis to reveal patterns in community composition data
+**1.** Learn the basics of multivariate analysis to reveal patterns in community composition data
 
-#### Use R to perform an unconstrained ordination
+**2.** Use `R` to perform an unconstrained ordination
 
-####    Choose approprite distance metrics and transformations to perform multivariate analysis
+**3.**    Choose appropriate distance metrics and transformations to perform multivariate analysis
 - Clustering analysis
 - Principal Component Analysis (PCA)
 - Correspondence Analysis (CA)
 - Principal Coordinate Analysis (PCoA)
 - Non-Metric MultiDimensional Scaling (NMDS)
 
-#### Use R to create dendrogram
+**4.** Use `R` to create dendrogram
 
 
 ---
@@ -131,6 +150,12 @@ class: inverse, center, middle
 # 1. Introduction
 
 ## What is ordination?
+
+
+---
+# What is ordination?
+
+
 
 
 ---
@@ -158,7 +183,7 @@ What if we are interested in this response for different species of algae involv
 
 .center[![:scale 70%](images/4dim.png)]
 
-- Not possible to draw a diagram more than 3D
+- It is not possible to draw a diagram with more than 3 dimensions
 
 ???
 In ecology, several descriptors are usually observed for each object under study. In most instances, ecologists are interested in characterizing the main trends of variation of the objects with respect to all descriptors, not only a few of them. Looking at scatter plots of the objects with respect to all possible pairs of descriptors is a tedious approach, which generally does not shed much light on the problem at hand.
@@ -168,13 +193,13 @@ Even with multivariate approach, it is not possible to draw such a diagram on pa
 
 .center[![:scale 70%](images/Ord1.png)]
 
-- Ordination: the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.
+- Ordination is the representation of objects (sites, stations, readings, etc.) as point data along one or several reference axes.
 
-- Reduced space: a space with reduced dimensionality relative to origial dataset.
+- Ordination addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
+
+- Reduced space: a space with reduced dimensionality relative to the original dataset.
 
 ???
-Note: 
-Ordination: the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.It addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
 Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 
 
@@ -186,13 +211,13 @@ Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 
 .center[![:scale 70%](images/Ord3.png)]
 
-- For the benefit of analysis, project the scatter of ecological projects from multidimensional space into a smaller number of dimensions of descriptors. 
+- For the purpose of analysis, ecologists project the multidimensional scatter from multidimensional space into a smaller number of dimensions of descriptors. 
 
 - Axes represent a large fraction of the variability of the multidimensional data matrix
 
 
 ???
-Note: Replaced the image to fix the typo "objets"
+Note: Replaced the image to fix the typo "objects"
 Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
 ---
 exclude: true
@@ -238,7 +263,7 @@ Load the Doubs River species data (Doubs.Spe.csv)
 
 
 ```r
-spe &lt;- read.csv("data/doubsspe.csv", row.names = 1)
+spe &lt;- read.csv("data/doubsspe.csv", row.names = 1) # this line will vary depending on where you saved the dataset
 spe &lt;-  spe[-8,] # remove site with no data
 # for larger datasets:
 row_sub = apply(spe, 1, function(row) any(row !=0 ))
@@ -1029,9 +1054,9 @@ cov(xyz)
 
 ```
 #          x        y        z
-# x  1.00387  0.02250 -0.04315
-# y  0.02250  0.98479 -0.00621
-# z -0.04315 -0.00621  0.98867
+# x  0.99335 -0.00351 -0.01179
+# y -0.00351  0.96420  0.01504
+# z -0.01179  0.01504  0.98297
 ```
 
 
@@ -2390,7 +2415,7 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07376219
+# [1] 0.07376221
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
