@@ -665,92 +665,130 @@ Les objets ont tendance à former des groupes plus sphériques et homogènes
   - déterminer le nombre de groupe optimal
   - faire des tests statistiques sur les résultats
   - combiner le groupement à l'ordination pour distinguer des groupes de sites
----
-class: inverse, center, middle
-# 4. Ordination non contrainte
-
 
 ---
-# Définitions
+
+#### Et maintenant ?
+
+Alors que l'**analyse de regroupements** remonte les *discontinuités* dans un ensemble de données, l'**ordination** extrait les principales tendances sous la forme d'axes continus.
+
+Nous allons examiner maintenant trois types de **méthodes d'ordination sans contrainte**...
 
 --
 
-- **Variance:** mesure de la dispersion d'une variable $y_j$ de sa moyenne
---
-
-- **Co-variance:** mesure de co-dispersion des variables $y_j$ et $y_i$ de leur moyenne
+.right[...**attendez**, qu'est-ce qu'on entend par **ordination sans contrainte** ? *Quelqu'un* ?]
 
 --
-- **Corrélation:** mesure de la force du lien entre 2 variables : $r_{ij} = (d_{ij} / d_j x d_k)$
+<br>
+.center[*Si personne ne s'exprime, choisissez une personne "volontaire" !*]
 
 --
-- **Valeurs propres:** proportion de variance (dispersion) représentée par un axe d'ordination
+
+**Les ordinations non contraintes** évaluent les relations chez un seul ensemble de variables. *Aucune tentative* n'est faite pour définir la relation entre un ensemble de variables indépendantes et une ou plusieurs variables dépendantes.
 
 --
-- **Orthogonalité:** angle droit entre 2 axes ou 2 flèches, ce qui veut dire qu'ils sont indépendants = non corrélés
+
+L'interprétation des effets potentiels d'autres facteurs sur les patrons observés ne peut se faire qu'indirectement, car ces facteurs ne sont *pas* explicitement inclus dans les analyses !
 
 --
-- **Score:** position d'un point sur un axe. Tous les scores d'un point donnent ses coordonnées dans l'espace multidimensionnel. Ils peuvent être utilisés pour d'autres analyses (e.g combinaison linéaire de variables mesurées)
 
---
-- **Dispersion** (inertie): Mesure de la variabilité totale du diagramme de dispersion de l'espace multidimensionnel en fonction de son centre de gravité
-
----
-# Ordination non contrainte
-
-
-- Évalue la relation **dans** un ensemble de variables (espèces ou variables environnementales, et non **parmi** les ensembles, i.e analyse sous contraintes)
-
-- Trouve les composants clés de la variation entre échantillons, sites, espèces, etc...
-
-- Réduit le nombre de dimensions dans les données multivariées sans perte d'informations considérables
-
-- Créer de nouvelles variables pour des analyses ultérieures (comme la régression)
-
-
----
-# 4.1. Analyse en Composantes Principales (ACP ou PCA)
-
+Ici, nous allons explorer :
+.small[
 .center[
-![:scale 90%](images/Ord1.png)]
+.pull-left2[
+**A**nalyse des **C**omposants **P**rincipales 
 
-- Préserve, en 2 dimensions, le maximum de variation des données
-- Il en résulte des variables synthétiques orthogonales entre elles (et donc non corrélées)
+**A**nalyse des **Co**ordonnées **P**rincipales
+]
+
+.pull-right2[
+**É**chelonnement **M**ultidimensionnel **N**on-**M**étrique
+]
+]
+]
+
 
 ---
-# PCA - Ce qu'il vous faut
+### Mais d'abord, faisons un *récapitulatif*...
 
-- Un jeu de données correspondant à des variables réponses (eg. composition de communautés) OU à des variables explicatives (e.g variables environnementales)
+Nous avons déjà compris la signification de **variance** et **moyenne**, et comment les calculer :
 
-**PAS LES DEUX!**
 
 .pull-left[
-- Échantillons correspondant à des mesures du même jeu de variables
-- Généralement, un jeu de données plus long que large est préféré
+$$\sigma_x^2 = \frac{\sum_{i=1}^{n}(x_i - \mu)^2} {n}$$
 ]
 
 .pull-right[
-![:scale 80%](images/PCAMatrix.png)
+$$\mu_x = \frac{1}{n} \sum_{i=i}^{n} x_{i}$$
+]
+
+Elles sont très utiles pour comprendre le *centre* et la *dispersion* d'une variable ou d'une dimension donnée.
+
+Néanmoins, nous sommes souvent intéressés **par plus d'une dimension**, et nous voulons mesurer dans quelle mesure chaque dimension varie de la moyenne *par rapport aux autres*.
+
+--
+
+La **covariance** est une telle mesure, qui peut décrire comment **deux dimensions co-varient** :
+
+.pull-left[
+$$var_x = \sigma_x^2 = \frac{\sum_{i=1}^{n}(x_i - \mu)^2} {n}$$
+]
+
+.pull-right[
+$$cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
 ]
 
 ---
-# PCA - Principes
 
-<br/><br/>
+### Mais d'abord, faisons un *récapitulatif*...
 
+Intuitivement, nous pouvons mesurer la **covariance** entre plus de deux variables. Disons, entre les variables $x$, $y$, et $z$ :
 
-|Site|Species 1| Species 2|
-|---|------|------|
-|A|7|3|
-|B|4|3|
-|C|12|10|
-|D|23|11|
-|E|13|13|
-|F|15|16|
-|G|18|14|
+.pull-left[
+$$cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$$
+]
 
+.pull-right[
+$$cov_{x,z}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(z_{i}-\bar{z})}{N-1}$$
+]
 
-.alert[Un exemple simplifié]
+$$cov_{z,y}=\frac{\sum_{i=1}^{N}(z_{i}-\bar{z})(y_{i}-\bar{y})}{N-1}$$
+Nous pouvons représenter ces calculs dans une **matrice de covariance** :
+
+$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+cov_{x,x} & cov_{y,x} & cov_{z,x} \\
+cov_{x,y} & cov_{y,y} & cov_{z,y} \\
+cov_{x,z} & cov_{y,z} & cov_{z,z}   
+\end{array} \right]$$
+
+--
+
+**QUIZ TIME**: *Que sont les diagonales?* *Et, que se passe-t-il si les variables sont indépendantes?*
+
+---
+
+##### Toujours en train de *récapituler*...
+
+.center[***Que sont les diagonales ?***]
+
+Si, $cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$, alors:
+
+$$cov_{x,x}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(x_{i}-\bar{x})}{N} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2} {N} = var_x$$
+Afin que :
+
+$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+cov_{x,x} & cov_{y,x} & cov_{z,x} \\
+cov_{x,y} & cov_{y,y} & cov_{z,y} \\
+cov_{x,z} & cov_{y,z} & cov_{z,z}   
+\end{array} \right] = \left[ \begin{array}{ccc} 
+var_{x} & cov_{y,x} & cov_{z,x} \\
+cov_{x,y} & var_{y} & cov_{z,y} \\
+cov_{x,z} & cov_{y,z} & var_{z}   
+\end{array} \right]$$
+
+ <br>
+ 
+.center[La covariance d'une variable avec elle-même est sa *variance* !]
 
 ---
 # PCA - Principes
