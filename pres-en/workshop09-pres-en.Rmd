@@ -171,11 +171,12 @@ Throughout this workshop, there will be a series of **challenges** that you can 
 **2.** Use `R` to perform an unconstrained ordination
 
 **3.**    Choose appropriate distance metrics and transformations to perform multivariate analysis
-- Clustering analysis
-- Principal Component Analysis (PCA)
-- Correspondence Analysis (CA)
-- Principal Coordinate Analysis (PCoA)
-- Non-Metric MultiDimensional Scaling (NMDS)
+
+* Clustering analysis
+* Principal Component Analysis (PCA)
+* Correspondence Analysis (CA)
+* Principal Coordinate Analysis (PCoA)
+* Non-Metric MultiDimensional Scaling (NMDS)
 
 **4.** Use `R` to create dendrogram
 
@@ -187,12 +188,6 @@ class: inverse, center, middle
 # 1. Introduction
 
 ## What is ordination?
-
-
----
-# What is ordination?
-
-
 
 
 ---
