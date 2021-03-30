@@ -134,11 +134,12 @@ Throughout this workshop, there will be a series of **challenges** that you can 
 **2.** Use `R` to perform an unconstrained ordination
 
 **3.**    Choose appropriate distance metrics and transformations to perform multivariate analysis
-- Clustering analysis
-- Principal Component Analysis (PCA)
-- Correspondence Analysis (CA)
-- Principal Coordinate Analysis (PCoA)
-- Non-Metric MultiDimensional Scaling (NMDS)
+
+* Clustering analysis
+* Principal Component Analysis (PCA)
+* Correspondence Analysis (CA)
+* Principal Coordinate Analysis (PCoA)
+* Non-Metric MultiDimensional Scaling (NMDS)
 
 **4.** Use `R` to create dendrogram
 
@@ -150,12 +151,6 @@ class: inverse, center, middle
 # 1. Introduction
 
 ## What is ordination?
-
-
----
-# What is ordination?
-
-
 
 
 ---
@@ -1054,9 +1049,9 @@ cov(xyz)
 
 ```
 #          x        y        z
-# x  0.99335 -0.00351 -0.01179
-# y -0.00351  0.96420  0.01504
-# z -0.01179  0.01504  0.98297
+# x  1.00476  0.00267 -0.02766
+# y  0.00267  1.01642 -0.00030
+# z -0.02766 -0.00030  1.01053
 ```
 
 
@@ -2415,7 +2410,7 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07376221
+# [1] 0.07376216
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
