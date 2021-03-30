@@ -20,7 +20,18 @@ source(file.choose()) # fichier coldiss.R
 
 # Species community data frame (fish abundance): "DoubsSpe.csv"
 spe <- read.csv(file.choose(), row.names=1)
+# if this doesn't work. First run:
+#file.choose()
+#to find the right path for the data, then copy the path and paste into the read.csv. For example:
+#spe <- read.csv("\doubsenv.csv", row.names=1)
+
 spe <- spe[-8,] # site number 8 contains no species and must be removed
+#Other method for larger datasets:
+#'''row_sub = apply(spe, 1, function(row) any(row !=0 ))  #go through each row, and determine if any value is this row is zero
+#'''spe_cleaned1 <- spe[row_sub,]
+#method 2:
+#spe[spe==0] <- NA # change zero value to NA
+#spe_cleaned2 <- spe[rowSums(is.na(spe))!=ncol(spe),]#
 
 # Environmental data frame: "DoubsEnv.csv"
 env <- read.csv(file.choose(), row.names=1)
@@ -38,7 +49,7 @@ head(spe)
 summary(spe)
 
 ### Species distibution, all species confounded
-(ab <- table(unlist(spe)))
+(ab <- table(unlist(spe)))#count the number of each abundance class in all observations regardless of species/sites
 barplot(ab, las=1, xlab="Abundance class", ylab="Frequency", col=grey(5:0/5))
 
 ### Number of absences
@@ -49,11 +60,21 @@ sum(spe==0)/(nrow(spe)*ncol(spe))
 
 ### Species occurences
 spe.pres <- colSums(spe>0) # compute the number of sites where each species is present
-hist(spe.pres, main="Species occurence", las=1, xlab="Frequency of occurences", ylab="Number of species", breaks=seq(0,30, by=5), col="grey")
+hist(spe.pres, main="Species occurence", las=1, xlab="Number of sites", ylab="Frequency of occurences", breaks=seq(0,30, by=1), col="grey")s
+#only one species that has occurence in 25 sites. 
 
 ### Sites richness
-site.pres <- rowSums(spe>0) # compute the number of species at ecah site
-hist(site.pres, main="Species richness", las=1, xlab="Frequency of sites", ylab="Number of species", breaks=seq(0,30, by=5), col="grey")
+site.pres <- rowSums(spe>0) # compute the number of species at each site
+hist(site.pres, main="Species richness", las=1, xlab="Number of species", ylab="Fequency of occurences", breaks=seq(0,27, by=1), col="grey")
+#in total there are 27 species. 
+#only one site that has 26 species appeared. 
+
+#visualize the species richness at each site: 
+site.pre <- rowSums(spe > 0)
+barplot(site.pre, main = "Species richness",
+        xlab = "Sites", ylab = "Number of species",
+        col = "grey ", las = 1)
+#Site 29 has highest richness.
 
 ### Compute diversity indices
 ?diversity
@@ -67,6 +88,16 @@ str(env)
 head(env)
 summary(env)
 pairs(env, main="Bivariate Plots of the Environmental Data" )
+# Another better visualization:
+#GGally::ggpairs(env, main="Bivariate Plots of the Environmental Data")
+# install.packages("RColorBrewer")
+# install.packages("munsell")
+# install.packages("generics")
+# install.packages("GGally")
+# install.packages("reshape")
+# install.packages("progress")
+# install.packages("farver")
+
 
 # Standardization of the 11 environmental data
 env.z <- decostand(env, method="standardize")
@@ -272,17 +303,17 @@ head(spe.dhel)# Hellinger distances among sites
 ### Comparison of single and complete linkage clustering
 
 #Perform single linkage clustering
-spe.dhel.single<-hclust(spe.dhel, method=”single”)
+spe.dhel.single<-hclust(spe.dhel, method="single")
 plot(spe.dhel.single)
 
 #Perform complete linkage clustering
-spe.dhel.complete<-hclust(spe.dhel, method=”complete”)
+spe.dhel.complete<-hclust(spe.dhel, method="complete")
 plot(spe.dhel.complete)
 
 ### Ward's minimum variance method
 
 # Perform Ward minimum variance clustering
-spe.dhel.ward<-hclust(spe.dhel, method=”ward.D2”)
+spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
 plot(spe.dhel.ward)
 
 # Re-plot the dendrogram by using the square roots of the fusion levels
