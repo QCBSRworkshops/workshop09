@@ -1,3 +1,5 @@
+# Standard procedure to check and install packages and their dependencies, if needed.
+
 list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
