@@ -1,25 +1,3 @@
-)
-
-options(repos = structure(
-  c(CRAN = "http://cran.r-project.org")
-  )
-  )
-
-# Install xaringanExtra
-
-if(nzchar(system.file(package = "xaringanExtra")) == FALSE) {remotes::install_github("gadenbuie/xaringanExtra", upgrade = "always", quiet = TRUE)}
-
-# Include copy-to-clipboard icons
-
-htmltools::tagList(
-  xaringanExtra::use_clipboard(
-    button_text = "<i class=\"fas fa-clipboard\"></i>",
-    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
-    error_text = "<i class=\"fa fa-times-circle\" style=\"color: #F94144\"></i>"
-  ),
-  rmarkdown::html_dependency_font_awesome()
-)
-
 # Standard procedure to check and install packages and their dependencies, if needed.
 
 list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes")
