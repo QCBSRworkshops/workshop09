@@ -1762,7 +1762,7 @@ Le présentateur ou la presentatrice devrait ici mettre l'accent sur la rotation
 L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `stats::princomp()`, `vegan::rda()`, et `ade4::dudi.pca()`.
 
 .pull-left[
-Comment notre ACP de zéro se compare à 
+.right[Comment notre ACP faite maison se compare à]
 
 ```{r}
 data(varechem)
@@ -1781,7 +1781,8 @@ head(F_PrComps)
 ]
 
 .pull-right[
-to `stats::prcomp()`?
+<br>
+`stats::prcomp()`?
 ```{r}
 PCA_prcomp <- prcomp(Y, 
                      center = TRUE, 
@@ -1800,7 +1801,7 @@ head(PCA_prcomp$x)
 L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `stats::princomp()`, `vegan::rda()`, et `ade4::dudi.pca()`.
 
 .pull-left[
-Comment notre ACP de zéro se compare à 
+.right[Comment notre ACP faite maison se compare à]
 
 ```{r}
 data(varechem)
@@ -1819,6 +1820,7 @@ head(F_PrComps)
 ]
 
 .pull-right[
+<br>
 `stats::princomp()` ?
 ```{r}
 PCA_princomp <- princomp(Y_std)
@@ -1834,7 +1836,7 @@ head(PCA_princomp$scores)
 L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `stats::princomp()`, `vegan::rda()`, et `ade4::dudi.pca()`.
 
 .pull-left[
-Comment notre ACP de zéro se compare à 
+.right[Comment notre ACP faite maison se compare à]
 
 ```{r}
 data(varechem)
@@ -1853,6 +1855,7 @@ head(F_PrComps)
 ]
 
 .pull-right[
+<br>
 `vegan::rda()` ?
 ```{r}
 PCA_vegan_rda <- rda(Y_std)
@@ -1864,7 +1867,7 @@ scores(PCA_vegan_rda,
        const = sqrt(PCA_vegan_rda$tot.chi * (nrow(PCA_vegan_rda$CA$u) - 1)))[1:5, ]
 ```
 
-`vegan::rda()` utilise des mises à l'échelle alternatives. Nous ne les couvrirons pas ici, mais vous pouvez étudier la `vignette("decision-vegan")`.
+`vegan::rda()` utilise des mises à l'échelle alternatives. Vous pouvez étudier la `vignette("decision-vegan")`.
 ]
 
 ???
@@ -1908,7 +1911,7 @@ paste(capture.output(summary(spe.h.pca))[5:8])
 .pull-left2[
 
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(12:20, 81:88)])
+paste(capture.output(summary(spe.h.pca))[c(12:16, 21:24)])
 ```
 
 ]
@@ -1939,7 +1942,7 @@ Prenez un moment pour expliquer la proportion expliquée, et montrez que la prop
 Les informations suivantes sont liées à la *mise à l'échelle* (`scaling`), aux *scores d'espèces*, et aux *scores de sites*.
 
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(90:93, 95, 96, 98:104, 155, 156, 158:162)])
+paste(capture.output(summary(spe.h.pca))[c(26:29, 31:32, 34:40, 63:64, 66:72)])
 ```
 ]
 
@@ -1955,7 +1958,7 @@ paste(capture.output(summary(spe.h.pca))[c(90:93, 95, 96, 98:104, 155, 156, 158:
 
 .pull-right[
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(96, 98:104)])
+paste(capture.output(summary(spe.h.pca))[c(32, 34:40)])
 ```
 ]
 
@@ -1965,7 +1968,7 @@ paste(capture.output(summary(spe.h.pca))[c(96, 98:104)])
 
 .pull-left2[
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(156, 158:162)])
+paste(capture.output(summary(spe.h.pca))[c(64, 66:72)])
 ```
 ]
 

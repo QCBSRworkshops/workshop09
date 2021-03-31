@@ -2086,7 +2086,7 @@ paste(capture.output(summary(spe.h.pca))[5:8])
 .pull-left2[
 
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(12:20, 81:88)])
+paste(capture.output(summary(spe.h.pca))[c(12:16, 21:24)])
 ```
 
 ]
@@ -2116,7 +2116,7 @@ Take a moment to explain the proportion explained, and show that the cummulative
 The next information is related to the *scaling*, to the *species scores*, and to the *site scores*.
 
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(90:93, 95, 96, 98:104, 155, 156, 158:162)])
+paste(capture.output(summary(spe.h.pca))[c(26:29, 31:32, 34:40, 63:64, 66:72)])
 ```
 ]
 
@@ -2131,7 +2131,7 @@ paste(capture.output(summary(spe.h.pca))[c(90:93, 95, 96, 98:104, 155, 156, 158:
 
 .pull-right[
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(96, 98:104)])
+paste(capture.output(summary(spe.h.pca))[c(32, 34:40)])
 ```
 ]
 
@@ -2141,7 +2141,7 @@ paste(capture.output(summary(spe.h.pca))[c(96, 98:104)])
 
 .pull-left2[
 ```{r echo=FALSE}
-paste(capture.output(summary(spe.h.pca))[c(156, 158:162)])
+paste(capture.output(summary(spe.h.pca))[c(64, 66:72)])
 ```
 ]
 
