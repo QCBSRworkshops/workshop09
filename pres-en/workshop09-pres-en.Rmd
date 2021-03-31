@@ -962,6 +962,8 @@ cov_{x,z} & cov_{y,z} & cov_{z,z}
 If, $cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}$, then:
 
 $$cov_{x,x}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(x_{i}-\bar{x})}{N} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})^2} {N} = var_x$$
+--
+
 So, that:
 
 $${C(x, y, z)} = \left[ \begin{array}{ccc} 
@@ -1063,7 +1065,7 @@ $$x'' = \frac{x_i}{\sigma_x}$$
 
 ??? 
 
-Centering is basically a technique where mean of independent variables is subtracted from all the values. It means all independent variables have zero mean. Scaling is similar to centering. Predictor variables are divided by their standard deviation. 
+Centering is basically a technique where the mean of independent variables is subtracted from all the values. It means all independent variables have zero mean. Scaling is similar to centering. Predictor variables are divided by their standard deviation. 
 
 The presenter should mention here that centering brings the mean to zero and scaling brings the standard deviation to one-unit. They also should mention that variables become comparable when scaling, as their unit is lost.
 
@@ -2261,7 +2263,7 @@ legend("topright", "Average eigenvalue",
 ---
 # Principal Component Analysis: `plot()`
 
-The information coomputed by the PCA can be represented with *biplots*.
+The information computed by the PCA can be represented with *biplots*.
 
 We can produce a *quick and dirty* biplot of the PCA using the function `plot()` in base `R`.
 
@@ -2274,7 +2276,7 @@ plot(spe.h.pca)
 ---
 # Principal Component Analysis: `biplot()`
 
-`biplot()` from base `R` allows for a better interpretation.
+`biplot()` from `base` `R` allows for a better interpretation.
 
 .pull-left2[
 ```{r, echo = -1, fig.height=6, fig.width=6.5}
@@ -2409,7 +2411,7 @@ It begins with the (i) computation of a distance matrix for the $p$ elements, th
 
 --
 
-To compute a PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the **stats** and **ape** packages:
+To compute a PCoA, we can use the `cmdscale()` or the `pcoa()`functions from the `stats` and `ape` packages:
 
 Run a PCoA on the Hellinger distance-transformed fish dataset:
 
@@ -2785,6 +2787,7 @@ arrows(0,0,spe.cs[,1], spe.cs[,2], length = 0)
 - ... but in **some cases, species instead present unimodal responses** to environmental gradients
 
 ---
+
 # Principles of CA
 
 - In such cases, CA should be preferred compared to PCA as it preserves **Chi2 distances between sites**... and thus better represents uni modal relationships
