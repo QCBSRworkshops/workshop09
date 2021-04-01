@@ -35,10 +35,9 @@ class: inverse, center, middle
 # About this workshop
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=repo&amp;message=dev&amp;color=6f42c1&amp;logo=github)](https://github.com/QCBSRworkshops/workshop09)
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=wiki&amp;message=09&amp;logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=html5)](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=script&amp;message=09&amp;color=2a50b8&amp;logo=r)](https://qcbsrworkshops.github.io/workshop09/workshop09-en/workshop09-en.R)
-
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-en/workshop09-pres-en.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-en/workshop09-pres-en.pdf)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=script&amp;message=09&amp;color=2a50b8&amp;logo=r)](https://qcbsrworkshops.github.io/workshop09/book-en/workshop09-script-en.R)
 
 ---
 
@@ -56,7 +55,13 @@ by modifying and improving its content as part of the &lt;br&gt; *Le*arning *a*n
 
  **2022** - **2021** - **2020**
 
+[Pedro Henrique P. Braga]()
 
+[Katherine Hébert]()
+
+[Mi Lin]()
+
+[Linley Sherin]()
 
 ]
 ]
@@ -65,14 +70,27 @@ by modifying and improving its content as part of the &lt;br&gt; *Le*arning *a*n
 .left[
 **2019** - **2018** - **2017**
 
+[Gabriel Muñoz](https://github.com/fgabriel1891)
 
+[Marie Hélène-Brice]()
+
+[Pedro Henrique P. Braga]()
+
+&lt;br&gt;
 
 **2016** - **2015** - **2014**
 
+[Bérenger Bourgeois]()
 
+[Xavier Giroux-Bougard]()
+
+[Amanda Winegardner]()
+
+[Emmanuelle Chrétien]()
+
+[Monica Granados]()
 
 ]
-
 ]
 &lt;/p&gt;
 
@@ -137,7 +155,6 @@ Throughout this workshop, there will be a series of **challenges** that you can 
 
 * Clustering analysis
 * Principal Component Analysis (PCA)
-* Correspondence Analysis (CA)
 * Principal Coordinate Analysis (PCoA)
 * Non-Metric MultiDimensional Scaling (NMDS)
 
@@ -152,9 +169,8 @@ class: inverse, center, middle
 
 ## What is ordination?
 
-
 ---
-# One Dimension
+## One to two dimensions
 
 What if we are interested in this response for different species of algae involved in the algal bloom density?
 
@@ -162,27 +178,33 @@ What if we are interested in this response for different species of algae involv
 
 
 ---
-# Two Dimensions
+## One to two dimensions
 
 .center[![:scale 70%](images/2dim.png)]
 
 ---
-# Three Dimensions
+## Three dimensions
 
 .center[
 ![:scale 70%](images/3dim.png)]
 
 
 ---
-# 4,5,6, or more Dimensions
+## 4,5,6, or more dimensions
 
 .center[![:scale 70%](images/4dim.png)]
+
+&lt;br&gt;
+
+.center[ **?** ]
 
 - It is not possible to draw a diagram with more than 3 dimensions
 
 ???
+
 In ecology, several descriptors are usually observed for each object under study. In most instances, ecologists are interested in characterizing the main trends of variation of the objects with respect to all descriptors, not only a few of them. Looking at scatter plots of the objects with respect to all possible pairs of descriptors is a tedious approach, which generally does not shed much light on the problem at hand.
 Even with multivariate approach, it is not possible to draw such a diagram on paper with more than three dimensions, however, even though it is a perfectly valid mathematical construct.
+
 ---
 # Ordination in reduced space
 
@@ -195,14 +217,12 @@ Even with multivariate approach, it is not possible to draw such a diagram on pa
 - Reduced space: a space with reduced dimensionality relative to the original dataset.
 
 ???
+
 Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
-
-
 
 ---
 
 # Ordination in reduced space
-
 
 .center[![:scale 70%](images/Ord3.png)]
 
@@ -210,26 +230,19 @@ Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 
 - Axes represent a large fraction of the variability of the multidimensional data matrix.
 
-
 ???
-Note: Replaced the image to fix the typo "objects"
 Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
+
 ---
 exclude: true
 
 # Methods for scientific research
 
-.pull-right[![:scale 100%](images/SciMed.png)]
+Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
 
-- **Questions / Hypothesis**
-- **Experimental design**
-- **Data Collection**
-- **Transformation / Distance**
-- **Analysis**
-- **Redaction**
-- **Communication**
 ---
 class: inverse, center, middle
+
 # 2. Exploring data
 
 ---
@@ -252,13 +265,14 @@ Verneaux (1973) dataset:
 ]
 
 ---
-# Doubs River Fish Dataset
+# Doubs River fish dataset
 
-Load the Doubs River species data (Doubs.Spe.csv)
+Load the Doubs River species data (`doubsspe.csv`)
 
 
 ```r
-spe &lt;- read.csv("data/doubsspe.csv", row.names = 1) # this line will vary depending on where you saved the dataset
+spe &lt;- read.csv("data/doubsspe.csv", row.names = 1) 
+# this line will vary depending on where you saved the dataset
 spe &lt;-  spe[-8,] # remove site with no data
 # for larger datasets:
 row_sub = apply(spe, 1, function(row) any(row !=0 ))
@@ -267,7 +281,7 @@ spe &lt;- spe[row_sub,]
 # only keep rows that have no zeros  
 ```
 
-Load the Doubs River environmental data (Doubs.Env.csv)
+Load the Doubs River environmental data (`doubsenv.csv`)
 
 
 ```r
@@ -278,7 +292,7 @@ env &lt;- env[-8,] # remove site with no data
 .alert[Proceed with caution, only execute once]
 
 ---
-# Expore Doubs Dataset
+# Expore Doubs dataset
 
 Explore the content of the fish community dataset
 
@@ -353,7 +367,8 @@ Visualize how many species are present at each site:
 ```r
 site.pre &lt;- rowSums(spe &gt; 0)
 barplot(site.pre, main = "Species richness",
-        xlab = "Sites", ylab = "Number of species",
+        xlab = "Sites", 
+        ylab = "Number of species",
         col = "grey ", las = 1)
 ```
 
@@ -606,6 +621,7 @@ The `vegdist()` function contains all common distances
 ```r
 ?vegdist
 ```
+
 --
 How different is the community composition across the 30 sites of the Doubs River?
 
@@ -614,11 +630,43 @@ How different is the community composition across the 30 sites of the Doubs Rive
 spe.db.pa &lt;- vegdist(spe, method = "bray")
 spe.db &lt;- as.matrix(spe.db.pa)
 
-#         1         2         3         4         5         6         7         9
-# 1  0.0000000 0.6000000 0.6842105 0.7500000 0.8918919 0.7500000 0.6842105 1.0000000
-# 2  0.6000000 0.0000000 0.1428571 0.3333333 0.6956522 0.3939394 0.1428571 0.6923077
-# 3  0.6842105 0.1428571 0.0000000 0.1891892 0.6800000 0.2972973 0.1250000 0.7333333
-#...
+
+head(spe.db)
+#           1         2         3         4         5         6         7
+# 1 0.0000000 0.6000000 0.6842105 0.7500000 0.8918919 0.7500000 0.6842105
+# 2 0.6000000 0.0000000 0.1428571 0.3333333 0.6956522 0.3939394 0.1428571
+# 3 0.6842105 0.1428571 0.0000000 0.1891892 0.6800000 0.2972973 0.1250000
+# 4 0.7500000 0.3333333 0.1891892 0.0000000 0.4909091 0.1904762 0.2432432
+# 5 0.8918919 0.6956522 0.6800000 0.4909091 0.0000000 0.4181818 0.6400000
+# 6 0.7500000 0.3939394 0.2972973 0.1904762 0.4181818 0.0000000 0.2432432
+#           9        10        11        12        13        14        15
+# 1 1.0000000 0.8823529 0.5714286 0.7142857 0.7272727 0.8064516 0.8333333
+# 2 0.6923077 0.3846154 0.3043478 0.2000000 0.2903226 0.4000000 0.5111111
+# 3 0.7333333 0.4000000 0.4074074 0.2352941 0.3142857 0.3181818 0.4693878
+# 4 0.6571429 0.3714286 0.4375000 0.3333333 0.4500000 0.3469388 0.4074074
+# 5 0.5833333 0.5416667 0.6888889 0.6923077 0.7358491 0.6774194 0.5522388
+# 6 0.5428571 0.2571429 0.4375000 0.3846154 0.5500000 0.4285714 0.3703704
+#          16        17        18        19        20        21        22
+# 1 0.8604651 0.9148936 0.9555556 1.0000000 1.0000000 1.0000000 1.0000000
+# 2 0.6538462 0.6785714 0.7407407 0.7931034 0.9117647 0.9459459 0.9761905
+# 3 0.5714286 0.6333333 0.7241379 0.7096774 0.8888889 0.9230769 0.9545455
+# 4 0.4754098 0.5076923 0.5873016 0.6119403 0.7402597 0.7831325 0.8279570
+# 5 0.4594595 0.5128205 0.5000000 0.5000000 0.4888889 0.5000000 0.5283019
+# 6 0.3770492 0.4461538 0.5238095 0.5223881 0.6883117 0.7349398 0.7849462
+#          23        24        25        26        27        28        29
+# 1 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 0.9777778
+# 2 1.0000000 1.0000000 1.0000000 0.9636364 0.9733333 0.9756098 0.9393939
+# 3 1.0000000 1.0000000 0.9259259 0.9322034 0.9493671 0.9534884 0.9223301
+# 4 0.9200000 0.8888889 0.8125000 0.7812500 0.8333333 0.8241758 0.8148148
+# 5 0.8947368 0.7959184 0.6888889 0.5584416 0.5670103 0.5769231 0.5371901
+# 6 0.8400000 0.7777778 0.6875000 0.6875000 0.7619048 0.7802198 0.7777778
+#          30
+# 1 1.0000000
+# 2 1.0000000
+# 3 0.9809524
+# 4 0.8727273
+# 5 0.5934959
+# 6 0.8363636
 ```
 --
 - Diagonal is zero, because sites are compared to each other.  
@@ -641,6 +689,7 @@ exclude: true
 
 ---
 # Visualization of distance matrices
+
 
 
 
@@ -1053,10 +1102,10 @@ cov(xyz)
 
 
 ```
-#          x        y        z
-# x  1.00428  0.01015 -0.00513
-# y  0.01015  0.98734 -0.01063
-# z -0.00513 -0.01063  1.00128
+#         x       y       z
+# x 0.98928 0.02375 0.00685
+# y 0.02375 0.96925 0.00302
+# z 0.00685 0.00302 1.01676
 ```
 
 
@@ -2416,7 +2465,7 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07376228
+# [1] 0.07376217
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
@@ -2565,6 +2614,7 @@ class: inverse, center, bottom
 
 
 ---
+exclude: true
 
 ### Principal Component Analysis: *Improved visualization*
 
@@ -2588,6 +2638,7 @@ arrows(0, 0, spe.cs[,1], spe.cs[,2], length = 0)
 ```
 
 ---
+exclude: true
 
 ### Principal Component Analysis: *Improved visualization*
 
@@ -2595,6 +2646,8 @@ arrows(0, 0, spe.cs[,1], spe.cs[,2], length = 0)
 
 
 ---
+exclude: true
+
 # Correspondence Analysis (CA)
 
 ## Euclidean vs Chi&lt;sup&gt;2&lt;/sup&gt; distances
@@ -2604,12 +2657,15 @@ arrows(0, 0, spe.cs[,1], spe.cs[,2], length = 0)
 - ... but in **some cases, species instead present unimodal responses** to environmental gradients
 
 ---
+exclude: true
 
 # Principles of CA
 
 - In such cases, CA should be preferred compared to PCA as it preserves **Chi2 distances between sites**... and thus better represents uni modal relationships
 
 ---
+exclude: true
+
 # How to run a CA?
 
 - CA is implemented in the `vegan` package using the function `cca()`:
@@ -2624,6 +2680,8 @@ spe.ca &lt;- cca(spe[-8,])
 - CA on fish species abundances
 
 ---
+exclude: true
+
 # CA: R output
 
 - CA results are presented in the same way as PCA results and can be called using:
@@ -2736,6 +2794,8 @@ summary(spe.ca)
 
 
 ---
+exclude: true
+
 # CA: Interpretation of results
 
 .pull-left2[
@@ -2753,6 +2813,8 @@ summary(spe.ca)
 
 
 ---
+exclude: true
+
 # CA: biplots
 
 .center[
@@ -2767,6 +2829,8 @@ The group of sites in the lower right corner is characterized by the species *BL
 
 
 ---
+exclude: true
+
 # Challenge #4 ![:cube]()
 
 Using everything you have learned to execute a CA on the mite species abundance data:
@@ -2781,6 +2845,8 @@ mite.spe &lt;- mite
 - Which groups of species are related to these groups of sites?
 
 ---
+exclude: true
+
 # Solution #4
 
 - Compute CA:
@@ -2803,6 +2869,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ```
 
 ---
+
 # Solution #4
 
 &lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-96-1.png" width="720" style="display: block; margin: auto;" /&gt;

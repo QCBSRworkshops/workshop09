@@ -21,7 +21,8 @@ install.packages(c("ape",
                    "PlaneGeometry",
                    "remotes"))
 
-spe <- read.csv("data/doubsspe.csv", row.names = 1) # this line will vary depending on where you saved the dataset
+spe <- read.csv("data/doubsspe.csv", row.names = 1) 
+# this line will vary depending on where you saved the dataset
 spe <-  spe[-8,] # remove site with no data
 # for larger datasets:
 row_sub = apply(spe, 1, function(row) any(row !=0 ))
@@ -52,7 +53,8 @@ sum(spe == 0)/(nrow(spe)*ncol(spe))
 par(mar = c(4,4,1,.5), cex = 1.5)
 site.pre <- rowSums(spe > 0)
 barplot(site.pre, main = "Species richness",
-        xlab = "Sites", ylab = "Number of species",
+        xlab = "Sites", 
+        ylab = "Number of species",
         col = "grey ", las = 1)
 
 library(vegan)
@@ -87,12 +89,8 @@ apply(env.z, 2, sd)
 spe.db.pa <- vegdist(spe, method = "bray")
 spe.db <- as.matrix(spe.db.pa)
 
-#         1         2         3         4         5         6         7         9
-# 1  0.0000000 0.6000000 0.6842105 0.7500000 0.8918919 0.7500000 0.6842105 1.0000000
-# 2  0.6000000 0.0000000 0.1428571 0.3333333 0.6956522 0.3939394 0.1428571 0.6923077
-# 3  0.6842105 0.1428571 0.0000000 0.1891892 0.6800000 0.2972973 0.1250000 0.7333333
-#...
 
+head(spe.db)
 
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
@@ -147,6 +145,7 @@ spe.db <- as.matrix(spe.db.pa)
 
 # Example:
 # coldiss(spe.dj, nc=9, byrank=F, diag=T)
+
 
 # the code for the coldiss() function is in the workshop script.
 coldiss(spe.db.pa)
