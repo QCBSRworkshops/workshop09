@@ -71,11 +71,67 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 ```
 
 # À propos de cet atelier
+
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=repo&message=dev&color=6f42c1&logo=github)](https://github.com/QCBSRworkshops/workshop09)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_atelier9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.R)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.pdf)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/book-fr/workshop09-script-fr.R)
+
+
+---
+
+<p style="font-size:75%">
+
+.center[
+**Contributeurs et contributrices au développement de cet atelier**
+
+en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentissage et du développement (*Le*arning *a*nd *D*evelopment *A*ward*).
+]
+
+.pull-left[
+.right[
+
+ **2022** - **2021** - **2020**
+
+[Pedro Henrique P. Braga]()
+
+[Katherine Hébert]()
+
+[Mi Lin]()
+
+[Linley Sherin]()
+
+]
+]
+
+.pull-right[
+.left[
+**2019** - **2018** - **2017**
+
+[Gabriel Muñoz](https://github.com/fgabriel1891)
+
+[Marie Hélène-Brice]()
+
+[Pedro Henrique P. Braga]()
+
+<br>
+
+**2016** - **2015** - **2014**
+
+[Bérenger Bourgeois]()
+
+[Xavier Giroux-Bougard]()
+
+[Amanda Winegardner]()
+
+[Emmanuelle Chrétien]()
+
+[Monica Granados]()
+
+]
+]
+</p>
 
 ---
 <p style="font-size:75%">
@@ -172,9 +228,8 @@ Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reco
 
 * Analyse de regroupement
 * Analyse en composantes principales (ACP)
-* Analyse des correspondances (CA)
-* Analyse en coordonnées principales (PCoA)
-* Échelle multidimensionnelle non métrique (NMDS).
+* Analyse en coordonnées principales (ACoP)
+* Échelle multidimensionnelle non métrique (PMnM).
 
 **4.** Utilisez `R` pour créer un dendrogramme.
 
@@ -184,7 +239,6 @@ class: inverse, center, middle
 
 # 1. Introduction
 ## Qu'est-ce que l'ordination?
-
 
 ---
 # Une dimension
@@ -211,12 +265,17 @@ Imaginons que nous voulons mieux comprendre cette réponse pour différentes esp
 
 .center[![:scale 70%](images/4dim.png)]
 
-- Il est impossible de dessiner un diagramme avec plus de 3 dimensions
+<br>
+
+.center[ **?** ]
 
 ???
-En écologie, plusieurs descripteurs sont généralement observés pour chaque objet étudié. Dans la plupart des cas, les écologistes sont intéressés par la caractérisation des principales tendances de variation des objets par rapport à tous les descripteurs, et pas seulement à quelques-uns d'entre eux. Consulter les diagrammes de dispersion des objets par rapport à toutes les paires possibles de descripteurs est une approche fastidieuse, qui n'apporte généralement pas beaucoup de lumière sur le problème à résoudre. Même avec une approche multivariée, il n'est pas possible de dessiner un tel diagramme sur un papier à plus de trois dimensions, même s'il s'agit d'une construction mathématique parfaitement valable.
+
+En écologie, plusieurs descripteurs sont généralement observés pour chaque objet étudié. Dans la plupart des cas, les écologistes sont intéressés par la caractérisation des principales tendances de variation des objets par rapport à tous les descripteurs, et pas seulement à quelques-uns d'entre eux. L'examen des diagrammes de dispersion des objets par rapport à toutes les paires possibles de descripteurs est une approche fastidieuse, qui n'apporte généralement pas beaucoup de lumière sur le problème à résoudre.
+Même avec une approche multivariée, il n'est pas possible de dessiner un tel diagramme sur un papier à plus de trois dimensions, même s'il s'agit d'une construction mathématique parfaitement valable.
 
 ---
+
 # Ordination en espace réduit
 
 .center[![:scale 70%](images/Ord1.png)]
@@ -228,6 +287,7 @@ En écologie, plusieurs descripteurs sont généralement observés pour chaque o
 - Espace réduit : espace dont la dimensionnalité est réduite par rapport à l'ensemble des données d'origine.
 
 ???
+
 Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 
 ---
@@ -281,7 +341,7 @@ Données de Verneaux (1973) :
 ---
 # Données de poissons de la rivière Doubs
 
-Chargement des données espèces (`Doubs.Spe.csv`)
+Chargement des données espèces (`doubsspe.csv`)
 
 ```{r}
 spe <- read.csv("data/doubsspe.csv", row.names = 1) # cette ligne dépend d'où vous avez enregistré les données
@@ -294,7 +354,7 @@ spe <- spe[row_sub,]
 # garder les lignes qui n'ont aucun zéro  
 ```
 
-Chargement des données environnementales (`Doubs.Env.csv`)
+Chargement des données environnementales (`doubsenv.csv`)
 
 ```{r}
 env <- read.csv("data/doubsenv.csv", row.names = 1)
@@ -567,7 +627,7 @@ Distance: D = 1-S]
   Utilisé en PCoA et NMDS.
 ]
 <br>
-.center[     
+.center[
 
 *Où $x_{ij}$ $x_{ik}$ sont le nombre d'espèces (colonnes) $i$ dans les sites (rangées) $j$ et $k$.*]
 
