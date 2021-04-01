@@ -14,6 +14,7 @@ output:
       beforeInit: "qcbsR-macros.js"
       highlightLines: true
 ---
+class: inverse, center, middle
 
 ```{r setup, echo = FALSE, message=FALSE, warning=FALSE, include = FALSE}
 library(knitr)
@@ -70,11 +71,67 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 ```
 
 # À propos de cet atelier
+
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=repo&message=dev&color=6f42c1&logo=github)](https://github.com/QCBSRworkshops/workshop09)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_atelier9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Diapos&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Diapos&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/workshop09-fr/workshop09-fr.R)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.pdf)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/book-fr/workshop09-script-fr.R)
+
+
+---
+
+<p style="font-size:75%">
+
+.center[
+**Contributeurs et contributrices au développement de cet atelier**
+
+en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentissage et du développement (*Le*arning *a*nd *D*evelopment *A*ward*).
+]
+
+.pull-left[
+.right[
+
+ **2022** - **2021** - **2020**
+
+[Pedro Henrique P. Braga]()
+
+[Katherine Hébert]()
+
+[Mi Lin]()
+
+[Linley Sherin]()
+
+]
+]
+
+.pull-right[
+.left[
+**2019** - **2018** - **2017**
+
+[Gabriel Muñoz](https://github.com/fgabriel1891)
+
+[Marie Hélène-Brice]()
+
+[Pedro Henrique P. Braga]()
+
+<br>
+
+**2016** - **2015** - **2014**
+
+[Bérenger Bourgeois]()
+
+[Xavier Giroux-Bougard]()
+
+[Amanda Winegardner]()
+
+[Emmanuelle Chrétien]()
+
+[Monica Granados]()
+
+]
+]
+</p>
 
 ---
 
@@ -93,9 +150,17 @@ install.packages(c('ape', 'gclus', 'vegan'))
 ---
 # Objectifs d'apprentissage
 
-##### Utiliser R pour faire des ordinations sans contraintes
+#### Apprendre les bases de l'analyse multivariée pour révéler des modèles dans les données de composition des communautés
 
-#### Faire un dendrogramme avec R
+#### Utiliser `R` pour effectuer des ordinations sans contrainte.
+
+#### Choisir les mesures de distance et les transformations appropriées pour effectuer une analyse multivariée.
+- Analyse de regroupement
+- Analyse en composantes principales (ACP)
+- Analyse en coordonnées principales (ACoP)
+- Positionnement multidimensionnel non métrique (PMnM)
+
+#### Utiliser `R` pour créer des dendrogrammes
 
 
 ---
@@ -105,11 +170,10 @@ class: inverse, center, middle
 # 1. Introduction
 ## Qu'est-ce que l'ordination?
 
-
 ---
 # Une Dimension
 
-Que se passe-t-il si nous voulons nous intéresser à la réponse de différentes espèces d'algues?
+Que se passe-t-il si nous voulons nous intéresser à la réponse de différentes espèces d'algues ?
 
 .center[![:scale 70%](images/algalBloom.png)]
 
@@ -131,13 +195,28 @@ Que se passe-t-il si nous voulons nous intéresser à la réponse de différente
 
 .center[![:scale 70%](images/4dim.png)]
 
+<br>
+
+.center[ **?** ]
+
+???
+
+En écologie, plusieurs descripteurs sont généralement observés pour chaque objet étudié. Dans la plupart des cas, les écologistes sont intéressés par la caractérisation des principales tendances de variation des objets par rapport à tous les descripteurs, et pas seulement à quelques-uns d'entre eux. L'examen des diagrammes de dispersion des objets par rapport à toutes les paires possibles de descripteurs est une approche fastidieuse, qui n'apporte généralement pas beaucoup de lumière sur le problème à résoudre.
+Même avec une approche multivariée, il n'est pas possible de dessiner un tel diagramme sur un papier à plus de trois dimensions, même s'il s'agit d'une construction mathématique parfaitement valable.
 
 ---
+
 # Ordination en espace réduit
 
 .center[![:scale 70%](images/Ord1.png)]
 
+???
+
+Ordination : représentation d'objets (sites, stations, relevés, etc.) sous forme de points le long d'un ou plusieurs axes de référence. Elle répond à la question de savoir comment projeter la dispersion des objets écologiques, qui sont situés dans l'espace multidimensionnel des descripteurs, dans un plus petit nombre de dimensions. 
+Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
+
 ---
+
 # Ordination en espace réduit
 
 
@@ -196,14 +275,14 @@ Données de Verneaux (1973) :
 ---
 # Données de poissons de la rivière Doubs
 
-Chargement des données espèces (`Doubs.Spe.csv`)
+Chargement des données espèces (`doubsspe.csv`)
 
 ```{r}
 spe <- read.csv("data/doubsspe.csv", row.names = 1)
 spe <-  spe[-8,] # supprimer le site vide
 ```
 
-Chargement des données environnementales (`Doubs.Env.csv`)
+Chargement des données environnementales (`doubsenv.csv`)
 
 ```{r}
 env <- read.csv("data/doubsenv.csv", row.names = 1)
@@ -390,7 +469,15 @@ class: inverse, center, middle
 
 L'algébre matricielle est au coeur de plusieurs méthodes d'analyses multivariées
 
-.center[![](images/MatrixAlgebra.png)]
+$$
+\begin{bmatrix}
+    a_{1,1} & a_{1,2} & a_{1,3} & \dots  & a_{1,n} \\
+    a_{2,1} & a_{2,2} & a_{2,3} & \dots  & a_{2,n} \\
+    a_{3,1} & a_{3,2} & a_{3,3} & \dots  & a_{3,n} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    a_{m,1} & a_{m,2} & a_{m,3} & \dots  & a_{m,n}
+\end{bmatrix}
+$$
 
 - Explorer différentes mesures de distance entre objets permet de mieux comprendre le fonctionnement de l'ordination
 
@@ -434,23 +521,30 @@ Distance: D = 1-S]
 
 .pull-left[
 - Euclidienne
+   * d[jk] = sqrt(sum((x[ij]-x[ik])^2))
 - Manhattan
+    * d[jk] = sum(abs(x[ij] - x[ik]))
+    * similaire à Euclidienne, souffre du problème du double zéro
 - Corde
+    * la distance euclidienne calculée pour une matrice standardisée par ligne
 ]
 
 .pull-right[
 - Hellinger
+    * racines carrées des probabilités conditionnelles 
 - Chi-carré
+    * d[jk] = sum( (x[ij]-x[ik])^2 / (x[ij]+x[ik]) ) / 2 
 - Bray-Curtis
+    * semimétrique: d[jk] = (sum abs(x[ij]-x[ik]))/(sum (x[ij]+x[ik]))
 ]
 
+.center[
+Où x[ij] x[ik] se réfèrent à la quantité sur l'espèce (colonne) i et les sites (rangées) j & k.
+]
 
---
-<br/>
-<br/>
-<br/>
+???
+Euclidean: A simple, symmetrical metric using the Pythagorean formula. The more variables present in a data set, the larger one may expect Euclidean distances to be. Further, double zeros result in decreased distances. This property makes the Euclidean distance unsuitable for many ecological data sets and ecologically-motivated transformations should be considered.  Principal components analysis  and redundancy analysis ordinate objects using Euclidean distances.
 
-.alert[Chaque mesure est utile dans différentes situations]
 
 ---
 # Comparaison des sites de la rivière Doubs
