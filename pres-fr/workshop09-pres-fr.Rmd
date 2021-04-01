@@ -134,34 +134,104 @@ en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentis
 </p>
 
 ---
+<p style="font-size:75%">
 
-# Packages requis
+.center[
+**Contributeurs et contributrices au développement de cet atelier**
 
+en modifiant et en améliorant son contenu dans le cadre du <br> Prix d'apprentissage et de développement (*Le*arning *a*nd *D*evelopment *A*ward)
+]
+
+
+.pull-left[
+.right[
+
+ **2022** - **2021** - **2020**
+
+
+
+]
+]
+
+.pull-right[
+.left[
+**2019** - **2018** - **2017**
+
+
+
+**2016** - **2015** - **2014**
+
+
+
+]
+
+]
+</p>
+
+---
+
+# Matériel requis
+
+Pour suivre cet atelier, vous devez avoir téléchargé et installé les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
+
+.pull-left[
+Vous devez également avoir installé ces paquets:
 * [ape](https://cran.r-project.org/package=ape)
 * [gclus](https://cran.r-project.org/package=gclus)
 * [vegan](https://cran.r-project.org/package=vegan)
+* [GGally](https://cran.r-project.org/package=GGally)
+* [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
+* [remotes](https://cran.r-project.org/package=remotes)
+
+]
+
+.pull-right[
+
+
+Pour les installer à partir de CRAN, roulez:
+
+```{r eval = FALSE}
+install.packages(c("ape", 
+                   "gclus", 
+                   "vegan",
+                   "GGally", 
+                   "PlaneGeometry", 
+                   "remotes"))
+```
+]
+
 
 <br>
 
-```R
-install.packages(c('ape', 'gclus', 'vegan'))
-```
+.pull-left2[
+Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reconnaître par ce cube de Rubix.
+
+**Pendant ces défis, n'hésitez pas à collaborer!**
+]
+
+.pull-right2[
+
+.center[
+![:scale 45%](images/rubicub.png)
+
+]
+]
 
 ---
 # Objectifs d'apprentissage
 
-#### Apprendre les bases de l'analyse multivariée pour révéler des modèles dans les données de composition des communautés
+**Apprendre les bases de l'analyse multivariée pour découvrir des patrons dans les données de composition des communautés.
 
-#### Utiliser `R` pour effectuer des ordinations sans contrainte.
+**2.** Utiliser `R` pour effectuer une ordination sans contrainte.
 
-#### Choisir les mesures de distance et les transformations appropriées pour effectuer une analyse multivariée.
-- Analyse de regroupement
-- Analyse en composantes principales (ACP)
-- Analyse en coordonnées principales (ACoP)
-- Positionnement multidimensionnel non métrique (PMnM)
+**3.** Choisir les mesures de distance et les transformations appropriées pour effectuer une analyse multivariée.
 
-#### Utiliser `R` pour créer des dendrogrammes
+* Analyse de regroupement
+* Analyse en composantes principales (ACP)
+* Analyse en coordonnées principales (ACoP)
+* Échelle multidimensionnelle non métrique (PMnM).
 
+**4.** Utilisez `R` pour créer un dendrogramme.
 
 ---
 
@@ -171,27 +241,27 @@ class: inverse, center, middle
 ## Qu'est-ce que l'ordination?
 
 ---
-# Une Dimension
+# Une dimension
 
-Que se passe-t-il si nous voulons nous intéresser à la réponse de différentes espèces d'algues ?
+Imaginons que nous voulons mieux comprendre cette réponse pour différentes espèces d'algues impliquées dans la densité de l'efflorescence algale ?
 
 .center[![:scale 70%](images/algalBloom.png)]
 
 
 ---
-# Deux Dimensions
+# Deux dimensions
 
 .center[![:scale 70%](images/2dim.png)]
 
 ---
-# Trois Dimensions
+# Trois dimensions
 
 .center[
 ![:scale 70%](images/3dim.png)]
 
 
 ---
-# 4,5,6, ou plus de Dimensions
+# 4, 5, 6, ou plus de dimensions
 
 .center[![:scale 70%](images/4dim.png)]
 
@@ -210,9 +280,14 @@ Même avec une approche multivariée, il n'est pas possible de dessiner un tel d
 
 .center[![:scale 70%](images/Ord1.png)]
 
+- L'ordination est la représentation d'objets (sites, stations, relevés, etc.) sous forme de données ponctuelles le long d'un ou plusieurs axes de référence.
+
+- L'ordination répond à la problématique de la projection de la dispersion des objets écologiques, qui sont situés dans l'espace multidimensionnel des descripteurs, dans un plus petit nombre de dimensions. 
+
+- Espace réduit : espace dont la dimensionnalité est réduite par rapport à l'ensemble des données d'origine.
+
 ???
 
-Ordination : représentation d'objets (sites, stations, relevés, etc.) sous forme de points le long d'un ou plusieurs axes de référence. Elle répond à la question de savoir comment projeter la dispersion des objets écologiques, qui sont situés dans l'espace multidimensionnel des descripteurs, dans un plus petit nombre de dimensions. 
 Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 
 ---
@@ -220,36 +295,27 @@ Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 # Ordination en espace réduit
 
 
-.center[![:scale 70%](images/Ord2.png)]
+.center[![:scale 70%](images/Ord3.png)]
 
-- L'algèbre matricielle est complexe et difficile à comprendre
+- Pour les besoins d'analyses, les écologistes projettent la dispersion multidimensionnelle de l'espace multidimensionnel en un nombre plus restreint de dimensions de descripteurs. 
 
-- Une compréhension générale est suffisante pour utiliser efficacement les méthodes d'ordination
+- Les axes représentent une grande fraction de la variabilité de la matrice de données multidimensionnelle.
+
+???
+Proposition de scénario : Pour les besoins de leur étude, les écologistes projettent généralement le diagramme de dispersion multidimensionnel sur des graphiques bivariés dont les axes sont connus pour leur intérêt particulier. Les axes de ces graphiques sont choisis pour représenter une grande partie de la variabilité de la matrice de données multidimensionnelle, dans un espace de dimensionnalité réduite (c'est-à-dire plus faible) par rapport à l'ensemble de données original. Les méthodes d'ordination dans un espace réduit permettent également d'obtenir des informations quantitatives sur la qualité des projections, et d'étudier les relations entre les descripteurs ainsi qu'entre les objets.
 
 ---
+exclude: true
+
 # Méthodes pour la recherche scientifique
 
---
 - **Questions / Hypothèses**
---
-
 - **Design expérimental**
-
---
 - **Collecte de données**
---
-
 - **Transformation / Distance**
---
-
 - **Analyses**
---
-
 - **Rédaction**
---
-
 - **Communication**
-
 
 ---
 class: inverse, center, middle
@@ -278,15 +344,21 @@ Données de Verneaux (1973) :
 Chargement des données espèces (`doubsspe.csv`)
 
 ```{r}
-spe <- read.csv("data/doubsspe.csv", row.names = 1)
-spe <-  spe[-8,] # supprimer le site vide
+spe <- read.csv("data/doubsspe.csv", row.names = 1) # cette ligne dépend d'où vous avez enregistré les données
+spe <-  spe[-8,] # supprimer le site sans données
+
+# pour des plus grands jeux de données:
+row_sub = apply(spe, 1, function(row) any(row !=0 ))
+# trouver les lignes où il n'y a aucun zéro
+spe <- spe[row_sub,]
+# garder les lignes qui n'ont aucun zéro  
 ```
 
 Chargement des données environnementales (`doubsenv.csv`)
 
 ```{r}
 env <- read.csv("data/doubsenv.csv", row.names = 1)
-env <- env[-8,] # remove site with no data
+env <- env[-8,] # supprimer le site vide
 ```
 
 .alert[Attention, n'exécuter qu'une seule fois]
@@ -314,7 +386,7 @@ head(spe) # 6 premières lignes
 
 Observer la distribution de fréquence des espèces :
 
-```{r, fig.width=7, fig.height=4.5, echo = -1}
+```{r, fig.width=8, echo = -1}
 par(mar = c(4,4,.5,.5), cex = 1.5)
 ab <- table(unlist(spe))
 barplot(ab, las = 1, col = grey(5:0/5),
@@ -429,17 +501,21 @@ head(env) # first 6 rows
 ```{r}
 head(env) # first 6 rows
 ```
-Explorer la colinéarité en visualisant les corrélations entre les variables
 
-```{r, eval = FALSE}
-pairs(env, main = "Bivariate Plots of the Environmental Data")
+Explorer la colinéarité en visualisant les corrélations entre les variables:
+
+```{r, eval = F, purl = FALSE}
+library(GGally)
+ggpairs(env, main="Bivariate Plots of the Environmental Data")
 ```
-
 
 ---
 # Données sur l'environnement
 
-![](images/EnvDat1.png)
+```{r, echo = F, fig.align='center', fig.height = 8, fig.width = 10}
+library(GGally)
+ggpairs(env, main="Graphiques bivariés des données environnementales")
+```
 
 ---
 # Standardisation
@@ -450,7 +526,9 @@ Standardiser les variables environnementales est indispensable car il est imposs
 ?decostand
 env.z <- decostand(env, method = "standardize")
 ```
-Cette fonction centre-réduit les données pour permettre la fiabilité des analyses :
+
+<Br>
+Cette fonction centre-réduit les données pour assurer la fiabilité des analyses:
 
 ```{r}
 apply(env.z, 2, mean)
@@ -481,16 +559,18 @@ $$
 
 - Explorer différentes mesures de distance entre objets permet de mieux comprendre le fonctionnement de l'ordination
 
+???
+.center[![](images/MatrixAlgebra.png)]
 ---
 # Au-délà de la 1ère dimension
 
 .pull-left[
 
-- Les jeux de données écologiques correspondent souvent à de grandes matrices
+- Les jeux de données écologiques correspondent souvent à de grandes matrices.
 
-- L'ordination calcule les relations entre espèces, ou entre objets
+- L'ordination calcule les relations entre espèces, ou entre objets.
 
-- Ces relations peuvent être simplifiées par des mesures de dissimilarités
+- Ces relations peuvent être simplifiées par des mesures de dissimilarités.
 ]
 
 .pull-right[
@@ -520,31 +600,45 @@ Distance: D = 1-S]
 # Mesures de distance des communautés
 
 .pull-left[
-- Euclidienne
-   * d[jk] = sqrt(sum((x[ij]-x[ik])^2))
-- Manhattan
-    * d[jk] = sum(abs(x[ij] - x[ik]))
-    * similaire à Euclidienne, souffre du problème du double zéro
-- Corde
-    * la distance euclidienne calculée pour une matrice standardisée par ligne
+- **Euclidienne**  
+  $d_{jk} = \sqrt(\sum((x_{ij}-x_{ik})^2))$  
+  Utilisé en PCA et RDA.
+  <br><br>
+- **Manhattan**
+  $d_{jk} = \sum(abs(x_{ij} - x_{ik}))$  
+  Similaire à l'Euclidienne, mais sensible au problème de doubles zéros.
+  <br><br>
+- **Corde**  
+  Distance Euclidienne calculée pour une matrix standardisée par rangées.
+  <br><br>
 ]
 
 .pull-right[
-- Hellinger
-    * racines carrées des probabilités conditionnelles 
-- Chi-carré
-    * d[jk] = sum( (x[ij]-x[ik])^2 / (x[ij]+x[ik]) ) / 2 
-- Bray-Curtis
-    * semimétrique: d[jk] = (sum abs(x[ij]-x[ik]))/(sum (x[ij]+x[ik]))
+- **Hellinger**  
+  Racines carrées de probabilités conditionnelles.  
+  S'exécute bien en ordination linéaire.
+  <br><br>
+- **Khi-carré**  
+  $d_{jk} = \sum(\frac{(x_{ij}-x_{ik})^2}{(x_{ij}+x_{ik})} ) / 2$   
+  Utilisé en CA.
+  <br><br>
+- **Bray-Curtis** (Semimétrique) 
+  $d_{jk} = \frac{\sum(abs(x_{ij}-x_{ik}))}{(\sum (x_{ij}+x_{ik}))}$  
+  Utilisé en PCoA et NMDS.
 ]
-
+<br>
 .center[
-Où x[ij] x[ik] se réfèrent à la quantité sur l'espèce (colonne) i et les sites (rangées) j & k.
-]
+
+*Où $x_{ij}$ $x_{ik}$ sont le nombre d'espèces (colonnes) $i$ dans les sites (rangées) $j$ et $k$.*]
+
+--
+
+.alert[Chacune de ces distances peut être appropriée pour différentes situations.]
 
 ???
-Euclidean: A simple, symmetrical metric using the Pythagorean formula. The more variables present in a data set, the larger one may expect Euclidean distances to be. Further, double zeros result in decreased distances. This property makes the Euclidean distance unsuitable for many ecological data sets and ecologically-motivated transformations should be considered.  Principal components analysis  and redundancy analysis ordinate objects using Euclidean distances.
-
+Notes: Ref: 
+https://sites.google.com/site/mb3gustame/reference/dissimilarity
+Euclidienne : Une métrique simple et symétrique utilisant la formule de Pythagore. Plus il y a de variables dans un ensemble de données, plus on peut s'attendre à ce que les distances euclidiennes soient grandes. En plus, les doubles zéros entraînent une diminution des distances. Cette propriété rend la distance euclidienne inadaptée à de nombreux ensembles de données écologiques et des transformations à motivation écologique doivent être envisagées.  L'analyse en composantes principales et l'analyse de la redondance ordonnent les objets en utilisant les distances euclidiennes.
 
 ---
 # Comparaison des sites de la rivière Doubs
@@ -558,14 +652,32 @@ Comment la composition des communautés diffère-t-elle entre les 30 sites de la
 
 ```{r}
 spe.db.pa <- vegdist(spe, method = "bray")
+spe.db <- as.matrix(spe.db.pa)
+
+#         1         2         3         4         5         6         7         9
+# 1  0.0000000 0.6000000 0.6842105 0.7500000 0.8918919 0.7500000 0.6842105 1.0000000
+# 2  0.6000000 0.0000000 0.1428571 0.3333333 0.6956522 0.3939394 0.1428571 0.6923077
+# 3  0.6842105 0.1428571 0.0000000 0.1891892 0.6800000 0.2972973 0.1250000 0.7333333
+#...
+
 ```
 
+--
+<br>  
+- La diagonale est composée de zéros (chaque site est comparée à lui-même).  
+- Sites 3 et 7 sont les plus similaires (*plus petite distance*).  
+- Sites 1 et 9 sont les plus dissimilaires (1 = *complètement* dissimilaire).
+
 ---
+exclude: true
+
 # Comparaison des sites
 
 .center[![](images/Doubs1.png)]
 
 ---
+exclude: true 
+
 # Comparaison des sites
 
 .center[![](images/Doubs2.png)]
@@ -573,14 +685,75 @@ spe.db.pa <- vegdist(spe, method = "bray")
 ---
 # Visualisation d'une matrice de distances
 
-.center[![](images/MatrxViz.png)]
+```{r, echo = FALSE}
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+	require(gclus)
+
+	if (max(D)>1) D <- D/max(D)
+
+	if (byrank) {
+		spe.color <- dmat.color(1-D, cm.colors(nc))
+	}
+	else {
+		spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+	}
+
+	spe.o <- order.single(1-D)
+	speo.color <- spe.color[spe.o, spe.o]
+	
+	op <- par(mfrow=c(1,2), pty="s")
+
+	if (diag) {
+		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+			main="Dissimilarity Matrix", 
+			dlabels=attributes(D)$Labels)
+		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+			main="Ordered Dissimilarity Matrix", 
+			dlabels=attributes(D)$Labels[spe.o])
+	}
+	else {
+		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+			main="Dissimilarity Matrix")
+		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+			main="Ordered Dissimilarity Matrix")
+	}
+
+	par(op)
+}
+
+# Usage:
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+# If D is not a dissimilarity matrix (max(D) > 1), then D is divided by max(D)
+# nc 							number of colours (classes)
+# byrank= TRUE		equal-sized classes
+# byrank= FALSE		equal-length intervals
+# diag = TRUE			print object labels also on the diagonal
+
+# Example:
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
+```
+
+
+```{r, fig.width = 10, fig.height = 8}
+# Le code pour créer la fonction coldiss() est dans le script de l'atelier.
+coldiss(spe.db.pa)
+```
+
 
 ---
 # Défi #1 ![:cube]()
 
 <br/>
 
-Discuter avec votre voisin:
+Discuter en groupes:
 
 <br/>
 
@@ -604,8 +777,10 @@ Avec des méthodes d'ordination, nous ordonnons vos objets (sites) en fonction d
 ---
 # Analyse schématique des analyses multivariées
 
-.center[
-![:scale 70%](images/ Schema1.png)]
+.center[![:scale 120%](images/Schema2.png)]
+
+???
+Note: re-added the picture, rename it as Schema 2.
 
 ---
 # Groupement
@@ -616,6 +791,16 @@ Avec des méthodes d'ordination, nous ordonnons vos objets (sites) en fonction d
 
 - Pas une méthode statistique!
 
+```{r, fig.width=10, echo = FALSE}
+# Démonstration d'un dendrogramme
+spe.hel<-decostand(spe, method="hellinger")
+spe.dhel<-vegdist(spe.hel,method="euclidean")
+spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
+spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
+```
+
+???
 .center[
 ![:scale 80%](images/cluster1.png)]
 
@@ -624,20 +809,26 @@ Avec des méthodes d'ordination, nous ordonnons vos objets (sites) en fonction d
 
 <br>
 
-- Groupement agglomératif à liens simples
+**1.** Groupement agglomératif à liens simples ("single").
 
 <br>
 
-- Groupement agglomératif à liens complets
+**2.** Liens complets, groupement agglomératif ("complete")
 
 <br>
 
-- Groupement de Ward
+**3.** Groupement à variance minimale de Ward ("ward.D2")
 
 <br>
 
-- Les éléments de petits ensembles se regroupent en groupes plus vastes de rang supérieur
-   - (e.g. espèces, genres, familles, ordres...)
+Les éléments de rang(s) inférieur(s) sont imbriqués dans des clusters de rang supérieur. Par exemple, les espèces sont regroupées par genre, famille, ordre, et ainsi de suite.
+
+???
+Dans le clustering agglomératif à liens simples (également appelé tri par plus proches voisins), les objets à l'emplacement de l'objet sont classés par ordre de priorité et les objets les plus proches s'agglomèrent.
+Ceci génère souvent de longues et fines grappes ou chaînes d'objets. À l'inverse, dans le clustering agglomératif à liens complets, un objet ne s'agglomère à un groupe que lorsqu'il est lié à l'élément le plus éloigné du groupe, qui le lie à son tour à tous les membres de ce groupe. Il formera de nombreux petits groupes séparés, et est plus approprié pour rechercher des contrastes, des discontinuités dans les données.
+Le clustering à variance minimale de Ward diffère de ces deux méthodes en ce que
+elle regroupe les objets en groupes en utilisant le critère des moindres carrés
+(similaire aux modèles linéaires). Son dendogramme montre par défaut les distances au carré. Pour comparer avec les autres méthodes, calculez d'abord la racine carrée des distances. 
 
 ---
 # Groupement hiérarchique
@@ -700,32 +891,38 @@ spe.dhe1.single <- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-
 ---
 # Comparaison
 
-![](images/comparison.png)
-
+```{r,fig.width= 15, echo = -1}
+par(mfrow=c(1,2), mar=c(.5,2.5,1.5,2.5), cex=1)
+spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1.complete <- hclust(spe.dhe1, method = "complete")
+plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
+plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
+```
 
 .pull-left[
 
 **Liens simples :**
 
-Les objets ont tendance à s'enchaîner (e.g. 19,29,30,26)
+Les objets ont tendance à s'enchaîner (e.g. 19,29,30,26).
 ]
 
 .pull-right[
 
-**Liens complets :**
-Les groupes sont plus distincts
+**Liens complets :**  
+
+Les groupes sont plus distincts.
 ]
 
 ---
 # Groupement de Ward
 
-- Utilise la méthode des moindres carrés pour lier les objets
-  - les groupes fusionnent de façon à minimiser la variance intragroupe
-  - à chaque étape, la paire de groupes à fusionner est celle qui résulte à la plus petite augmentation de la somme des carrés des écarts intra-groupes
+Le groupement de Ward utilise la méthode des moindres carrés pour lier les objets.
+- Les groupes fusionnent de façon à minimiser la variance intragroupe.
+- C'est-à-dire qu'à chaque étape, la paire de groupes qui résulte à la plus petite augmentation de la somme des carrés des écarts intra-groupes est celle qui fusionne.
+
 
 ---
 # Groupement de Ward
@@ -746,19 +943,21 @@ plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 par(mar=c(.5,3.8,2,.5), cex = 1.5)
 plot(spe.dhel.ward, hang = -1) # hang = -1 permet d'afficher les objets sur la même ligne
 ```
-Les objets ont tendance à former des groupes plus sphériques et homogènes
+
+Les objets ont tendance à former des groupes plus homogènes (en termes du nombdre d'objets inclus dans chaque groupe).
 
 ---
 # Comment choisir la bonne méthode ?
 
-- Dépend de votre objectif
-  - démontrer des gradients? des contrastes?
-- Si plus d'une méthode semble adéquate, comparer les dendrogrammes
-- Encore une fois : ceci **n'est pas** une méthode statistique
- Mais! il est possible de:
-  - déterminer le nombre de groupe optimal
-  - faire des tests statistiques sur les résultats
-  - combiner le groupement à l'ordination pour distinguer des groupes de sites
+- Choisir une méthode appropriée dépend de votre objectif.
+  - Démontrer des gradients? des contrastes?
+- Si plus d'une méthode semble adéquate, comparer les dendrogrammes.
+- Encore une fois : ceci **n'est pas** une méthode statistique! 
+
+Mais, le groupement permet de:
+- Déterminer un nombre de groupes optimal.
+- Faire des tests statistiques sur le groupement résultant.
+- Combiner le groupement à l'ordination pour distinguer des groupes de sites.
 
 ---
 
@@ -1104,9 +1303,6 @@ $y^{\intercal}Ax-x^{\intercal}A^{\intercal}y=\lambda_1y^{\intercal}x - \lambda_2
 Parce que nous savons que $\lambda_1-\lambda_2\neq 0$, alors 
 $y^{\intercal}x = 0$, *c-*.*à*.*-d*., $\mathbf{x}\perp\mathbf{y}$, *c-*.*à*.*-d*. sont **orthogonaux** !
 
---
-
-<br>
 *Alors, que révèle la décomposition de la matrice de variance-covariance en elements propres ?*
 ]
 
@@ -1174,19 +1370,25 @@ Ici, nous apprendrons :
 ---
 # Analyse en Composantes Principales
 
+.small[
 L'analyse en composantes principales (ACP) est une technique de réduction de la dimensionnalité *linéaire*, c'est-à-dire qu'elle réduit les données fortement corrélées.
 
 En bref, l'ACP transforme *linéairement* des variables originales vers des nouvelles variables contenant des **composantes principales**, qui expliquent la plupart de la variance dans l'ensemble de données, c'est-à-dire qui maximisent la séparation entre les données.
+]
 
 --
+.pull-left[
 
-L'espace des *composants principaux* peut être écrit comme suit :
+.small[L'espace des *composants principaux* peut être écrit comme suit :]
 
 $$Z_p = ∑_{j=1}^p ϕ_j * X_j$$
+]
+.small[
 où, 
 1. $Z_p$ est la composante principale $p$ ;
 2. $ϕ_j$ est le vecteur de charge comprenant les $j$ charges pour la composante principale $p$, c'est-à-dire les coefficients de la combinaison linéaire des variables originales à partir desquelles les composantes principales sont construites ;
 3. $X_j$ est le prédicteur normalisé, c'est-à-dire avec une moyenne égale à zéro et un écart-type égal à un.
+]
 
 ---
 # Analyse en Composantes Principales
@@ -2058,7 +2260,6 @@ paste(capture.output(summary(spe.h.pca))[c(32, 34:40)])
 
 --
 
-<br>
 
 .pull-left2[
 ```{r echo=FALSE}
@@ -2075,7 +2276,7 @@ paste(capture.output(summary(spe.h.pca))[c(64, 66:72)])
 <br>
 
 .pull-left[
-Cette information peut être obtenue avec la fonction `score()` que nous avons utilisée auparavant :
+Cette information peut être obtenue avec la fonction `score()`:
 ]
 
 .pull-right[
@@ -2233,14 +2434,14 @@ Les descripteurs situés à 0 degré l'un de l'autre sont positivement corrélé
 ]
 
 .pull-left[
-```{r, echo = -1, fig.height=4, fig.width=4.5}
+```{r, echo = -1, fig.height=3.5, fig.width=4.5}
 par(mar = c(4,4,0.05,0.05), cex = 1.2)
 biplot(spe.h.pca, scaling = 1)
 ```
 ]
 
 .pull-right[
-```{r, echo = -1, fig.height=4, fig.width=4.5}
+```{r, echo = -1, fig.height=3.5, fig.width=4.5}
 par(mar = c(4,4,0.05,0.05), cex = 1.2)
 biplot(spe.h.pca, scaling = 2)
 ```
@@ -2364,11 +2565,11 @@ head(spe.h.pcoa$vectors)[, 1:5]
 
 ---
 
-### Analyse des coordonnées principales : `biplot.pcoa()`
+# Analyse des coordonnées principales : `biplot.pcoa()`
 
 Nous pouvons afficher les distances entre les sites en utilisant la fonction `biplot.pcoa()`, ainsi que représenter les espèces associées à chaque site.
 
-```{r, fig.height=5, fig.width=8}
+```{r, fig.height=5.5, fig.width=8}
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
@@ -2497,19 +2698,28 @@ spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
 ```
 
 ---
-##### Positionnement multidimensionnel non-métrique : *qualité de l'ajustement*
+# Positionnement multidimensionnel non-métrique: *qualité de l'ajustement*
 
-Le diagramme de *Shepard* et les valeurs de contraintes peuvent être obtenus par `stressplot()` :
+Le diagramme de *Shepard* et les valeurs de contraintes peuvent être obtenus avec `stressplot()` :
 
-```{r}
-spe.nmds$stress
+```{r, eval = FALSE}
+spe.nmds$stress # [1] 0.07376229
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
-Le graphique de Shepard identifie une forte corrélation entre la dissimilarité observée et la distance d'ordination ($R^2 > 0,95$), ce qui met en évidence la qualité élevée de l'ajustement du PMnM.
+.pull-left[
+```{r, echo = FALSE, warning=FALSE, message=FALSE, purl = FALSE}
+stressplot(spe.nmds, main = "Shepard plot")
+```
+]
+.pull-right[
+<Br><Br>
+Le graphique de Shepard identifie une forte corrélation entre la dissimilarité observée et la distance d'ordination $(R^2 > 0.95)$, ce qui met en évidence la qualité élevée de l'ajustement du PMnM.
+
+]
 
 ---
-##### Positionnement multidimensionnel non-métrique : `biplot()`
+# Positionnement multidimensionnel non-métrique : `biplot()`
 
 Construire un biplot
 
@@ -2578,7 +2788,7 @@ Exécutez le PMnM de l'abondance des espèces d'acariens en 2 dimensions basé s
 ]
 
 .pull-right[
-La corrélation entre la dissimilarité observée et la distance d'ordination ($R^2 > 0,91$) et la valeur de contrainte relativement faible, montrant ensemble une bonne précision de l'ordination NMDS.
+La corrélation entre la dissimilarité observée et la distance d'ordination $(R^2 > 0,91)$ et la valeur de contrainte relativement faible, montrant ensemble une bonne précision de l'ordination NMDS.
 ]
 
 ---

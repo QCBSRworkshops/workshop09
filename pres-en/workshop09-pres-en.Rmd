@@ -138,13 +138,15 @@ by modifying and improving its content as part of the <br> *Le*arning *a*nd *D*e
 
 To follow this workshop, you are required to have downloaded and installed the earliest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
 
-<br>
-
 .pull-left[
 You must also use these packages:
-1. [ape](https://cran.r-project.org/package=ape)
-3. [gclus](https://cran.r-project.org/package=gclus)
-4. [vegan](https://cran.r-project.org/package=vegan)
+* [ape](https://cran.r-project.org/package=ape)
+* [gclus](https://cran.r-project.org/package=gclus)
+* [vegan](https://cran.r-project.org/package=vegan)
+* [GGally](https://cran.r-project.org/package=GGally)
+* [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
+* [remotes](https://cran.r-project.org/package=remotes)
+
 ]
 
 .pull-right[
@@ -153,29 +155,47 @@ You must also use these packages:
 To install them from CRAN, run:
 
 ```{r eval = FALSE}
-install.packages(
-  c("ape", 
-    "gclus", 
-    "vegan",
-    "GGally")
-)
+install.packages(c("ape", 
+                   "gclus", 
+                   "vegan",
+                   "GGally", 
+                   "PlaneGeometry", 
+                   "remotes"))
 ```
 
 ]
+
+<br>
+
+.pull-left2[
+Throughout this workshop, there will be a series of **challenges** that you can recognize by this rubix cube.
+
+**During these challenges, do not hesitate to collaborate!**
+]
+
+.pull-right2[
+
+.center[
+![:scale 45%](images/rubicub.png)
+]
+]
+
+
 ---
 # Learning objectives
 
-#### Learn the basics of multivariate analysis to reveal patterns in community composition data
+**1.** Learn the basics of multivariate analysis to reveal patterns in community composition data
 
-#### Use `R` to perform unconstrained ordinations
+**2.** Use `R` to perform an unconstrained ordination
 
-####    Choose approprite distance metrics and transformations to perform multivariate analysis
-- Clustering analysis
-- Principal Component Analysis (PCA)
-- Principal Coordinate Analysis (PCoA)
-- Non-Metric MultiDimensional Scaling (NMDS)
+**3.**    Choose appropriate distance metrics and transformations to perform multivariate analysis
 
-#### Use `R` to create dendrograms
+* Clustering analysis
+* Principal Component Analysis (PCA)
+* Principal Coordinate Analysis (PCoA)
+* Non-Metric MultiDimensional Scaling (NMDS)
+
+**4.** Use `R` to create dendrogram
 
 
 ---
@@ -212,7 +232,10 @@ What if we are interested in this response for different species of algae involv
 .center[![:scale 70%](images/4dim.png)]
 
 <br>
+
 .center[ **?** ]
+
+- It is not possible to draw a diagram with more than 3 dimensions
 
 ???
 
@@ -224,16 +247,15 @@ Even with multivariate approach, it is not possible to draw such a diagram on pa
 
 .center[![:scale 70%](images/Ord1.png)]
 
-- Ordination: the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.
+- Ordination is the representation of objects (sites, stations, readings, etc.) as point data along one or several reference axes.
 
-- Reduced space: a space with reduced dimensionality relative to origial dataset.
+- Ordination addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
+
+- Reduced space: a space with reduced dimensionality relative to the original dataset.
 
 ???
 
-Ordination: the representation of objects (sites, stations, relevés, etc.) as points along one or several reference axes.It addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
 Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
-
-
 
 ---
 
@@ -241,11 +263,17 @@ Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
 
 .center[![:scale 70%](images/Ord3.png)]
 
-- For the benefit of analysis, project the scatter of ecological projects from multidimensional space into a smaller number of dimensions of descriptors. 
+- For the purpose of analysis, ecologists project the multidimensional scatter from multidimensional space into a smaller number of dimensions of descriptors. 
 
-- Axes represent a large fraction of the variability of the multidimensional data matrix
+- Axes represent a large fraction of the variability of the multidimensional data matrix.
 
 ???
+Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
+
+---
+exclude: true
+
+# Methods for scientific research
 
 Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
 
@@ -279,20 +307,14 @@ Verneaux (1973) dataset:
 Load the Doubs River species data (`doubsspe.csv`)
 
 ```{r}
-spe <- read.csv("data/doubsspe.csv", 
-                row.names = 1)
-
+spe <- read.csv("data/doubsspe.csv", row.names = 1) 
+# this line will vary depending on where you saved the dataset
 spe <-  spe[-8,] # remove site with no data
 # for larger datasets:
-
-row_sub = apply(spe, 1, 
-                function(row) 
-                  any(row !=0))
-# go through each row, and determine 
-# if any value in this row is zero
-
+row_sub = apply(spe, 1, function(row) any(row !=0 ))
+# find rows where there are not any values that equal zero
 spe <- spe[row_sub,]
-#remove the rows with no species data.   
+# only keep rows that have no zeros  
 ```
 
 Load the Doubs River environmental data (`doubsenv.csv`)
@@ -444,29 +466,34 @@ head(env) # first 6 rows
 head(env) # first 6 rows
 ```
 
-Explore colinearity by visualizing correlations between variables
+Explore colinearity by visualizing correlations between variables.
 
-```{r, eval = F}
-GGally::ggpairs(env, main="Bivariate Plots of the Environmental Data")
+```{r, eval = F, purl=FALSE}
+library(GGally)
+ggpairs(env, main="Bivariate Plots of the Environmental Data")
 ```
 
 
 ---
 # Doubs Environmental Data
 
-![](images/EnvDat1Revised.png)
+```{r, echo = F, fig.align='center', fig.height = 8, fig.width = 10}
+library(GGally)
+ggpairs(env, main="Bivariate Plots of the Environmental Data")
+```
 
 ---
 # Standardization
 
-Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units
+Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units:
 
 ```{r, eval = -1}
 ?decostand
 env.z <- decostand(env, method = "standardize")
 ```
 
-This centers and scales the variables to make your downstream analysis more appropriate
+<Br>
+This centers and scales the variables to make your downstream analysis more appropriate:
 
 ```{r}
 apply(env.z, 2, mean)
@@ -539,41 +566,43 @@ Distance: D = 1-S]
 # Community distance measures
 
 .pull-left[
-- Euclidean
-    * d[jk] = sqrt(sum((x[ij]-x[ik])^2))
-    * Used in PCA and RDA
-- Manhattan
-    * d[jk] = sum(abs(x[ij] - x[ik]))
-    * similar to Euclidean, suffer from double zero problem
-- Chord
-    * the Euclidean distance calculated for a row standardised matrix
+- **Euclidean**  
+  $d_{jk} = \sqrt(\sum((x_{ij}-x_{ik})^2))$   
+  Used in PCA and RDA.
+  <br><br>
+- **Manhattan**  
+  $d_{jk} = \sum(abs(x_{ij} - x_{ik}))$  
+  Similar to the Euclidean, but sensitive to the double zero problem.
+  <br><br>
+- **Chord**  
+  Euclidean distance calculated for a row standardised matrix.
 ]
 
 .pull-right[
-- Hellinger
-    * square roots of conditional probabilities 
-    * performs well in linear ordination
-- Chi-square
-    * d[jk] = sum( (x[ij]-x[ik])^2 / (x[ij]+x[ik]) ) / 2 
-    * used in CA
-- Bray-Curtis
-    * semimetric: d[jk] = (sum abs(x[ij]-x[ik]))/(sum (x[ij]+x[ik]))
-    * used in PCoA and NMDS
+- **Hellinger**  
+  Square roots of conditional probabilities. Performs well in linear ordination.
+  <br><br>  
+- **Chi-square**  
+  $d_{jk} = \sum(\frac{(x_{ij}-x_{ik})^2}{(x_{ij}+x_{ik})} ) / 2$   
+  Used in CA
+  <br><br>
+- **Bray-Curtis** (Semimetric)  
+  $d_{jk} = \frac{\sum(abs(x_{ij}-x_{ik}))}{(\sum (x_{ij}+x_{ik}))}$  
+  Used in PCoA and NMDS.
 ]
-
+<br><br>
 .center[     
 
-_Where x[ij] x[ik] refer to the quantity on species (column) i and sites (rows) j & k._]
+*Where $x_{ij}$ and $x_{ik}$ refer to the quantity of species (column) $i$ in sites (rows) $j$ & $k$.*]
 
+--
+
+.alert[Each of these will be useful in different situations]
 
 ???
 Notes: Ref: 
 https://sites.google.com/site/mb3gustame/reference/dissimilarity
 Euclidean: A simple, symmetrical metric using the Pythagorean formula. The more variables present in a data set, the larger one may expect Euclidean distances to be. Further, double zeros result in decreased distances. This property makes the Euclidean distance unsuitable for many ecological data sets and ecologically-motivated transformations should be considered.  Principal components analysis  and redundancy analysis ordinate objects using Euclidean distances.
-
---
-
-.alert[Each of these will be useful in different situations]
 
 ---
 # Comparing Doubs Sites
@@ -595,9 +624,9 @@ spe.db <- as.matrix(spe.db.pa)
 head(spe.db)
 ```
 --
-- Diagnal is zero
-- Site 3 and 7 most similar 
-- Site 1 and 9 most different
+- Diagonal is zero, because sites are compared to each other.  
+- Sites 3 and 7 are the most similar (*smallest distance*).  
+- Sites 1 and 9 are the most different (1 = they are *completely* different).  
 
 ---
 exclude: true
@@ -616,18 +645,76 @@ exclude: true
 ---
 # Visualization of distance matrices
 
+
+```{r, echo = FALSE}
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+	require(gclus)
+
+	if (max(D)>1) D <- D/max(D)
+
+	if (byrank) {
+		spe.color <- dmat.color(1-D, cm.colors(nc))
+	}
+	else {
+		spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+	}
+
+	spe.o <- order.single(1-D)
+	speo.color <- spe.color[spe.o, spe.o]
+	
+	op <- par(mfrow=c(1,2), pty="s")
+
+	if (diag) {
+		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+			main="Dissimilarity Matrix", 
+			dlabels=attributes(D)$Labels)
+		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+			main="Ordered Dissimilarity Matrix", 
+			dlabels=attributes(D)$Labels[spe.o])
+	}
+	else {
+		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+			main="Dissimilarity Matrix")
+		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+			main="Ordered Dissimilarity Matrix")
+	}
+
+	par(op)
+}
+
+# Usage:
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+# If D is not a dissimilarity matrix (max(D) > 1), then D is divided by max(D)
+# nc 							number of colours (classes)
+# byrank= TRUE		equal-sized classes
+# byrank= FALSE		equal-length intervals
+# diag = TRUE			print object labels also on the diagonal
+
+# Example:
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
+
 ```
-windows()
-coldiss(spe.db, byrank=FALSE, diag=TRUE) 
+
+
+```{r, fig.width = 10, fig.height = 8}
+# the code for the coldiss() function is in the workshop script.
+coldiss(spe.db.pa)
 ```
-.center[![](images/MatrxViz.png)]
 
 ---
 # Challenge #1 ![:cube]()
 
 <br>
 
-Discuss with your neighbour:
+Discuss in breakout rooms:
 
 <br>
 
@@ -668,7 +755,8 @@ Note: re-added the picture, rename it as Schema 2.
 - Results are represented as dendrograms (trees)
 
 - Not a statistical method
-```{r, fig.width=10, echo = -1}
+```{r, fig.width=10, echo = FALSE}
+# Demonstration of a cluster dendrogram
 spe.hel<-decostand(spe, method="hellinger")
 spe.dhel<-vegdist(spe.hel,method="euclidean")
 spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
@@ -685,20 +773,19 @@ plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 
 <br>
 
-1 Single linkage agglomerative clustering ("single")
+**1.** Single linkage agglomerative clustering ("single")
 
 <br>
 
-2 Complete linkage, agglomerative clustering ("complete")
+**2.** Complete linkage, agglomerative clustering ("complete")
 
 <br>
 
-3 Ward's minimum variance clustering ("ward.D2")
+**3.** Ward's minimum variance clustering ("ward.D2")
 
 <br>
 
-- Elements of lower are nested in higher ranking clusters
-   - (e.g. species, genus, family, order)
+- Elements of lower ranks are nested within higher ranking clusters. For example, species groups are nested by genus, family, order, and so on.
 
 ???
 In single linkage agglomerative clustering (also called nearest
@@ -848,19 +935,21 @@ par(mar=c(.5,3.8,2,.5), cex = 1.5)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ```
 
-Clusters generated using this method tend to be more spherical and to contain similar number of objects
+Clusters generated using this method tend to contain similar numbers of objects.
 
 ---
 # How to choose the right method?
 
-- Depends on the objective
-  - highlights gradients? contrasts?
-- If more than on method seems appropriate, compare dendrograms
-- Again: this is **not** an statistical method
- But! is possible to:
-  - determine the optimal number of interpretable clusters
-  - compute clustering statistics
-  - combine clustering to ordination to distinguish groups of sites
+- Choosing the 'right' method depends on your objective
+  - Do you want to highlight gradients? contrasts?
+- If more than on method seems appropriate, compare dendrograms.
+- Again: this is **not** an statistical method!
+
+
+But, clustering allows us to:
+- Determine the optimal number of interpretable clusters.
+- Compute clustering statistics.
+- Combine clustering to ordination to distinguish groups of sites.
 
 
 ---
@@ -876,7 +965,7 @@ From now, we will look into four types of **unconstrained ordination methods**..
 
 --
 <br>
-.center[*If no one speaks out, choose a "voluntary", presenter!*]
+.center[*If no one speaks out, choose a "volunteer", presenter!*]
 
 --
 
@@ -2454,7 +2543,7 @@ head(spe.h.pcoa$vectors)[, 1:5]
 
 We can display, the distances between sites using the `biplot.pcoa()` function, as well as represent the species associated to each site.
 
-```{r, fig.height=5, fig.width=8}
+```{r, fig.height=5.5, fig.width=8}
 biplot.pcoa(spe.h.pcoa, spec.hel)
 ```
 
