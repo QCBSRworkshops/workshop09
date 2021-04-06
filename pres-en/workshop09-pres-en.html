@@ -1102,10 +1102,10 @@ cov(xyz)
 
 
 ```
-#         x       y       z
-# x 0.98928 0.02375 0.00685
-# y 0.02375 0.96925 0.00302
-# z 0.00685 0.00302 1.01676
+#         x        y        z
+# x 1.00096  0.00082  0.01007
+# y 0.00082  1.02025 -0.01386
+# z 0.01007 -0.01386  0.97041
 ```
 
 
@@ -1335,6 +1335,13 @@ where,
 2. `\(ϕ_j\)` is the loading vector comprising the `\(j\)` loadings for the `\(p\)` principal component, i.e. the coefficients of the linear combination of the original variables from which the principal components are constructed;
 3. `\(X_j\)` is the normalized predictors, i.e. with means equal to zero and standard deviations equal to one.
 
+???
+
+That is: the reconstruction for the data can be given by a simple linear complination of the components.
+
+
+Future versions of this should include a figure (such as a heatmap) with the original standardized data on a left side, and on the right side, a heatmap of the loadings times a heatmap of the components (which can be thought as equal to the sum of rank-one matrices) being equal to the heatmap of the reconstructed data.
+
 ---
 # Principal Component Analysis
 
@@ -1343,7 +1350,6 @@ PCA can be computed in at least *four* different ways.
 For the sake of simplicity, we will focus here on how to obtain principal components from a correlation matrix.
 
 We will learn how to do it from "scratch" and then how to use `R` packages to compute the principal components.
-
 
 ---
 
@@ -1451,6 +1457,10 @@ round(apply(Y_std, 2, sd))
 
 ]
 
+???
+
+The presenter may recall here or even ask the participants what the standardization is doing.
+
 ---
 
 # Principal Component Analysis: step-by-step
@@ -1524,6 +1534,7 @@ Y_R &lt;- cov(Y_std)
 # [2,]  0.7071068 -0.7071068
 ```
 ]
+
 ---
 # Principal Component Analysis: step-by-step
 
@@ -1541,6 +1552,12 @@ The arrows on the principal components are obtained by multiplying their *Eigenv
 .pull-right[
 &lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-35-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
+
+???
+
+In this first representation, we can observe that a first direction (or the first linear component) is drawn attempting to maximize the variance of the data.
+
+Participants may ask you how different this is from a linear regression. One key difference is on the how the error squares are inimized perpendicularly to the straight line (90 degrees; making it orthogonal), while in the linear regression, the error squares are minimized towards the y-direction.
 
 ---
 # Principal Component Analysis: step-by-step
@@ -1567,6 +1584,10 @@ Note how the principal components are orthogonal!
 
 *But, what is the use of the Eigenvalues?*
 ]
+
+???
+
+Here, the a second direction (or the second linear component) is drawn such as that the variance of the data is maximized with respect to this second component.
 
 ---
 # Principal Component Analysis: step-by-step
@@ -1668,9 +1689,12 @@ The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new d
 ]
 
 ???
+
 The axis labels are not being printed. I included them at the top of each plot while this is not fixed.
 
-The presenter here should emphasize the rotation, and speak about what the scores are. This understand will be useful when the participants are going to use the PCA functions that are implemented in R.
+The presenter here should emphasize the rotation, and speak about what the scores are. You can hover the points and show them what was the position of the points in the "de-rotated" plots, and now in the "rotated" ones, highlighting that now, the "new axes" are PC1 and PC2.
+
+This understand will be useful when the participants are going to use the PCA functions that are implemented in R.
 
 ---
 # Principal Component Analysis: step-by-step
@@ -2465,7 +2489,7 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07376217
+# [1] 0.07376229
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
