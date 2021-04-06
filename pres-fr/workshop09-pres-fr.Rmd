@@ -1390,6 +1390,13 @@ où,
 3. $X_j$ est le prédicteur normalisé, c'est-à-dire avec une moyenne égale à zéro et un écart-type égal à un.
 ]
 
+???
+
+C'est-à-dire que la reconstruction des données peut être donnée par une simple combinaison linéaire des composantes.
+
+
+Les futures versions de ce document devraient inclure une figure (telle qu'une carte thermique) avec les données normalisées originales sur le côté gauche, et sur le côté droit, une carte thermique des chargements fois une carte thermique des composants (qui peut être considérée comme égale à la somme des matrices de rang un) étant égale à la carte thermique des données reconstruites.
+
 ---
 # Analyse en Composantes Principales
 
@@ -1398,8 +1405,6 @@ L'ACP peut être calculée d'au moins *quatre* façons différentes.
 Pour des raisons de simplicité, nous nous concentrerons ici sur la façon d'obtenir des composantes principales à partir d'une matrice de corrélation.
 
 Nous apprendrons à le faire à partir de rien, puis à utiliser les paquets `R` pour calculer les composantes principales.
-
-???
 
 ---
 
@@ -1633,6 +1638,12 @@ with(Y_std,
 ```
 ]
 
+???
+
+Dans cette première représentation, nous pouvons observer qu'une première direction (ou la première composante linéaire) est tracée en essayant de maximiser la variance des données.
+
+Les participants peuvent vous demander en quoi cela est différent d'une régression linéaire. L'une des principales différences réside dans la façon dont les carrés d'erreurs sont minimisés perpendiculairement à la ligne droite (90 degrés, ce qui la rend orthogonale), alors que dans la régression linéaire, les carrés d'erreurs sont minimisés dans la direction des ordonnées.
+
 ---
 
 ### Analyse en composantes principales : étape par étape
@@ -1734,6 +1745,10 @@ with(Y_std,
 
 *Mais, quelle est l'utilité des valeurs propres ?*
 ]
+
+???
+
+Ici, la deuxième direction (ou la deuxième composante linéaire) est tracée de manière à ce que la variance des données soit maximisée par rapport à cette deuxième composante.
 
 ---
 
@@ -2047,9 +2062,11 @@ par(op)
 ]
 
 ???
-Les titres des axes ne sont pas imprimés. Je les ai inclus en haut de chaque graphique, mais ce problème n'est pas résolu.
+Les titres des axes ne se font pas imprimer. Je les ai inclus en haut de chaque graphique, mais ce problème n'est pas résolu.
 
-Le présentateur ou la presentatrice devrait ici mettre l'accent sur la rotation, et parler de ce que sont les scores. Cette compréhension sera utile lorsque les participants utiliseront les fonctions PCA qui sont implémentées dans R.
+Le présentateur ou la présentatrice devrait souligner la rotation et parler de ce que sont les points. Vous pouvez survoler les points et leur montrer quelle était la position des points dans les graphiques " sans rotation ", et maintenant dans les graphiques " avec rotation ", en soulignant que maintenant, les " nouveaux axes " sont PC1 et PC2.
+
+Cette compréhension sera utile lorsque les participants utiliseront les fonctions PCA implémentées dans R.
 
 ---
 
