@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Nonmetric MultiDimensional Scaling | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Nonmetric MultiDimensional Scaling | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://github.com/qcbsRworkshops/" />
-  <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+  <meta property="og:image" content="https://github.com/qcbsRworkshops//assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Multivariate Analyses in R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Chapter 12 Nonmetric MultiDimensional Scaling | Workshop 9: Multivariate Analyses in R" />
   
   <meta name="twitter:description" content="Multivariate Analyses in R" />
-  <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+  <meta name="twitter:image" content="https://github.com/qcbsRworkshops//assets/images/logo/csbq_logo_accueil.png" />
 
 <meta name="author" content="Developed and maintained by the contributors of the QCBS R Workshop Series" />
 
@@ -50,6 +50,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="assets/qcbs-style.css" type="text/css" />
 </head>
@@ -249,12 +252,12 @@ the NMDS ordination.</p>
 <span id="cb49-10"><a href="nonmetric-multidimensional-scaling.html#cb49-10"></a></span>
 <span id="cb49-11"><a href="nonmetric-multidimensional-scaling.html#cb49-11"></a><span class="co"># Construct the biplot</span></span>
 <span id="cb49-12"><a href="nonmetric-multidimensional-scaling.html#cb49-12"></a><span class="kw">windows</span>()</span>
-<span id="cb49-13"><a href="nonmetric-multidimensional-scaling.html#cb49-13"></a><span class="kw">plot</span>(spe.nmds, <span class="dt">type =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>, </span>
+<span id="cb49-13"><a href="nonmetric-multidimensional-scaling.html#cb49-13"></a><span class="kw">plot</span>(spe.nmds, <span class="dt">type =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
 <span id="cb49-14"><a href="nonmetric-multidimensional-scaling.html#cb49-14"></a>    <span class="kw">round</span>(spe.nmds<span class="op">$</span>stress, <span class="dv">3</span>)), <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="dt">ylab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
-<span id="cb49-15"><a href="nonmetric-multidimensional-scaling.html#cb49-15"></a><span class="kw">points</span>(<span class="kw">scores</span>(spe.nmds, <span class="dt">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)), </span>
+<span id="cb49-15"><a href="nonmetric-multidimensional-scaling.html#cb49-15"></a><span class="kw">points</span>(<span class="kw">scores</span>(spe.nmds, <span class="dt">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)),</span>
 <span id="cb49-16"><a href="nonmetric-multidimensional-scaling.html#cb49-16"></a>    <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb49-17"><a href="nonmetric-multidimensional-scaling.html#cb49-17"></a><span class="kw">text</span>(<span class="kw">scores</span>(spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>)), <span class="kw">scores</span>(spe.nmds, </span>
-<span id="cb49-18"><a href="nonmetric-multidimensional-scaling.html#cb49-18"></a>    <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">2</span>)), <span class="dt">labels =</span> <span class="kw">rownames</span>(<span class="kw">scores</span>(spe.nmds, </span>
+<span id="cb49-17"><a href="nonmetric-multidimensional-scaling.html#cb49-17"></a><span class="kw">text</span>(<span class="kw">scores</span>(spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>)), <span class="kw">scores</span>(spe.nmds,</span>
+<span id="cb49-18"><a href="nonmetric-multidimensional-scaling.html#cb49-18"></a>    <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">2</span>)), <span class="dt">labels =</span> <span class="kw">rownames</span>(<span class="kw">scores</span>(spe.nmds,</span>
 <span id="cb49-19"><a href="nonmetric-multidimensional-scaling.html#cb49-19"></a>    <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>)), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <p><img src="/shepard_plot.png" class="align-center" /></p>
 <p>The Shepard plot identifies a strong correlation between observed
@@ -280,13 +283,13 @@ like this:</p>
 <span id="cb50-8"><a href="nonmetric-multidimensional-scaling.html#cb50-8"></a></span>
 <span id="cb50-9"><a href="nonmetric-multidimensional-scaling.html#cb50-9"></a><span class="co">### Construct the biplot</span></span>
 <span id="cb50-10"><a href="nonmetric-multidimensional-scaling.html#cb50-10"></a><span class="kw">windows</span>()</span>
-<span id="cb50-11"><a href="nonmetric-multidimensional-scaling.html#cb50-11"></a><span class="kw">plot</span>(mite.spe.nmds, <span class="dt">type =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>, </span>
+<span id="cb50-11"><a href="nonmetric-multidimensional-scaling.html#cb50-11"></a><span class="kw">plot</span>(mite.spe.nmds, <span class="dt">type =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
 <span id="cb50-12"><a href="nonmetric-multidimensional-scaling.html#cb50-12"></a>    <span class="kw">round</span>(mite.spe.nmds<span class="op">$</span>stress, <span class="dv">3</span>)), <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="dt">ylab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
-<span id="cb50-13"><a href="nonmetric-multidimensional-scaling.html#cb50-13"></a><span class="kw">points</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>, </span>
+<span id="cb50-13"><a href="nonmetric-multidimensional-scaling.html#cb50-13"></a><span class="kw">points</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>,</span>
 <span id="cb50-14"><a href="nonmetric-multidimensional-scaling.html#cb50-14"></a>    <span class="dv">2</span>)), <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb50-15"><a href="nonmetric-multidimensional-scaling.html#cb50-15"></a><span class="kw">text</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>)), </span>
-<span id="cb50-16"><a href="nonmetric-multidimensional-scaling.html#cb50-16"></a>    <span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">2</span>)), </span>
-<span id="cb50-17"><a href="nonmetric-multidimensional-scaling.html#cb50-17"></a>    <span class="dt">labels =</span> <span class="kw">rownames</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>)), </span>
+<span id="cb50-15"><a href="nonmetric-multidimensional-scaling.html#cb50-15"></a><span class="kw">text</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>)),</span>
+<span id="cb50-16"><a href="nonmetric-multidimensional-scaling.html#cb50-16"></a>    <span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">2</span>)),</span>
+<span id="cb50-17"><a href="nonmetric-multidimensional-scaling.html#cb50-17"></a>    <span class="dt">labels =</span> <span class="kw">rownames</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>)),</span>
 <span id="cb50-18"><a href="nonmetric-multidimensional-scaling.html#cb50-18"></a>    <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <p>And your plots like this:</p>
 <p><img src="/nmds_mite_shepard.png" class="align-center" /></p>
@@ -337,6 +340,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": false
 },
 "fontsettings": {

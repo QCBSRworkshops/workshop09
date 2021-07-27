@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Exploring the dataset | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Exploring the dataset | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://github.com/qcbsRworkshops/" />
-  <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+  <meta property="og:image" content="https://github.com/qcbsRworkshops//assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Multivariate Analyses in R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
@@ -19,7 +19,7 @@
   <meta name="twitter:title" content="Chapter 4 Exploring the dataset | Workshop 9: Multivariate Analyses in R" />
   
   <meta name="twitter:description" content="Multivariate Analyses in R" />
-  <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+  <meta name="twitter:image" content="https://github.com/qcbsRworkshops//assets/images/logo/csbq_logo_accueil.png" />
 
 <meta name="author" content="Developed and maintained by the contributors of the QCBS R Workshop Series" />
 
@@ -50,6 +50,8 @@
 
 
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -115,6 +117,7 @@ code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
+
 
 <link rel="stylesheet" href="assets/qcbs-style.css" type="text/css" />
 </head>
@@ -238,7 +241,7 @@ headings and summary statistics for the columns. This is a review from
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="exploring-the-dataset.html#cb4-1"></a><span class="co"># Species distribution</span></span>
 <span id="cb4-2"><a href="exploring-the-dataset.html#cb4-2"></a>(ab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">unlist</span>(spe)))  <span class="co">#note that when you put an entire line of code in brackets like this, the output for that operation is displayed right away in the R console</span></span>
 <span id="cb4-3"><a href="exploring-the-dataset.html#cb4-3"></a></span>
-<span id="cb4-4"><a href="exploring-the-dataset.html#cb4-4"></a><span class="kw">barplot</span>(ab, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Abundance class&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
+<span id="cb4-4"><a href="exploring-the-dataset.html#cb4-4"></a><span class="kw">barplot</span>(ab, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Abundance class&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Frequency&quot;</span>,</span>
 <span id="cb4-5"><a href="exploring-the-dataset.html#cb4-5"></a>    <span class="dt">col =</span> <span class="kw">grey</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">0</span><span class="op">/</span><span class="dv">5</span>))</span></code></pre></div>
 <p><img src="/spe_barplot.png" width="300" /> Can see that there is a high
 frequency of zeros in the abundance data.</p>
@@ -249,7 +252,7 @@ frequency of zeros in the abundance data.</p>
 <p>The proportion of zeros in the dataset is ~0.5.</p>
 <p>See the frequency at which different numbers of species occur together.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exploring-the-dataset.html#cb7-1"></a>spe.pres &lt;-<span class="st"> </span><span class="kw">colSums</span>(spe <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)  <span class="co">#compute the number of sites where each species is present. </span></span>
-<span id="cb7-2"><a href="exploring-the-dataset.html#cb7-2"></a><span class="kw">hist</span>(spe.pres, <span class="dt">main =</span> <span class="st">&quot;Species occurrence&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Frequency of occurrences&quot;</span>, </span>
+<span id="cb7-2"><a href="exploring-the-dataset.html#cb7-2"></a><span class="kw">hist</span>(spe.pres, <span class="dt">main =</span> <span class="st">&quot;Species occurrence&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Frequency of occurrences&quot;</span>,</span>
 <span id="cb7-3"><a href="exploring-the-dataset.html#cb7-3"></a>    <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">5</span>), <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)</span></code></pre></div>
 <p>Can see that an intermediate number of sites contain the highest number
 of species.</p>
@@ -263,8 +266,8 @@ richness</a>
 may be a more appropriate metric than total richness. The rarefy()
 function in vegan can be used to generate rarefied species richness.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exploring-the-dataset.html#cb8-1"></a>site.pres &lt;-<span class="st"> </span><span class="kw">rowSums</span>(spe <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)  <span class="co">#number of species with a value greater than 0 in that site row</span></span>
-<span id="cb8-2"><a href="exploring-the-dataset.html#cb8-2"></a><span class="kw">hist</span>(site.pres, <span class="dt">main =</span> <span class="st">&quot;Species richness&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Frequency of sites&quot;</span>, </span>
-<span id="cb8-3"><a href="exploring-the-dataset.html#cb8-3"></a>    <span class="dt">ylab =</span> <span class="st">&quot;Number of species&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">5</span>), </span>
+<span id="cb8-2"><a href="exploring-the-dataset.html#cb8-2"></a><span class="kw">hist</span>(site.pres, <span class="dt">main =</span> <span class="st">&quot;Species richness&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Frequency of sites&quot;</span>,</span>
+<span id="cb8-3"><a href="exploring-the-dataset.html#cb8-3"></a>    <span class="dt">ylab =</span> <span class="st">&quot;Number of species&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">5</span>),</span>
 <span id="cb8-4"><a href="exploring-the-dataset.html#cb8-4"></a>    <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)</span></code></pre></div>
 </div>
 <div id="environmental-data" class="section level2">
@@ -326,6 +329,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": false
 },
 "fontsettings": {
