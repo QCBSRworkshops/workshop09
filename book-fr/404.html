@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapitre 5 1. Exploration des données | Atelier 9 : Analyses multivariées en R</title>
+  <title>Page not found | Atelier 9 : Analyses multivariées en R</title>
   <meta name="description" content="Analyses multivariées en R" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapitre 5 1. Exploration des données | Atelier 9 : Analyses multivariées en R" />
+  <meta property="og:title" content="Page not found | Atelier 9 : Analyses multivariées en R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="https://github.com/qcbsRworkshops/" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 5 1. Exploration des données | Atelier 9 : Analyses multivariées en R" />
+  <meta name="twitter:title" content="Page not found | Atelier 9 : Analyses multivariées en R" />
   
   <meta name="twitter:description" content="Analyses multivariées en R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="introduction-aux-données.html"/>
-<link rel="next" href="la-dissimilarité-des-données.html"/>
+
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -205,73 +205,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="exploration-des-données" class="section level1">
-<h1><span class="header-section-number">Chapitre 5</span> 1. Exploration des données</h1>
-<div id="données-sur-les-espèces" class="section level2">
-<h2><span class="header-section-number">5.1</span> 1.1 Données sur les espèces</h2>
-<p>Nous pouvons utiliser les fonctions de résumé R pour explorer les
-données "Spe" (données d’abondances de poissons) et découvrir les
-caractéristiques telles que les dimensions de la matrice, les noms des
-colonnes et les statistiques descriptives de ces colonnes (révision de
-l’atelier 2).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exploration-des-données.html#cb3-1"></a><span class="kw">names</span>(spe)  <span class="co"># Les noms des colonnes </span></span>
-<span id="cb3-2"><a href="exploration-des-données.html#cb3-2"></a><span class="kw">dim</span>(spe)  <span class="co"># Le nombre de lignes et de colonnes. </span></span>
-<span id="cb3-3"><a href="exploration-des-données.html#cb3-3"></a><span class="kw">str</span>(spe)  <span class="co"># La structure interne de la matrice. </span></span>
-<span id="cb3-4"><a href="exploration-des-données.html#cb3-4"></a><span class="kw">head</span>(spe)  <span class="co"># Les premières lignes. </span></span>
-<span id="cb3-5"><a href="exploration-des-données.html#cb3-5"></a><span class="kw">summary</span>(spe)  <span class="co"># Les statistiques descriptives. </span></span></code></pre></div>
-<p>Regardez la distribution des espèces.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="exploration-des-données.html#cb4-1"></a>(ab&lt;-<span class="kw">table</span>(<span class="kw">unlist</span>(spe))) <span class="co">#Les parenthèses signifient que la sortie s&#39;affiche immédiatement</span></span>
-<span id="cb4-2"><a href="exploration-des-données.html#cb4-2"></a></span>
-<span id="cb4-3"><a href="exploration-des-données.html#cb4-3"></a><span class="kw">barplot</span>(ab, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">xlab=</span>”Abundance class”, <span class="dt">ylab=</span>”Frequency”, <span class="dt">col=</span><span class="kw">grey</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">0</span><span class="op">/</span><span class="dv">5</span>))</span></code></pre></div>
-<p><img src="images//spe_barplot.png" width="300" /> Pouvez-vous voir qu’il y a une
-grande fréquence de zéros dans les données d’abondance ?</p>
-<p>Calculez le nombre d’absences.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exploration-des-données.html#cb5-1"></a><span class="kw">sum</span>(spe <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
-<p>Regardez la proportion de zéros dans les données de la communauté de
-poissons.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exploration-des-données.html#cb6-1"></a><span class="kw">sum</span>(spe <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)<span class="op">/</span>(<span class="kw">nrow</span>(spe) <span class="op">*</span><span class="st"> </span><span class="kw">ncol</span>(spe))</span></code></pre></div>
-<p>La proportion de zéros dans la matrice est de ~0.5</p>
-<p>Calculez le nombre de sites où chaque espèce est présente.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exploration-des-données.html#cb7-1"></a>spe.pres&lt;-<span class="st"> </span><span class="kw">colSums</span>(spe<span class="op">&gt;</span><span class="dv">0</span>) <span class="co"># Somme des sites où chaque espèce est présente. </span></span>
-<span id="cb7-2"><a href="exploration-des-données.html#cb7-2"></a><span class="kw">hist</span>(spe.pres, <span class="dt">main=</span>”Cooccurrence des espèces”, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">xlab=</span>”Fréquence”, <span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">30</span>, <span class="dt">by=</span><span class="dv">5</span>), <span class="dt">col=</span>”grey”)</span></code></pre></div>
-<p>Le plus grand nombre d’espèces se retrouvent dans un nombre
-intermédiaire de sites.</p>
-<p>Calculez le nombre d’espèces présentes à chaque site. Ici, nous
-utilisons une façon simpliste de calculer la richesse en espèces. Dans
-certains cas, le nombre d’espèces présentes dans un site varie entre
-les sites car il peut y avoir une relation entre le nombre d’individus
-comptés (l’abondance) dans ce site et la richesse en espèces. <a href="http://cc.oulu.fi/~jarioksa/softhelp/vegan/html/diversity.html">richesse
-d’espèces raréfiée (en
-anglais)</a>
-est souvent une mesure plus appropriée que la richesse totale. La
-fonction rarefy () de vegan peut être utilisée pour calculer la richesse
-raréfiée des espèces.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exploration-des-données.html#cb8-1"></a>site.pres&lt;-<span class="st"> </span><span class="kw">rowSums</span>(spe<span class="op">&gt;</span><span class="dv">0</span>) <span class="co"># Nombre d&#39;espèces présentes dans chaque site</span></span>
-<span id="cb8-2"><a href="exploration-des-données.html#cb8-2"></a><span class="kw">hist</span>(site.pres, <span class="dt">main=</span>”Richesse en espèces”, <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">xlab=</span>”Fréquence des sites”, <span class="dt">ylab=</span>”Nombre d<span class="st">&#39;espèces”, breaks=seq(0,30, by=5), col=”grey”) </span></span></code></pre></div>
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
 </div>
-<div id="données-sur-lenvironnement" class="section level2">
-<h2><span class="header-section-number">5.2</span> 1.2 Données sur l’environnement</h2>
-<p>Explorez les données environnementales pour détecter les colinéarités :</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="exploration-des-données.html#cb9-1"></a><span class="kw">names</span>(env)</span>
-<span id="cb9-2"><a href="exploration-des-données.html#cb9-2"></a><span class="kw">dim</span>(env)</span>
-<span id="cb9-3"><a href="exploration-des-données.html#cb9-3"></a><span class="kw">str</span>(env)</span>
-<span id="cb9-4"><a href="exploration-des-données.html#cb9-4"></a><span class="kw">head</span>(env)</span>
-<span id="cb9-5"><a href="exploration-des-données.html#cb9-5"></a><span class="kw">summary</span>(env)</span>
-<span id="cb9-6"><a href="exploration-des-données.html#cb9-6"></a><span class="kw">pairs</span>(env, <span class="dt">main =</span> <span class="st">&quot;Données environnementales&quot;</span>)</span></code></pre></div>
-<p>Dans ce cas, les données environnementales sont toutes dans des unités
-différentes et doivent donc être standardisées avant de calculer les
-mesures de distance utilisées pour effectuer la plupart des analyses
-d’ordination. La standardisation des données (11 variables) peut être
-effectuée en utilisant la fonction decostand () de vegan.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="exploration-des-données.html#cb10-1"></a>env.z &lt;-<span class="st"> </span><span class="kw">decostand</span>(env, <span class="dt">method =</span> <span class="st">&quot;standardize&quot;</span>)</span>
-<span id="cb10-2"><a href="exploration-des-données.html#cb10-2"></a><span class="kw">apply</span>(env.z, <span class="dv">2</span>, mean)  <span class="co"># Les données sont maintenant centrées (moyennes~0)...</span></span>
-<span id="cb10-3"><a href="exploration-des-données.html#cb10-3"></a><span class="kw">apply</span>(env.z, <span class="dv">2</span>, sd)  <span class="co"># et réduites (écart-type=1)</span></span></code></pre></div>
-
-</div>
-</div>
-
-
-
 <hr>
 <center> 
   <div class="footer">
@@ -283,8 +222,8 @@ effectuée en utilisant la fonction decostand () de vegan.</p>
           </div>
         </div>
       </div>
-<a href="introduction-aux-données.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="la-dissimilarité-des-données.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
