@@ -42,16 +42,19 @@ FR | [![badge](https://img.shields.io/static/v1?style=flat-square&label=Diapos&m
 
 # Contributors | Contributeurs et contributrices 
 
+This workshop was originally developed by Bérenger Bourgeois, Xavier Giroux-Bougard, Amanda Winegardner, Emmanuelle Chrétien and Monica Granados. Material in the R script was originally derived from Borcard, Gillet & Legendre (2011). [Numerical Ecology with R](https://www.springer.com/us/book/9783319714035). Springer New York.
+
 Since 2014, several QCBS members contributed to consistently and collaboratively develop and update this workshop, as part of the *Learning and Development Award* from the Québec Centre for Biodiversity Science. They were:
 
 |      2022 - 2021 - 2020      |      2019 - 2018 - 2017     |      2016 - 2015 - 2014      |
 |:----------------------------:|:---------------------------:|:----------------------------:|
-| [Pedro Henrique P. Braga]()  | [Gabriel Muñoz](https://github.com/fgabriel1891) | [Monica Granados]() |
-|  [Katherine Hébert]()        | [Marie Hélène-Brice]()  |   [Emmanuelle Chrétien]()        |
-|  [Mi Lin]()                  | [Pedro Henrique P. Braga]() | [Bérenger Bourgeois]()     |
-|  [Linley Sherin]()           |                             | [Amanda Winegardner]()       |
-|                              |                             | [Xavier Giroux-Bougard]()    |
-|                              |                             | [Vincent Fugère]()           |
+| Pedro Henrique P. Braga  | Gabriel Muñoz | Monica Granados |
+|  Katherine Hébert        | Marie Hélène-Brice  |   Emmanuelle Chrétien        |
+|  Mi Lin                  | Pedro Henrique P. Braga | Bérenger Bourgeois     |
+|  Linley Sherin           |                             | Amanda Winegardner       |
+|                              |                             | Xavier Giroux-Bougard    |
+|                              |                             | Vincent Fugère           |
+|                              |                             | Zofia Taranu          |
 
 # Development status
 
