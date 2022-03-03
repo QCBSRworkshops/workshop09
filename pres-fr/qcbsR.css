@@ -244,8 +244,6 @@ a:hover {
 /* Inverted slide */
 
 .inverse {
-  border-left: 5px solid #f3f3f3;
-  border-right: 5px solid #f3f3f3;
   background-color: #062c45;
   color: #f3f3f3;
 }
@@ -268,11 +266,43 @@ a:hover {
 
 .inverse code {
   overflow-x: auto;
-  padding: .4em;
+  padding: .2em;
   background: rgba(53, 80, 111, 0.75);
   border: 0.5px solid #25374c;
   margin: 0 2px
 }
+
+
+.darkerinverse {
+  background-color: #333333;
+  color: #f3f3f3;
+}
+
+.darkerinverse h1, .darkerinverse h2, .darkerinverse h3 {
+  color: #f3f3f3;
+  background-color: transparent;
+}
+
+.darkerinverse h1 {
+  font-size: 2.8rem;
+}
+.darkerinverse h2 {
+  font-size: 2.4rem;
+}
+
+.darkerinverse h3 {
+  font-size: 2rem;
+}
+
+.darkerinverse code {
+  overflow-x: auto;
+  padding: .2em;
+  background: rgba(53, 80, 111, 0.75);
+  border: 0.5px solid #25374c;
+  margin: 0 2px
+}
+
+
 
 /* Table */
 
@@ -307,17 +337,17 @@ table, td, th {
   text-align: center;
 }
 
-.title-slide {
+/* .title-slide {
   background-image: url(https://qcbs.ca/wp-content/uploads/2010/05/QCBS_widescreen_background_white-01.png);
   background-size: cover;
-}
+} */
 
 .title-slide:before{
   position: absolute;
-  top: -35%;
-  left: 0%;
-  content: url(https://qcbs.ca/wp-content/uploads/2010/05/logo_small_grey-01.png);
-  transform: scale(.25);
+  top: 2%;
+  left: 10%;
+  content: url(https://github.com/QCBSRworkshops/QCBSRworkshops.github.io/blob/main/static/images/qcbs_logo_v2.png?raw=true);
+  transform: scale(.8);
 }
 
 /* Column */
