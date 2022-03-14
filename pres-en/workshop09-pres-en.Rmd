@@ -168,7 +168,7 @@ install.packages(c("ape",
 <br>
 
 .pull-left2[
-Throughout this workshop, there will be a series of **challenges** that you can recognize by this rubix cube.
+Throughout this workshop, there will be a series of **challenges** that you can recognize by this rubic cube.
 
 **During these challenges, do not hesitate to collaborate!**
 ]
@@ -188,31 +188,81 @@ Throughout this workshop, there will be a series of **challenges** that you can 
 
 **2.** Use `R` to perform an unconstrained ordination
 
-**3.**    Choose appropriate distance metrics and transformations to perform multivariate analysis
+**3.** Choose appropriate distance metrics and transformations to perform multivariate analysis
 
 * Clustering analysis
 * Principal Component Analysis (PCA)
 * Principal Coordinate Analysis (PCoA)
 * Non-Metric MultiDimensional Scaling (NMDS)
 
-**4.** Use `R` to create dendrogram
+**4.** Use `R` to create dendrograms
 
 
 ---
 
 class: inverse, center, middle
 
-# 1. Introduction
-
-## What is ordination?
+# 1. Preamble
 
 ---
-## One to two dimensions
 
-What if we are interested in this response for different species of algae involved in the algal bloom density?
+# Recap: Univariate analyses
 
-.center[![:scale 70%](images/algalBloom.png)]
+So far, we have learned a multitude of analyses that allowed us to interpret ecological data while depicting the effects of _one or multiple_ variables in _one_ response variable.
 
+--
+
+.pull-left[
+From these many methods we have learned in previous workshops, we can recall the:
+
+1. General Linear Models 
+  1. `lm()`;
+  2. `anova()`;
+  3. `t.test()`;
+  4. `lmer()`.
+2. Generalized Linear Models
+  1. `glm()` with serveral `family()` link functions;
+  2. `glmer()`.
+
+3. Generalized Additive Models
+  1. `gam()`.
+]
+
+--
+
+.pull-right[
+These models allowed us to ask questions such as:
+
+1. _What are the effects of precipitation and temperature on species richness?_
+2. _How does the abundance of microbes change between hosts?_
+3. _Do co-occurring fish become more aggressive after being induced to fear?_
+]
+
+---
+
+# Multivariate statistics
+
+However, one may be interested in making inferences from ecological data containing _more than one_ outcome or dependent variable.
+
+--
+
+For instance, our research question might be:
+
+1. How does the _bacterial composition_ on maple leaves changes along the elevational gradient?
+
+2. What is the _compositional dissimilarity_ of the bat communities?
+
+3. How _closely-related_ Wookiee local communities are in relation to their _composition_?  
+
+--
+
+In all these cases, the outcome is composed of several variables, _i.e._ species.
+
+--
+
+<br>
+
+We will now dive into **multivariate statistics**, a tool set that will allow us to address questions requiring the simultaneous observation or analysis of more than one outcome variable.
 
 ---
 ## One to two dimensions
