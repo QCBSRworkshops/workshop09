@@ -208,7 +208,7 @@ class: inverse, center, middle
 
 # Recap: Univariate analyses
 
-So far, we have learned a multitude of analyses that allowed us to interpret ecological data while depicting the effects of _one or multiple_ variables in _one_ response variable.
+We have learned a multitude of analyses that allowed us to interpret ecological data while depicting the effects of _one or multiple_ variables in _one_ response variable.
 
 --
 
@@ -244,6 +244,8 @@ These models allowed us to ask questions such as:
 
 However, one may be interested in making inferences from ecological data containing _more than one_ outcome or dependent variable.
 
+This interest may be driven by hypothesis testing and modelling, but also be entirely exploratory. 
+
 --
 
 For instance, our research question might be:
@@ -252,47 +254,248 @@ For instance, our research question might be:
 
 2. What is the _compositional dissimilarity_ of the bat communities?
 
-3. How _closely-related_ Wookiee local communities are in relation to their _composition_?  
-
---
-
-In all these cases, the outcome is composed of several variables, _i.e._ species.
-
---
-
-<br>
-
-We will now dive into **multivariate statistics**, a tool set that will allow us to address questions requiring the simultaneous observation or analysis of more than one outcome variable.
-
----
-## One to two dimensions
-
-.center[![:scale 70%](images/2dim.png)]
-
----
-## Three dimensions
-
-.center[
-![:scale 70%](images/3dim.png)]
-
-
----
-## 4,5,6, or more dimensions
-
-.center[![:scale 70%](images/4dim.png)]
-
-<br>
-
-.center[ **?** ]
-
-- It is not possible to draw a diagram with more than 3 dimensions
+3. How _closely-related_ Wookiee local communities are in relation to their _composition_?
 
 ???
 
 In ecology, several descriptors are usually observed for each object under study. In most instances, ecologists are interested in characterizing the main trends of variation of the objects with respect to all descriptors, not only a few of them. Looking at scatter plots of the objects with respect to all possible pairs of descriptors is a tedious approach, which generally does not shed much light on the problem at hand.
 Even with multivariate approach, it is not possible to draw such a diagram on paper with more than three dimensions, however, even though it is a perfectly valid mathematical construct.
 
+--
+
+In all these cases, the outcome is composed of several variables, _e.g._ usually a sample-by-species or sample-by-environment matrix.
+
+--
+
+<br>
+We will now dive into **multivariate statistics**, a tool set that will allow us to address questions requiring the simultaneous observation or analysis of more than one outcome variable.
+
 ---
+# Background on multivariate methods
+
+1. Association (or dis-similarity) measures and matrices
+
+2. Classification (or cluster) analysis
+
+3. Unconstrained ordination
+
+4. Constrained (or canonical) ordination
+
+-- 
+
+But, before that, we must recall the basics of **matrix algebra**.
+
+---
+
+# Matrix algebra: a *very brief* summary
+
+Matrix algebra is well-suited for ecology, because most (if not all) _data sets_ we work with, are in a _matrix_ format.
+
+--
+
+.pull-left[
+Ecological data tables are obtained as object-observations or sampling units, and are often recorded as this: 
+<br>
+
+| Objects | $y_1$     | $y_2$  | $\dots$           | $y_n$  |
+| :-------------: |:-------------:| :-----:|:-----:|:-----:|
+|  $x_1$        | $y_{1,1}$     | $y_{1,2}$  | $\dots$  | $y_{1,n}$  |
+|  $x_2$        | $y_{2,1}$     | $y_{2,2}$  | $\dots$  | $y_{2,n}$  |
+|  $\vdots$     | $\vdots$     | $\vdots$  | $\ddots$  | $\vdots$  |
+|  $x_m$        | $y_{m,1}$     | $y_{m,2}$  | $\dots$  | $y_{m,n}$  |
+<br>
+where $x_m$ is the sampling unit $m$; and $y_n$ is the ecological descripor that can be, for example, species present in a sampling unit, locality, or a chemical variable.
+]
+
+--
+
+.pull-right[
+
+The same ecological data table can be represented in _matrix notation_ like this:
+
+$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}$$
+
+where lowercase letters indicate _elements_, and the subscript letters indicate the _position of these elements_ in the matrix (and in the table!).
+]
+
+
+---
+
+# Matrix algebra: a *very brief* summary
+
+Matrix algebra is well-suited for ecology, because most (if not all) _data sets_ we work with, are in a _matrix_ format.
+
+.pull-left[
+Moreover, any subset of a matrix can be recognized!
+
+<br>
+
+.center[_a row matrix_]
+$$\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}$$
+
+.center[_a column matrix_]
+$$\begin{bmatrix}
+y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+\end{bmatrix}$$
+
+]
+
+.pull-right[
+The same ecological data table can be represented in _matrix notation_ like this:
+
+$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}$$
+
+where lowercase letters indicate _elements_, and the subscript letters indicate the _position of these elements_ in the matrix (and in the table!).
+
+]
+
+---
+
+# Matrix algebra: a *very brief* summary
+
+###### Association matrices
+
+Two important matrices can be derived from the ecological data matrix: the _**association matrix among objects**_ and the _**association matrix among descriptors**_.
+
+--
+
+.pull-left[
+Using the data from our matrix $Y$,
+
+<div class="math">
+\[ Y = 
+\begin{array}{cc}
+\begin{array}{ccc}
+x_1 \rightarrow\\
+x_2 \rightarrow\\
+\vdots \\
+x_m \rightarrow\\
+\end{array}
+&
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}
+\end{array}
+\]
+</div>
+
+one can examine the relationship between the first two objects:
+
+<div class="math">
+\[x_1 \rightarrow \begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<div class="math">
+\[x_2 \rightarrow 
+\begin{bmatrix}
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<p>and obtain \(a_{1,2}\). </p>
+
+]
+
+--
+
+.pull-right[
+
+We can populate the association matrix $A_{n,n}$ with the relationships between all objects from $Y$:
+
+<div class="math">
+\[A_{m.m} = 
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n,1} & a_{m,2} & \cdots & a_{n,n} 
+\end{bmatrix}\]
+</div>
+
+<p>Because \(A_{n,n}\) has the same number of rows and columns, it is denoted a <i>square matrix</i>.</p> 
+
+<p>Therefore, it has \(n^2\) elements.</p>
+
+]
+
+---
+
+# Matrix algebra: a *very brief* summary
+
+###### Association matrices
+
+Two important matrices can be derived from the ecological data matrix: the _**association matrix among objects**_ and the _**association matrix among descriptors**_.
+
+--
+
+.pull-left[
+
+We can also obtain the relationship between the first two descriptors of $Y$, $y_1$ and $y_2$:
+
+.pull-left[
+$$\begin{bmatrix}
+y_{1,2} \\
+y_{2,2} \\
+\vdots  \\
+y_{m,2} 
+\end{bmatrix}$$
+]
+
+.pull-right[
+$$\begin{bmatrix}
+y_{1,1} \\
+y_{2,1} \\
+\vdots  \\
+y_{m,1} 
+\end{bmatrix}$$
+]
+
+and store it in $a_{1,2}$.
+]
+
+--
+
+.pull-right[
+
+We can populate the association matrix $A_{m,m}$ with the relationships between all descriptors from $Y$:
+
+$$A_{m.m} = 
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,m} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,m} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{m,1} & a_{m,2} & \cdots & a_{m,m} 
+\end{bmatrix}$$
+
+<p>This \(A_{m,m}\) is a <i>square matrix</i>, and it has \(m^2\) elements.</p>
+
+]
+
+---
+
+---
+
 # Ordination in reduced space
 
 .center[![:scale 70%](images/Ord1.png)]
