@@ -33,8 +33,8 @@ knitr::opts_chunk$set(
 
 options(repos = structure(
   c(CRAN = "http://cran.r-project.org")
-  )
-  )
+)
+)
 
 # Install xaringanExtra
 
@@ -63,7 +63,7 @@ if(length(new.packages) > 0) {
   install.packages(new.packages, dependencies = TRUE) 
   print(paste0("The following package was installed:", new.packages)) 
 } else if(length(new.packages) == 0) {
-    print("All packages were already installed previously")
+  print("All packages were already installed previously")
 }
 
 # Load all required libraries at once
@@ -91,7 +91,7 @@ by modifying and improving its content as part of the <br> *Le*arning *a*nd *D*e
 .pull-left[
 .right[
 
- **2022** - **2021** - **2020**
+**2022** - **2021** - **2020**
 
 [Pedro Henrique P. Braga]()
 
@@ -216,16 +216,16 @@ We have learned a multitude of analyses that allowed us to interpret ecological 
 From these many methods we have learned in previous workshops, we can recall the:
 
 1. General Linear Models 
-  1. `lm()`;
-  2. `anova()`;
-  3. `t.test()`;
-  4. `lmer()`.
+1. `lm()`;
+2. `anova()`;
+3. `t.test()`;
+4. `lmer()`.
 2. Generalized Linear Models
-  1. `glm()` with serveral `family()` link functions;
-  2. `glmer()`.
+1. `glm()` with serveral `family()` link functions;
+2. `glmer()`.
 
 3. Generalized Additive Models
-  1. `gam()`.
+1. `gam()`.
 ]
 
 --
@@ -553,97 +553,135 @@ for descriptors
 for objects
 
 ]
-
-
-
-]
----
-
-# Ordination in reduced space
-
-.center[![:scale 70%](images/Ord1.png)]
-
-- Ordination is the representation of objects (sites, stations, readings, etc.) as point data along one or several reference axes.
-
-- Ordination addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
-
-- Reduced space: a space with reduced dimensionality relative to the original dataset.
-
-???
-
-Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
-
----
-
-# Ordination in reduced space
-
-.center[![:scale 70%](images/Ord3.png)]
-
-- For the purpose of analysis, ecologists project the multidimensional scatter from multidimensional space into a smaller number of dimensions of descriptors. 
-
-- Axes represent a large fraction of the variability of the multidimensional data matrix.
-
-???
-Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
-
----
-exclude: true
-
-# Methods for scientific research
-
-Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
-
----
-class: inverse, center, middle
-
-# 2. Exploring data
-
----
-# Doubs River Fish Dataset
-
-.pull-left[
-
-Verneaux (1973) dataset:
-- characterization of fish communities
-- 27 different species
-- 30 different sites
-- 11 environmental variables
-
-]
-
-.pull.right[
-
-![:scale 50%](images/DoubsRiver.png)
-
 ]
 
 ---
-# Doubs River fish dataset
+## Our plans for the next steps...
 
-Load the Doubs River species data (`doubsspe.csv`)
+We will dive into **R** and **Q** analyses, and we will explore:
+
+1. Association coefficients: similarity, distance, and dependence coefficients
+- Q-mode: distance coefficients
+- R-mode: coefficients of dependence
+2. Cluster analyses
+3. Ordinations in the reduced space
+
+
+<br> 
+
+.center[**But, let us now introduce a real data set.**]
+
+.center[_It will be your time to get your hands dirty!_]
+
+###### Association coefficients
+
+_Stepping up our game_, we can use population parameters and sample statistics to reveal the structure of our ecological data.
+
+For example, we can represent in our association matrix $A_{n,n}$
+
+---
+# Doubs river fish communities
+
+.pull-left3[
+Verneaux (1973) proposed to use fish species to characterize ecological zones along European rivers and streams.
+
+He collected data at **30 localities** along the Doubs river, which runs near France-Switzerland border, in the Jura Mountains.
+
+He showed that fish communities were biological indicators of these water bodies. 
+
+Their data is split in three matrices:
+
+1. The abundance of 27 fish species across the communities;
+2. The environmental variables recorded at each site; and,
+3. The geographical coordinates of each site.
+
+]
+
+.pull.right3[
+.center[![:scale 30%](images/DoubsRiver.png)]
+.center[![:scale 30%](https://upload.wikimedia.org/wikipedia/commons/c/cc/Doubs_Laissey.jpg)]
+
+<br>
+]
+.small[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.] 
+
+---
+
+# Doubs river fish communities
+
+.pull-left3[
+
+We can load their data from the `data` directory in this workshop:
 
 ```{r}
-spe <- read.csv("data/doubsspe.csv", row.names = 1) 
-# this line will vary depending on where you saved the dataset
-spe <-  spe[-8,] # remove site with no data
+spe <- read.csv("data/doubsspe.csv", 
+                row.names = 1) 
+
+env <- read.csv("data/doubsenv.csv", 
+                row.names = 1)
+```
+
+]
+
+--
+
+.pull-right3[
+
+Their data can also be retrieved from the `ade4` package:
+```{r eval=FALSE, echo = TRUE}
+library (ade4)
+data (doubs)
+
+spe <- doubs$fish
+env <- doubs$env
+```
+
+Alternatively, from the `codep` package:
+```{r eval=FALSE, echo = TRUE}
+library (codep)
+data (Doubs)
+
+spe <- Doubs.fish
+env <- Doubs.env
+```
+]
+
+---
+
+
+|Variable name|Description|
+|:--:|:--|
+|das|Distance from the source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Slope [per thousand]  |
+|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
+|pH|pH of water  |
+|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
+|pho|K conc. [mgL<sup>-1</sup>]  |
+|nit|N conc. [mgL<sup>-1</sup>]  |
+|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
+|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
+|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
+
+
+---
+
+```{r}
+
+env <- env[-8,] # remove site with no data
+
 # for larger datasets:
 row_sub = apply(spe, 1, function(row) any(row !=0 ))
+
 # find rows where there are not any values that equal zero
 spe <- spe[row_sub,]
 # only keep rows that have no zeros  
+
 ```
 
-Load the Doubs River environmental data (`doubsenv.csv`)
-
-```{r}
-env <- read.csv("data/doubsenv.csv", row.names = 1)
-env <- env[-8,] # remove site with no data
-```
-
-.alert[Proceed with caution, only execute once]
-
----
 # Expore Doubs dataset
+
+
 
 Explore the content of the fish community dataset
 
@@ -828,11 +866,11 @@ class: inverse, center, middle
 Matrix algebra is at the heart of all ordinations
 $$
 \begin{bmatrix}
-    a_{1,1} & a_{1,2} & a_{1,3} & \dots  & a_{1,n} \\
-    a_{2,1} & a_{2,2} & a_{2,3} & \dots  & a_{2,n} \\
-    a_{3,1} & a_{3,2} & a_{3,3} & \dots  & a_{3,n} \\
-    \vdots & \vdots & \vdots & \ddots & \vdots \\
-    a_{m,1} & a_{m,2} & a_{m,3} & \dots  & a_{m,n}
+a_{1,1} & a_{1,2} & a_{1,3} & \dots  & a_{1,n} \\
+a_{2,1} & a_{2,2} & a_{2,3} & \dots  & a_{2,n} \\
+a_{3,1} & a_{3,2} & a_{3,3} & \dots  & a_{3,n} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+a_{m,1} & a_{m,2} & a_{m,3} & \dots  & a_{m,n}
 \end{bmatrix}
 $$
 
@@ -883,28 +921,28 @@ Distance: D = 1-S]
 
 .pull-left[
 - **Euclidean**  
-  $d_{jk} = \sqrt(\sum((x_{ij}-x_{ik})^2))$   
-  Used in PCA and RDA.
-  <br><br>
+$d_{jk} = \sqrt(\sum((x_{ij}-x_{ik})^2))$   
+Used in PCA and RDA.
+<br><br>
 - **Manhattan**  
-  $d_{jk} = \sum(abs(x_{ij} - x_{ik}))$  
-  Similar to the Euclidean, but sensitive to the double zero problem.
-  <br><br>
+$d_{jk} = \sum(abs(x_{ij} - x_{ik}))$  
+Similar to the Euclidean, but sensitive to the double zero problem.
+<br><br>
 - **Chord**  
-  Euclidean distance calculated for a row standardised matrix.
+Euclidean distance calculated for a row standardised matrix.
 ]
 
 .pull-right[
 - **Hellinger**  
-  Square roots of conditional probabilities. Performs well in linear ordination.
-  <br><br>  
+Square roots of conditional probabilities. Performs well in linear ordination.
+<br><br>  
 - **Chi-square**  
-  $d_{jk} = \sum(\frac{(x_{ij}-x_{ik})^2}{(x_{ij}+x_{ik})} ) / 2$   
-  Used in CA
-  <br><br>
+$d_{jk} = \sum(\frac{(x_{ij}-x_{ik})^2}{(x_{ij}+x_{ik})} ) / 2$   
+Used in CA
+<br><br>
 - **Bray-Curtis** (Semimetric)  
-  $d_{jk} = \frac{\sum(abs(x_{ij}-x_{ik}))}{(\sum (x_{ij}+x_{ik}))}$  
-  Used in PCoA and NMDS.
+$d_{jk} = \frac{\sum(abs(x_{ij}-x_{ik}))}{(\sum (x_{ij}+x_{ik}))}$  
+Used in PCoA and NMDS.
 ]
 <br><br>
 .center[     
@@ -972,38 +1010,38 @@ exclude: true
 
 "coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
 {
-	require(gclus)
-
-	if (max(D)>1) D <- D/max(D)
-
-	if (byrank) {
-		spe.color <- dmat.color(1-D, cm.colors(nc))
-	}
-	else {
-		spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
-	}
-
-	spe.o <- order.single(1-D)
-	speo.color <- spe.color[spe.o, spe.o]
-	
-	op <- par(mfrow=c(1,2), pty="s")
-
-	if (diag) {
-		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-			main="Dissimilarity Matrix", 
-			dlabels=attributes(D)$Labels)
-		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-			main="Ordered Dissimilarity Matrix", 
-			dlabels=attributes(D)$Labels[spe.o])
-	}
-	else {
-		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-			main="Dissimilarity Matrix")
-		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-			main="Ordered Dissimilarity Matrix")
-	}
-
-	par(op)
+  require(gclus)
+  
+  if (max(D)>1) D <- D/max(D)
+  
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+  
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+  
+  op <- par(mfrow=c(1,2), pty="s")
+  
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix")
+  }
+  
+  par(op)
 }
 
 # Usage:
@@ -1177,7 +1215,7 @@ exclude: true
 - The objects divided into small groups (1-2, 3-4, 5)
 
 - Connect small groups using the largest distance between their elements 
-  * (1-3=0.15, 2-4=0.35, 2-3=0.6, select 0.6 to connect group 1-2 and 3-4)
+* (1-3=0.15, 2-4=0.35, 2-3=0.6, select 0.6 to connect group 1-2 and 3-4)
 
 
 ![](images/compleClust2.png)
@@ -1228,7 +1266,7 @@ Contrasted groups are formed of objects occur
 # Ward's minimum variance method
 
 - Uses the criterion of least squares to cluster objects into groups
-  - At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares
+- At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares
 
 ---
 # Ward's method
@@ -1257,7 +1295,7 @@ Clusters generated using this method tend to contain similar numbers of objects.
 # How to choose the right method?
 
 - Choosing the 'right' method depends on your objective
-  - Do you want to highlight gradients? contrasts?
+- Do you want to highlight gradients? contrasts?
 - If more than on method seems appropriate, compare dendrograms.
 - Again: this is **not** an statistical method!
 
@@ -1392,8 +1430,8 @@ cov_{x,y} & var_{y} & cov_{z,y} \\
 cov_{x,z} & cov_{y,z} & var_{z}   
 \end{array} \right]$$
 
- <br>
- 
+<br>
+
 .center[The covariance of a variable with itself is its *variance*!]
 
 ---
@@ -1945,7 +1983,7 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4))
 ```
 ]
@@ -2043,9 +2081,9 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4)
-     )
+)
 ```
 
 ]
@@ -2146,10 +2184,10 @@ Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
 Y_std <- as.data.frame(Y_std)
 
 op <- par(mfrow = c(2, 1),     # 2x2 layout
-    oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
-    mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
-    mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
-    )       
+          oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
+          mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
+          mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
+)       
 
 plot(N ~ P, 
      col = as.factor(rownames(Y_std)),
@@ -2217,7 +2255,7 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4))
 
 
@@ -2285,9 +2323,9 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4)
-     )
+)
 
 title(xlab = "N",
       ylab = "P",
@@ -2997,8 +3035,8 @@ We can attempt using *non-metric multidimensional scaling*!
 - Consequently, the lower the stress value, the better the representation of objects in the ordination-space is.
 
 -  nMDS is implemented in `vegan` as `metaMDS()` where:
-  - `distance` specifies the distance metric to use;
-  - `k` specifies the number of dimensions.
+- `distance` specifies the distance metric to use;
+- `k` specifies the number of dimensions.
 
 ```{r, eval = FALSE, echo = TRUE}
 spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
@@ -3038,9 +3076,9 @@ points(scores(spe.nmds, display = "sites",
               g = "steelblue",
               cex = 1.2))
 text(scores(spe.nmds, display = "species", choices = c(1)),
-            scores(spe.nmds, display = "species", choices = c(2)),
-            labels = rownames(scores(spe.nmds, display = "species")),
-            col = "red", cex = 0.8)
+     scores(spe.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(spe.nmds, display = "species")),
+     col = "red", cex = 0.8)
 ```
 
 ---
@@ -3068,9 +3106,9 @@ points(scores(spe.nmds, display = "sites",
               g = "steelblue",
               cex = 1.2))
 text(scores(spe.nmds, display = "species", choices = c(1)),
-            scores(spe.nmds, display = "species", choices = c(2)),
-            labels = rownames(scores(spe.nmds, display = "species")),
-            col = "red", cex = 0.8)
+     scores(spe.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(spe.nmds, display = "species")),
+     col = "red", cex = 0.8)
 ```
 ]
 
