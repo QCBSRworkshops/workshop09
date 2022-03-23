@@ -13,6 +13,23 @@ et des Positionnements Multidimensionnels Non-Métriques (NMDS).
 
 # Préparez-vous pour cet atelier
 
+```{r eval=FALSE, echo=FALSE, purl=TRUE}
+##### Avis ###
+###                                                                             #
+### Ceci est un script généré automatiquement basé sur les morceaux de code du  #
+### livre pour cet atelier.                                                     #
+###                                                                             #
+### Il est minimalement annoté pour permettre aux participants de fournir leurs #
+### commentaires : une pratique que nous encourageons vivement.                 #
+###                                                                             #
+### Notez que les solutions aux défis sont également incluses dans ce script.   #
+### Lorsque vous résolvez les défis par vous-méme, essayez de ne pas parcourir  #
+### le code et de regarder les solutions.                                       #
+###                                                                             # 
+### Bon codage !                                                               #
+
+```
+
 **Téléchargez le script R et les données pour cet atelier:**
 
 -   [script R](http://qcbs.ca/wiki/_media/multivar1_f.r)
