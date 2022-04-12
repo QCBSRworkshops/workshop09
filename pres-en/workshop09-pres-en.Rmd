@@ -168,7 +168,7 @@ install.packages(c("ape",
 <br>
 
 .pull-left2[
-Throughout this workshop, there will be a series of **challenges** that you can recognize by this rubic cube.
+Throughout this workshop, there will be a series of **challenges** that you can recognize by this Rubik's cube.
 
 **During these challenges, do not hesitate to collaborate!**
 ]
@@ -254,7 +254,7 @@ For instance, our research question might be:
 
 2. What is the _compositional dissimilarity_ of the bat communities?
 
-3. How _closely-related_ Wookiee local communities are in relation to their _composition_?
+3. How _closely-related_ spider local communities are in relation to their _composition_?
 
 ???
 
@@ -281,15 +281,17 @@ We will now dive into **multivariate statistics**, a tool set that will allow us
 
 4. Constrained (or canonical) ordination
 
--- 
+--
 
-But, before that, we must recall the basics of **matrix algebra**.
+<br>
+
+.center[But, before that, we must recall the basics of **matrix algebra**.]
 
 ---
 
 # Matrix algebra: a *very brief* summary
 
-Matrix algebra is well-suited for ecology, because most (if not all) _data sets_ we work with, are in a _matrix_ format.
+Matrix algebra is well-suited for ecology, because most (if not all) _data sets_ we work with are in a _matrix_ format.
 
 --
 
@@ -558,20 +560,22 @@ for objects
 ---
 ## Our plans for the next steps...
 
-We will dive into **R** and **Q** analyses, and we will explore:
+We will dive into **R-mode** and **Q-mode** analyses, and we will explore:
 
 1. Association coefficients: similarity, distance, and dependence coefficients
-- Q-mode: distance coefficients
-- R-mode: coefficients of dependence
+  - Q-mode: distance coefficients
+  - R-mode: coefficients of dependence
 2. Cluster analyses
 3. Ordinations in the reduced space
 
 
 <br> 
 
-.center[**But, let us now introduce a real data set.**]
+.center[**But, first, let us introduce a real data set.**]
 
 .center[_It will be your time to get your hands dirty!_]
+
+---
 
 ###### Association coefficients
 
@@ -585,25 +589,32 @@ For example, we can represent in our association matrix $A_{n,n}$
 .pull-left3[
 Verneaux (1973) proposed to use fish species to characterize ecological zones along European rivers and streams.
 
-He collected data at **30 localities** along the Doubs river, which runs near France-Switzerland border, in the Jura Mountains.
+He collected data at **30 localities** along the Doubs river, which runs near the France-Switzerland border, in the Jura Mountains.
 
 He showed that fish communities were biological indicators of these water bodies. 
+]
 
+.pull.right3[
+.center[![:scale 28%](images/DoubsRiver.png)]
+]
+
+--
+
+.pull-left3[
 Their data is split in three matrices:
 
 1. The abundance of 27 fish species across the communities;
 2. The environmental variables recorded at each site; and,
 3. The geographical coordinates of each site.
-
 ]
 
 .pull.right3[
-.center[![:scale 30%](images/DoubsRiver.png)]
 .center[![:scale 30%](https://upload.wikimedia.org/wikipedia/commons/c/cc/Doubs_Laissey.jpg)]
 
 <br>
 ]
-.small[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.] 
+
+.xsmall[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.] 
 
 ---
 
@@ -611,7 +622,7 @@ Their data is split in three matrices:
 
 .pull-left3[
 
-We can load their data from the `data` directory in this workshop:
+We can load their data from the `data/` directory in this workshop:
 
 ```{r}
 spe <- read.csv("data/doubsspe.csv", 
@@ -666,6 +677,160 @@ env <- Doubs.env
 
 ---
 
+# Doubs river fish communities
+
+We can then explore the objects containing our newly loaded data. 
+
+Let us peek into the `spe` data:
+
+.pull-left[
+```{r, echo = T}
+head(spe)[, 1:8]
+```
+
+```{r, echo = T}
+str(spe)
+```
+]
+
+.pull-right[
+
+```{r, eval = F}
+# Try some of these!
+
+names(spe)   # names of objects
+dim(spe)     # dimensions
+
+str(spe)     # structure of objects
+summary(spe) # summary statistics
+
+head(spe)    # first 6 rows
+```
+
+]
+
+---
+
+# (Dis)similarity measures
+
+Community resemblance is almost always assessed on the basis of species composition data in the form of a site-by-species data table $Y_{m,n}$.
+
+We can obtain an association matrix $A_{m,m}$ in the form of pairwise distances or dissimilarities $D_{m,m}$ (or similarities $S_{m,m}$) and then analyse those distances.
+
+.pull-left[
+In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`:
+
+```{r, eval = T}
+dist(spe)
+```
+
+]
+
+.pull-right[
+
+For the sake of simplification, we have done this without specifying arguments.
+
+Run `dist(spe)` from your end, note what you observe and see what the commands below show you:
+
+```{r, eval = F}
+class(dist(spe))
+```
+
+```{r, eval = F}
+str(dist(spe))
+```
+
+```{r, eval = F}
+as.matrix(dist(spe))
+```
+
+```{r, eval = F}
+dim(as.matrix(dist(spe)))
+```
+
+]
+
+---
+
+# (Dis)similarity measures
+
+There are three groups of distance coefficients: _metrics_, _..._ , _..._ .
+
+The first group consists of *metrics*, and its coefficients satisfy the following properties:
+
+.pull-left[
+1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
+2. positiveness: if $a \neq b$, then $D(a,b) > 0$;
+3. symmetry: $D(a,b) = D(b,a)$;
+4. triangle inequality: $D(a,b) + D(b,c) \geq D(a,c)$. The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.
+]
+
+.pull-right[
+
+We can spot all these properties below:
+
+```{r, eval = T}
+as.matrix(dist(spe))[1:3, 1:3]
+```
+
+]
+
+???
+
+Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
+
+
+---
+
+# (Dis)similarity measures
+
+There are three groups of distance coefficients: _metrics_, _semimetrics_, _..._ .
+
+The second group consists of *semimetrics*, and they violate the _triangle inequality_ property:
+
+.pull-left[
+1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
+2. positiveness: if $a \neq b$, then $D(a,b) > 0$;
+3. symmetry: $D(a,b) = D(b,a)$;
+4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq D(a,c)}$. ~~The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.~~
+]
+
+.pull-right[
+
+
+]
+
+???
+
+Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
+
+---
+
+# (Dis)similarity measures
+
+There are three groups of distance coefficients: _metrics_, _semimetrics_, _nonmetrics_.
+
+The third group consists of *nonmetrics*, and they violate the _positiveness_ property of metrics:
+
+.pull-left[
+1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
+2. ~~positiveness: if $a \neq b$, then $D(a,b) > 0$~~;
+3. symmetry: $D(a,b) = D(b,a)$;
+4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq D(a,c)}$. ~~The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.~~
+]
+
+.pull-right[
+
+
+]
+
+???
+
+Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
+
+
+---
+
 ```{r}
 
 env <- env[-8,] # remove site with no data
@@ -679,25 +844,10 @@ spe <- spe[row_sub,]
 
 ```
 
-# Expore Doubs dataset
-
-
+---
 
 Explore the content of the fish community dataset
 
-```{r, eval = F}
-names(spe) # Names of objects
-dim(spe) # dimensions
-str(spe) # structure of objects
-summary(spe) # summary statistics
-head(spe) # first 6 rows
-```
-
-```{r, echo = F}
-head(spe) # first 6 rows
-```
-
----
 # Species Frequencies
 
 Take a look at the distribution of species frequencies
