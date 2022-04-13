@@ -184,19 +184,20 @@ Throughout this workshop, there will be a series of **challenges** that you can 
 ---
 # Learning objectives
 
-**1.** Learn the basics of multivariate analysis to reveal patterns in community composition data
+1. Learn the basics of multivariate analysis to reveal patterns in community composition data
 
-**2.** Use `R` to perform an unconstrained ordination
+2. Use `R` to perform an unconstrained ordination
 
-**3.** Learn about similarity and dissimilarity coefficients and transformations to perform multivariate analysis
+3. Learn about similarity and dissimilarity coefficients and transformations to perform multivariate analysis
 
-* Clustering analysis
-* Principal Component Analysis (PCA)
-* Principal Coordinate Analysis (PCoA)
-* Non-Metric MultiDimensional Scaling (NMDS)
+4. Use `R` to create dendrograms
 
-**4.** Use `R` to create dendrograms
+5. Learn the following methods:
 
+  * Clustering analysis
+  * Principal Component Analysis (PCA)
+  * Principal Coordinate Analysis (PCoA)
+  * Non-Metric MultiDimensional Scaling (NMDS)
 
 ---
 
@@ -660,13 +661,17 @@ We can then explore the objects containing our newly loaded data.
 
 Let us peek into the `env` data:
 
-```{r, echo = T}
-head(env)[, 1:8]
-```
 
 .pull-left[
+```{r, echo = T}
+str(env)
+```
 
-|Variable name|Description|
+]
+
+.pull-right[
+
+|Variable |Description|
 |:--:|:--|
 |das|Distance from the source [km]  |
 |alt|Altitude [m a.s.l.]  |
@@ -679,14 +684,11 @@ head(env)[, 1:8]
 |amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
 |oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
 |dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
+
 ]
-
-.pull-right[
-
 ```{r, eval = F}
 names(env) # Names of objects
 dim(env) # dimensions
-str(env) # structure of objects
 summary(env) # summary statistics
 head(env) # first 6 rows
 ```
@@ -1602,9 +1604,13 @@ Contrasted groups are formed of objects occur
 ---
 # Ward's minimum variance method
 
+.pull-left[
 - Uses the criterion of least squares to cluster objects into groups
+
 - At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares
 
+- Clusters generated using this method tend to be more spherical and to contain similar number of objects
+]
 ---
 # Ward's method
 
@@ -1614,14 +1620,10 @@ Compute the Ward's minimum variance clustering and plot the dendrogram by using 
 par(mar=c(.5,2.5,1.5,.5), cex = 1)
 spe.dhel.ward <- hclust(spe.dhe1, method = "ward.D2")
 spe.dhel.ward$height <- sqrt(spe.dhel.ward$height)
-plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
+plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at 0
 ```
-- Clusters generated using this method tend to be more spherical and to contain similar number of objects
 
 > Ward's clustering algorithm can only be applied with Euclidean distances. Bray-Curtis distances are not Euclidean, so they must be square-rooted first before used with Ward's algorithm.
-
-
-
 
 ---
 # Important questions to address
