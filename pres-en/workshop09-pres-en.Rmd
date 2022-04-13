@@ -779,7 +779,6 @@ as.matrix(dist(spe))[1:3, 1:3]
 
 Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
 
-
 ---
 
 # (Dis)similarity measures
@@ -792,7 +791,7 @@ The second group consists of *semimetrics*, and they violate the _triangle inequ
 1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
 2. positiveness: if $a \neq b$, then $D(a,b) > 0$;
 3. symmetry: $D(a,b) = D(b,a)$;
-4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq D(a,c)}$. ~~The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.~~
+4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side.
 ]
 
 .pull-right[
@@ -810,13 +809,13 @@ Highlight the triangular nature of the `dist` class, that it can be converted to
 
 There are three groups of distance coefficients: _metrics_, _semimetrics_, _nonmetrics_.
 
-The third group consists of *nonmetrics*, and they violate the _positiveness_ property of metrics:
+The third group consists of *nonmetrics*, and they violate the _positiveness_ property of metric distances:
 
 .pull-left[
 1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
-2. ~~positiveness: if $a \neq b$, then $D(a,b) > 0$~~;
+2. ~~positiveness:~~ if $a \neq b$, then $D(a,b) > or < 0$;
 3. symmetry: $D(a,b) = D(b,a)$;
-4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq D(a,c)}$. ~~The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.~~
+4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side.
 ]
 
 .pull-right[
@@ -828,6 +827,169 @@ The third group consists of *nonmetrics*, and they violate the _positiveness_ pr
 
 Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
 
+---
+
+# (Dis)similarity measures: metric distances
+
+The most common metric distance measure is the _Euclidean distance_.
+
+.pull-left4[
+It is computed using the Pythagorean formula:
+
+$$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
+]
+
+.pull-right4[
+Using `stats::dist()`, we can compute it with:
+
+```{r, eval = T}
+spe.D.Euclid <- dist(x = spe,  
+                     method = "euclidean")
+```
+
+And, we can test whether a distance is Euclidean using:
+
+```{r, eval = T}
+is.euclid(spe.D.Euclid)
+```
+
+]
+
+???
+
+`method = "euclidean"` is the default parametre
+
+---
+
+# (Dis)similarity measures: metric distances ![:cube]()
+
+**Your turn!** Using the `dist()` function, compute the Euclidean distance matrix $D_{hmm}$ for the species abundances by site matrix $Y_{hmm}$ below:
+
+.pull-left[
+```{r, eval = T}
+Y.hmm <- data.frame(
+  y1 = c(0, 0, 1),
+  y2 = c(4, 1, 0),
+  y3 = c(8, 1, 0))
+```
+]
+
+.pull-right[
+
+| Sites | $y_1$ | $y_2$ | $y_3$ |
+|:----: | :----:| :---: | :---: |
+| $s_1$ | 0 | 4 | 8 |
+| $s_2$ | 0 | 1 | 1 |
+| $s_3$ | 1 | 0 | 0 |
+
+]
+
+After this, look into the numbers, think critically about them, and be ready to chat! (_3-min_)
+
+--
+
+.pull-left[
+
+**Solution:**
+
+```{r, eval = F}
+Y.hmm.DistEu <- dist(x = Y.hmm,  
+                     method = "euclidean")
+
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+.pull-right[
+
+Output:
+
+```{r echo=FALSE}
+Y.hmm.DistEu <- dist(x = Y.hmm,  
+                     method = "euclidean")
+
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+<br>
+
+.center[Tip: Compare sites $s_2$ and $s_3$.]
+
+???
+
+`method = "euclidean"` is the default parametre
+
+---
+## (Dis)similarity measures: metric distances ![:cube]()
+
+.pull-left[
+
+**Solution:**
+
+```{r, eval = T}
+Y.hmm
+```
+
+]
+
+.pull-right[
+
+Output:
+
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+The Euclidean distance between sites $s_2$ and $s_3$, which have no species in common, is smaller than the distance between $s_1$ and $s_2$, which share species $y_2$ and $y_3$ (!).
+
+From an ecological perspective, _this is a problematic_ assessment of the relationship among sites.
+
+--
+
+This issue is known as the **double-zero problem**, _i.e._ double zeroes are treated in the same way as double presences, so that the double zeros shrink the distance between two sites.
+
+Euclidean distances ( $D_1$ ) should thus _not_ be used to compare sites based on species abundances.
+
+---
+
+# (Dis)similarity measures: metric distances
+
+Orlóci (1967) proposed the _Chord distance_ to analyse community composition.
+
+.pull-left[
+It consists of:
+
+1\. Normalizing the data, _i.e._ scaling site vectors to length 1 by dividing species abundances in a given sample by the square-rooted sum of square abundances in all samples as in
+
+$$y'_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}$$
+
+
+2\. Calculating the Euclidean distances on this normalized data:
+
+$$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
+]
+
+.pull-right[
+We can use `vegan::vegdist()` for this one:
+
+```{r, eval = T}
+spe.D.Ch <- vegdist(spe,  
+                    method = "chord")
+
+head(spe.D.Ch)
+```
+
+
+]
+
+???
+
+`method = "euclidean"` is the default parametre
 
 ---
 
