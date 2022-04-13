@@ -10,7 +10,7 @@ output:
     seal: true
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
-      countIncrementalSlides: true
+      countIncrementalSlides: false
       beforeInit: "qcbsR-macros.js"
       highlightLines: true
 ---
@@ -55,7 +55,7 @@ htmltools::tagList(
 ```{r install_pkgs, message=FALSE, warning=FALSE, include=FALSE, results=0}
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes")
+list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -86,13 +86,13 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 .center[
 **Contributeurs et contributrices au développement de cet atelier**
 
-en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentissage et du développement (*Le*arning *a*nd *D*evelopment *A*ward*).
+en modifiant et en améliorant son contenu dans le cadre du <br> Prix d'apprentissage et de développement (*Le*arning *a*nd *D*evelopment *A*ward)
 ]
 
 .pull-left[
 .right[
 
- **2022** - **2021** - **2020**
+**2022** - **2021** - **2020**
 
 [Pedro Henrique P. Braga]()
 
@@ -132,42 +132,6 @@ en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentis
 ]
 ]
 </p>
-
----
-<p style="font-size:75%">
-
-.center[
-**Contributeurs et contributrices au développement de cet atelier**
-
-en modifiant et en améliorant son contenu dans le cadre du <br> Prix d'apprentissage et de développement (*Le*arning *a*nd *D*evelopment *A*ward)
-]
-
-
-.pull-left[
-.right[
-
- **2022** - **2021** - **2020**
-
-
-
-]
-]
-
-.pull-right[
-.left[
-**2019** - **2018** - **2017**
-
-
-
-**2016** - **2015** - **2014**
-
-
-
-]
-
-]
-</p>
-
 ---
 
 # Matériel requis
@@ -218,91 +182,320 @@ Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reco
 ]
 
 ---
+
 # Objectifs d'apprentissage
 
-**Apprendre les bases de l'analyse multivariée pour découvrir des patrons dans les données de composition des communautés.
+1. Apprendre les bases de l'analyse multivariée pour révéler des modèles dans les données sur la composition des communautés.
 
-**2.** Utiliser `R` pour effectuer une ordination sans contrainte.
+2. Utiliser `R` pour effectuer une ordination sans contrainte.
 
-**3.** Choisir les mesures de distance et les transformations appropriées pour effectuer une analyse multivariée.
+3. Apprendre les coefficients de similarité et de dissimilarité et les transformations des données.
+
+4. Utiliser `R` pour créer des dendrogrammes.
+
+5. Apprendre les méthodes suivantes :
 
 * Analyse de regroupement
 * Analyse en composantes principales (ACP)
 * Analyse en coordonnées principales (ACoP)
 * Échelle multidimensionnelle non métrique (PMnM).
 
-**4.** Utilisez `R` pour créer un dendrogramme.
-
 ---
 
 class: inverse, center, middle
 
-# 1. Introduction
-## Qu'est-ce que l'ordination?
+# 1. Préambule
 
 ---
-# Une dimension
 
-Imaginons que nous voulons mieux comprendre cette réponse pour différentes espèces d'algues impliquées dans la densité de l'efflorescence algale ?
+# Récapitulation : Analyses univariées
 
-.center[![:scale 70%](images/algalBloom.png)]
+Nous avons appris une multitude d'analyses qui nous ont permis d'interpréter des données écologiques en décrivant les effets d'_une ou plusieurs_ variables sur _une_ variable de réponse.
 
+
+--
+
+.pull-left[
+Nous pouvons rappeler les :
+
+1. Modèles linéaires généraux 
+  1. `lm()` ;
+  2. `anova()` ;
+  3. `t.test()` ;
+  4. `lmer()`.
+
+2. Modèles linéaires généralisés
+  1. `glm()` et `glmer()` avec plusieurs fonctions de liaison `family()`.
+
+3. Modèles additifs généralisés
+  1. `gam()`.
+]
+
+--
+
+.pull-right[
+Ces modèles nous ont permis de poser des questions telles que :
+
+1. _Quels sont les effets des précipitations et de la température sur la richesse des espèces ?
+2. 2. _Comment l'abondance des microbes change-t-elle entre les hôtes ?
+3. Les poissons cooccurrents deviennent-ils plus agressifs après avoir été induits à la peur ?
+]
 
 ---
-# Deux dimensions
 
-.center[![:scale 70%](images/2dim.png)]
+# Statistiques multivariées
+
+Cependant, on peut être intéressé à faire des inférences à partir de données écologiques contenant _plus d'une_ variable dépendante.
+
+Cet intérêt peut être motivé par la validation d'hypothèses et la modélisation, mais peut aussi être entièrement exploratoire. 
+
+--
+
+Par exemple, notre question de recherche pourrait être la suivante
+
+1. Comment la _composition bactérienne_ des feuilles d'érable change-t-elle le long du gradient d'altitude ?
+
+2. Quelle est la _dissimilarité compositionnelle_ des communautés de chauves-souris ?
+
+3. Quel est le rapport entre les communautés locales d'araignées et leur _composition_ ?
+
+--
+
+Dans tous ces cas, le résultat est composé de plusieurs variables, _e.g._ généralement une matrice échantillon par espèce ou échantillon par environnement.
+
+--
+
+Nous allons maintenant plonger dans les **statistiques multivariées**, un ensemble d'outils qui nous permettront de répondre à des questions nécessitant l'observation ou l'analyse simultanée de plus d'une variable de résultat.
 
 ---
-# Trois dimensions
 
-.center[
-![:scale 70%](images/3dim.png)]
+# Contexte des méthodes multivariées
 
+1. Mesures et matrices d'association (ou de dissimilarité)
 
----
-# 4, 5, 6, ou plus de dimensions
+2. Analyse de classification (ou _cluster_)
 
-.center[![:scale 70%](images/4dim.png)]
+3. Ordination sans contrainte
+
+4. Ordination contrainte (ou canonique)
+
+--
 
 <br>
 
-.center[ **?** ]
-
-???
-
-En écologie, plusieurs descripteurs sont généralement observés pour chaque objet étudié. Dans la plupart des cas, les écologistes sont intéressés par la caractérisation des principales tendances de variation des objets par rapport à tous les descripteurs, et pas seulement à quelques-uns d'entre eux. L'examen des diagrammes de dispersion des objets par rapport à toutes les paires possibles de descripteurs est une approche fastidieuse, qui n'apporte généralement pas beaucoup de lumière sur le problème à résoudre.
-Même avec une approche multivariée, il n'est pas possible de dessiner un tel diagramme sur un papier à plus de trois dimensions, même s'il s'agit d'une construction mathématique parfaitement valable.
+.center[
+Mais, avant cela, il faut rappeler les bases de **l'algèbre matricielle**.
+]
 
 ---
 
-# Ordination en espace réduit
+# Algèbre matricielle : un résumé très bref
 
-.center[![:scale 70%](images/Ord1.png)]
+L'algèbre matricielle est bien adaptée à l'écologie, car la plupart (si ce n'est la totalité) des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
 
-- L'ordination est la représentation d'objets (sites, stations, relevés, etc.) sous forme de données ponctuelles le long d'un ou plusieurs axes de référence.
 
-- L'ordination répond à la problématique de la projection de la dispersion des objets écologiques, qui sont situés dans l'espace multidimensionnel des descripteurs, dans un plus petit nombre de dimensions. 
+.pull-left[
+Les tableaux de données écologiques sont obtenus sous forme d'observations d'objets ou d'unités d'échantillonnage, et sont souvent enregistrés comme tels :
+<br>
 
-- Espace réduit : espace dont la dimensionnalité est réduite par rapport à l'ensemble des données d'origine.
+| Objets | $y_1$     | $y_2$  | $\dots$           | $y_n$  |
+| :-------------: |:-------------:| :-----:|:-----:|:-----:|
+|  $x_1$        | $y_{1,1}$     | $y_{1,2}$  | $\dots$  | $y_{1,n}$  |
+|  $x_2$        | $y_{2,1}$     | $y_{2,2}$  | $\dots$  | $y_{2,n}$  |
+|  $\vdots$     | $\vdots$     | $\vdots$  | $\ddots$  | $\vdots$  |
+|  $x_m$        | $y_{m,1}$     | $y_{m,2}$  | $\dots$  | $y_{m,n}$  |
+<br>
+où $x_m$ est l'unité d'échantillonnage $m$ ; et $y_n$ est le descripteur écologique qui peut être, _e.g._, l'espèce présente dans une unité d'échantillonnage ou une variable chimique.
+]
 
-???
+--
 
-Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
+.pull-right[
+
+Le même tableau de données écologiques peut être représenté en _notation matricielle_ de la manière suivante :
+$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}$$
+
+où les lettres minuscules indiquent les _éléments_, et les lettres en indice indiquent la _position de ces éléments_ dans la matrice (et dans le tableau !).
+]
 
 ---
 
-# Ordination en espace réduit
+# Algèbre matricielle : un résumé très bref
+
+L'algèbre matricielle est bien adaptée à l'écologie, car la plupart (si ce n'est la totalité) des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
+
+.pull-left[
+De plus, tout sous-ensemble d'une matrice peut être identifié !
+
+<br>
+
+.center[_une matrice de lignes_]
+$$\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}$$
+
+.center[_une matrice à colonnes_]
+$$\begin{bmatrix}
+y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+\end{bmatrix}$$
+
+]
+
+.pull-right[
+Le même tableau de données écologiques peut être représenté en _notation matricielle_ de la manière suivante :
+$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}$$
+
+où les lettres minuscules indiquent les _éléments_, et les lettres en indice indiquent la _position de ces éléments_ dans la matrice (et dans le tableau !).
+]
 
 
-.center[![:scale 70%](images/Ord3.png)]
+---
+# Algèbre matricielle : un résumé très bref
 
-- Pour les besoins d'analyses, les écologistes projettent la dispersion multidimensionnelle de l'espace multidimensionnel en un nombre plus restreint de dimensions de descripteurs. 
+###### Matrices d'association
 
-- Les axes représentent une grande fraction de la variabilité de la matrice de données multidimensionnelle.
+Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la _**matrice d'association entre objets**_ et la _**matrice d'association entre descripteurs**_.
 
-???
-Proposition de scénario : Pour les besoins de leur étude, les écologistes projettent généralement le diagramme de dispersion multidimensionnel sur des graphiques bivariés dont les axes sont connus pour leur intérêt particulier. Les axes de ces graphiques sont choisis pour représenter une grande partie de la variabilité de la matrice de données multidimensionnelle, dans un espace de dimensionnalité réduite (c'est-à-dire plus faible) par rapport à l'ensemble de données original. Les méthodes d'ordination dans un espace réduit permettent également d'obtenir des informations quantitatives sur la qualité des projections, et d'étudier les relations entre les descripteurs ainsi qu'entre les objets.
+--
+
+.pull-left[
+En utilisant les données de notre matrice $Y$,
+
+
+<div class="math">
+\[ Y = 
+\begin{array}{cc}
+\begin{array}{ccc}
+x_1 \rightarrow\\
+x_2 \rightarrow\\
+\vdots \\
+x_m \rightarrow\\
+\end{array}
+&
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}
+\end{array}
+\]
+</div>
+
+on peut examiner la relation entre les deux premiers objets :
+
+<div class="math">
+\[x_1 \rightarrow \begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<div class="math">
+\[x_2 \rightarrow 
+\begin{bmatrix}
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<p>and obtain \(a_{1,2}\). </p>
+
+]
+
+--
+
+.pull-right[
+
+Nous pouvons remplir la matrice d'association $A_{n,n}$ avec les relations entre tous les objets de $Y$ :
+
+<div class="math">
+\[A_{n,n} = 
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n,1} & a_{n,2} & \cdots & a_{n,n} 
+\end{bmatrix}\]
+</div>
+
+<p>Parce que \(A_{n,n}\) a le même nombre de lignes et de colonnes, elle est notée <i>matrice carrée</i>.</p> 
+
+<p>Par conséquent, elle possède \(n^2\) éléments.</p>
+
+]
+
+
+---
+# Algèbre matricielle : un résumé très bref
+
+###### Matrices d'association
+
+Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la _**matrice d'association entre objets**_ et la _**matrice d'association entre descripteurs**_.
+
+
+Ces matrices sont la base des analyses **_Q-mode_** et **_R-mode_** en écologie. 
+
+.pull-left[
+$$Y_{m,n} = 
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}$$
+]
+
+.pull-right[
+
+$$A_{m,m} = 
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,m} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,m} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{m,1} & a_{m,2} & \cdots & a_{m,m} 
+\end{bmatrix}$$
+
+]
+
+.pull-left[
+
+$$A_{n,n} = 
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n,1} & a_{m,2} & \cdots & a_{n,n} 
+\end{bmatrix}$$
+
+]
+
+.pull-right[
+
+.pull-left[
+
+<br>
+
+🡐 Analyse **_mode R_** pour les descripteurs ou les espèces
+
+]
+
+.pull-right[
+🠅 Analyse **_mode Q_** pour les objets ou les sites
+]
+]
 
 ---
 exclude: true
