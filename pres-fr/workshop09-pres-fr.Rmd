@@ -411,7 +411,7 @@ y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
 \]
 </div>
 
-<p>and obtain \(a_{1,2}\). </p>
+<p>et obtenir \(a_{1,2}\). </p>
 
 ]
 
@@ -446,7 +446,7 @@ a_{n,1} & a_{n,2} & \cdots & a_{n,n}
 Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la _**matrice d'association entre objets**_ et la _**matrice d'association entre descripteurs**_.
 
 
-Ces matrices sont la base des analyses **_Q-mode_** et **_R-mode_** en écologie. 
+Ces matrices sont la base des analyses **_mode Q_** et **_mode R_** en écologie. 
 
 .pull-left[
 $$Y_{m,n} = 
@@ -498,97 +498,206 @@ a_{n,1} & a_{m,2} & \cdots & a_{n,n}
 ]
 
 ---
-exclude: true
+## Nos projets pour les prochaines étapes...
 
-# Méthodes pour la recherche scientifique
+Nous allons nous plonger dans les analyses en **R-mode** et **Q-mode**, et nous allons explorer :
 
-- **Questions / Hypothèses**
-- **Design expérimental**
-- **Collecte de données**
-- **Transformation / Distance**
-- **Analyses**
-- **Rédaction**
-- **Communication**
+1. Les coefficients d'association : dissimilarité et similarité
+2. La transformation des données de composition
+3. Analyses de regroupement
+4. Analyses d'ordination dans l'espace réduit
+
+<br> 
+
+.center[**Mais, tout d'abord, présentons un ensemble de données réelles.**]
+
+.center[_Ce sera votre tour de vous salir les mains!_]
 
 ---
-class: inverse, center, middle
-# 2. Exploration des données
+# Communautés de poissons de la rivière Doubs
+
+.pull-left3[
+Verneaux (1973) a proposé d'utiliser les espèces de poissons pour caractériser les zones écologiques le long des cours d'eau européens.
+
+Il a recueilli des données dans **30 localités** le long de la rivière Doubs, qui coule près de la frontière franco-suisse, dans les montagnes du Jura. Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d'eau. 
+]
+
+.pull.right3[
+.center[![:scale 28%](images/DoubsRiver.png)]
+]
+
+--
+
+.pull-left3[
+Leurs données sont réparties en trois matrices :
+
+1. L'abondance de 27 espèces de poissons dans les communautés ;
+2. Les variables environnementales enregistrées sur chaque site ; et,
+3. Les coordonnées géographiques de chaque site.
+]
+
+.pull.right3[
+.center[![:scale 30%](https://upload.wikimedia.org/wikipedia/commons/c/cc/Doubs_Laissey.jpg)]
+
+<br>
+]
+
+.xsmall[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.] 
 
 ---
-# Données de poissons de la rivière Doubs
+# Communautés de poissons de la rivière Doubs
+
+.pull-left3[
+
+Nous pouvons charger leurs données depuis le répertoire `data/` dans cet atelier :
+
+```{r}
+spe <- read.csv("data/doubsspe.csv", 
+                row.names = 1) 
+env <- read.csv("data/doubsenv.csv", 
+                row.names = 1)
+```
+
+]
+
+--
+
+.pull-right3[
+
+Leurs données peuvent également être récupérées dans le paquet `ade4` :
+```{r eval=FALSE, echo = TRUE}
+library (ade4)
+data (doubs)
+spe <- doubs$fish
+env <- doubs$env
+```
+
+Alternativement, à partir du paquet `codep` :
+```{r eval=FALSE, echo = TRUE}
+library (codep)
+data (Doubs)
+spe <- Doubs.fish
+env <- Doubs.env
+```
+]
+
+---
+# Données environnementales de la rivière Doubs
+
+Nous pouvons alors explorer les objets contenant nos données nouvellement chargées. Jetons un coup d'oeil aux données `env` :
 
 .pull-left[
-
-Données de Verneaux (1973) :
-- caractérisation des communautés de poissons
-- 27 espèces
-- 30 sites
-- 11 variables environnementales
+```{r, echo = T}
+str(env)
+```
 
 ]
 
-.pull.right[
-![:scale 50%](images/DoubsRiver.png)
+.pull-right[
+
+|Variable |Description|
+|:--:|:--|
+|das|Distance from the source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Slope [per thousand]  |
+|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
+|pH|pH of water  |
+|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
+|pho|K conc. [mgL<sup>-1</sup>]  |
+|nit|N conc. [mgL<sup>-1</sup>]  |
+|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
+|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
+|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
+
+]
+```{r, eval = F}
+names(env)
+dim(env) # dimensions
+summary(env) # sommaire
+head(env)
+```
+
 ]
 
 ---
-# Données de poissons de la rivière Doubs
+# Communautés de poissons de la rivière Doubs
 
-Chargement des données espèces (`doubsspe.csv`)
+Jetons un coup d'œil aux données `spe` :
 
-```{r}
-spe <- read.csv("data/doubsspe.csv", row.names = 1) # cette ligne dépend d'où vous avez enregistré les données
-spe <-  spe[-8,] # supprimer le site sans données
-
-# pour des plus grands jeux de données:
-row_sub = apply(spe, 1, function(row) any(row !=0 ))
-# trouver les lignes où il n'y a aucun zéro
-spe <- spe[row_sub,]
-# garder les lignes qui n'ont aucun zéro  
+.pull-left[
+```{r, echo = T}
+head(spe)[, 1:8]
 ```
 
-Chargement des données environnementales (`doubsenv.csv`)
+```{r, echo = T, output.lines=1:8}
+str(spe)
+```
+]
 
-```{r}
-env <- read.csv("data/doubsenv.csv", row.names = 1)
-env <- env[-8,] # supprimer le site vide
+.pull-right[
+
+```{r, eval = F}
+# Essayez-en quelques-uns !
+names(spe)   # noms d'objets
+dim(spe)     # dimensions
+str(spe)     # structure des objets
+summary(spe) # sommaire
+head(spe)    # debut
 ```
 
-.alert[Attention, n'exécuter qu'une seule fois]
-
+]
 
 ---
-# Exporation des données
+# Mesures de (dis)similarité
 
-Explorer le contenu des données espèces :
+La ressemblance des communautés est frequement évaluée sur la composition des espèces, sous la forme d'un tableau de données site par espèce $Y_{m,n}$.
 
-```{r, eval = FALSE}
-names(spe) # noms des objets
-dim(spe) # dimensions
-str(spe) # structure des objets
-summary(spe) # résumé statistique
-head(spe) # 6 premières lignes
+On peut obtenir une matrice d'association $A_{m,m}$ sous la forme de distances ou de dissimilarités par paires $D_{m,m}$ (ou de similarités $S_{m,m}$), puis les analyser.
+
+--
+
+.pull-left[
+Dans `R`, nous pouvons calculer des matrices de distance en utilisant `stats::dist()` :
+
+```{r, eval = T}
+dist(spe)
 ```
 
-```{r, echo = FALSE}
-head(spe) # 6 premières lignes
+]
+
+--
+
+.pull-right[
+
+Par mesure de simplification, nous avons fait cela sans spécifier d'arguments.
+
+Essayez `dist(spe)` de votre côté, notez ce que vous observez et voyez ce que les commandes ci-dessous vous montrent :
+
+```{r, eval = F}
+class(dist(spe))
 ```
+
+```{r, eval = F}
+str(dist(spe))
+```
+
+```{r, eval = F}
+as.matrix(dist(spe))
+```
+
+```{r, eval = F}
+dim(as.matrix(dist(spe)))
+```
+
+]
+
+??? 
+Si possible, faites cette partie avec les participants.
+
+Montrez-leur comment est structuré un objet de classe dist. Soulignez qu'il s'agit d'une matrice triangulaire inférieure, où les distances entre les mêmes objets sont cachées.
 
 ---
-# Fréquences des espèces
 
-Observer la distribution de fréquence des espèces :
-
-```{r, fig.width=8, echo = -1}
-par(mar = c(4,4,.5,.5), cex = 1.5)
-ab <- table(unlist(spe))
-barplot(ab, las = 1, col = grey(5:0/5),
-        xlab = "Abondance des classes", ylab = "Fréquence")
-```
-
-.alert[Notez la proportion de 0]
-
----
 # Fréquences des espèces
 
 Combien de zéros?
