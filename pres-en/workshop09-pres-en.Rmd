@@ -10,7 +10,7 @@ output:
     seal: true
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
-      countIncrementalSlides: true
+      countIncrementalSlides: false
       beforeInit: "qcbsR-macros.js"
       highlightLines: true
 ---
@@ -559,12 +559,10 @@ for objects or sites
 
 We will dive into **R-mode** and **Q-mode** analyses, and we will explore:
 
-1. Association coefficients: similarity, distance, and dependence coefficients
-  - Q-mode: distance coefficients
-  - R-mode: coefficients of dependence
-2. Cluster analyses
+1. Association coefficients: dissimilarity and similarity
+2. Composition data transformation
+3. Cluster analyses
 3. Ordinations in the reduced space
-
 
 <br> 
 
@@ -573,6 +571,7 @@ We will dive into **R-mode** and **Q-mode** analyses, and we will explore:
 .center[_It will be your time to get your hands dirty!_]
 
 ---
+exclude: true
 
 ###### Association coefficients
 
@@ -655,10 +654,48 @@ env <- Doubs.env
 ]
 
 ---
-
-# Doubs river fish communities
+# Doubs river environmental data
 
 We can then explore the objects containing our newly loaded data. 
+
+Let us peek into the `env` data:
+
+```{r, echo = T}
+head(env)[, 1:8]
+```
+
+.pull-left[
+
+|Variable name|Description|
+|:--:|:--|
+|das|Distance from the source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Slope [per thousand]  |
+|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
+|pH|pH of water  |
+|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
+|pho|K conc. [mgL<sup>-1</sup>]  |
+|nit|N conc. [mgL<sup>-1</sup>]  |
+|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
+|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
+|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
+]
+
+.pull-right[
+
+```{r, eval = F}
+names(env) # Names of objects
+dim(env) # dimensions
+str(env) # structure of objects
+summary(env) # summary statistics
+head(env) # first 6 rows
+```
+
+]
+
+---
+
+# Doubs river fish communities
 
 Let us peek into the `spe` data:
 
@@ -689,7 +726,6 @@ head(spe)    # first 6 rows
 ]
 
 ---
-
 # (Dis)similarity measures
 
 Community resemblance is almost always assessed on the basis of species composition data in the form of a site-by-species data table $Y_{m,n}$.
@@ -817,7 +853,7 @@ Highlight the triangular nature of the `dist` class, that it can be converted to
 
 ---
 
-# (Dis)similarity measures: metric distances
+# (Dis)similarity measures: Euclidean distances
 
 The most common metric distance measure is the _Euclidean distance_.
 
@@ -885,7 +921,7 @@ You can use it to recall the Pythagorean theorem that everyone learns in high sc
 
 ---
 
-# (Dis)similarity measures: metric distances ![:cube]()
+# Challenge #1  ![:cube]()
 
 **Your turn!** Using the `dist()` function, compute the Euclidean distance matrix $D_{hmm}$ for the species abundances by site matrix $Y_{hmm}$ below:
 
@@ -908,7 +944,7 @@ Y.hmm <- data.frame(
 
 ]
 
-After this, look into the numbers, think critically about them, and be ready to chat! (_3-min_)
+After this, look into the numbers, think critically about them, and be ready to chat! (_5 to 10 minutes_)
 
 --
 
@@ -946,10 +982,8 @@ Tip: Look into the composition and the distances between sites $s_2$ and $s_3$ a
 
 ???
 
-`method = "euclidean"` is the default parametre
-
 ---
-## (Dis)similarity measures: metric distances ![:cube]()
+## Challenge #1 ![:cube]()
 
 .pull-left[
 
@@ -983,7 +1017,7 @@ Euclidean distances ( $D_1$ ) should thus _not_ be used to compare sites based o
 
 ---
 
-# (Dis)similarity measures: metric distances
+# (Dis)similarity measures: Chord distances
 
 Orlóci (1967) proposed the _Chord distance_ to analyse community composition.
 
@@ -1021,7 +1055,7 @@ When two sites share the same species in the same proportions of the number of i
 
 ---
 
-# (Dis)similarity measures: metric distances
+# (Dis)similarity measures: Chord distances
 
 There are many other metric distances of interest, which we can use:
 
@@ -1062,7 +1096,7 @@ Hence, _Chord distances_ can be used to compare sites described by species abund
 `method = "euclidean"` is the default parameter
 
 ---
-# (Dis)similarity measures: metric distances
+# (Dis)similarity measures: Jaccard's
 
 Another popular association coefficient is the _Jaccard similarity coefficient_ (1900).
 
@@ -1077,6 +1111,7 @@ where,
 
 --
 
+<br>
 .pull-left[
 For example, for sites $x_1$ and $x_2$:
 
@@ -1105,7 +1140,7 @@ $0.6$
 ]
 
 ---
-# (Dis)similarity measures: semimetric distances
+# (Dis)similarity measures: Sørensen's
 
 All parameters in _Jaccard's similarity coefficient_ have equal weights.
 
@@ -1124,9 +1159,45 @@ where,
 - $c$ is the number of common absences between $x_1$ and $x_2$, _i.e._ both $0$. 
 
 ---
+# (Dis)similarity measures: Bray-Curtis
+
+The _Bray-Curtis dissimilarity coefficient_ is a modified version of the Sørensen's index and allows for species abundances:
+
+.pull-left[
+$$D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert}}{\sum{( y_{1j}+y_{2j})}}=$$
+
+$$D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}$$
+where,
+- $W$ is the sum of the lowest abundances in each species found between sites $x_1$ and $x_2$;
+- $A$ is the sum of all abundances in $x_1$; and,
+- $B$ is the sum of all abundances in $x_2$.
+]
+
+--
+
+.pull-right[
+For example, for sites $x_1$ and $x_2$:
+
+| $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
+|:----: | :----:| :---: | :---: | :---: | :---: |
+| $x_1$ | _2_ | _1_ | _0_ | 5 | 2 |
+| $x_2$ | 5 | _1_ | 3 | _1_ | 1 |
+
+<br>
+
+So:
+- $W = 2 + 1 + 0 + 1 + 1 = 5$
+- $A = 2 + 1 + 0 + 5 + 0 = 8$
+- $B = 5 + 1 + 3 + 1 + 2 = 12$
+
+$$D_{14}(x_1,x_2) = 1-\frac{2 \times 5}{8+12}=$$
+$$D_{14}(x_1,x_2) = 0.5$$
+]
+
+---
 ##### (Dis)similarity measures: Jaccard's and Sørensen's coefficients
 
-In `R`, you can use use the `vegan::vegdist()` function to calculate both Jaccard's and Sørensen's indices:
+In `R`, you can use use the `vegan::vegdist()` function to calculate the Jaccard's and Sørensen's indices:
 
 .pull-left[
 
@@ -1146,14 +1217,13 @@ spe.D.Sor <- vegdist(spe,
                      binary = TRUE)
 ```
 ]
-
+<br>
+> Because both Jaccard's and Sørensen's are only appropriate for presence-absence data, you must binary-transform abundance data using `binary = TRUE` in `vegdist()`.
 <br>
 
-> Because both Jaccard's and Sørensen's are only appropriate for presence-absence data, you must binary-transform abundance data using `binary = TRUE` in ` `vegdist()`.
+##### Bray-Curtis dissimilarity coefficient
 
-###### Bray-Curtis coefficient
-
-The _Bray-Curtis dissimilarity coefficient_ is a modified version of the Sørensen index and allows for species abundances.
+To calculate the _Bray-Curtis dissimilarity coefficient_, which can account for abundances, you need to set `binary = FALSE`.
 
 ```{r}
 spe.D.Bray <- vegdist(spe, 
@@ -1162,39 +1232,168 @@ spe.D.Bray <- vegdist(spe,
 ```
 
 ---
+# (Dis)similarity measures: representation
 
+We can create graphical depictions of association matrices using the `coldiss()` function:
+
+```{r, echo = FALSE}
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+  require(gclus)
+  
+  if (max(D)>1) D <- D/max(D)
+  
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+  
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+  
+  op <- par(mfrow=c(1,2), pty="s")
+  
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix")
+  }
+  
+  par(op)
+}
+
+# Usage:
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+# If D is not a dissimilarity matrix (max(D) > 1), then D is divided by max(D)
+# nc 							number of colours (classes)
+# byrank= TRUE		equal-sized classes
+# byrank= FALSE		equal-length intervals
+# diag = TRUE			print object labels also on the diagonal
+
+# Example:
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
+
+```
+
+
+```{r, fig.height = 8, fig.width = 16}
+coldiss(spe.D.Jac)
+```
+
+---
+# Transformations for community composition data
+
+Communities sampled over homogeneous or short environmental conditions can have species compositions with few zeroes, so that Euclidean distances could be enough to characterize them.
+
+Nevertheless, this is rarely the reality. 
+
+Species may be highly frequent when conditions are favourable, or may be absent from many sites. Sometimes, this skewness may introduce spurious problems to our analyses.
+
+We may then have to transform our composition data to appropriately analyze it.
+
+--
+
+In `R`, we can rely on `vegan::decostand()` for many types of transformations. 
+
+Take a look into the help of this function to see the available options:
+
+```
+?decostand()
+```
+
+Let us see some of them.
+
+---
+## Transformations: presence-absence
+
+We can change the argument `method` to `"pa"` to transform our abundance data into presence-absence data:
+
+.pull-left[
+Let us recall our `spe` data set:
 
 ```{r}
+spe[1:6, 1:6]
+``` 
+]
 
-env <- env[-8,] # remove site with no data
+Let us transform `spe` abundances to presence-absences:
 
-# for larger datasets:
-row_sub = apply(spe, 1, function(row) any(row !=0 ))
+```{r}
+spe.pa <- decostand(spe, method = "pa")
+spe.pa[1:6, 1:6]
+```
 
-# find rows where there are not any values that equal zero
-spe <- spe[row_sub,]
-# only keep rows that have no zeros  
+---
+## Transformations: species profiles
 
+Sometimes, one wants to remove the effects of highly abundant units. We can transform the data into profiles of relative species abundances through the following equation:
+
+$$y'_{ij} = \frac{y_{ij}}{y_{i+}}$$
+
+.pull-left[
+Let us recall our `spe` dataset:
+
+```{r}
+spe[1:5, 1:6]
+``` 
+]
+
+In `decostand()`:
+
+```{r}
+spe.total <- decostand(spe, 
+                       method = "total")
+spe.total[1:5, 1:6]
+```
+
+
+???
+
+yi+ is used to indicate the sample total count over all j=1,…,m species, for the ith sample.
+
+---
+## Transformations: Hellinger
+
+We can take the square-root of the _species profile transformation_ and obtain the _Hellinger transformation_, which has very good mathematical properties and allows us to reduce the effects of $y_{ij}$ values that are extremely large.
+
+$$y'_{ij} = \sqrt{\frac{y_{ij}}{y_{i+}}}$$
+
+.pull-left[
+Let us recall our `spe` dataset:
+
+```{r}
+spe[1:5, 1:6]
+``` 
+]
+
+In `decostand()`:
+
+```{r}
+spe.total <- decostand(spe, 
+                       method = "hellinger")
+spe.total[1:5, 1:6]
 ```
 
 ---
 
-Explore the content of the fish community dataset
-
-# Species Frequencies
-
-Take a look at the distribution of species frequencies
-
-```{r, fig.width=8, echo = -1}
-par(mar = c(4,4,.5,.5), cex = 1.5)
-ab <- table(unlist(spe))
-barplot(ab, las = 1, col = grey(5:0/5),
-        xlab = "Abundance class", ylab = "Frequency")
-```
-
-.alert[Note the proportion of 0s]
-
----
 # Total Species Richness
 
 Visualize how many species are present at each site:
@@ -1207,189 +1406,6 @@ barplot(site.pre, main = "Species richness",
         ylab = "Number of species",
         col = "grey ", las = 1)
 ```
-
-
----
-# Transforming your community data
-
-#### Examples
-
-Transforming counts into presence - absence
-```{r}
-library(vegan)
-spec.pa <- decostand(spe, method = "pa")
-```
-
-Reducing the weight of rare species
-
-```{r}
-spec.hel <- decostand(spe, method = "hellinger")
-spec.chi <- decostand(spe, method = "chi.square")
-```
-
-Reducing the weight of very abundant species
-
-```{r}
-spe.pa <- decostand(spe,method = "log")
-```
-
----
-
-
-|Variable name|Description|
-|:--:|:--|
-|das|Distance from the source [km]  |
-|alt|Altitude [m a.s.l.]  |
-|pen|Slope [per thousand]  |
-|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
-|pH|pH of water  |
-|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
-|pho|K conc. [mgL<sup>-1</sup>]  |
-|nit|N conc. [mgL<sup>-1</sup>]  |
-|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
-|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
-|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
-
-
-# Doubs Environmental Data
-
-```{r, eval = F}
-names(env) # Names of objects
-dim(env) # dimensions
-str(env) # structure of objects
-summary(env) # summary statistics
-head(env) # first 6 rows
-```
-
-```{r, echo = T}
-head(env) # first 6 rows
-```
-
-Explore colinearity by visualizing correlations between variables.
-
-```{r, eval = F, purl=FALSE}
-library(GGally)
-ggpairs(env, main="Bivariate Plots of the Environmental Data")
-```
-
-
----
-# Doubs Environmental Data
-
-```{r, echo = F, fig.align='center', fig.height = 8, fig.width = 10}
-library(GGally)
-ggpairs(env, main="Bivariate Plots of the Environmental Data")
-```
-
----
-# Standardization
-
-Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units:
-
-```{r, eval = -1}
-?decostand
-env.z <- decostand(env, method = "standardize")
-```
-
-<Br>
-This centers and scales the variables to make your downstream analysis more appropriate:
-
-```{r}
-apply(env.z, 2, mean)
-apply(env.z, 2, sd)
-```
-
-
----
-class: inverse, center, middle
-# 3. Similarity / Dissimilarity
-
-
----
-# Association measures
-
-Matrix algebra is at the heart of all ordinations
-$$
-\begin{bmatrix}
-a_{1,1} & a_{1,2} & a_{1,3} & \dots  & a_{1,n} \\
-a_{2,1} & a_{2,2} & a_{2,3} & \dots  & a_{2,n} \\
-a_{3,1} & a_{3,2} & a_{3,3} & \dots  & a_{3,n} \\
-\vdots & \vdots & \vdots & \ddots & \vdots \\
-a_{m,1} & a_{m,2} & a_{m,3} & \dots  & a_{m,n}
-\end{bmatrix}
-$$
-
-
-- Exploring various measures of distance between objects provides some understanding of the engine under the hood
-
-???
-.center[![](images/MatrixAlgebra.png)]
-
----
-# Community distance measures
-
-.pull-left[
-- **Euclidean**  
-$d_{jk} = \sqrt(\sum((x_{ij}-x_{ik})^2))$   
-Used in PCA and RDA.
-<br><br>
-- **Manhattan**  
-$d_{jk} = \sum(abs(x_{ij} - x_{ik}))$  
-Similar to the Euclidean, but sensitive to the double zero problem.
-<br><br>
-- **Chord**  
-Euclidean distance calculated for a row standardised matrix.
-]
-
-.pull-right[
-- **Hellinger**  
-Square roots of conditional probabilities. Performs well in linear ordination.
-<br><br>  
-- **Chi-square**  
-$d_{jk} = \sum(\frac{(x_{ij}-x_{ik})^2}{(x_{ij}+x_{ik})} ) / 2$   
-Used in CA
-<br><br>
-- **Bray-Curtis** (Semimetric)  
-$d_{jk} = \frac{\sum(abs(x_{ij}-x_{ik}))}{(\sum (x_{ij}+x_{ik}))}$  
-Used in PCoA and NMDS.
-]
-<br><br>
-.center[     
-
-*Where $x_{ij}$ and $x_{ik}$ refer to the quantity of species (column) $i$ in sites (rows) $j$ & $k$.*]
-
---
-
-.alert[Each of these will be useful in different situations]
-
-???
-Notes: Ref: 
-https://sites.google.com/site/mb3gustame/reference/dissimilarity
-Euclidean: A simple, symmetrical metric using the Pythagorean formula. The more variables present in a data set, the larger one may expect Euclidean distances to be. Further, double zeros result in decreased distances. This property makes the Euclidean distance unsuitable for many ecological data sets and ecologically-motivated transformations should be considered.  Principal components analysis  and redundancy analysis ordinate objects using Euclidean distances.
-
----
-# Comparing Doubs Sites
-
-The `vegdist()` function contains all common distances
-
-```{r, eval = F}
-?vegdist
-```
-
---
-How different is the community composition across the 30 sites of the Doubs River?
-
-```{r}
-spe.db.pa <- vegdist(spe, method = "bray")
-spe.db <- as.matrix(spe.db.pa)
-
-
-head(spe.db)
-```
---
-- Diagonal is zero, because sites are compared to each other.  
-- Sites 3 and 7 are the most similar (*smallest distance*).  
-- Sites 1 and 9 are the most different (1 = they are *completely* different).  
 
 ---
 # Visualization of distance matrices
@@ -1459,56 +1475,26 @@ coldiss(spe.db.pa)
 ```
 
 ---
-# Challenge #1 ![:cube]()
+class: inverse, middle, center
 
-<br>
+# Clustering
 
-Discuss in breakout rooms:
-
-<br>
-
-.center[**How can we tell how similar objects are when we have multivariate data?**]
-
-<br>
-
-- Make a list of all your suggestions
-
-
----
-
-# And what about ordination?
-
-
-With ordination methods, we order our objects (site) according to their similarity
-
-
-
-- The more the sites are similar, the closer they are in the ordination space (smaller distances)
-
-
-- In Ecology, we usually calculate the similarity between sites according to their species composition or their environmental conditions.
-
-
----
-# Schematic analysis of multivariate analysis
-
-.center[![:scale 120%](images/Schema2.png)]
-
-???
-Note: re-added the picture, rename it as Schema 2.
 ---
 # Clustering
 
-- To highlight structures in the data by partitioning either objects or the descriptors
+One application of association matrices is clustering. 
 
-- Results are represented as dendrograms (trees)
+Clustering highlights structures in the data by partitioning either the objects or the descriptors.
 
-- Not a statistical method
+One goal of ecologists could be to divide a set of sites into groups with respect to their environmental conditions or their community composition.
+
+Its results can be represented as dendrograms (tree-like diagrams), which describe how closely observations are.
+
 ```{r, fig.width=10, echo = FALSE}
 # Demonstration of a cluster dendrogram
 spe.hel<-decostand(spe, method="hellinger")
-spe.dhel<-vegdist(spe.hel,method="euclidean")
-spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
+spe.dhel <- vegdist(spe.hel,method="euclidean")
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 
@@ -1518,23 +1504,30 @@ plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 .center[![:scale 80%](images/cluster1_revised.jpg)]
 
 ---
-# Overview of 3 hierarchical methods
+# Hierarchical clustering methods
+
+Clustering algorithms generally build on this series of steps:
+
+1. calculate an association matrix with all pair-wise similarities among all objects;
+2. Join together pairs of objects that are most similar (or dissimilar);
+3. Recompute the similarity matrix for that cluster _versus_ all remaining objects;
+4. Repeat steps 2 and 3 until all objects are joined.
+
+--
 
 <br>
 
-**1.** Single linkage agglomerative clustering ("single")
+From the many existing hierarchical clustering algorithms, we will explore:
+
+1. Single linkage agglomerative clustering;
+2. Complete linkage, agglomerative clustering;
+3. Ward's minimum variance clustering.
+
+--
 
 <br>
 
-**2.** Complete linkage, agglomerative clustering ("complete")
-
-<br>
-
-**3.** Ward's minimum variance clustering ("ward.D2")
-
-<br>
-
-- Elements of lower ranks are nested within higher ranking clusters. For example, species groups are nested by genus, family, order, and so on.
+In `R`, we will use the functions `hclust()` and `agnes()` to build our dendrograms.
 
 ???
 In single linkage agglomerative clustering (also called nearest
@@ -1545,67 +1538,16 @@ it clusters objects into groups using the criterion of least squares
 (similar to linear models). Its dendogram shows squared distances by default. To compare with other methods, calculate the sqaure root of the distances first. 
 
 ---
-# Hierarchical methods
 
-
-.pull-left[
-- A distance matrix is first sorted in increasing distance order
-![:scale 200%](images/Hierachic1.png)]
-
-.pull-right[
-
-- The two closest objects merge
-- The next two closest objects/clusters merge
-- and so on
-
-![](images/singleClust2.png)]
-
-???
-Alternative programme:
-```{r}
-x <- matrix(abs(rnorm(1:40)),nrow=5,byrow=TRUE)
-x.hel <- decostand(x,method="hellinger")
-x.dhel <- vegdist(x.hel, method="euclidean")
-x.dhel.single <- hclust(x.dhel, method="single")
-x.dhel.complete <- hclust(x.dhel, method="complete")
-plot <- par(mfrow=c(1,2),mar=c(5,2,4,2))
-plot(as.dendrogram(x.dhel.single), horiz=TRUE, main="Single linkage clustering")
-plot(as.dendrogram(x.dhel.complete), horiz=TRUE, main = "Complete linkage clustering")
-```
----
-exclude: true
-
-# Single linkage clustering
-
-.pull-left[
-
-![:scale 50%](images/singleClust1.png)
-
-]
-
-
-.pull-right[
-
-- The two closest objects merge
-
-- The next two closest objects/clusters merge
-
-- and so on
-
-![](images/singleClust2.png)
-
-]
-
----
 # Complete linkage clustering
 
-.pull-left[
+.pull-left4[
 
 ![:scale 50%](images/compleClust1.png)
 
 ]
 
-.pull-right[
+.pull-right4[
 
 - The objects divided into small groups (1-2, 3-4, 5)
 
@@ -1620,7 +1562,7 @@ exclude: true
 ---
 # Comparison
 
-Create a distance matrix from Hellinger transformed Doubs river data and compute the single linkage clustering
+Create a distance matrix from Hellinger transformed Doubs river data and compute the single linkage clustering:
 
 ```{r, fig.width=7, echo = -1}
 par(mar=c(.5,3.8,2,.5), cex = 1.5)
@@ -1675,31 +1617,24 @@ spe.dhel.ward$height <- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
 ```
 - Clusters generated using this method tend to be more spherical and to contain similar number of objects
----
-exclude: true
-# Ward's method
 
-```{r, fig.width=9, echo = F}
-par(mar=c(.5,3.8,2,.5), cex = 1.5)
-plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
-```
+> Ward's clustering algorithm can only be applied with Euclidean distances. Bray-Curtis distances are not Euclidean, so they must be square-rooted first before used with Ward's algorithm.
 
-Clusters generated using this method tend to contain similar numbers of objects.
+
+
 
 ---
-# How to choose the right method?
+# Important questions to address
 
-- Choosing the 'right' method depends on your objective
-- Do you want to highlight gradients? contrasts?
-- If more than on method seems appropriate, compare dendrograms.
-- Again: this is **not** an statistical method!
+- Choosing the 'appropriate' method depends on your objective;
+- Do you want to highlight gradients or contrasts?
+- This is *not* an statistical method and you may need to rely on complementary methods to support your hypotheses.
 
 
-But, clustering allows us to:
-- Determine the optimal number of interpretable clusters.
-- Compute clustering statistics.
+However, clustering allows us to:
+- Determine the optimal number of interpretable clusters;
+- Compute clustering statistics;
 - Combine clustering to ordination to distinguish groups of sites.
-
 
 ---
 ## Now, what?
@@ -1894,7 +1829,7 @@ We can also transform Fahrenheit degrees to Celsius degrees as:
 $$T_{C} = 0.5556\times T_{Fahr} - 17.778$$
 ]
 
-These are examples of **linear transformations**: the transformed variables are linearly related to the original variabels and the shapes of the distribution are not changed.
+These are examples of **linear transformations**: the transformed variables are linearly related to the original variables and the shapes of the distribution are not changed.
 
 --
 
