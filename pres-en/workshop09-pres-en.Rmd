@@ -55,7 +55,7 @@ htmltools::tagList(
 ```{r install_pkgs, message=FALSE, warning=FALSE, include=FALSE, results=0}
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes")
+list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -188,7 +188,7 @@ Throughout this workshop, there will be a series of **challenges** that you can 
 
 **2.** Use `R` to perform an unconstrained ordination
 
-**3.** Choose appropriate distance metrics and transformations to perform multivariate analysis
+**3.** Learn about similarity and dissimilarity coefficients and transformations to perform multivariate analysis
 
 * Clustering analysis
 * Principal Component Analysis (PCA)
@@ -213,19 +213,19 @@ We have learned a multitude of analyses that allowed us to interpret ecological 
 --
 
 .pull-left[
-From these many methods we have learned in previous workshops, we can recall the:
+We can recall the:
 
 1. General Linear Models 
-1. `lm()`;
-2. `anova()`;
-3. `t.test()`;
-4. `lmer()`.
+  1. `lm()`;
+  2. `anova()`;
+  3. `t.test()`;
+  4. `lmer()`.
+
 2. Generalized Linear Models
-1. `glm()` with serveral `family()` link functions;
-2. `glmer()`.
+  1. `glm()` and `glmer()` with several `family()` link functions.
 
 3. Generalized Additive Models
-1. `gam()`.
+  1. `gam()`.
 ]
 
 --
@@ -257,9 +257,6 @@ For instance, our research question might be:
 3. How _closely-related_ spider local communities are in relation to their _composition_?
 
 ???
-
-In ecology, several descriptors are usually observed for each object under study. In most instances, ecologists are interested in characterizing the main trends of variation of the objects with respect to all descriptors, not only a few of them. Looking at scatter plots of the objects with respect to all possible pairs of descriptors is a tedious approach, which generally does not shed much light on the problem at hand.
-Even with multivariate approach, it is not possible to draw such a diagram on paper with more than three dimensions, however, even though it is a perfectly valid mathematical construct.
 
 --
 
@@ -541,18 +538,18 @@ a_{n,1} & a_{m,2} & \cdots & a_{n,n}
 
 .pull-left[
 
-<br><br>
+<br>
 
 🡐 
 **_R-mode_** 
 analysis
-for descriptors
+for descriptors or species
 
 ]
 
 .pull-right[
 🠅 **_Q-mode_** analysis
-for objects
+for objects or sites
 
 ]
 ]
@@ -659,24 +656,6 @@ env <- Doubs.env
 
 ---
 
-
-|Variable name|Description|
-|:--:|:--|
-|das|Distance from the source [km]  |
-|alt|Altitude [m a.s.l.]  |
-|pen|Slope [per thousand]  |
-|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
-|pH|pH of water  |
-|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
-|pho|K conc. [mgL<sup>-1</sup>]  |
-|nit|N conc. [mgL<sup>-1</sup>]  |
-|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
-|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
-|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
-
-
----
-
 # Doubs river fish communities
 
 We can then explore the objects containing our newly loaded data. 
@@ -688,7 +667,7 @@ Let us peek into the `spe` data:
 head(spe)[, 1:8]
 ```
 
-```{r, echo = T}
+```{r, echo = T, output.lines=1:8}
 str(spe)
 ```
 ]
@@ -717,6 +696,8 @@ Community resemblance is almost always assessed on the basis of species composit
 
 We can obtain an association matrix $A_{m,m}$ in the form of pairwise distances or dissimilarities $D_{m,m}$ (or similarities $S_{m,m}$) and then analyse those distances.
 
+--
+
 .pull-left[
 In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`:
 
@@ -725,6 +706,8 @@ dist(spe)
 ```
 
 ]
+
+--
 
 .pull-right[
 
@@ -749,6 +732,11 @@ dim(as.matrix(dist(spe)))
 ```
 
 ]
+
+??? 
+If possible, do this part with the participants.
+
+Show them how a dist class object is structured. Highlight that it is a lower-triangular matrix, where the distances between the same objects are hidden.
 
 ---
 
@@ -837,6 +825,38 @@ The most common metric distance measure is the _Euclidean distance_.
 It is computed using the Pythagorean formula:
 
 $$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
+
+```{r echo=FALSE}
+#setting up the plot
+xlim <- c(0,4)
+ylim <- c(-1,5)
+par(mar=c(1,1,1,1)+.1)
+plot(xlim, 
+     ylim, type="n", 
+     xlab="X1", 
+     ylab="X2", 
+     asp=1)
+grid()
+# define some vectors
+a=c(4, 0)
+b=c(0, 4)
+# plot the vectors
+vectors(a, labels="D(y21, y11)", pos.lab=3, frac.lab=.5, col="grey")
+vectors(a + b, labels="D1(x1,x2)", pos.lab=4, frac.lab=.5, col="red")
+# vector a+b starting from a is equal to b.
+vectors(a + b, labels="D(y12, y22)", pos.lab=4, frac.lab=.5, origin=a, col="grey")
+
+points(x = 4, y = 0, type = "p")
+text(x=4.1, y=-0.2, labels="")
+
+points(x = 0, y = 0, type = "p")
+text(x=-0.1, y=-0.2, labels="x1")
+
+points(x = 4, y = 4, type = "p")
+text(x=4.1, y=4.2, labels="x2")
+```
+
+
 ]
 
 .pull-right4[
@@ -857,7 +877,11 @@ is.euclid(spe.D.Euclid)
 
 ???
 
-`method = "euclidean"` is the default parametre
+The figure on the side needs to be finished. It is supposed to represent the Euclidean distance between sites x1 and x2 in the 2D Cartesian space. The axes are the descriptors y1 and y2, respectively. The arrow on the bottom is the distance between the position of y21 and y11.
+
+You can use it to recall the Pythagorean theorem that everyone learns in high school, where the length of the hypotenuse and a and b denote the two lengths of the legs of a right triangle.
+
+`method = "euclidean"` is the default parameter
 
 ---
 
@@ -903,7 +927,7 @@ as.matrix(Y.hmm.DistEu)
 
 .pull-right[
 
-Output:
+**Output**:
 
 ```{r echo=FALSE}
 Y.hmm.DistEu <- dist(x = Y.hmm,  
@@ -916,7 +940,9 @@ as.matrix(Y.hmm.DistEu)
 
 <br>
 
-.center[Tip: Compare sites $s_2$ and $s_3$.]
+.center[
+Tip: Look into the composition and the distances between sites $s_2$ and $s_3$ and between $s_1$ and $s_2$.
+]
 
 ???
 
@@ -937,7 +963,7 @@ Y.hmm
 
 .pull-right[
 
-Output:
+**Output**:
 
 ```{r echo=TRUE}
 as.matrix(Y.hmm.DistEu)
@@ -964,27 +990,29 @@ Orlóci (1967) proposed the _Chord distance_ to analyse community composition.
 .pull-left[
 It consists of:
 
-1\. Normalizing the data, _i.e._ scaling site vectors to length 1 by dividing species abundances in a given sample by the square-rooted sum of square abundances in all samples as in
+1\. Normalizing the data, _i.e._ scaling site vectors to length 1 by dividing species abundances in a given sample by the square-rooted sum of square abundances in all samples as
 
 $$y'_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}$$
 
 
 2\. Calculating the Euclidean distances on this normalized data:
 
-$$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
+$$D_{3} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y'_{1j} - y'_{2j})^2}$$
 ]
 
 .pull-right[
+
 We can use `vegan::vegdist()` for this one:
 
 ```{r, eval = T}
 spe.D.Ch <- vegdist(spe,  
                     method = "chord")
 
-head(spe.D.Ch)
+as.matrix(spe.D.Ch)[1:3, 1:3]
 ```
 
-
+When two sites share the same species in the same proportions of the number of individuals the value of $D_3$ is $0$, and when no species are shared, its value is $\sqrt{2}$. 
+ 
 ]
 
 ???
@@ -992,6 +1020,149 @@ head(spe.D.Ch)
 `method = "euclidean"` is the default parametre
 
 ---
+
+# (Dis)similarity measures: metric distances
+
+There are many other metric distances of interest, which we can use:
+
+What happens if we compute Chord distances in the same site-by-species matrix $Y_{hmm}$?
+
+.pull-left[
+
+```{r, eval = T}
+Y.hmm
+```
+
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+.pull-right[
+
+```{r, eval = T}
+Y.hmm.DistCh <- vegdist(Y.hmm,  
+                    method = "chord")
+```
+
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistCh)
+```
+]
+
+--
+
+Adding any number of double zeroes to a pair of sites does _not_ change the value of $D_3$. 
+
+Hence, _Chord distances_ can be used to compare sites described by species abundances!
+
+???
+
+`method = "euclidean"` is the default parameter
+
+---
+# (Dis)similarity measures: metric distances
+
+Another popular association coefficient is the _Jaccard similarity coefficient_ (1900).
+
+It is only appropriate for **binary data**, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.
+
+$$D_{7}(x_1,x_2)=1-{{|x_1 \cap x_2|}\over{|x_1 \cup x_2|}} = 1-{{|x_1 \cap x_2|}\over{|x_1| + |x_2| - |x_1 \cap x_2|}} = 1-\frac{a}{a+b+c}$$
+where,
+
+- $a$ is the number of species shared between $x_1$ and $x_2$ that are coded $1$;
+- $b$ is the number of occurrences where $x_1$ and $x_2$ are known to be different;
+- $c$ is the number of common absences between $x_1$ and $x_2$, _i.e._ both $0$. 
+
+--
+
+.pull-left[
+For example, for sites $x_1$ and $x_2$:
+
+| $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
+|:----: | :----:| :---: | :---: | :---: | :---: |
+| $x_1$ | 0 | 1 | 0 | 1 | 0 |
+| $x_2$ | 0 | 1 | 1 | 1 | 1 |
+]
+
+.pull-right[
+.pull-left[
+So:
+- $a$ = 1 + 1 = 2
+- $b$ = 1 + 1 = 2
+- $c$ = 1
+
+]
+.pull-right[
+<br>
+$D_{7}(x_1,x_2) =$
+
+$1-\frac{2}{2+2+1}=$
+
+$0.6$
+]
+]
+
+---
+# (Dis)similarity measures: semimetric distances
+
+All parameters in _Jaccard's similarity coefficient_ have equal weights.
+
+$$D_{7}(x_1,x_2)=1-\frac{a}{a+b+c}$$
+
+However, you may want to consider that a presence of a species is more informative than its absence.
+
+The distance corresponding to _Sørensen's similarity coefficient_ (1948) gives weight to double presences:
+
+$$D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}$$
+
+where,
+
+- $a$ is the number of species shared between $x_1$ and $x_2$ that are coded $1$;
+- $b$ is the number of occurrences where $x_1$ and $x_2$ are known to be different;
+- $c$ is the number of common absences between $x_1$ and $x_2$, _i.e._ both $0$. 
+
+---
+##### (Dis)similarity measures: Jaccard's and Sørensen's coefficients
+
+In `R`, you can use use the `vegan::vegdist()` function to calculate both Jaccard's and Sørensen's indices:
+
+.pull-left[
+
+```{r}
+spe.D.Jac <- vegdist(spe, 
+                     method = "jaccard",
+                     binary = TRUE)
+```
+
+]
+
+.pull-right[
+
+```{r}
+spe.D.Sor <- vegdist(spe, 
+                     method = "bray",
+                     binary = TRUE)
+```
+]
+
+<br>
+
+> Because both Jaccard's and Sørensen's are only appropriate for presence-absence data, you must binary-transform abundance data using `binary = TRUE` in ` `vegdist()`.
+
+###### Bray-Curtis coefficient
+
+The _Bray-Curtis dissimilarity coefficient_ is a modified version of the Sørensen index and allows for species abundances.
+
+```{r}
+spe.D.Bray <- vegdist(spe, 
+                      method = "bray",
+                      binary = FALSE)
+```
+
+---
+
 
 ```{r}
 
@@ -1024,21 +1195,6 @@ barplot(ab, las = 1, col = grey(5:0/5),
 .alert[Note the proportion of 0s]
 
 ---
-# Species Frequencies
-
-How many zeros?
-
-```{r}
-sum(spe == 0)
-```
-
-What proportion of zeros?
-
-```{r}
-sum(spe == 0)/(nrow(spe)*ncol(spe))
-```
-
----
 # Total Species Richness
 
 Visualize how many species are present at each site:
@@ -1052,45 +1208,6 @@ barplot(site.pre, main = "Species richness",
         col = "grey ", las = 1)
 ```
 
----
-# Understand your data!
-
-####To choose the appropiate transformation and distance
-
-- Are there any zeros?
-
-- What do they mean?
-
-
-.alert[A measured 0 (e.g 0mg/L, 0°C)]
-.alert[is not the same as a 0 representing an absence observations]
-
-
----
-# Before transforming your community data...
-
-.alert[Important considerations:]
-
---
-- relative abundances/counts/presence-absence?
-
---
-- asymmetrical distributions?
-
---
-- many rare species?
-
---
-- overabundance of dominant species?
-
---
-- double Zero problem?
-
----
-# Transforming community data
-
-.center[
-![](images/trans1.png)]
 
 ---
 # Transforming your community data
@@ -1116,8 +1233,24 @@ Reducing the weight of very abundant species
 spe.pa <- decostand(spe,method = "log")
 ```
 
-
 ---
+
+
+|Variable name|Description|
+|:--:|:--|
+|das|Distance from the source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Slope [per thousand]  |
+|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
+|pH|pH of water  |
+|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
+|pho|K conc. [mgL<sup>-1</sup>]  |
+|nit|N conc. [mgL<sup>-1</sup>]  |
+|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
+|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
+|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
+
+
 # Doubs Environmental Data
 
 ```{r, eval = F}
@@ -1193,42 +1326,6 @@ $$
 .center[![](images/MatrixAlgebra.png)]
 
 ---
-# Breaking out of 1D
-
-.pull-left[
-
-- As you have seen, ecological datasets can sometimes be very large matrices
-
-- Ordinations compute the relationships between species or between sites
-
-- We can simplify these relationships using methods of dissimilarity
-]
-
-.pull-right[
-
-![:scale 40%](images/PCAMatrix.png)
-
-![:scale 40%](images/distMes.png)
-
-![:scale 40%](images/distMat.png)
-]
-
-
----
-# Similarity / Dissimilarity
-
-- Useful to understand your dataset
-- Appropriate measure required by some types of ordinations
-
-.center[
-Similarity: S = 1 - D
-Distance: D = 1-S]
-
-
-
-![](images/similarity.png)
-
----
 # Community distance measures
 
 .pull-left[
@@ -1293,20 +1390,6 @@ head(spe.db)
 - Diagonal is zero, because sites are compared to each other.  
 - Sites 3 and 7 are the most similar (*smallest distance*).  
 - Sites 1 and 9 are the most different (1 = they are *completely* different).  
-
----
-exclude: true
-
-# Comparing Doubs Sites
-
-.center[![](images/Doubs1.png)]
-
----
-exclude: true
-
-# Comparing Doubs Sites
-
-.center[![](images/Doubs2.png)]
 
 ---
 # Visualization of distance matrices
