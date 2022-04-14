@@ -653,7 +653,7 @@ Their data is split in three matrices:
 
 .pull-left3[
 
-We can load their data from the `data/` directory in this workshop:
+You can download these datasets from [r.qcbs.ca/workshops/r-workshop-09](http://r.qcbs.ca/workshops/r-workshop-09/).
 
 ```{r}
 spe <- read.csv("data/doubsspe.csv", 
@@ -669,7 +669,7 @@ env <- read.csv("data/doubsenv.csv",
 
 .pull-right3[
 
-Their data can also be retrieved from the `ade4` package:
+This data can also be retrieved from the `ade4` package:
 ```{r eval=FALSE, echo = TRUE}
 library(ade4)
 data(doubs)
