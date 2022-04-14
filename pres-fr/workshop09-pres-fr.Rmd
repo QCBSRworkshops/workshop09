@@ -273,8 +273,8 @@ Nous pouvons rappeler les :
 .pull-right[
 Ces modèles nous ont permis de poser des questions telles que :
 
-1. _Quels sont les effets des précipitations et de la température sur la richesse des espèces ?
-2. 2. _Comment l'abondance des microbes change-t-elle entre les hôtes ?
+1. Quels sont les effets des précipitations et de la température sur la richesse des espèces ?
+2. Comment l'abondance des microbes change-t-elle entre les hôtes ?
 3. Les poissons cooccurrents deviennent-ils plus agressifs après avoir été induits à la peur ?
 ]
 
@@ -300,7 +300,8 @@ Par exemple, notre question de recherche pourrait être la suivante
 
 Dans tous ces cas, le résultat est composé de plusieurs variables, _e.g._ généralement une matrice échantillon par espèce ou échantillon par environnement.
 
---
+---
+# Statistiques multivariées
 
 Nous allons maintenant plonger dans les **statistiques multivariées**, un ensemble d'outils qui nous permettront de répondre à des questions nécessitant l'observation ou l'analyse simultanée de plus d'une variable de résultat.
 
@@ -328,11 +329,11 @@ Mais, avant cela, il faut rappeler les bases de **l'algèbre matricielle**.
 
 # Algèbre matricielle : un résumé très bref
 
-L'algèbre matricielle est bien adaptée à l'écologie, car la plupart (si ce n'est la totalité) des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
+L'algèbre matricielle est bien adaptée à l'écologie, car la plupart des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
 
 
 .pull-left[
-Les tableaux de données écologiques sont obtenus sous forme d'observations d'objets ou d'unités d'échantillonnage, et sont souvent enregistrés comme tels :
+Les tableaux de données écologiques sont obtenus sous forme d'observations d'objets ou d'unités d'échantillonnage, et sont souvent enregistrés comme ceci :
 <br>
 
 | Objets | $y_1$     | $y_2$  | $\dots$           | $y_n$  |
@@ -342,7 +343,7 @@ Les tableaux de données écologiques sont obtenus sous forme d'observations d'o
 |  $\vdots$     | $\vdots$     | $\vdots$  | $\ddots$  | $\vdots$  |
 |  $x_m$        | $y_{m,1}$     | $y_{m,2}$  | $\dots$  | $y_{m,n}$  |
 <br>
-où $x_m$ est l'unité d'échantillonnage $m$ ; et $y_n$ est le descripteur écologique qui peut être, _e.g._, l'espèce présente dans une unité d'échantillonnage ou une variable chimique.
+où $x_m$ est l'unité d'échantillonnage $m$ ; et $y_n$ est le descripteur écologique qui peut être, _e.g._, l'espèce présente ou une variable chimique.
 ]
 
 --
@@ -365,7 +366,7 @@ où les lettres minuscules indiquent les _éléments_, et les lettres en indice 
 
 # Algèbre matricielle : un résumé très bref
 
-L'algèbre matricielle est bien adaptée à l'écologie, car la plupart (si ce n'est la totalité) des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
+L'algèbre matricielle est bien adaptée à l'écologie, car la plupart des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
 
 .pull-left[
 De plus, tout sous-ensemble d'une matrice peut être identifié !
@@ -525,12 +526,12 @@ a_{n,1} & a_{m,2} & \cdots & a_{n,n}
 
 <br>
 
-🡐 Analyse **_mode R_** pour les descripteurs ou les espèces
+$\leftarrow$ Analyse **_mode R_** pour les descripteurs ou les espèces
 
 ]
 
 .pull-right[
-🠅 Analyse **_mode Q_** pour les objets ou les sites
+$\uparrow$ Analyse **_mode Q_** pour les objets ou les sites
 ]
 ]
 
@@ -556,11 +557,11 @@ Nous allons nous plonger dans les analyses en **R-mode** et **Q-mode**, et nous 
 .pull-left3[
 Verneaux (1973) a proposé d'utiliser les espèces de poissons pour caractériser les zones écologiques le long des cours d'eau européens.
 
-Il a recueilli des données dans **30 localités** le long de la rivière Doubs, qui coule près de la frontière franco-suisse, dans les montagnes du Jura. Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d'eau.
+Il a recueilli des données dans **30 sites** le long de la rivière Doubs près de la frontière franco-suisse, dans les montagnes du Jura. Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d'eau.
 ]
 
 .pull.right3[
-.center[![:scale 28%](images/DoubsRiver.png)]
+.center[![:scale 25%](images/DoubsRiver.png)]
 ]
 
 --
@@ -576,10 +577,8 @@ Leurs données sont réparties en trois matrices :
 .pull.right3[
 .center[![:scale 30%](https://upload.wikimedia.org/wikipedia/commons/c/cc/Doubs_Laissey.jpg)]
 
-<br>
-]
-
 .xsmall[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.]
+]
 
 ---
 # Communautés de poissons de la rivière Doubs
@@ -735,6 +734,25 @@ Montrez-leur comment est structuré un objet de classe dist. Soulignez qu'il s'a
 
 ---
 
+# Standardisation
+
+La standardisation des variables environnementales est cruciale car vous ne pouvez pas comparer les effets de variables ayant des unités différentes :
+
+```{r, eval = -1}
+?decostand
+env.z <- decostand(env, method = "standardize")
+```
+
+<Br>
+Cela centre et réduit les variables pour rendre votre analyse en aval plus appropriée:
+
+```{r}
+apply(env.z, 2, mean)
+apply(env.z, 2, sd)
+```
+
+---
+
 # Mesures de (dis)similarité
 
 Il existe trois groupes de coefficients de distance : _métriques_, _..._ , _..._ .
@@ -868,6 +886,29 @@ Vous pouvez l'utiliser pour vous rappeler le théorème de Pythagore que tout le
 
 `method = "euclidean"` est le paramètre par défaut.
 
+
+---
+Comparaison des sites Doubs
+
+La fonction `vegdist()` contient toutes les distances couramment utilisées.
+
+```{r, eval = F}
+?vegdist
+```
+
+--
+Quelle est la différence de composition des communautés entre les 30 sites de la rivière Doubs?
+
+```{r}
+spe.db.pa <- vegdist(spe, method = "bray")
+spe.db <- as.matrix(spe.db.pa)
+```
+
+--
+- La diagonale est égale à zéro, car les sites sont comparés les uns aux autres.  
+- Les sites 3 et 7 sont les plus similaires (*plus petite distance*).  
+- Les sites 1 et 9 sont les plus différents (1 = ils sont *complètement* différents).   
+
 ---
 
 # Défi #1  ![:cube]()
@@ -969,19 +1010,22 @@ Les distances euclidiennes ( $D_1$ ) ne devraient donc _pas_ être utilisées po
 Orlóci (1967) a proposé la _distance de corde_ pour analyser la composition des communautés.
 
 .pull-left[
-It consists of:
 Elle se constitue de :
 
 1\. Normaliser les données, _c.-à-d. _ mettre à l'échelle les vecteurs de site à la longueur 1 en divisant les abondances des espèces dans un échantillon donné par la somme à racine carrée des abondances carrées dans tous les échantillons, comme suit
 
 $$y'_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}$$
+]
 
+.pull-right[
 2\. Calculer les distances euclidiennes sur ces données normalisées :
 
 $$D_{3} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y'_{1j} - y'_{2j})^2}$$
 ]
 
-.pull-right[
+---
+
+# Mesures de (dis)similarité : la distance des cordes
 
 Nous pouvons utiliser `vegan::vegdist()` pour cela :
 
@@ -992,10 +1036,6 @@ as.matrix(spe.D.Ch)[1:3, 1:3]
 ```
 
 Lorsque deux sites partagent les mêmes espèces dans les mêmes proportions du nombre d'individus, la valeur de $D_3$ est de $0$, et lorsqu'aucune espèce n'est partagée, sa valeur est de $\sqrt{2}$.
-
-]
-
-???
 
 
 ---
@@ -1400,7 +1440,7 @@ exclude: true
 ```
 
 
-```{r, fig.width = 10, fig.height = 8}
+```{r, fig.width = 10, fig.height = 8, eval = F}
 # the code for the coldiss() function is in the workshop script.
 coldiss(spe.db.pa)
 ```
@@ -1496,7 +1536,7 @@ Créez une matrice de distance à partir des données sur les rivières du Doubs
 
 ```{r, fig.width=7, echo = -1}
 par(mar=c(.5,3.8,2,.5), cex = 1.5)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.single <- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
@@ -1507,7 +1547,7 @@ plot(spe.dhe1.single)
 
 ```{r,fig.width= 15, echo = -1}
 par(mfrow=c(1,2), mar=c(.5,2.5,1.5,2.5), cex=1)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.complete <- hclust(spe.dhe1, method = "complete")
 plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
 plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
@@ -1552,7 +1592,7 @@ spe.dhel.ward$height <- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at 0
 ```
 
-> L'algorithme de clustering de Ward ne peut être appliqué qu'avec des distances euclidiennes. Les distances de Bray-Curtis ne sont pas euclidiennes, elles doivent donc être racinées au carré avant d'être utilisées avec l'algorithme de Ward.
+> L'algorithme de clustering de Ward ne peut être appliqué qu'avec des distances euclidiennes. Les distances de Bray-Curtis ne sont pas euclidiennes, elles doivent donc être racinées au carré avant.
 
 ---
 # Questions importantes à aborder
@@ -1665,7 +1705,7 @@ cov_{x,z} & cov_{y,z} & cov_{z,z}
 
 --
 
-**QUIZ TIME**: *Que sont les diagonales ?* *Et, que se passe-t-il si les variables sont indépendantes ?*
+**QUIZ**: *Que sont les diagonales ?* *Et, que se passe-t-il si les variables sont indépendantes ?*
 
 ---
 
@@ -2808,7 +2848,7 @@ Avançons et appliquons-la à notre jeu de données sur les espèces de poissons
 Pour cela, nous allons utiliser la fonction `vegan::rda()` sur les données de poissons *transformées par Hellinger* et résumer les résultats :
 
 ```{r}
-spe.h.pca <- rda(spec.hel)
+spe.h.pca <- rda(spe.hel)
 
 # summary(spe.h.pca)
 ```
@@ -3080,7 +3120,7 @@ biplot(spe.h.pca, scaling = 2)
 1 : **Meilleur pour l'interprétation des relations entre les objets (sites)!**
 
 ---
-# Défi # 3 ![:cube]()
+# Défi #2 ![:cube]()
 
 En utilisant tout ce que vous avez appris, calculez une ACP sur les données d'abondance des espèces d'acariens.
 
@@ -3095,7 +3135,7 @@ Soyez prêt à discuter et à répondre :
 
 ---
 
-# Solution #3
+# Défi #2: Solution
 
 Calculer l'ACP sur les données d'espèces transformées par Hellinger.
 
@@ -3143,7 +3183,7 @@ legend("topright",
 ]
 
 ---
-# Solution #3
+# Défi #2: Solution
 
 ```{r, echo = -1, fig.height=6.5, fig.width=7}
 par(mar = c(4,4,0.05,0.05), cex = 1.5)
@@ -3166,7 +3206,7 @@ Pour calculer une ACoP, nous pouvons utiliser les fonctions `cmdscale()` ou `pco
 
 ```{r}
 library(ape)
-spe.h.pcoa <- pcoa(dist(spec.hel))
+spe.h.pcoa <- pcoa(dist(spe.hel))
 summary(spe.h.pcoa)
 ```
 
@@ -3196,7 +3236,7 @@ head(spe.h.pcoa$vectors)[, 1:5]
 Nous pouvons afficher les distances entre les sites en utilisant la fonction `biplot.pcoa()`, ainsi que représenter les espèces associées à chaque site.
 
 ```{r, fig.height=5.5, fig.width=8}
-biplot.pcoa(spe.h.pcoa, spec.hel)
+biplot.pcoa(spe.h.pcoa, spe.hel)
 ```
 
 ---
@@ -3251,7 +3291,7 @@ biplot.pcoa(spe.bray.pcoa)
 ]
 
 ---
-# Défi #5 ![:cube]()
+# Défi #3 ![:cube]()
 
 Calculez une ACoP sur les données d'abondance des espèces d'acariens transformées par Hellinger.
 
@@ -3263,7 +3303,7 @@ Soyez prêt à répondre :
 - Comment les résultats de la ACoP se comparent-ils à ceux de l'ACP ?
 
 ---
-# Solution #5
+# Défi #3: Solution
 
 - Transformation de Hellinger des données sur les espèces
 ```{r}
@@ -3278,7 +3318,7 @@ mite.spe.h.pcoa <- pcoa(dist(mite.spe.hel))
 ```
 
 ---
-# Solution #5
+# Défi #3: Solution
 
 - Construisez un biplot pour visualiser les données :
 ```{r, fig.width=6, fig.height=6}
@@ -3398,40 +3438,85 @@ text(scores(spe.nmds, display = "species", choices = c(1)),
 ]
 
 ---
-# Défi #6 ![:cube]()
+# Défi #4 ![:cube]()
 
 <br>
 
-Exécutez le PMnM de l'abondance des espèces d'acariens en 2 dimensions basé sur une distance de Bray-Curtis.
+Exécutez le PMnM de l'abondance des espèces d'acariens `mite.spe` en 2 dimensions basé sur une distance de Bray-Curtis.
 
 Évaluez la qualité de l'ajustement de l'ordination et interprétez le biplot.
 
----
-# Solution #6
+Rappelez-vous de ces fonctions utiles:
 
-.pull-left[
-![](images/SheplSol6.png)
-]
-
-.pull-right[
-La corrélation entre la dissimilarité observée et la distance d'ordination $(R^2 > 0,91)$ et la valeur de contrainte relativement faible, montrant ensemble une bonne précision de l'ordination NMDS.
-]
+```{r, eval = F}
+?metaMDS
+?stressplot
+```
 
 ---
-# Solution #6
+# Défi #4: Solution
 
-.pull-left[
-![](images/NMDSSol61.png)
-]
+Exécutez le PMnM de l'abondance des espèces d'acariens `mite.spe` en 2 dimensions basé sur une distance de Bray-Curtis.
 
-.pull-right[
-Aucun groupe de sites ne peut être défini précisément à partir du biplot NMDS montrant que la plupart des espèces sont présentes dans la plupart des sites, c.-à-d. que quelques sites abritent des communautés spécifiques.
-]
+```{r, results='hide'}
+mite.nmds <- metaMDS(mite.spe, distance = 'bray', k = 2)
+```
+
+---
+# Défi #4: Solution
+
+```{r, eval = F}
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+```
+
+---
+# Défi #4: Solution
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 7}
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+```
+
+Il n'y a pas vraiment de regroupement évident de sites dans le biplot NMDS. Cela nous indique que les espèces sont présentes dans la plupart des sites. Seuls quelques sites contiennent des communautés spécifiques.
+
+---
+# Défi #4: Solution
+
+```{r}
+stressplot(mite.nmds)
+```
+
+La dissimilarité observée est fortement corrélée avec la distance d'ordination, et la valeur de stress NMDS est relativement faible, ce qui nous indique que l'ordination NMDS est relativement précise.
 
 ---
 # Conclusion
 
-.alert[De nombreuses techniques d'ordination existent, mais leur spécificité doit guider vos choix sur les méthodes à utiliser]
+.alert[De nombreuses techniques d'ordination existent, mais leur spécificité doit guider vos choix sur les méthodes à utiliser.]
 
 | | Distance préservée | Variables | Nombre maximal d'axes |
 |---|---------|--------------|------|
@@ -3466,21 +3551,21 @@ Analyse en coordonnées principales (ACoP)
 La proportion de variance capturée par une composante principale
 
 ---
-# C'est l'heure du quiz !
+# C'est l'heure du quiz!
 
-Trouvez l'erreur!
+Trouvez l'erreur dans cette figure!
 
 ![:scale 90%](images/Chall7.png)
 
 --
 .alert[
-- Données non centrées, beurk!
+- Les données ne sont pas centrées. Beurk!
 ]
 
 --
 
 .alert[
-- Les 2 premiers axes capturent 100% de la variation.
+- Les deux premiers axes capturent 100% de la variation.
 ]
 
 ---
