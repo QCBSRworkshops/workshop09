@@ -1,6 +1,30 @@
+# sometimes cache needs to be set to true in the knitr setup chunk for this to take effect
+# in xaringan::infinite_moon_reader()
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes")
+list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -8,75 +32,56 @@ if(length(new.packages) > 0) {
   install.packages(new.packages, dependencies = TRUE) 
   print(paste0("The following package was installed:", new.packages)) 
 } else if(length(new.packages) == 0) {
-    print("All packages were already installed previously")
+  print("All packages were already installed previously")
 }
 
 # Load all required libraries at once
 lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 
 install.packages(c("ape",
+                   "ade4",
+                   "codep",
                    "gclus",
                    "vegan",
                    "GGally",
                    "PlaneGeometry",
                    "remotes"))
 
-spe <- read.csv("data/doubsspe.csv", row.names = 1) 
-# this line will vary depending on where you saved the dataset
-spe <-  spe[-8,] # remove site with no data
-# for larger datasets:
-row_sub = apply(spe, 1, function(row) any(row !=0 ))
-# find rows where there are not any values that equal zero
-spe <- spe[row_sub,]
-# only keep rows that have no zeros  
+spe <- read.csv("data/doubsspe.csv", 
+                row.names = 1) 
 
-env <- read.csv("data/doubsenv.csv", row.names = 1)
-env <- env[-8,] # remove site with no data
+env <- read.csv("data/doubsenv.csv", 
+                row.names = 1)
 
-names(spe) # Names of objects
-dim(spe) # dimensions
-str(spe) # structure of objects
-summary(spe) # summary statistics
-head(spe) # first 6 rows
+library(ade4)
+data(doubs)
 
-head(spe) # first 6 rows
+spe <- doubs$fish
+env <- doubs$env
 
-par(mar = c(4,4,.5,.5), cex = 1.5)
-ab <- table(unlist(spe))
-barplot(ab, las = 1, col = grey(5:0/5),
-        xlab = "Abundance class", ylab = "Frequency")
+library(codep)
+data(Doubs)
 
-sum(spe == 0)
+spe <- Doubs.fish
+env <- Doubs.env
 
-sum(spe == 0)/(nrow(spe)*ncol(spe))
+str(env)
 
-par(mar = c(4,4,1,.5), cex = 1.5)
-site.pre <- rowSums(spe > 0)
-barplot(site.pre, main = "Species richness",
-        xlab = "Sites", 
-        ylab = "Number of species",
-        col = "grey ", las = 1)
-
-library(vegan)
-spec.pa <- decostand(spe, method = "pa")
-
-spec.hel <- decostand(spe, method = "hellinger")
-spec.chi <- decostand(spe, method = "chi.square")
-
-spe.pa <- decostand(spe,method = "log")
-
-names(env) # Names of objects
-dim(env) # dimensions
-str(env) # structure of objects
 summary(env) # summary statistics
-head(env) # first 6 rows
 
-head(env) # first 6 rows
+head(spe)[, 1:8]
 
+str(spe)
 
+# Try some of these!
 
-library(GGally)
-ggpairs(env, main="Bivariate Plots of the Environmental Data")
+names(spe)   # names of objects
+dim(spe)     # dimensions
+
+str(spe)     # structure of objects
+summary(spe) # summary statistics
+
+head(spe)    # first 6 rows
 
 ?decostand
 env.z <- decostand(env, method = "standardize")
@@ -84,13 +89,96 @@ env.z <- decostand(env, method = "standardize")
 apply(env.z, 2, mean)
 apply(env.z, 2, sd)
 
-?vegdist
+dist(spe)
 
-spe.db.pa <- vegdist(spe, method = "bray")
+class(dist(spe))
+
+str(dist(spe))
+
+as.matrix(dist(spe))
+
+dim(as.matrix(dist(spe)))
+
+as.matrix(dist(spe))[1:3, 1:3]
+
+#setting up the plot
+xlim <- c(0,4)
+ylim <- c(-1,5)
+par(mar=c(1,1,1,1)+.1)
+plot(xlim, 
+     ylim, type="n", 
+     xlab="X1", 
+     ylab="X2", 
+     asp=1)
+grid()
+# define some vectors
+a=c(4, 0)
+b=c(0, 4)
+# plot the vectors
+vectors(a, labels="D(y21, y11)", pos.lab=3, frac.lab=.5, col="grey")
+vectors(a + b, labels="D1(x1,x2)", pos.lab=4, frac.lab=.5, col="red")
+# vector a+b starting from a is equal to b.
+vectors(a + b, labels="D(y12, y22)", pos.lab=4, frac.lab=.5, origin=a, col="grey")
+
+points(x = 4, y = 0, type = "p")
+text(x=4.1, y=-0.2, labels="")
+
+points(x = 0, y = 0, type = "p")
+text(x=-0.1, y=-0.2, labels="x1")
+
+points(x = 4, y = 4, type = "p")
+text(x=4.1, y=4.2, labels="x2")
+
+spe.D.Euclid <- dist(x = spe,  
+                     method = "euclidean")
+
+is.euclid(spe.D.Euclid)
+
+Y.hmm <- data.frame(
+  y1 = c(0, 0, 1),
+  y2 = c(4, 1, 0),
+  y3 = c(8, 1, 0))
+
+Y.hmm.DistEu <- dist(x = Y.hmm,
+                     method = "euclidean")
+
+as.matrix(Y.hmm.DistEu)
+
+Y.hmm.DistEu <- dist(x = Y.hmm,  
+                     method = "euclidean")
+
+as.matrix(Y.hmm.DistEu)
+
+Y.hmm
+
+as.matrix(Y.hmm.DistEu)
+
+spe.D.Ch <- vegdist(spe,  
+                    method = "chord")
+
+as.matrix(spe.D.Ch)[1:3, 1:3]
+
+Y.hmm
+
+as.matrix(Y.hmm.DistEu)
+
+Y.hmm.DistCh <- vegdist(Y.hmm,  
+                    method = "chord")
+
+as.matrix(Y.hmm.DistCh)
+
+spe.D.Jac <- vegdist(spe, 
+                     method = "jaccard",
+                     binary = TRUE)
+
+spe.D.Sor <- vegdist(spe, 
+                     method = "bray",
+                     binary = TRUE)
+
+spe.db.pa <- vegdist(spe, 
+                      method = "bray",
+                      binary = FALSE)
 spe.db <- as.matrix(spe.db.pa)
-
-
-head(spe.db)
 
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
@@ -101,38 +189,119 @@ head(spe.db)
 
 "coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
 {
-	require(gclus)
+  require(gclus)
+  
+  if (max(D)>1) D <- D/max(D)
+  
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+  
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+  
+  op <- par(mfrow=c(1,2), pty="s")
+  
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix")
+  }
+  
+  par(op)
+}
 
-	if (max(D)>1) D <- D/max(D)
+# Usage:
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+# If D is not a dissimilarity matrix (max(D) > 1), then D is divided by max(D)
+# nc 							number of colours (classes)
+# byrank= TRUE		equal-sized classes
+# byrank= FALSE		equal-length intervals
+# diag = TRUE			print object labels also on the diagonal
 
-	if (byrank) {
-		spe.color <- dmat.color(1-D, cm.colors(nc))
-	}
-	else {
-		spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
-	}
+# Example:
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
 
-	spe.o <- order.single(1-D)
-	speo.color <- spe.color[spe.o, spe.o]
-	
-	op <- par(mfrow=c(1,2), pty="s")
 
-	if (diag) {
-		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-			main="Dissimilarity Matrix", 
-			dlabels=attributes(D)$Labels)
-		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-			main="Ordered Dissimilarity Matrix", 
-			dlabels=attributes(D)$Labels[spe.o])
-	}
-	else {
-		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-			main="Dissimilarity Matrix")
-		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-			main="Ordered Dissimilarity Matrix")
-	}
+coldiss(spe.D.Jac)
 
-	par(op)
+spe[1:6, 1:6]
+
+spe.pa <- decostand(spe, method = "pa")
+spe.pa[1:6, 1:6]
+
+spe[1:5, 1:6]
+
+spe.total <- decostand(spe, 
+                       method = "total")
+spe.total[1:5, 1:6]
+
+spe[1:5, 1:6]
+
+spe.total <- decostand(spe, 
+                       method = "hellinger")
+spe.total[1:5, 1:6]
+
+par(mar = c(4,4,1,.5), cex = 1.5)
+site.pre <- rowSums(spe > 0)
+barplot(site.pre, main = "Species richness",
+        xlab = "Sites", 
+        ylab = "Number of species",
+        col = "grey ", las = 1)
+
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+  require(gclus)
+  
+  if (max(D)>1) D <- D/max(D)
+  
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+  
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+  
+  op <- par(mfrow=c(1,2), pty="s")
+  
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix")
+  }
+  
+  par(op)
 }
 
 # Usage:
@@ -152,28 +321,19 @@ coldiss(spe.db.pa)
 
 # Demonstration of a cluster dendrogram
 spe.hel<-decostand(spe, method="hellinger")
-spe.dhel<-vegdist(spe.hel,method="euclidean")
-spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
+spe.dhel <- vegdist(spe.hel,method="euclidean")
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 
 
-x <- matrix(abs(rnorm(1:40)),nrow=5,byrow=TRUE)
-x.hel <- decostand(x,method="hellinger")
-x.dhel <- vegdist(x.hel, method="euclidean")
-x.dhel.single <- hclust(x.dhel, method="single")
-x.dhel.complete <- hclust(x.dhel, method="complete")
-plot <- par(mfrow=c(1,2),mar=c(5,2,4,2))
-plot(as.dendrogram(x.dhel.single), horiz=TRUE, main="Single linkage clustering")
-plot(as.dendrogram(x.dhel.complete), horiz=TRUE, main = "Complete linkage clustering")
-
 par(mar=c(.5,3.8,2,.5), cex = 1.5)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.single <- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 
 par(mfrow=c(1,2), mar=c(.5,2.5,1.5,2.5), cex=1)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.complete <- hclust(spe.dhe1, method = "complete")
 plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
 plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
@@ -181,10 +341,7 @@ plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
 par(mar=c(.5,2.5,1.5,.5), cex = 1)
 spe.dhel.ward <- hclust(spe.dhe1, method = "ward.D2")
 spe.dhel.ward$height <- sqrt(spe.dhel.ward$height)
-plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
-
-par(mar=c(.5,3.8,2,.5), cex = 1.5)
-plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
+plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at 0
 
 x <- rnorm(5000, mean = 0, sd = 1)
 y <- rnorm(5000, mean = 0, sd = 1)
@@ -371,7 +528,7 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4))
 
 Eigenvectors. <- as.data.frame(Eigenvectors)
@@ -445,9 +602,9 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4)
-     )
+)
 
 sum(diag(cov(Y_std)))
 sum(eigen(cov(Y_std))$values)
@@ -476,10 +633,10 @@ Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
 Y_std <- as.data.frame(Y_std)
 
 op <- par(mfrow = c(2, 1),     # 2x2 layout
-    oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
-    mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
-    mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
-    )       
+          oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
+          mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
+          mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
+)       
 
 plot(N ~ P, 
      col = as.factor(rownames(Y_std)),
@@ -547,7 +704,7 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4))
 
 
@@ -615,9 +772,9 @@ points(N ~ P,
 with(Y_std,
      text(N ~ P, 
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+          pos = 1, 
           cex=1.4)
-     )
+)
 
 title(xlab = "N",
       ylab = "P",
@@ -749,7 +906,7 @@ scores(PCA_vegan_rda,
        choices = seq_len(PCA_vegan_rda$CA$rank),
        const = sqrt(PCA_vegan_rda$tot.chi * (nrow(PCA_vegan_rda$CA$u) - 1)))[1:5, ]
 
-spe.h.pca <- rda(spec.hel)
+spe.h.pca <- rda(spe.hel)
 
 # summary(spe.h.pca)
 
@@ -845,14 +1002,14 @@ biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 
 library(ape)
-spe.h.pcoa <- pcoa(dist(spec.hel))
+spe.h.pcoa <- pcoa(dist(spe.hel))
 summary(spe.h.pcoa)
 
 head(spe.h.pcoa$values)
 
 head(spe.h.pcoa$vectors)[, 1:5]
 
-biplot.pcoa(spe.h.pcoa, spec.hel)
+biplot.pcoa(spe.h.pcoa, spe.hel)
 
 spe.bray.pcoa <- pcoa(spe.db.pa)
 
@@ -886,15 +1043,15 @@ plot(spe.nmds, type = "none",
      xlab = c("NMDS1"), ylab = "NMDS2")
 
 points(scores(spe.nmds, display = "sites",
-              choiches = c(1,2),
+              choices = c(1,2)),
               pch = 21,
               col = "black",
-              g = "steelblue",
-              cex = 1.2))
+              bg = "steelblue",
+              cex = 1.2)
 text(scores(spe.nmds, display = "species", choices = c(1)),
-            scores(spe.nmds, display = "species", choices = c(2)),
-            labels = rownames(scores(spe.nmds, display = "species")),
-            col = "red", cex = 0.8)
+     scores(spe.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(spe.nmds, display = "species")),
+     col = "red", cex = 0.8)
 
 plot(spe.nmds, type = "none",
      main = paste("NMDS/Bray - Stress =",
@@ -902,15 +1059,54 @@ plot(spe.nmds, type = "none",
      xlab = c("NMDS1"), ylab = "NMDS2")
 
 points(scores(spe.nmds, display = "sites",
-              choiches = c(1,2),
+              choices = c(1,2)),
               pch = 21,
               col = "black",
-              g = "steelblue",
-              cex = 1.2))
+              bg = "steelblue",
+              cex = 1.2)
 text(scores(spe.nmds, display = "species", choices = c(1)),
-            scores(spe.nmds, display = "species", choices = c(2)),
-            labels = rownames(scores(spe.nmds, display = "species")),
-            col = "red", cex = 0.8)
+     scores(spe.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(spe.nmds, display = "species")),
+     col = "red", cex = 0.8)
+
+?metaMDS
+?stressplot
+
+mite.nmds <- metaMDS(mite.spe, distance = 'bray', k = 2)
+
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+
+stressplot(mite.nmds, main = "Shepard plot")
 
 plot(spe.h.pca, scaling  = 1,
      type = "none",

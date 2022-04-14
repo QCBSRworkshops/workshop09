@@ -32,19 +32,22 @@ class: inverse, center, middle
 
 
 
+
+
 # About this workshop
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=repo&amp;message=dev&amp;color=6f42c1&amp;logo=github)](https://github.com/QCBSRworkshops/workshop09)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=wiki&amp;message=09&amp;logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-en/workshop09-pres-en.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-en/workshop09-pres-en.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=script&amp;message=09&amp;color=2a50b8&amp;logo=r)](https://qcbsrworkshops.github.io/workshop09/book-en/workshop09-script-en.R)
+
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=BF616A)](https://r.qcbs.ca/workshop09/pres-en/workshop09-pres-en.html)    [![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Script&amp;message=09&amp;color=D08770&amp;logo=r)](https://r.qcbs.ca/workshop09/book-en/workshop09-script-en.R) 
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Book&amp;message=09&amp;color=EBCB8B)](https://r.qcbs.ca/workshop09/book-en/index.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Site&amp;message=r.qcbs.ca&amp;color=A3BE8C)](https://r.qcbs.ca/workshops/r-workshop-09/)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=GitHub&amp;message=09&amp;color=B48EAD&amp;logo=github)](https://github.com/QCBSRworkshops/workshop09)
+
 
 ---
 
 &lt;p style="font-size:75%"&gt;
 
 .center[
-**Contributors to the development of this workshop**
+**QCBS members who contributed to this workshop**
 
 by modifying and improving its content as part of the &lt;br&gt; *Le*arning *a*nd *D*evelopment *A*ward
 ]
@@ -53,56 +56,62 @@ by modifying and improving its content as part of the &lt;br&gt; *Le*arning *a*n
 .pull-left[
 .right[
 
- **2022** - **2021** - **2020**
+**2022** - **2021** - **2020**
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
-[Katherine Hébert]()
+Katherine Hébert
 
-[Mi Lin]()
+Mi Lin
 
-[Linley Sherin]()
+Linley Sherin
 
+&lt;br&gt;
+
+**2019** - **2018** - **2017**
+
+Gabriel Muñoz
+
+Marie Hélène-Brice
+
+Pedro Henrique P. Braga
 ]
 ]
 
 .pull-right[
 .left[
-**2019** - **2018** - **2017**
-
-[Gabriel Muñoz](https://github.com/fgabriel1891)
-
-[Marie Hélène-Brice]()
-
-[Pedro Henrique P. Braga]()
-
-&lt;br&gt;
-
 **2016** - **2015** - **2014**
 
-[Bérenger Bourgeois]()
+Bérenger Bourgeois
 
-[Xavier Giroux-Bougard]()
+Xavier Giroux-Bougard
 
-[Amanda Winegardner]()
+Amanda Winegardner
 
-[Emmanuelle Chrétien]()
+Emmanuelle Chrétien
 
-[Monica Granados]()
+Monica Granados
 
 ]
 ]
 &lt;/p&gt;
 
+&lt;br&gt;
+.center[
+__If you would like to contribute too__, visit [r.qcbs.ca/contributing](https://r.qcbs.ca/contributing/) &lt;br&gt; and don't hesitate to [get in touch](mailto:qcbs.csbq.r@gmail.com) with us!
+]
+
 ---
 
 # Required material
 
-To follow this workshop, you are required to have downloaded and installed the earliest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
+This workshop requires the latest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
 
 .pull-left[
 You must also use these packages:
 * [ape](https://cran.r-project.org/package=ape)
+* [ade4](https://cran.r-project.org/package=ade4)
+* [codep](https://cran.r-project.org/package=codep)
 * [gclus](https://cran.r-project.org/package=gclus)
 * [vegan](https://cran.r-project.org/package=vegan)
 * [GGally](https://cran.r-project.org/package=GGally)
@@ -119,6 +128,8 @@ To install them from CRAN, run:
 
 ```r
 install.packages(c("ape", 
+                   "ade4",
+                   "codep",
                    "gclus", 
                    "vegan",
                    "GGally", 
@@ -131,7 +142,7 @@ install.packages(c("ape",
 &lt;br&gt;
 
 .pull-left2[
-Throughout this workshop, there will be a series of **challenges** that you can recognize by this rubix cube.
+Throughout this workshop, there will be a series of **challenges** that you can recognize by this Rubik's cube.
 
 **During these challenges, do not hesitate to collaborate!**
 ]
@@ -147,338 +158,578 @@ Throughout this workshop, there will be a series of **challenges** that you can 
 ---
 # Learning objectives
 
-**1.** Learn the basics of multivariate analysis to reveal patterns in community composition data
+1. Learn the basics of multivariate analysis to reveal patterns in community composition data
 
-**2.** Use `R` to perform an unconstrained ordination
+2. Use `R` to perform an unconstrained ordination
 
-**3.**    Choose appropriate distance metrics and transformations to perform multivariate analysis
+3. Learn about similarity and dissimilarity coefficients and transformations to perform multivariate analysis
 
-* Clustering analysis
-* Principal Component Analysis (PCA)
-* Principal Coordinate Analysis (PCoA)
-* Non-Metric MultiDimensional Scaling (NMDS)
+4. Use `R` to create dendrograms
 
-**4.** Use `R` to create dendrogram
+5. Learn the following methods:
 
+  * Clustering analysis
+  * Principal Component Analysis (PCA)
+  * Principal Coordinate Analysis (PCoA)
+  * Non-Metric MultiDimensional Scaling (NMDS)
 
 ---
 
 class: inverse, center, middle
 
-# 1. Introduction
-
-## What is ordination?
+# 1. Preamble
 
 ---
-## One to two dimensions
 
-What if we are interested in this response for different species of algae involved in the algal bloom density?
+# Recap: Univariate analyses
 
-.center[![:scale 70%](images/algalBloom.png)]
+We have learned a multitude of analyses that allowed us to interpret ecological data while depicting the effects of _one or multiple_ variables in _one_ response variable.
 
+--
+
+.pull-left[
+We can recall the:
+
+1. General Linear Models 
+  1. `lm()`;
+  2. `anova()`;
+  3. `t.test()`;
+  4. `lmer()`.
+
+2. Generalized Linear Models
+  1. `glm()` and `glmer()` with several `family()` link functions.
+
+3. Generalized Additive Models
+  1. `gam()`.
+]
+
+--
+
+.pull-right[
+These models allowed us to ask questions such as:
+
+1. _What are the effects of precipitation and temperature on species richness?_
+2. _How does the abundance of microbes change between hosts?_
+3. _Do co-occurring fish become more aggressive after being induced to fear?_
+]
 
 ---
-## One to two dimensions
 
-.center[![:scale 70%](images/2dim.png)]
+# Multivariate statistics
+
+However, one may be interested in making inferences from ecological data containing _more than one_ outcome or dependent variable.
+
+This interest may be driven by hypothesis testing and modelling, but also be entirely exploratory. 
+
+--
+
+For instance, our research question might be:
+
+1. How does the _bacterial composition_ on maple leaves change along the elevational gradient?
+
+2. What is the _composition dissimilarity_ of bat communities?
+
+3. How _closely-related_ are local spider communities in terms of their _composition_?
+
+???
+
+--
+
+In all these cases, the outcome is composed of several variables, _e.g._ usually a sample-by-species or sample-by-environment matrix.
+
+--
+
+&lt;br&gt;
+We will now dive into **multivariate statistics**, a tool set that will allow us to address questions requiring the simultaneous observation or analysis of more than one outcome variable.
 
 ---
-## Three dimensions
+# Background on multivariate methods
 
-.center[
-![:scale 70%](images/3dim.png)]
+1. Association (or dis-similarity) measures and matrices
 
+2. Classification (or cluster) analysis
 
----
-## 4,5,6, or more dimensions
+3. Unconstrained ordination
 
-.center[![:scale 70%](images/4dim.png)]
+4. Constrained (or canonical) ordination
+
+--
 
 &lt;br&gt;
 
-.center[ **?** ]
-
-- It is not possible to draw a diagram with more than 3 dimensions
-
-???
-
-In ecology, several descriptors are usually observed for each object under study. In most instances, ecologists are interested in characterizing the main trends of variation of the objects with respect to all descriptors, not only a few of them. Looking at scatter plots of the objects with respect to all possible pairs of descriptors is a tedious approach, which generally does not shed much light on the problem at hand.
-Even with multivariate approach, it is not possible to draw such a diagram on paper with more than three dimensions, however, even though it is a perfectly valid mathematical construct.
-
----
-# Ordination in reduced space
-
-.center[![:scale 70%](images/Ord1.png)]
-
-- Ordination is the representation of objects (sites, stations, readings, etc.) as point data along one or several reference axes.
-
-- Ordination addresses the question of how to project the scatter of ecological objects, which are located in the multidimensional space of descriptors, into a smaller number of dimensions. 
-
-- Reduced space: a space with reduced dimensionality relative to the original dataset.
-
-???
-
-Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
+.center[But, before that, we must recall the basics of **matrix algebra**.]
 
 ---
 
-# Ordination in reduced space
+# Matrix algebra: a *very brief* summary
 
-.center[![:scale 70%](images/Ord3.png)]
+Matrix algebra is well-suited for ecology, because most (if not all) _data sets_ we work with are in a _matrix_ format.
 
-- For the purpose of analysis, ecologists project the multidimensional scatter from multidimensional space into a smaller number of dimensions of descriptors. 
+--
 
-- Axes represent a large fraction of the variability of the multidimensional data matrix.
+.pull-left[
+Ecological data tables are obtained as object-observations or sampling units, and are often recorded as this: 
+&lt;br&gt;
 
-???
-Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
+| Objects | `\(y_1\)`     | `\(y_2\)`  | `\(\dots\)`           | `\(y_n\)`  |
+| :-------------: |:-------------:| :-----:|:-----:|:-----:|
+|  `\(x_1\)`        | `\(y_{1,1}\)`     | `\(y_{1,2}\)`  | `\(\dots\)`  | `\(y_{1,n}\)`  |
+|  `\(x_2\)`        | `\(y_{2,1}\)`     | `\(y_{2,2}\)`  | `\(\dots\)`  | `\(y_{2,n}\)`  |
+|  `\(\vdots\)`     | `\(\vdots\)`     | `\(\vdots\)`  | `\(\ddots\)`  | `\(\vdots\)`  |
+|  `\(x_m\)`        | `\(y_{m,1}\)`     | `\(y_{m,2}\)`  | `\(\dots\)`  | `\(y_{m,n}\)`  |
+&lt;br&gt;
+where `\(x_m\)` is the sampling unit `\(m\)`; and `\(y_n\)` is the ecological descripor that can be, for example, species present in a sampling unit, locality, or a chemical variable.
+]
+
+--
+
+.pull-right[
+
+The same ecological data table can be represented in _matrix notation_ like this:
+
+`$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+\end{bmatrix}$$`
+
+where lowercase letters indicate _elements_, and the subscript letters indicate the _position of these elements_ in the matrix (and in the table!).
+]
+
+
+---
+
+# Matrix algebra: a *very brief* summary
+
+Matrix algebra is well-suited for ecology, because most (if not all) _data sets_ we work with, are in a _matrix_ format.
+
+.pull-left[
+Moreover, any subset of a matrix can be recognized!
+
+&lt;br&gt;
+
+.center[_a row matrix_]
+`$$\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+\end{bmatrix}$$`
+
+.center[_a column matrix_]
+`$$\begin{bmatrix}
+y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+\end{bmatrix}$$`
+
+]
+
+.pull-right[
+The same ecological data table can be represented in _matrix notation_ like this:
+
+`$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+\end{bmatrix}$$`
+
+where lowercase letters indicate _elements_, and the subscript letters indicate the _position of these elements_ in the matrix (and in the table!).
+
+]
+
+---
+
+# Matrix algebra: a *very brief* summary
+
+###### Association matrices
+
+Two important matrices can be derived from the ecological data matrix: the _**association matrix among objects**_ and the _**association matrix among descriptors**_.
+
+--
+
+.pull-left[
+Using the data from our matrix `\(Y\)`,
+
+&lt;div class="math"&gt;
+\[ Y = 
+\begin{array}{cc}
+\begin{array}{ccc}
+x_1 \rightarrow\\
+x_2 \rightarrow\\
+\vdots \\
+x_m \rightarrow\\
+\end{array}
+&amp;
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+\end{bmatrix}
+\end{array}
+\]
+&lt;/div&gt;
+
+one can examine the relationship between the first two objects:
+
+&lt;div class="math"&gt;
+\[x_1 \rightarrow \begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+\end{bmatrix}
+\]
+&lt;/div&gt;
+
+&lt;div class="math"&gt;
+\[x_2 \rightarrow 
+\begin{bmatrix}
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\end{bmatrix}
+\]
+&lt;/div&gt;
+
+&lt;p&gt;and obtain \(a_{1,2}\). &lt;/p&gt;
+
+]
+
+--
+
+.pull-right[
+
+We can populate the association matrix `\(A_{n,n}\)` with the relationships between all objects from `\(Y\)`:
+
+&lt;div class="math"&gt;
+\[A_{n,n} = 
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{n,1} &amp; a_{n,2} &amp; \cdots &amp; a_{n,n} 
+\end{bmatrix}\]
+&lt;/div&gt;
+
+&lt;p&gt;Because \(A_{n,n}\) has the same number of rows and columns, it is denoted a &lt;i&gt;square matrix&lt;/i&gt;.&lt;/p&gt; 
+
+&lt;p&gt;Therefore, it has \(n^2\) elements.&lt;/p&gt;
+
+]
+
+---
+
+# Matrix algebra: a *very brief* summary
+
+###### Association matrices
+
+Two important matrices can be derived from the ecological data matrix: the _**association matrix among objects**_ and the _**association matrix among descriptors**_.
+
+--
+
+.pull-left[
+
+We can also obtain the relationship between the first two descriptors of `\(Y\)`, `\(y_1\)` and `\(y_2\)`:
+
+.pull-left[
+`$$\begin{bmatrix}
+y_{1,2} \\
+y_{2,2} \\
+\vdots  \\
+y_{m,2} 
+\end{bmatrix}$$`
+]
+
+.pull-right[
+`$$\begin{bmatrix}
+y_{1,1} \\
+y_{2,1} \\
+\vdots  \\
+y_{m,1} 
+\end{bmatrix}$$`
+]
+
+and store it in `\(a_{1,2}\)`.
+]
+
+--
+
+.pull-right[
+
+We can populate the association matrix `\(A_{m,m}\)` with the relationships between all descriptors from `\(Y\)`:
+
+`$$A_{m,m} = 
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,m} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,m} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,m} 
+\end{bmatrix}$$`
+
+&lt;p&gt;This \(A_{m,m}\) is a &lt;i&gt;square matrix&lt;/i&gt;, and it has \(m^2\) elements.&lt;/p&gt;
+
+]
+
+---
+# Matrix algebra: a *very brief* summary
+
+###### Association matrices
+
+Two important matrices can be derived from the ecological data matrix: the _**association matrix among objects**_ and the _**association matrix among descriptors**_.
+
+These matrices are the basis of **_Q-mode_** and **_R-mode_** analyses in ecology. 
+
+.pull-left[
+`$$Y_{m,n} = 
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+\end{bmatrix}$$`
+]
+
+.pull-right[
+
+`$$A_{m,m} = 
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,m} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,m} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,m} 
+\end{bmatrix}$$`
+
+]
+
+.pull-left[
+
+`$$A_{n,n} = 
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{n,1} &amp; a_{m,2} &amp; \cdots &amp; a_{n,n} 
+\end{bmatrix}$$`
+
+]
+
+
+.pull-right[
+
+.pull-left[
+`\(\leftarrow\)` **_R-mode_** analysis 
+for descriptors or species
+]
+
+.pull-right[
+`\(\uparrow\)`
+**_Q-mode_** analysis
+for objects or sites
+]
+
+]
+
+---
+## Our plans for the next steps...
+
+We will dive into **R-mode** and **Q-mode** analyses, and we will explore:
+
+1. Association coefficients: dissimilarity and similarity
+2. Composition data transformation
+3. Cluster analyses
+3. Ordinations in the reduced space
+
+&lt;br&gt; 
+
+.center[**But, first, let us introduce a real data set.**]
+
+.center[_It will be your time to get your hands dirty!_]
 
 ---
 exclude: true
 
-# Methods for scientific research
+###### Association coefficients
 
-Suggested script: For the purpose of analysis, ecologists usually project the multidimensional scatter diagram onto bivariate graphs whose axes are known to be of particular interest. The axes of these graphs are chosen to represent a large fraction of the variability of the multidimensional data matrix, in a space with reduced (i.e. lower) dimensionality relative to the original data set. Methods for ordination in reduced space also allow one to derive quantitative information on the quality of the projections, and study the relationships among descriptors as well as among objects.
+_Stepping up our game_, we can use population parameters and sample statistics to reveal the structure of our ecological data.
 
----
-class: inverse, center, middle
-
-# 2. Exploring data
+For example, we can represent in our association matrix `\(A_{n,n}\)`
 
 ---
-# Doubs River Fish Dataset
+# Doubs river fish communities
+
+.pull-left3[
+Verneaux (1973) proposed to use fish species to characterize ecological zones along European rivers and streams.
+
+He collected data at **30 localities** along the Doubs river, which runs near the France-Switzerland border, in the Jura Mountains.
+
+He showed that fish communities were biological indicators of these water bodies. 
+]
+
+.pull.right3[
+.center[![:scale 28%](images/DoubsRiver.png)]
+]
+
+--
+
+.pull-left3[
+Their data is split in three matrices:
+
+1. The abundance of 27 fish species across the communities;
+2. The environmental variables recorded at each site; and,
+3. The geographical coordinates of each site.
+]
+
+.pull.right3[
+.center[![:scale 30%](https://upload.wikimedia.org/wikipedia/commons/c/cc/Doubs_Laissey.jpg)]
+
+&lt;br&gt;
+]
+
+.xsmall[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.] 
+
+---
+
+# Doubs river fish communities
+
+.pull-left3[
+
+You can download these datasets from [r.qcbs.ca/workshops/r-workshop-09](http://r.qcbs.ca/workshops/r-workshop-09/).
+
+
+```r
+spe &lt;- read.csv("data/doubsspe.csv", 
+                row.names = 1) 
+
+env &lt;- read.csv("data/doubsenv.csv", 
+                row.names = 1)
+```
+
+]
+
+--
+
+.pull-right3[
+
+This data can also be retrieved from the `ade4` package:
+
+```r
+library(ade4)
+data(doubs)
+
+spe &lt;- doubs$fish
+env &lt;- doubs$env
+```
+
+Alternatively, from the `codep` package:
+
+```r
+library(codep)
+data(Doubs)
+
+spe &lt;- Doubs.fish
+env &lt;- Doubs.env
+```
+]
+
+---
+# Doubs river environmental data
+
+We can then explore the objects containing our newly loaded data. 
+
+Let us peek into the `env` data:
+
 
 .pull-left[
 
-Verneaux (1973) dataset:
-- characterization of fish communities
-- 27 different species
-- 30 different sites
-- 11 environmental variables
+```r
+str(env)
+# 'data.frame':	30 obs. of  11 variables:
+#  $ das: num  0.3 2.2 10.2 18.5 21.5 32.4 36.8 49.1 70.5 99 ...
+#  $ alt: int  934 932 914 854 849 846 841 792 752 617 ...
+#  $ pen: num  48 3 3.7 3.2 2.3 3.2 6.6 2.5 1.2 9.9 ...
+#  $ deb: num  0.84 1 1.8 2.53 2.64 2.86 4 1.3 4.8 10 ...
+#  $ pH : num  7.9 8 8.3 8 8.1 7.9 8.1 8.1 8 7.7 ...
+#  $ dur: int  45 40 52 72 84 60 88 94 90 82 ...
+#  $ pho: num  0.01 0.02 0.05 0.1 0.38 0.2 0.07 0.2 0.3 0.06 ...
+#  $ nit: num  0.2 0.2 0.22 0.21 0.52 0.15 0.15 0.41 0.82 0.75 ...
+#  $ amm: num  0 0.1 0.05 0 0.2 0 0 0.12 0.12 0.01 ...
+#  $ oxy: num  12.2 10.3 10.5 11 8 10.2 11.1 7 7.2 10 ...
+#  $ dbo: num  2.7 1.9 3.5 1.3 6.2 5.3 2.2 8.1 5.2 4.3 ...
+```
 
 ]
 
-.pull.right[
+.pull-right[
 
-![:scale 50%](images/DoubsRiver.png)
+|Variable |Description|
+|:--:|:--|
+|das|Distance from the source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Slope [per thousand]  |
+|deb|Mean min. discharge [m&lt;sup&gt;3&lt;/sup&gt;s&lt;sup&gt;-1&lt;/sup&gt;]  |
+|pH|pH of water  |
+|dur|Ca conc. (hardness) [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|pho|K conc. [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|nit|N conc. [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|amn|NH₄⁺ conc. [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|oxy|Diss. oxygen [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|dbo|Biol. oxygen demand [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
 
 ]
 
----
-# Doubs River fish dataset
-
-Load the Doubs River species data (`doubsspe.csv`)
-
 
 ```r
-spe &lt;- read.csv("data/doubsspe.csv", row.names = 1) 
-# this line will vary depending on where you saved the dataset
-spe &lt;-  spe[-8,] # remove site with no data
-# for larger datasets:
-row_sub = apply(spe, 1, function(row) any(row !=0 ))
-# find rows where there are not any values that equal zero
-spe &lt;- spe[row_sub,]
-# only keep rows that have no zeros  
-```
-
-Load the Doubs River environmental data (`doubsenv.csv`)
-
-
-```r
-env &lt;- read.csv("data/doubsenv.csv", row.names = 1)
-env &lt;- env[-8,] # remove site with no data
-```
-
-.alert[Proceed with caution, only execute once]
-
----
-# Expore Doubs dataset
-
-Explore the content of the fish community dataset
-
-
-```r
-names(spe) # Names of objects
-dim(spe) # dimensions
-str(spe) # structure of objects
-summary(spe) # summary statistics
-head(spe) # first 6 rows
-```
-
-
-```
-#   CHA TRU VAI LOC OMB BLA HOT TOX VAN CHE BAR SPI GOU BRO PER BOU PSO ROT CAR
-# 1   0   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-# 2   0   5   4   3   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-# 3   0   5   5   5   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0
-# 4   0   4   5   5   0   0   0   0   0   1   0   0   1   2   2   0   0   0   0
-# 5   0   2   3   2   0   0   0   0   5   2   0   0   2   4   4   0   0   2   0
-# 6   0   3   4   5   0   0   0   0   1   2   0   0   1   1   1   0   0   0   0
-#   TAN BCO PCH GRE GAR BBO ABL ANG
-# 1   0   0   0   0   0   0   0   0
-# 2   0   0   0   0   0   0   0   0
-# 3   0   0   0   0   0   0   0   0
-# 4   1   0   0   0   0   0   0   0
-# 5   3   0   0   0   5   0   0   0
-# 6   2   0   0   0   1   0   0   0
-```
-
----
-# Species Frequencies
-
-Take a look at the distribution of species frequencies
-
-
-```r
-ab &lt;- table(unlist(spe))
-barplot(ab, las = 1, col = grey(5:0/5),
-        xlab = "Abundance class", ylab = "Frequency")
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" /&gt;
-
-.alert[Note the proportion of 0s]
-
----
-# Species Frequencies
-
-How many zeros?
-
-
-```r
-sum(spe == 0)
-# [1] 408
-```
-
-What proportion of zeros?
-
-
-```r
-sum(spe == 0)/(nrow(spe)*ncol(spe))
-# [1] 0.5210728
-```
-
----
-# Total Species Richness
-
-Visualize how many species are present at each site:
-
-
-```r
-site.pre &lt;- rowSums(spe &gt; 0)
-barplot(site.pre, main = "Species richness",
-        xlab = "Sites", 
-        ylab = "Number of species",
-        col = "grey ", las = 1)
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /&gt;
-
----
-# Understand your data!
-
-####To choose the appropiate transformation and distance
-
-- Are there any zeros?
-
-- What do they mean?
-
-
-.alert[A measured 0 (e.g 0mg/L, 0°C)]
-.alert[is not the same as a 0 representing an absence observations]
-
-
----
-# Before transforming your community data...
-
-.alert[Important considerations:]
-
---
-- relative abundances/counts/presence-absence?
-
---
-- asymmetrical distributions?
-
---
-- many rare species?
-
---
-- overabundance of dominant species?
-
---
-- double Zero problem?
-
----
-# Transforming community data
-
-.center[
-![](images/trans1.png)]
-
----
-# Transforming your community data
-
-#### Examples
-
-Transforming counts into presence - absence
-
-```r
-library(vegan)
-spec.pa &lt;- decostand(spe, method = "pa")
-```
-
-Reducing the weight of rare species
-
-
-```r
-spec.hel &lt;- decostand(spe, method = "hellinger")
-spec.chi &lt;- decostand(spe, method = "chi.square")
-```
-
-Reducing the weight of very abundant species
-
-
-```r
-spe.pa &lt;- decostand(spe,method = "log")
-```
-
-
----
-# Doubs Environmental Data
-
-
-```r
-names(env) # Names of objects
-dim(env) # dimensions
-str(env) # structure of objects
 summary(env) # summary statistics
-head(env) # first 6 rows
-```
-
-
-```r
-head(env) # first 6 rows
-#    das alt  pen  deb  pH dur  pho  nit  amm  oxy dbo
-# 1  0.3 934 48.0 0.84 7.9  45 0.01 0.20 0.00 12.2 2.7
-# 2  2.2 932  3.0 1.00 8.0  40 0.02 0.20 0.10 10.3 1.9
-# 3 10.2 914  3.7 1.80 8.3  52 0.05 0.22 0.05 10.5 3.5
-# 4 18.5 854  3.2 2.53 8.0  72 0.10 0.21 0.00 11.0 1.3
-# 5 21.5 849  2.3 2.64 8.1  84 0.38 0.52 0.20  8.0 6.2
-# 6 32.4 846  3.2 2.86 7.9  60 0.20 0.15 0.00 10.2 5.3
-```
-
-Explore colinearity by visualizing correlations between variables.
-
-
-```r
-library(GGally)
-ggpairs(env, main="Bivariate Plots of the Environmental Data")
 ```
 
 
 ---
-# Doubs Environmental Data
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /&gt;
+# Doubs river fish communities
+
+Let us peek into the `spe` data:
+
+.pull-left[
+
+```r
+head(spe)[, 1:8]
+#   CHA TRU VAI LOC OMB BLA HOT TOX
+# 1   0   3   0   0   0   0   0   0
+# 2   0   5   4   3   0   0   0   0
+# 3   0   5   5   5   0   0   0   0
+# 4   0   4   5   5   0   0   0   0
+# 5   0   2   3   2   0   0   0   0
+# 6   0   3   4   5   0   0   0   0
+```
+
+
+```r
+str(spe)
+...
+# 'data.frame':	30 obs. of  27 variables:
+#  $ CHA: int  0 0 0 0 0 0 0 0 0 0 ...
+#  $ TRU: int  3 5 5 4 2 3 5 0 0 1 ...
+#  $ VAI: int  0 4 5 5 3 4 4 0 1 4 ...
+#  $ LOC: int  0 3 5 5 2 5 5 0 3 4 ...
+#  $ OMB: int  0 0 0 0 0 0 0 0 0 0 ...
+#  $ BLA: int  0 0 0 0 0 0 0 0 0 0 ...
+#  $ HOT: int  0 0 0 0 0 0 0 0 0 0 ...
+...
+```
+]
+
+.pull-right[
+
+
+```r
+# Try some of these!
+
+names(spe)   # names of objects
+dim(spe)     # dimensions
+
+str(spe)     # structure of objects
+summary(spe) # summary statistics
+
+head(spe)    # first 6 rows
+```
+
+]
 
 ---
 # Standardization
@@ -498,11 +749,11 @@ This centers and scales the variables to make your downstream analysis more appr
 ```r
 apply(env.z, 2, mean)
 #           das           alt           pen           deb            pH 
-# -7.959539e-17 -4.795165e-17  2.494600e-17 -7.323225e-17 -1.730430e-15 
+#  1.000429e-16  1.814232e-18 -1.659010e-17  1.233099e-17 -4.096709e-15 
 #           dur           pho           nit           amm           oxy 
-# -2.028505e-16  4.445790e-17  2.875893e-17  2.754434e-17 -4.038167e-16 
+#  3.348595e-16  1.327063e-17 -8.925898e-17 -4.289646e-17 -2.886092e-16 
 #           dbo 
-#  9.829975e-17
+#  7.656545e-17
 apply(env.z, 2, sd)
 # das alt pen deb  pH dur pho nit amm oxy dbo 
 #   1   1   1   1   1   1   1   1   1   1   1
@@ -510,182 +761,699 @@ apply(env.z, 2, sd)
 
 
 ---
-class: inverse, center, middle
-# 3. Similarity / Dissimilarity
+# (Dis)similarity measures
+
+Community resemblance is almost always assessed on the basis of species composition data in the form of a site-by-species data table `\(Y_{m,n}\)`.
+
+We can obtain an association matrix `\(A_{m,m}\)` in the form of pairwise distances or dissimilarities `\(D_{m,m}\)` (or similarities `\(S_{m,m}\)`) and then analyse those distances.
+
+--
+
+In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`:
 
 
----
-# Association measures
-
-Matrix algebra is at the heart of all ordinations
-$$
-`\begin{bmatrix}
-    a_{1,1} &amp; a_{1,2} &amp; a_{1,3} &amp; \dots  &amp; a_{1,n} \\
-    a_{2,1} &amp; a_{2,2} &amp; a_{2,3} &amp; \dots  &amp; a_{2,n} \\
-    a_{3,1} &amp; a_{3,2} &amp; a_{3,3} &amp; \dots  &amp; a_{3,n} \\
-    \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-    a_{m,1} &amp; a_{m,2} &amp; a_{m,3} &amp; \dots  &amp; a_{m,n}
-\end{bmatrix}`
-$$
-
-
-- Exploring various measures of distance between objects provides some understanding of the engine under the hood
-
-???
-.center[![](images/MatrixAlgebra.png)]
+```r
+dist(spe)
+```
 
 ---
-# Breaking out of 1D
+# (Dis)similarity measures
+
+For simplicity, we have done this without specifying arguments.
+
+Run `dist(spe)` from your end, note what you observe and see what the commands below show you:
+
+
+```r
+class(dist(spe))
+```
+
+
+```r
+str(dist(spe))
+```
+
+
+```r
+as.matrix(dist(spe))
+```
+
+
+```r
+dim(as.matrix(dist(spe)))
+```
+
+
+??? 
+
+If possible, do this part with the participants.
+
+Show them how a dist class object is structured. Highlight that it is a lower-triangular matrix, where the distances between the same objects are hidden.
+
+---
+
+# (Dis)similarity measures
+
+There are three groups of distance coefficients: _metrics_, _..._ , _..._ .
+
+The first group consists of *metrics*, and its coefficients satisfy the following properties:
 
 .pull-left[
-
-- As you have seen, ecological datasets can sometimes be very large matrices
-
-- Ordinations compute the relationships between species or between sites
-
-- We can simplify these relationships using methods of dissimilarity
+1. minimum 0: if species `\(a\)` is equal to species `\(b\)`, then `\(D(a,b)=0\)`;
+2. positiveness: if `\(a \neq b\)`, then `\(D(a,b) &gt; 0\)`;
+3. symmetry: `\(D(a,b) = D(b,a)\)`;
+4. triangle inequality: `\(D(a,b) + D(b,c) \geq D(a,c)\)`. The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.
 ]
 
 .pull-right[
 
-![:scale 40%](images/PCAMatrix.png)
+We can spot all these properties below:
 
-![:scale 40%](images/distMes.png)
 
-![:scale 40%](images/distMat.png)
+```r
+as.matrix(dist(spe))[1:3, 1:3]
+#          1        2        3
+# 1 0.000000 5.385165 7.416198
+# 2 5.385165 0.000000 2.449490
+# 3 7.416198 2.449490 0.000000
+```
+
 ]
 
+???
+
+Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
 
 ---
-# Similarity / Dissimilarity
 
-- Useful to understand your dataset
-- Appropriate measure required by some types of ordinations
+# (Dis)similarity measures
+
+There are three groups of distance coefficients: _metrics_, _semimetrics_, _..._ .
+
+The second group consists of *semimetrics*, and they violate the _triangle inequality_ property:
+
+.pull-left[
+1. minimum 0: if species `\(a\)` is equal to species `\(b\)`, then `\(D(a,b)=0\)`;
+2. positiveness: if `\(a \neq b\)`, then `\(D(a,b) &gt; 0\)`;
+3. symmetry: `\(D(a,b) = D(b,a)\)`;
+4. ~~triangle inequality~~: `\({D(a,b) + D(b,c) \geq or &lt; D(a,c)}\)`. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side.
+]
+
+.pull-right[
+
+
+]
+
+???
+
+Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
+
+---
+
+# (Dis)similarity measures
+
+There are three groups of distance coefficients: _metrics_, _semimetrics_, _nonmetrics_.
+
+The third group consists of *nonmetrics*, and they violate the _positiveness_ property of metric distances:
+
+.pull-left[
+1. minimum 0: if species `\(a\)` is equal to species `\(b\)`, then `\(D(a,b)=0\)`;
+2. ~~positiveness:~~ if `\(a \neq b\)`, then `\(D(a,b) &gt; or &lt; 0\)`;
+3. symmetry: `\(D(a,b) = D(b,a)\)`;
+4. ~~triangle inequality~~: `\({D(a,b) + D(b,c) \geq or &lt; D(a,c)}\)`. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side.
+]
+
+.pull-right[
+
+
+]
+
+???
+
+Highlight the triangular nature of the `dist` class, that it can be converted to a matrix, and the dimensions (noting that it has the same number of species).
+
+---
+
+# (Dis)similarity measures: Euclidean distances
+
+The most common metric distance measure is the _Euclidean distance_.
+
+.pull-left4[
+It is computed using the Pythagorean formula:
+
+`$$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$`
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-18-1.png" width="360" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.pull-right4[
+Using `stats::dist()`, we can compute it with:
+
+
+```r
+spe.D.Euclid &lt;- dist(x = spe,  
+                     method = "euclidean")
+```
+
+And, we can test whether a distance is Euclidean using:
+
+
+```r
+is.euclid(spe.D.Euclid)
+# [1] TRUE
+```
+
+]
+
+???
+
+The figure on the side needs to be finished. It is supposed to represent the Euclidean distance between sites x1 and x2 in the 2D Cartesian space. The axes are the descriptors y1 and y2, respectively. The arrow on the bottom is the distance between the position of y21 and y11.
+
+You can use it to recall the Pythagorean theorem that everyone learns in high school, where the length of the hypotenuse and a and b denote the two lengths of the legs of a right triangle.
+
+`method = "euclidean"` is the default parameter
+
+---
+
+# Challenge #1  ![:cube]()
+
+**Your turn!** Using the `dist()` function, compute the Euclidean distance matrix `\(D_{hmm}\)` for the species abundances by site matrix `\(Y_{hmm}\)` below:
+
+.pull-left[
+
+```r
+Y.hmm &lt;- data.frame(
+  y1 = c(0, 0, 1),
+  y2 = c(4, 1, 0),
+  y3 = c(8, 1, 0))
+```
+]
+
+.pull-right[
+
+| Sites | `\(y_1\)` | `\(y_2\)` | `\(y_3\)` |
+|:----: | :----:| :---: | :---: |
+| `\(s_1\)` | 0 | 4 | 8 |
+| `\(s_2\)` | 0 | 1 | 1 |
+| `\(s_3\)` | 1 | 0 | 0 |
+
+]
+
+After this, look into the numbers, think critically about them, and be ready to chat! (_5 to 10 minutes_)
+
+--
+
+.pull-left[
+
+**Solution:**
+
+
+```r
+Y.hmm.DistEu &lt;- dist(x = Y.hmm,  
+                     method = "euclidean")
+
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+.pull-right[
+
+**Output**:
+
+
+```
+#          1        2        3
+# 1 0.000000 7.615773 9.000000
+# 2 7.615773 0.000000 1.732051
+# 3 9.000000 1.732051 0.000000
+```
+
+]
+
+&lt;br&gt;
 
 .center[
-Similarity: S = 1 - D
-Distance: D = 1-S]
+Tip: Look into the composition and the distances between sites `\(s_2\)` and `\(s_3\)` and between `\(s_1\)` and `\(s_2\)`.
+]
 
-
-
-![](images/similarity.png)
+???
 
 ---
-# Community distance measures
+## Challenge #1 ![:cube]()
 
 .pull-left[
-- **Euclidean**  
-  `\(d_{jk} = \sqrt(\sum((x_{ij}-x_{ik})^2))\)`   
-  Used in PCA and RDA.
-  &lt;br&gt;&lt;br&gt;
-- **Manhattan**  
-  `\(d_{jk} = \sum(abs(x_{ij} - x_{ik}))\)`  
-  Similar to the Euclidean, but sensitive to the double zero problem.
-  &lt;br&gt;&lt;br&gt;
-- **Chord**  
-  Euclidean distance calculated for a row standardised matrix.
+
+**Solution:**
+
+
+```r
+Y.hmm
+#   y1 y2 y3
+# 1  0  4  8
+# 2  0  1  1
+# 3  1  0  0
+```
+
 ]
 
 .pull-right[
-- **Hellinger**  
-  Square roots of conditional probabilities. Performs well in linear ordination.
-  &lt;br&gt;&lt;br&gt;  
-- **Chi-square**  
-  `\(d_{jk} = \sum(\frac{(x_{ij}-x_{ik})^2}{(x_{ij}+x_{ik})} ) / 2\)`   
-  Used in CA
-  &lt;br&gt;&lt;br&gt;
-- **Bray-Curtis** (Semimetric)  
-  `\(d_{jk} = \frac{\sum(abs(x_{ij}-x_{ik}))}{(\sum (x_{ij}+x_{ik}))}\)`  
-  Used in PCoA and NMDS.
-]
-&lt;br&gt;&lt;br&gt;
-.center[     
 
-*Where `\(x_{ij}\)` and `\(x_{ik}\)` refer to the quantity of species (column) `\(i\)` in sites (rows) `\(j\)` &amp; `\(k\)`.*]
+**Output**:
+
+
+```r
+as.matrix(Y.hmm.DistEu)
+#          1        2        3
+# 1 0.000000 7.615773 9.000000
+# 2 7.615773 0.000000 1.732051
+# 3 9.000000 1.732051 0.000000
+```
+
+]
+
+The Euclidean distance between sites `\(s_2\)` and `\(s_3\)`, which have no species in common, is smaller than the distance between `\(s_1\)` and `\(s_2\)`, which share species `\(y_2\)` and `\(y_3\)` (!).
+
+From an ecological perspective, _this is a problematic_ assessment of the relationship among sites.
 
 --
 
-.alert[Each of these will be useful in different situations]
+This issue is known as the **double-zero problem**, _i.e._ double zeroes are treated in the same way as double presences, so that the double zeros shrink the distance between two sites.
+
+Euclidean distances ( `\(D_1\)` ) should thus _not_ be used to compare sites based on species abundances.
+
+---
+
+# (Dis)similarity measures: Chord distances
+
+Orlóci (1967) proposed the _Chord distance_ to analyse community composition.
+
+.pull-left[
+It consists of:
+
+1\. Normalizing the data, _i.e._ scaling site vectors to length 1 by dividing species abundances in a given sample by the square-rooted sum of square abundances in all samples as
+
+`$$y'_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}$$`
+
+
+2\. Calculating the Euclidean distances on this normalized data:
+
+`$$D_{3} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y'_{1j} - y'_{2j})^2}$$`
+]
+
+.pull-right[
+
+We can use `vegan::vegdist()` for this one:
+
+
+```r
+spe.D.Ch &lt;- vegdist(spe,  
+                    method = "chord")
+
+as.matrix(spe.D.Ch)[1:3, 1:3]
+#           1         2         3
+# 1 0.0000000 0.7653669 0.9235374
+# 2 0.7653669 0.0000000 0.2309609
+# 3 0.9235374 0.2309609 0.0000000
+```
+
+When two sites share the same species in the same proportions of the number of individuals the value of `\(D_3\)` is `\(0\)`, and when no species are shared, its value is `\(\sqrt{2}\)`. 
+ 
+]
 
 ???
-Notes: Ref: 
-https://sites.google.com/site/mb3gustame/reference/dissimilarity
-Euclidean: A simple, symmetrical metric using the Pythagorean formula. The more variables present in a data set, the larger one may expect Euclidean distances to be. Further, double zeros result in decreased distances. This property makes the Euclidean distance unsuitable for many ecological data sets and ecologically-motivated transformations should be considered.  Principal components analysis  and redundancy analysis ordinate objects using Euclidean distances.
+
+`method = "euclidean"` is the default parametre
 
 ---
-# Comparing Doubs Sites
 
-The `vegdist()` function contains all common distances
+# (Dis)similarity measures: Chord distances
+
+There are many other metric distances of interest, which we can use:
+
+What happens if we compute Chord distances in the same site-by-species matrix `\(Y_{hmm}\)`?
+
+.pull-left[
 
 
 ```r
-?vegdist
+Y.hmm
+#   y1 y2 y3
+# 1  0  4  8
+# 2  0  1  1
+# 3  1  0  0
 ```
 
---
-How different is the community composition across the 30 sites of the Doubs River?
+
+```r
+as.matrix(Y.hmm.DistEu)
+#          1        2        3
+# 1 0.000000 7.615773 9.000000
+# 2 7.615773 0.000000 1.732051
+# 3 9.000000 1.732051 0.000000
+```
+
+]
+
+.pull-right[
 
 
 ```r
-spe.db.pa &lt;- vegdist(spe, method = "bray")
+Y.hmm.DistCh &lt;- vegdist(Y.hmm,  
+                    method = "chord")
+```
+
+
+```r
+as.matrix(Y.hmm.DistCh)
+#           1         2        3
+# 1 0.0000000 0.3203645 1.414214
+# 2 0.3203645 0.0000000 1.414214
+# 3 1.4142136 1.4142136 0.000000
+```
+]
+
+--
+
+Adding any number of double zeroes to a pair of sites does _not_ change the value of `\(D_3\)`. 
+
+Hence, _Chord distances_ can be used to compare sites described by species abundances!
+
+???
+
+`method = "euclidean"` is the default parameter
+
+---
+# (Dis)similarity measures: Jaccard's
+
+Another popular association coefficient is the _Jaccard similarity coefficient_ (1900).
+
+It is only appropriate for **binary data**, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.
+
+`$$D_{7}(x_1,x_2)=1-{{|x_1 \cap x_2|}\over{|x_1 \cup x_2|}} = 1-{{|x_1 \cap x_2|}\over{|x_1| + |x_2| - |x_1 \cap x_2|}} = 1-\frac{a}{a+b+c}$$`
+where,
+
+- `\(a\)` is the number of species shared between `\(x_1\)` and `\(x_2\)` that are coded `\(1\)`;
+- `\(b\)` is the number of occurrences where `\(x_1\)` and `\(x_2\)` are known to be different;
+- `\(c\)` is the number of common absences between `\(x_1\)` and `\(x_2\)`, _i.e._ both `\(0\)`. 
+
+--
+
+&lt;br&gt;
+.pull-left[
+For example, for sites `\(x_1\)` and `\(x_2\)`:
+
+| `\(x_1,x_2\)` | `\(y_1\)` | `\(y_2\)` | `\(y_3\)` | `\(y_4\)` | `\(y_5\)` |
+|:----: | :----:| :---: | :---: | :---: | :---: |
+| `\(x_1\)` | 0 | 1 | 0 | 1 | 0 |
+| `\(x_2\)` | 0 | 1 | 1 | 1 | 1 |
+]
+
+.pull-right[
+.pull-left[
+So:
+- `\(a\)` = 1 + 1 = 2
+- `\(b\)` = 1 + 1 = 2
+- `\(c\)` = 1
+
+]
+.pull-right[
+&lt;br&gt;
+`\(D_{7}(x_1,x_2) =\)`
+
+`\(1-\frac{2}{2+2+1}=\)`
+
+`\(0.6\)`
+]
+]
+
+---
+# (Dis)similarity measures: Sørensen's
+
+All parameters in _Jaccard's similarity coefficient_ have equal weights.
+
+`$$D_{7}(x_1,x_2)=1-\frac{a}{a+b+c}$$`
+
+However, you may want to consider that a presence of a species is more informative than its absence.
+
+The distance corresponding to _Sørensen's similarity coefficient_ (1948) gives weight to double presences:
+
+`$$D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}$$`
+
+where,
+
+- `\(a\)` is the number of species shared between `\(x_1\)` and `\(x_2\)` that are coded `\(1\)`;
+- `\(b\)` is the number of occurrences where `\(x_1\)` and `\(x_2\)` are known to be different;
+- `\(c\)` is the number of common absences between `\(x_1\)` and `\(x_2\)`, _i.e._ both `\(0\)`. 
+
+---
+# (Dis)similarity measures: Bray-Curtis
+
+The _Bray-Curtis dissimilarity coefficient_ is a modified version of the Sørensen's index and allows for species abundances:
+
+.pull-left[
+`$$D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert}}{\sum{( y_{1j}+y_{2j})}}=$$`
+
+`$$D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}$$`
+where,
+- `\(W\)` is the sum of the lowest abundances in each species found between sites `\(x_1\)` and `\(x_2\)`;
+- `\(A\)` is the sum of all abundances in `\(x_1\)`; and,
+- `\(B\)` is the sum of all abundances in `\(x_2\)`.
+]
+
+--
+
+.pull-right[
+For example, for sites `\(x_1\)` and `\(x_2\)`:
+
+| `\(x_1,x_2\)` | `\(y_1\)` | `\(y_2\)` | `\(y_3\)` | `\(y_4\)` | `\(y_5\)` |
+|:----: | :----:| :---: | :---: | :---: | :---: |
+| `\(x_1\)` | _2_ | _1_ | _0_ | 5 | 2 |
+| `\(x_2\)` | 5 | _1_ | 3 | _1_ | 1 |
+
+&lt;br&gt;
+
+So:
+- `\(W = 2 + 1 + 0 + 1 + 1 = 5\)`
+- `\(A = 2 + 1 + 0 + 5 + 0 = 8\)`
+- `\(B = 5 + 1 + 3 + 1 + 2 = 12\)`
+
+`$$D_{14}(x_1,x_2) = 1-\frac{2 \times 5}{8+12}=$$`
+`$$D_{14}(x_1,x_2) = 0.5$$`
+]
+
+---
+##### (Dis)similarity measures: Jaccard's and Sørensen's coefficients
+
+In `R`, you can use use the `vegan::vegdist()` function to calculate the Jaccard's and Sørensen's indices:
+
+.pull-left[
+
+
+```r
+spe.D.Jac &lt;- vegdist(spe, 
+                     method = "jaccard",
+                     binary = TRUE)
+```
+
+]
+
+.pull-right[
+
+
+```r
+spe.D.Sor &lt;- vegdist(spe, 
+                     method = "bray",
+                     binary = TRUE)
+```
+]
+&lt;br&gt;
+&gt; Because both Jaccard's and Sørensen's are only appropriate for presence-absence data, you must binary-transform abundance data using `binary = TRUE` in `vegdist()`.
+&lt;br&gt;
+
+##### Bray-Curtis dissimilarity coefficient
+
+To calculate the _Bray-Curtis dissimilarity coefficient_, which can account for abundances, you need to set `binary = FALSE`.
+
+
+```r
+spe.db.pa &lt;- vegdist(spe, 
+                      method = "bray",
+                      binary = FALSE)
 spe.db &lt;- as.matrix(spe.db.pa)
-
-
-head(spe.db)
-#           1         2         3         4         5         6         7
-# 1 0.0000000 0.6000000 0.6842105 0.7500000 0.8918919 0.7500000 0.6842105
-# 2 0.6000000 0.0000000 0.1428571 0.3333333 0.6956522 0.3939394 0.1428571
-# 3 0.6842105 0.1428571 0.0000000 0.1891892 0.6800000 0.2972973 0.1250000
-# 4 0.7500000 0.3333333 0.1891892 0.0000000 0.4909091 0.1904762 0.2432432
-# 5 0.8918919 0.6956522 0.6800000 0.4909091 0.0000000 0.4181818 0.6400000
-# 6 0.7500000 0.3939394 0.2972973 0.1904762 0.4181818 0.0000000 0.2432432
-#           9        10        11        12        13        14        15
-# 1 1.0000000 0.8823529 0.5714286 0.7142857 0.7272727 0.8064516 0.8333333
-# 2 0.6923077 0.3846154 0.3043478 0.2000000 0.2903226 0.4000000 0.5111111
-# 3 0.7333333 0.4000000 0.4074074 0.2352941 0.3142857 0.3181818 0.4693878
-# 4 0.6571429 0.3714286 0.4375000 0.3333333 0.4500000 0.3469388 0.4074074
-# 5 0.5833333 0.5416667 0.6888889 0.6923077 0.7358491 0.6774194 0.5522388
-# 6 0.5428571 0.2571429 0.4375000 0.3846154 0.5500000 0.4285714 0.3703704
-#          16        17        18        19        20        21        22
-# 1 0.8604651 0.9148936 0.9555556 1.0000000 1.0000000 1.0000000 1.0000000
-# 2 0.6538462 0.6785714 0.7407407 0.7931034 0.9117647 0.9459459 0.9761905
-# 3 0.5714286 0.6333333 0.7241379 0.7096774 0.8888889 0.9230769 0.9545455
-# 4 0.4754098 0.5076923 0.5873016 0.6119403 0.7402597 0.7831325 0.8279570
-# 5 0.4594595 0.5128205 0.5000000 0.5000000 0.4888889 0.5000000 0.5283019
-# 6 0.3770492 0.4461538 0.5238095 0.5223881 0.6883117 0.7349398 0.7849462
-#          23        24        25        26        27        28        29
-# 1 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000 0.9777778
-# 2 1.0000000 1.0000000 1.0000000 0.9636364 0.9733333 0.9756098 0.9393939
-# 3 1.0000000 1.0000000 0.9259259 0.9322034 0.9493671 0.9534884 0.9223301
-# 4 0.9200000 0.8888889 0.8125000 0.7812500 0.8333333 0.8241758 0.8148148
-# 5 0.8947368 0.7959184 0.6888889 0.5584416 0.5670103 0.5769231 0.5371901
-# 6 0.8400000 0.7777778 0.6875000 0.6875000 0.7619048 0.7802198 0.7777778
-#          30
-# 1 1.0000000
-# 2 1.0000000
-# 3 0.9809524
-# 4 0.8727273
-# 5 0.5934959
-# 6 0.8363636
 ```
+
+---
+# (Dis)similarity measures: representation
+
+We can create graphical depictions of association matrices using the `coldiss()` function:
+
+
+
+
+
+```r
+coldiss(spe.D.Jac)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-35-1.png" width="1152" style="display: block; margin: auto;" /&gt;
+
+---
+# Transformations for community composition data
+
+Communities sampled over homogeneous or short environmental conditions can have species compositions with few zeroes, so that Euclidean distances could be enough to characterize them.
+
+Nevertheless, this is rarely the reality. 
+
+Species may be highly frequent when conditions are favourable, or may be absent from many sites. Sometimes, this skewness may introduce spurious problems to our analyses.
+
+We may then have to transform our composition data to appropriately analyze it.
+
 --
-- Diagonal is zero, because sites are compared to each other.  
-- Sites 3 and 7 are the most similar (*smallest distance*).  
-- Sites 1 and 9 are the most different (1 = they are *completely* different).  
+
+In `R`, we can rely on `vegan::decostand()` for many types of transformations. 
+
+Take a look into the help of this function to see the available options:
+
+```
+?decostand()
+```
+
+Let us see some of them.
 
 ---
-exclude: true
+## Transformations: presence-absence
 
-# Comparing Doubs Sites
+We can change the argument `method` to `"pa"` to transform our abundance data into presence-absence data:
 
-.center[![](images/Doubs1.png)]
+.pull-left[
+Let us recall our `spe` data set:
+
+
+```r
+spe[1:6, 1:6]
+#   CHA TRU VAI LOC OMB BLA
+# 1   0   3   0   0   0   0
+# 2   0   5   4   3   0   0
+# 3   0   5   5   5   0   0
+# 4   0   4   5   5   0   0
+# 5   0   2   3   2   0   0
+# 6   0   3   4   5   0   0
+```
+]
+
+Let us transform `spe` abundances to presence-absences:
+
+
+```r
+spe.pa &lt;- decostand(spe, method = "pa")
+spe.pa[1:6, 1:6]
+#   CHA TRU VAI LOC OMB BLA
+# 1   0   1   0   0   0   0
+# 2   0   1   1   1   0   0
+# 3   0   1   1   1   0   0
+# 4   0   1   1   1   0   0
+# 5   0   1   1   1   0   0
+# 6   0   1   1   1   0   0
+```
 
 ---
-exclude: true
+## Transformations: species profiles
 
-# Comparing Doubs Sites
+Sometimes, one wants to remove the effects of highly abundant units. We can transform the data into profiles of relative species abundances through the following equation:
 
-.center[![](images/Doubs2.png)]
+`$$y'_{ij} = \frac{y_{ij}}{y_{i+}}$$`
+
+.pull-left[
+Let us recall our `spe` dataset:
+
+
+```r
+spe[1:5, 1:6]
+#   CHA TRU VAI LOC OMB BLA
+# 1   0   3   0   0   0   0
+# 2   0   5   4   3   0   0
+# 3   0   5   5   5   0   0
+# 4   0   4   5   5   0   0
+# 5   0   2   3   2   0   0
+```
+]
+
+In `decostand()`:
+
+
+```r
+spe.total &lt;- decostand(spe, 
+                       method = "total")
+spe.total[1:5, 1:6]
+#   CHA        TRU        VAI        LOC OMB BLA
+# 1   0 1.00000000 0.00000000 0.00000000   0   0
+# 2   0 0.41666667 0.33333333 0.25000000   0   0
+# 3   0 0.31250000 0.31250000 0.31250000   0   0
+# 4   0 0.19047619 0.23809524 0.23809524   0   0
+# 5   0 0.05882353 0.08823529 0.05882353   0   0
+```
+
+
+???
+
+yi+ is used to indicate the sample total count over all j=1,…,m species, for the ith sample.
+
+---
+## Transformations: Hellinger
+
+We can take the square-root of the _species profile transformation_ and obtain the _Hellinger transformation_, which has very good mathematical properties and allows us to reduce the effects of `\(y_{ij}\)` values that are extremely large.
+
+`$$y'_{ij} = \sqrt{\frac{y_{ij}}{y_{i+}}}$$`
+
+.pull-left[
+Let us recall our `spe` dataset:
+
+
+```r
+spe[1:5, 1:6]
+#   CHA TRU VAI LOC OMB BLA
+# 1   0   3   0   0   0   0
+# 2   0   5   4   3   0   0
+# 3   0   5   5   5   0   0
+# 4   0   4   5   5   0   0
+# 5   0   2   3   2   0   0
+```
+]
+
+In `decostand()`:
+
+
+```r
+spe.total &lt;- decostand(spe, 
+                       method = "hellinger")
+spe.total[1:5, 1:6]
+#   CHA       TRU       VAI       LOC OMB BLA
+# 1   0 1.0000000 0.0000000 0.0000000   0   0
+# 2   0 0.6454972 0.5773503 0.5000000   0   0
+# 3   0 0.5590170 0.5590170 0.5590170   0   0
+# 4   0 0.4364358 0.4879500 0.4879500   0   0
+# 5   0 0.2425356 0.2970443 0.2425356   0   0
+```
+
+---
+
+# Total Species Richness
+
+Visualize how many species are present at each site:
+
+
+```r
+site.pre &lt;- rowSums(spe &gt; 0)
+barplot(site.pre, main = "Species richness",
+        xlab = "Sites", 
+        ylab = "Number of species",
+        col = "grey ", las = 1)
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-42-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 # Visualization of distance matrices
@@ -700,77 +1468,54 @@ exclude: true
 coldiss(spe.db.pa)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-22-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
-# Challenge #1 ![:cube]()
+class: inverse, middle, center
 
-&lt;br&gt;
+# Clustering
 
-Discuss in breakout rooms:
-
-&lt;br&gt;
-
-.center[**How can we tell how similar objects are when we have multivariate data?**]
-
-&lt;br&gt;
-
-- Make a list of all your suggestions
-
-
----
-
-# And what about ordination?
-
-
-With ordination methods, we order our objects (site) according to their similarity
-
-
-
-- The more the sites are similar, the closer they are in the ordination space (smaller distances)
-
-
-- In Ecology, we usually calculate the similarity between sites according to their species composition or their environmental conditions.
-
-
----
-# Schematic analysis of multivariate analysis
-
-.center[![:scale 120%](images/Schema2.png)]
-
-???
-Note: re-added the picture, rename it as Schema 2.
 ---
 # Clustering
 
-- To highlight structures in the data by partitioning either objects or the descriptors
+One application of association matrices is clustering. 
 
-- Results are represented as dendrograms (trees)
+Clustering highlights structures in the data by partitioning either the objects or the descriptors.
 
-- Not a statistical method
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-23-1.png" width="720" style="display: block; margin: auto;" /&gt;
+One goal of ecologists could be to divide a set of sites into groups with respect to their environmental conditions or their community composition.
+
+Its results can be represented as dendrograms (tree-like diagrams), which describe how closely observations are.
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ???
 .center[![:scale 80%](images/cluster1_revised.jpg)]
 
 ---
-# Overview of 3 hierarchical methods
+# Hierarchical clustering methods
+
+Clustering algorithms generally build on this series of steps:
+
+1. calculate an association matrix with all pair-wise similarities among all objects;
+2. Join together pairs of objects that are most similar (or dissimilar);
+3. Recompute the similarity matrix for that cluster _versus_ all remaining objects;
+4. Repeat steps 2 and 3 until all objects are joined.
+
+--
 
 &lt;br&gt;
 
-**1.** Single linkage agglomerative clustering ("single")
+From the many existing hierarchical clustering algorithms, we will explore:
+
+1. Single linkage agglomerative clustering;
+2. Complete linkage, agglomerative clustering;
+3. Ward's minimum variance clustering.
+
+--
 
 &lt;br&gt;
 
-**2.** Complete linkage, agglomerative clustering ("complete")
-
-&lt;br&gt;
-
-**3.** Ward's minimum variance clustering ("ward.D2")
-
-&lt;br&gt;
-
-- Elements of lower ranks are nested within higher ranking clusters. For example, species groups are nested by genus, family, order, and so on.
+In `R`, we will use the functions `hclust()` and `agnes()` to build our dendrograms.
 
 ???
 In single linkage agglomerative clustering (also called nearest
@@ -781,75 +1526,21 @@ it clusters objects into groups using the criterion of least squares
 (similar to linear models). Its dendogram shows squared distances by default. To compare with other methods, calculate the sqaure root of the distances first. 
 
 ---
-# Hierarchical methods
 
-
-.pull-left[
-- A distance matrix is first sorted in increasing distance order
-![:scale 200%](images/Hierachic1.png)]
-
-.pull-right[
-
-- The two closest objects merge
-- The next two closest objects/clusters merge
-- and so on
-
-![](images/singleClust2.png)]
-
-???
-Alternative programme:
-
-```r
-x &lt;- matrix(abs(rnorm(1:40)),nrow=5,byrow=TRUE)
-x.hel &lt;- decostand(x,method="hellinger")
-x.dhel &lt;- vegdist(x.hel, method="euclidean")
-x.dhel.single &lt;- hclust(x.dhel, method="single")
-x.dhel.complete &lt;- hclust(x.dhel, method="complete")
-plot &lt;- par(mfrow=c(1,2),mar=c(5,2,4,2))
-plot(as.dendrogram(x.dhel.single), horiz=TRUE, main="Single linkage clustering")
-plot(as.dendrogram(x.dhel.complete), horiz=TRUE, main = "Complete linkage clustering")
-```
-
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-24-1.png" width="360" style="display: block; margin: auto;" /&gt;
----
-exclude: true
-
-# Single linkage clustering
-
-.pull-left[
-
-![:scale 50%](images/singleClust1.png)
-
-]
-
-
-.pull-right[
-
-- The two closest objects merge
-
-- The next two closest objects/clusters merge
-
-- and so on
-
-![](images/singleClust2.png)
-
-]
-
----
 # Complete linkage clustering
 
-.pull-left[
+.pull-left4[
 
 ![:scale 50%](images/compleClust1.png)
 
 ]
 
-.pull-right[
+.pull-right4[
 
 - The objects divided into small groups (1-2, 3-4, 5)
 
 - Connect small groups using the largest distance between their elements 
-  * (1-3=0.15, 2-4=0.35, 2-3=0.6, select 0.6 to connect group 1-2 and 3-4)
+* (1-3=0.15, 2-4=0.35, 2-3=0.6, select 0.6 to connect group 1-2 and 3-4)
 
 
 ![](images/compleClust2.png)
@@ -859,16 +1550,16 @@ exclude: true
 ---
 # Comparison
 
-Create a distance matrix from Hellinger transformed Doubs river data and compute the single linkage clustering
+Create a distance matrix from Hellinger transformed Doubs river data and compute the single linkage clustering:
 
 
 ```r
-spe.dhe1 &lt;- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 &lt;- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.single &lt;- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-25-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-46-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -876,13 +1567,13 @@ plot(spe.dhe1.single)
 
 
 ```r
-spe.dhe1 &lt;- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 &lt;- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.complete &lt;- hclust(spe.dhe1, method = "complete")
 plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
 plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-26-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-47-1.png" width="1080" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
 
@@ -903,9 +1594,13 @@ Contrasted groups are formed of objects occur
 ---
 # Ward's minimum variance method
 
+.pull-left[
 - Uses the criterion of least squares to cluster objects into groups
-  - At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares
 
+- At each step, the pair of clusters merging is the one leading to the minimum increase in total within-group sum of squares
+
+- Clusters generated using this method tend to be more spherical and to contain similar number of objects
+]
 ---
 # Ward's method
 
@@ -915,33 +1610,25 @@ Compute the Ward's minimum variance clustering and plot the dendrogram by using 
 ```r
 spe.dhel.ward &lt;- hclust(spe.dhe1, method = "ward.D2")
 spe.dhel.ward$height &lt;- sqrt(spe.dhel.ward$height)
-plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
+plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at 0
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-27-1.png" width="360" style="display: block; margin: auto;" /&gt;
-- Clusters generated using this method tend to be more spherical and to contain similar number of objects
----
-exclude: true
-# Ward's method
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-48-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-28-1.png" width="648" style="display: block; margin: auto;" /&gt;
-
-Clusters generated using this method tend to contain similar numbers of objects.
+&gt; Ward's clustering algorithm can only be applied with Euclidean distances. Bray-Curtis distances are not Euclidean, so they must be square-rooted first before used with Ward's algorithm.
 
 ---
-# How to choose the right method?
+# Important questions to address
 
-- Choosing the 'right' method depends on your objective
-  - Do you want to highlight gradients? contrasts?
-- If more than on method seems appropriate, compare dendrograms.
-- Again: this is **not** an statistical method!
+- Choosing the 'appropriate' method depends on your objective;
+- Do you want to highlight gradients or contrasts?
+- This is *not* an statistical method and you may need to rely on complementary methods to support your hypotheses.
 
 
-But, clustering allows us to:
-- Determine the optimal number of interpretable clusters.
-- Compute clustering statistics.
+However, clustering allows us to:
+- Determine the optimal number of interpretable clusters;
+- Compute clustering statistics;
 - Combine clustering to ordination to distinguish groups of sites.
-
 
 ---
 ## Now, what?
@@ -1067,8 +1754,8 @@ cov_{x,y} &amp; var_{y} &amp; cov_{z,y} \\
 cov_{x,z} &amp; cov_{y,z} &amp; var_{z}   
 \end{array} \right]$$`
 
- &lt;br&gt;
- 
+&lt;br&gt;
+
 .center[The covariance of a variable with itself is its *variance*!]
 
 ---
@@ -1103,9 +1790,9 @@ cov(xyz)
 
 ```
 #          x        y        z
-# x  0.99436  0.01136 -0.00497
-# y  0.01136  1.01488 -0.03389
-# z -0.00497 -0.03389  1.02614
+# x  0.97543  0.01856 -0.00113
+# y  0.01856  0.96403 -0.00342
+# z -0.00113 -0.00342  1.01728
 ```
 
 
@@ -1144,7 +1831,7 @@ We can also transform Fahrenheit degrees to Celsius degrees as:
 `$$T_{C} = 0.5556\times T_{Fahr} - 17.778$$`
 ]
 
-These are examples of **linear transformations**: the transformed variables are linearly related to the original variabels and the shapes of the distribution are not changed.
+These are examples of **linear transformations**: the transformed variables are linearly related to the original variables and the shapes of the distribution are not changed.
 
 --
 
@@ -1213,7 +1900,7 @@ On the other hand, the red arrow changed direction, and thus is *not* an *Eigenv
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-29-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-49-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -1550,7 +2237,7 @@ The arrows on the principal components are obtained by multiplying their *Eigenv
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-35-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-55-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1574,7 +2261,7 @@ Note how the principal components are orthogonal!
 
 .pull-right[
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-36-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-56-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -1677,7 +2364,7 @@ The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new d
 `\(\text{N}\)` ~ `\(\text{P}\)` 
 ]
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-39-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-59-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -1685,7 +2372,7 @@ The score matrix, `\(F\)`, (object `F_PrComps`) allows one to *rotate* the new d
 `\(\text{PC}1\)` ~ `\(\text{PC}2\)` 
 ]
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-40-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-60-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -1868,7 +2555,7 @@ For this, we will use the `vegan::rda()` function on the *Hellinger-transformed*
 
 
 ```r
-spe.h.pca &lt;- rda(spec.hel)
+spe.h.pca &lt;- rda(spe.hel)
 
 # summary(spe.h.pca)
 ```
@@ -1885,7 +2572,7 @@ The first lines of `summary.rda()` tell us about the *Total variance* and *Uncon
 
 ```
 # [1] "Partitioning of variance:"        "              Inertia Proportion"
-# [3] "Total          0.5025          1" "Unconstrained  0.5025          1"
+# [3] "Total          0.5023          1" "Unconstrained  0.5023          1"
 ```
 ]
 
@@ -1895,15 +2582,15 @@ The first lines of `summary.rda()` tell us about the *Total variance* and *Uncon
 
 
 ```
-# [1] "Importance of components:"                                                     
-# [2] "                         PC1     PC2     PC3     PC4     PC5     PC6     PC7"  
-# [3] "Eigenvalue            0.2580 0.06424 0.04632 0.03850 0.02197 0.01675 0.01472"  
-# [4] "Proportion Explained  0.5133 0.12784 0.09218 0.07662 0.04371 0.03334 0.02930"  
-# [5] "Cumulative Proportion 0.5133 0.64118 0.73337 0.80999 0.85370 0.88704 0.91634"  
-# [6] "                          PC14     PC15     PC16      PC17      PC18      PC19"
-# [7] "Eigenvalue            0.001835 0.001455 0.001118 0.0008309 0.0005415 0.0004755"
-# [8] "Proportion Explained  0.003651 0.002895 0.002225 0.0016535 0.0010776 0.0009463"
-# [9] "Cumulative Proportion 0.988888 0.991783 0.994008 0.9956612 0.9967389 0.9976852"
+# [1] "Importance of components:"                                                    
+# [2] "                         PC1     PC2     PC3     PC4     PC5     PC6     PC7" 
+# [3] "Eigenvalue            0.2491 0.06592 0.04615 0.03723 0.02125 0.01662 0.01477" 
+# [4] "Proportion Explained  0.4959 0.13122 0.09188 0.07412 0.04230 0.03309 0.02940" 
+# [5] "Cumulative Proportion 0.4959 0.62715 0.71903 0.79315 0.83544 0.86853 0.89794" 
+# [6] "                          PC14     PC15     PC16     PC17      PC18      PC19"
+# [7] "Eigenvalue            0.002612 0.001505 0.001387 0.001037 0.0007815 0.0004749"
+# [8] "Proportion Explained  0.005200 0.002996 0.002761 0.002065 0.0015557 0.0009454"
+# [9] "Cumulative Proportion 0.987229 0.990225 0.992986 0.995051 0.9966069 0.9975523"
 ```
 
 ]
@@ -1918,7 +2605,7 @@ In fact, if we sum all our *Eigenvalues*, we will obtain the amount of uncostrai
 
 ```r
 sum(spe.h.pca$CA$eig)
-# [1] 0.5025103
+# [1] 0.5023429
 ```
 
 ]
@@ -1936,25 +2623,25 @@ The next information is related to the *scaling*, to the *species scores*, and t
 
 
 ```
-#  [1] "Eigenvalue            0.0003680 0.0002765 0.0002253 0.0001429 7.618e-05"
-#  [2] "Proportion Explained  0.0007324 0.0005503 0.0004483 0.0002845 1.516e-04"
-#  [3] "Cumulative Proportion 0.9984176 0.9989678 0.9994161 0.9997006 9.999e-01"
-#  [4] "                          PC25      PC26      PC27"                     
-#  [5] "Proportion Explained  9.93e-05 3.036e-05 1.814e-05"                     
-#  [6] "Cumulative Proportion 1.00e+00 1.000e+00 1.000e+00"                     
+#  [1] "Eigenvalue            0.0004263 0.0002812 0.0002188 0.0001382 0.0000876"
+#  [2] "Proportion Explained  0.0008487 0.0005598 0.0004356 0.0002752 0.0001744"
+#  [3] "Cumulative Proportion 0.9984010 0.9989608 0.9993965 0.9996717 0.9998460"
+#  [4] "                           PC25      PC26      PC27"                    
+#  [5] "Proportion Explained  1.062e-04 2.938e-05 1.835e-05"                    
+#  [6] "Cumulative Proportion 1.000e+00 1.000e+00 1.000e+00"                    
 #  [7] "Scaling 2 for species and site scores"                                  
 #  [8] "* Species are scaled proportional to eigenvalues"                       
 #  [9] "* Sites are unscaled: weighted dispersion equal on all dimensions"      
-# [10] "* General scaling constant of scores:  1.93676 "                        
+# [10] "* General scaling constant of scores:  1.953663 "                       
 # [11] ""                                                                       
 # [12] ""                                                                       
 # [13] "Species scores"                                                         
-# [14] "BCO -0.20174  0.08807 -0.067086 -0.0529106  0.0737228  0.037312"        
-# [15] "PCH -0.14717  0.05829 -0.067311 -0.0458414  0.0501013  0.031605"        
-# [16] "GAR -0.35245 -0.14076  0.168014  0.0185946  0.0213462 -0.129788"        
-# [17] "BBO -0.24317  0.03679 -0.082731 -0.0384489  0.0939828  0.063369"        
-# [18] "ABL -0.42536 -0.26155 -0.054190  0.1021959 -0.0078085  0.044540"        
-# [19] "ANG -0.20631  0.11889 -0.062079 -0.0175733  0.0718743 -0.001956"        
+# [14] "BCO -0.20055  0.08332 -0.074787 -0.0504875  0.073890  0.0249842"        
+# [15] "PCH -0.14626  0.05268 -0.072012 -0.0432572  0.050318  0.0178776"        
+# [16] "GAR -0.35085 -0.09353  0.198664  0.0178669  0.023796 -0.0971362"        
+# [17] "BBO -0.24167  0.03598 -0.079528 -0.0339049  0.096690  0.0620979"        
+# [18] "ABL -0.42269 -0.22879  0.007158  0.1128353  0.006759  0.1248913"        
+# [19] "ANG -0.20521  0.11557 -0.072060 -0.0159902  0.072030 -0.0003801"        
 # [20] ""                                                                       
 # [21] ""                                                                       
 # [22] "Site scores (weighted sums of species scores)"
@@ -1973,11 +2660,11 @@ The next information is related to the *scaling*, to the *species scores*, and t
 .pull-right[
 
 ```
-# [1] "Cumulative Proportion 1.00e+00 1.000e+00 1.000e+00"               
+# [1] "Cumulative Proportion 1.000e+00 1.000e+00 1.000e+00"              
 # [2] "Scaling 2 for species and site scores"                            
 # [3] "* Species are scaled proportional to eigenvalues"                 
 # [4] "* Sites are unscaled: weighted dispersion equal on all dimensions"
-# [5] "* General scaling constant of scores:  1.93676 "                  
+# [5] "* General scaling constant of scores:  1.953663 "                 
 # [6] ""                                                                 
 # [7] ""                                                                 
 # [8] "Species scores"
@@ -1991,11 +2678,11 @@ The next information is related to the *scaling*, to the *species scores*, and t
 .pull-left2[
 
 ```
-# [1] "PCH -0.14717  0.05829 -0.067311 -0.0458414  0.0501013  0.031605"
-# [2] "GAR -0.35245 -0.14076  0.168014  0.0185946  0.0213462 -0.129788"
-# [3] "BBO -0.24317  0.03679 -0.082731 -0.0384489  0.0939828  0.063369"
-# [4] "ABL -0.42536 -0.26155 -0.054190  0.1021959 -0.0078085  0.044540"
-# [5] "ANG -0.20631  0.11889 -0.062079 -0.0175733  0.0718743 -0.001956"
+# [1] "PCH -0.14626  0.05268 -0.072012 -0.0432572  0.050318  0.0178776"
+# [2] "GAR -0.35085 -0.09353  0.198664  0.0178669  0.023796 -0.0971362"
+# [3] "BBO -0.24167  0.03598 -0.079528 -0.0339049  0.096690  0.0620979"
+# [4] "ABL -0.42269 -0.22879  0.007158  0.1128353  0.006759  0.1248913"
+# [5] "ANG -0.20521  0.11557 -0.072060 -0.0159902  0.072030 -0.0003801"
 # [6] ""                                                               
 # [7] ""                                                               
 # [8] "Site scores (weighted sums of species scores)"
@@ -2057,7 +2744,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-56-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-76-1.png" width="720" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2074,7 +2761,7 @@ The broken-stick model retains components that explain more variance than would 
 ```r
 head(bstick(spe.h.pca))
 #        PC1        PC2        PC3        PC4        PC5        PC6 
-# 0.07242581 0.05381432 0.04450858 0.03830475 0.03365187 0.02992957
+# 0.07240169 0.05379640 0.04449375 0.03829199 0.03364067 0.02991961
 ```
 ]
 
@@ -2085,7 +2772,7 @@ screeplot(spe.h.pca,
           bstick = TRUE, type = "lines")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-58-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-78-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2115,14 +2802,14 @@ ev &lt;- env.pca$CA$eig
 ```r
 ev[ev&gt;mean(ev)]
 #      PC1      PC2      PC3 
-# 6.097995 2.167126 1.037603
+# 5.968749 2.163818 1.065164
 ```
 ]
 
 --
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-62-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-82-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2137,7 +2824,7 @@ We can produce a *quick and dirty* biplot of the PCA using the function `plot()`
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-63-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-83-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2151,7 +2838,7 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-64-1.png" width="468" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-84-1.png" width="468" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right2[
@@ -2183,7 +2870,7 @@ among objects (sites): the angles among descriptor (species) vector are not mean
 biplot(spe.h.pca, scaling = 1)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-65-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-85-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -2192,7 +2879,7 @@ biplot(spe.h.pca, scaling = 1)
 biplot(spe.h.pca, scaling = 2)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-66-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-86-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2202,7 +2889,7 @@ biplot(spe.h.pca, scaling = 2)
 1: **Best for interpreting relationships among objects (sites)!**
 
 ---
-# Challenge # 3 ![:cube]()
+# Challenge #2 ![:cube]()
 
 Using everything you have learned, compute a PCA on the mite species abundance data
 
@@ -2218,7 +2905,7 @@ Be ready to discuss and answer:
 
 ---
 
-# Solution #3
+# Challenge #2: Solution
 
 Compute PCA on the Hellinger-transformed species data
 
@@ -2252,11 +2939,11 @@ legend("topright",
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-70-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-90-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
-# Solution #3
+# Challenge #2: Solution
 
 
 ```r
@@ -2264,7 +2951,7 @@ biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-71-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-91-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # Principal Coordinates Analysis
@@ -2284,13 +2971,13 @@ Run a PCoA on the Hellinger distance-transformed fish dataset:
 
 ```r
 library(ape)
-spe.h.pcoa &lt;- pcoa(dist(spec.hel))
+spe.h.pcoa &lt;- pcoa(dist(spe.hel))
 summary(spe.h.pcoa)
 #            Length Class      Mode     
 # correction   2    -none-     character
 # note         1    -none-     character
 # values       5    data.frame list     
-# vectors    783    -none-     numeric  
+# vectors    810    -none-     numeric  
 # trace        1    -none-     numeric
 ```
 
@@ -2301,12 +2988,12 @@ summary(spe.h.pcoa)
 ```r
 head(spe.h.pcoa$values)
 #   Eigenvalues Relative_eig Broken_stick Cumul_eig Cumul_br_stick
-# 1   7.2228939   0.51334374   0.14412803 0.5133437      0.1441280
-# 2   1.7987449   0.12783995   0.10709099 0.6411837      0.2512190
-# 3   1.2970423   0.09218307   0.08857247 0.7333668      0.3397915
-# 4   1.0780684   0.07662021   0.07622679 0.8099870      0.4160183
-# 5   0.6150273   0.04371107   0.06696753 0.8536980      0.4829858
-# 6   0.4691296   0.03334186   0.05956013 0.8870399      0.5425459
+# 1   7.2247720   0.49593627   0.14412803 0.4959363      0.1441280
+# 2   1.9115366   0.13121526   0.10709099 0.6271515      0.2512190
+# 3   1.3384761   0.09187817   0.08857247 0.7190297      0.3397915
+# 4   1.0797364   0.07411728   0.07622679 0.7931470      0.4160183
+# 5   0.6161946   0.04229798   0.06696753 0.8354450      0.4829858
+# 6   0.4820459   0.03308949   0.05956013 0.8685345      0.5425459
 ```
 
 ---
@@ -2319,12 +3006,12 @@ We can also see the *Eigenvectors* associated to each *Eigenvalue* containing th
 ```r
 head(spe.h.pcoa$vectors)[, 1:5]
 #         Axis.1      Axis.2      Axis.3     Axis.4       Axis.5
-# 1 -0.509824403 -0.27654372  0.64011383 -0.3393734  0.207330880
-# 2 -0.698794880 -0.03935586  0.11324989 -0.2328859 -0.157730682
-# 3 -0.640690642  0.01566707  0.03835044 -0.2669706 -0.125293094
-# 4 -0.413985947  0.10477084 -0.15728486 -0.2851828 -0.001250382
-# 5  0.003083242  0.05284310 -0.32206098 -0.2730693  0.315944703
-# 6 -0.295314224  0.05778805 -0.32395301 -0.2262902  0.056493824
+# 1 -0.510156945  0.34756659  0.60308559 -0.3105433 -0.197553521
+# 2 -0.697567847  0.04025083  0.10420566 -0.2256121  0.163849922
+# 3 -0.639279415 -0.02078733  0.03988954 -0.2636284  0.130319412
+# 4 -0.411968300 -0.13472113 -0.14290276 -0.2900746  0.003953021
+# 5  0.005052046 -0.09541567 -0.30540211 -0.2852990 -0.319905818
+# 6 -0.292971968 -0.11423456 -0.31865809 -0.2359718 -0.055670665
 ```
 
 ---
@@ -2334,10 +3021,10 @@ We can display, the distances between sites using the `biplot.pcoa()` function, 
 
 
 ```r
-biplot.pcoa(spe.h.pcoa, spec.hel)
+biplot.pcoa(spe.h.pcoa, spe.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-75-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-95-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 ### Principal Coordinates Analysis: non-metric distances
@@ -2353,12 +3040,12 @@ spe.bray.pcoa &lt;- pcoa(spe.db.pa)
 
 ```r
 spe.bray.pcoa$values$Eigenvalues
-#  [1]  3.695331e+00  1.098472e+00  7.104740e-01  4.149729e-01  3.045604e-01
-#  [6]  1.917884e-01  1.569703e-01  1.319099e-01  1.294251e-01  8.667896e-02
-# [11]  4.615780e-02  3.864487e-02  2.745800e-02  1.306508e-02  7.087896e-03
-# [16]  4.039469e-03  1.300594e-03  0.000000e+00 -3.534426e-05 -3.940676e-03
-# [21] -8.956051e-03 -1.461149e-02 -1.598905e-02 -2.145686e-02 -3.017013e-02
-# [26] -3.432671e-02 -3.760052e-02 -6.037087e-02 -6.880061e-02
+#  [1]  3.695332e+00  1.197352e+00  8.465325e-01  5.253896e-01  4.147227e-01
+#  [6]  2.977969e-01  1.913094e-01  1.554757e-01  1.307617e-01  1.272105e-01
+# [11]  8.550928e-02  4.357746e-02  3.862321e-02  2.727686e-02  1.303318e-02
+# [16]  6.704839e-03  3.817779e-03  1.300463e-03  0.000000e+00 -3.597737e-05
+# [21] -4.167639e-03 -8.970687e-03 -1.473688e-02 -1.601025e-02 -2.165231e-02
+# [26] -3.127263e-02 -3.443356e-02 -3.763160e-02 -6.064415e-02 -6.882758e-02
 ```
 ]
 
@@ -2383,11 +3070,11 @@ The corrected Eigenvalues are now on a new column!
 
 ```r
 spe.bray.pcoa$values$Corr_eig
-#  [1] 5.20461437 1.60465006 1.09152082 0.68985417 0.52129425 0.38710929
-#  [7] 0.36447367 0.29671255 0.27559544 0.21600584 0.15419396 0.15378333
-# [13] 0.11812808 0.08848541 0.07304055 0.06999353 0.05712927 0.05587583
-# [19] 0.05432215 0.04912221 0.04100207 0.03777775 0.03451234 0.02959507
-# [25] 0.02436729 0.01902747 0.00284371 0.00000000 0.00000000
+#  [1] 5.208616362 1.735210656 1.249426268 0.813115534 0.690430331 0.513559025
+#  [7] 0.387520962 0.363702867 0.296206500 0.273082611 0.215178142 0.154525233
+# [13] 0.150803988 0.118203435 0.088726577 0.073233820 0.069460754 0.057344134
+# [19] 0.056008651 0.054525339 0.049309077 0.040482831 0.037906147 0.034709860
+# [25] 0.029748166 0.023624321 0.019072278 0.003071851 0.000000000 0.000000000
 ```
 
 ]
@@ -2400,12 +3087,12 @@ Use a biplot without the species to represent it!
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-80-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-100-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 ]
 
 ---
-# Challenge #5 ![:cube]()
+# Challenge #3 ![:cube]()
 
 Compute a PCoA on the Hellinger-transformed mite species abundance data
 
@@ -2417,9 +3104,10 @@ Be ready to answer:
 - How do the PCoA results compare with the PCA results?
 
 ---
-# Solution #5
+# Challenge #3: Solution
 
 - Hellinger transform the species data
+
 
 ```r
 mite.spe &lt;- mite
@@ -2434,15 +3122,16 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 ```
 
 ---
-# Solution #5
+# Challenge #3: Solution
 
-- Build a biplot to visualize the data:
+- Build a biplot to visualize the results:
+
 
 ```r
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-83-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-103-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2471,8 +3160,8 @@ We can attempt using *non-metric multidimensional scaling*!
 - Consequently, the lower the stress value, the better the representation of objects in the ordination-space is.
 
 -  nMDS is implemented in `vegan` as `metaMDS()` where:
-  - `distance` specifies the distance metric to use;
-  - `k` specifies the number of dimensions.
+- `distance` specifies the distance metric to use;
+- `k` specifies the number of dimensions.
 
 
 ```r
@@ -2489,11 +3178,11 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 0.07429332
+# [1] 7.697871e-05
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-86-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-106-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 The Shepard plot identifies a strong correlation between observed dissimilarity and ordination distance (R2 &gt; 0.95) highlighting a high goodness of fit of the NMDS.
 
@@ -2510,15 +3199,15 @@ plot(spe.nmds, type = "none",
      xlab = c("NMDS1"), ylab = "NMDS2")
 
 points(scores(spe.nmds, display = "sites",
-              choiches = c(1,2),
+              choices = c(1,2)),
               pch = 21,
               col = "black",
-              g = "steelblue",
-              cex = 1.2))
+              bg = "steelblue",
+              cex = 1.2)
 text(scores(spe.nmds, display = "species", choices = c(1)),
-            scores(spe.nmds, display = "species", choices = c(2)),
-            labels = rownames(scores(spe.nmds, display = "species")),
-            col = "red", cex = 0.8)
+     scores(spe.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(spe.nmds, display = "species")),
+     col = "red", cex = 0.8)
 ```
 
 ---
@@ -2533,39 +3222,76 @@ Four sites in the lower part of the graph are strongly different from the others
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-88-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-108-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
-# Challenge #6 ![:cube]()
+# Challenge #4 ![:cube]()
 
 &lt;br&gt;
 
-Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance.
+Run the NMDS of the `mite.spe` species abundances in 2 dimensions based on a Bray-Curtis distance.
 
-Assess the goodness-of-fit of the ordination and interprete the biplot.
+Assess the goodness-of-fit of the ordination and interpret the biplot.
 
----
-# Solution #6
+Recall these helpful functions:
 
-.pull-left[
-![](images/SheplSol6.png)
-]
 
-.pull-right[
-The correlation between observed dissimilarity and ordination distance (R2 &gt; 0.91) and the stress value relatively low, showing together a good accuracy of the NMDS ordination
-]
+```r
+?metaMDS
+?stressplot
+```
 
 ---
-# Solution #6
+# Challenge #4: Solution
 
-.pull-left[
-![](images/NMDSSol61.png)
-]
+Run the NMDS of the `mite` species abundances in 2 dimensions based on a Bray-Curtis distance:
 
-.pull-right[
-No cluster of sites can be precisely defined from the NMDS biplot showing that most of the species occurred in most of the sites, i.e. a few sites shelter specific communities
-]
+
+```r
+mite.nmds &lt;- metaMDS(mite.spe, distance = 'bray', k = 2)
+```
+
+---
+# Challenge #4: Solution
+
+
+```r
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+```
+
+---
+# Challenge #4: Solution
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-112-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+There is not really any obvious clustering of sites in the NMDS biplot. This tells us that the species occurred in most of the sites. Only a few sites shelter specific communities.
+
+---
+# Challenge #4: Solution
+
+
+```r
+stressplot(mite.nmds, main = "Shepard plot")
+```
+
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-113-1.png" width="360" style="display: block; margin: auto;" /&gt;
+
+The observed dissimilarity is highly correlated with ordination distance, and the NMDS stress value is relatively low, which tells us that the NMDS ordination is relatively accurate.
 
 ---
 # Conclusion
@@ -2580,7 +3306,7 @@ No cluster of sites can be precisely defined from the NMDS biplot showing that m
 |NMDS| User defined | Quantitative, semi-quantitative, mixed data| User defined|
 
 ---
-# Prime time 4 quiz time
+# Quiz time!
 
 .alert[What does PCA stand for?]
 
@@ -2605,28 +3331,21 @@ Principal Coordinate Analysis (PCoA)
 The proportion of variance explained by a principal component
 
 ---
-# Prime time 4 quiz time
+# Quiz time!
 
-Spot what is sketchy
+What is wrong with this plot?
 
 ![:scale 90%](images/Chall7.png)
 
 --
 .alert[
-- Data non centered, Yikes!
+- The data is not centred. Yikes!
 ]
-
----
-# Prime time 4 quiz time
-
-Spot what is sketchy
-
-![:scale 90%](images/Chall7_2.png)
 
 --
 
 .alert[
-- 2 first PCs explain 100% of the variation!
+- The first two principal components explain 100% of the variation!
 ]
 
 ---
@@ -2666,7 +3385,7 @@ exclude: true
 
 ### Principal Component Analysis: *Improved visualization*
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-90-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-115-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2719,31 +3438,31 @@ summary(spe.ca)
 # 
 # Partitioning of scaled Chi-square:
 #               Inertia Proportion
-# Total           1.128          1
-# Unconstrained   1.128          1
+# Total           1.167          1
+# Unconstrained   1.167          1
 # 
 # Eigenvalues, and their contribution to the scaled Chi-square 
 # 
 # Importance of components:
-#                          CA1    CA2     CA3     CA4     CA5     CA6     CA7
-# Eigenvalue            0.6062 0.1423 0.10251 0.07319 0.04912 0.03909 0.03341
-# Proportion Explained  0.5374 0.1262 0.09087 0.06488 0.04354 0.03465 0.02962
-# Cumulative Proportion 0.5374 0.6635 0.75437 0.81925 0.86279 0.89745 0.92706
+#                         CA1    CA2     CA3     CA4     CA5     CA6     CA7
+# Eigenvalue            0.601 0.1444 0.10729 0.08337 0.05158 0.04185 0.03389
+# Proportion Explained  0.515 0.1237 0.09195 0.07145 0.04420 0.03586 0.02904
+# Cumulative Proportion 0.515 0.6387 0.73069 0.80214 0.84634 0.88220 0.91124
 #                           CA8     CA9     CA10     CA11     CA12     CA13
-# Eigenvalue            0.01709 0.01302 0.010765 0.008141 0.007533 0.005820
-# Proportion Explained  0.01515 0.01154 0.009543 0.007217 0.006678 0.005159
-# Cumulative Proportion 0.94221 0.95375 0.963294 0.970511 0.977188 0.982347
+# Eigenvalue            0.02883 0.01684 0.010826 0.010142 0.007886 0.006123
+# Proportion Explained  0.02470 0.01443 0.009278 0.008691 0.006758 0.005247
+# Cumulative Proportion 0.93594 0.95038 0.959655 0.968346 0.975104 0.980351
 #                           CA14     CA15     CA16     CA17     CA18     CA19
-# Eigenvalue            0.004765 0.004444 0.003262 0.002268 0.001663 0.001376
-# Proportion Explained  0.004224 0.003939 0.002892 0.002011 0.001474 0.001219
-# Cumulative Proportion 0.986571 0.990510 0.993402 0.995413 0.996887 0.998106
-#                            CA20      CA21      CA22      CA23      CA24
-# Eigenvalue            0.0010054 0.0004515 0.0002976 0.0001528 0.0001455
-# Proportion Explained  0.0008913 0.0004003 0.0002638 0.0001355 0.0001290
-# Cumulative Proportion 0.9989973 0.9993976 0.9996614 0.9997969 0.9999258
+# Eigenvalue            0.004867 0.004606 0.003844 0.003067 0.001823 0.001642
+# Proportion Explained  0.004171 0.003948 0.003294 0.002629 0.001562 0.001407
+# Cumulative Proportion 0.984522 0.988470 0.991764 0.994393 0.995955 0.997362
+#                           CA20      CA21      CA22      CA23      CA24
+# Eigenvalue            0.001295 0.0008775 0.0004217 0.0002149 0.0001528
+# Proportion Explained  0.001110 0.0007520 0.0003614 0.0001841 0.0001309
+# Cumulative Proportion 0.998472 0.9992238 0.9995852 0.9997693 0.9999002
 #                            CA25      CA26
-# Eigenvalue            5.671e-05 2.694e-05
-# Proportion Explained  5.027e-05 2.388e-05
+# Eigenvalue            8.949e-05 2.695e-05
+# Proportion Explained  7.669e-05 2.310e-05
 # Cumulative Proportion 1.000e+00 1.000e+00
 # 
 # Scaling 2 for species and site scores
@@ -2753,67 +3472,68 @@ summary(spe.ca)
 # 
 # Species scores
 # 
-#          CA1       CA2       CA3       CA4      CA5      CA6
-# CHA  1.49168  1.385259 -0.433809  0.071078 -0.24616  0.05168
-# TRU  1.65415 -0.516649 -0.440526 -0.159605  0.21034 -0.49677
-# VAI  1.29689 -0.287854  0.081677  0.039670 -0.04216  0.33505
-# LOC  1.01655 -0.318047  0.345002  0.064349  0.07146  0.25276
-# OMB  1.54572  1.331279 -1.009750  0.022603 -0.36894  0.38992
-# BLA  0.99242  1.488077  0.395856 -0.002786  0.03087 -0.42919
-# HOT -0.54197  0.037905 -0.007131  0.189457  0.34781  0.12443
-# TOX -0.17940  0.440408  0.666475 -0.157195  0.59702 -0.09090
-# VAN  0.01649  0.115139  0.632750  0.027180 -0.28562 -0.25295
-# CHE -0.01016 -0.003287  0.087052  0.360355 -0.09299  0.04720
-# BAR -0.32772  0.280531  0.087903 -0.134099  0.20162  0.02136
-# SPI -0.37673  0.235208  0.296247 -0.251569  0.46512  0.10939
-# GOU -0.31588  0.025703  0.089443  0.122259 -0.11758 -0.02693
-# BRO -0.25636 -0.209762  0.076551 -0.128801 -0.37914 -0.08203
-# PER -0.28362 -0.136097  0.304122 -0.263493 -0.25323 -0.04680
-# BOU -0.59482  0.018329 -0.133101 -0.259428  0.15559  0.13556
-# PSO -0.57898  0.049761 -0.180659 -0.080819  0.16908  0.02711
-# ROT -0.61086 -0.155369 -0.062639 -0.139514 -0.40987 -0.16073
-# CAR -0.57134  0.067623 -0.114447 -0.368663  0.11556  0.03287
-# TAN -0.38717 -0.126068  0.088482 -0.142953 -0.22493 -0.01394
-# BCO -0.69346 -0.064062 -0.326351 -0.337945 -0.02336  0.07199
-# PCH -0.72297 -0.058647 -0.458970 -0.536212 -0.09385  0.05842
-# GRE -0.68487 -0.073615 -0.386296  0.125350  0.02339  0.01566
-# GAR -0.48338 -0.092189  0.075212  0.244705 -0.12215 -0.09479
-# BBO -0.70069 -0.077202 -0.373887 -0.141038  0.02316  0.06521
-# ABL -0.62469 -0.051667 -0.268265  0.765808  0.17809 -0.07415
-# ANG -0.62735 -0.004040 -0.227844 -0.315380  0.09477  0.11331
+#          CA1       CA2      CA3       CA4       CA5       CA6
+# CHA  1.50075 -1.410293  0.26049 -0.307203  0.271777 -0.003465
+# TRU  1.66167  0.444129  0.57571  0.166073 -0.261870 -0.326590
+# VAI  1.28545  0.285328 -0.04768  0.018126  0.043847  0.200732
+# LOC  0.98662  0.360900 -0.35265 -0.009021 -0.012231  0.253429
+# OMB  1.55554 -1.389752  0.80505 -0.468471  0.471301  0.225409
+# BLA  0.99709 -1.479902 -0.48035  0.079397 -0.105715 -0.332445
+# HOT -0.54916 -0.051534  0.01123 -0.096004 -0.382763  0.134807
+# TOX -0.18478 -0.437710 -0.57438  0.424267 -0.587150  0.091866
+# VAN  0.01337 -0.095342 -0.57672  0.212017  0.126668 -0.389103
+# CHE  0.01078  0.140577 -0.34811 -0.538268  0.185286  0.167087
+# BAR -0.33363 -0.300682 -0.04929  0.170961 -0.157203  0.103068
+# SPI -0.38357 -0.255310 -0.20136  0.374057 -0.385866  0.239001
+# GOU -0.32152 -0.034382 -0.07423 -0.031236  0.014417 -0.156351
+# BRO -0.26165  0.187282  0.00617  0.183771  0.295142 -0.262808
+# PER -0.28913  0.121044 -0.18919  0.367615  0.218087 -0.163675
+# BOU -0.60298 -0.057369  0.20341  0.214299 -0.050977  0.211926
+# PSO -0.58669 -0.082467  0.21198  0.050175 -0.120456  0.108724
+# ROT -0.61815  0.124733  0.13339  0.147190  0.317736 -0.340380
+# CAR -0.57951 -0.110732  0.20173  0.308547  0.006854  0.153224
+# TAN -0.37880  0.138023 -0.07825  0.095793  0.256285 -0.029245
+# BCO -0.70235  0.011155  0.40242  0.211582  0.138186  0.132297
+# PCH -0.73238 -0.009098  0.55678  0.321852  0.281812  0.172271
+# GRE -0.69300  0.038971  0.37688 -0.183965 -0.051945 -0.011126
+# GAR -0.44181  0.176915 -0.23691 -0.345104  0.129676 -0.043802
+# BBO -0.70928  0.032317  0.40924  0.030224  0.049050  0.114560
+# ABL -0.63114  0.053594  0.15204 -0.661381 -0.414796 -0.206611
+# ANG -0.63578 -0.041894  0.30093  0.224044  0.030444  0.203160
 # 
 # 
 # Site scores (weighted averages of species scores)
 # 
-#         CA1      CA2       CA3       CA4      CA5       CA6
-# 1   2.72880 -3.63047 -4.297575 -2.180558  4.28251 -12.70718
-# 2   2.26939 -2.74567 -0.683635 -0.508114  1.86199  -0.82146
-# 3   2.01894 -2.55716  0.004459 -0.347298  1.04225   0.59661
-# 4   1.28757 -1.97139  0.649261 -0.366438 -0.69066   0.85344
-# 5   0.08260 -0.91883  1.609565 -0.009607 -3.62098  -1.54952
-# 6   1.03028 -1.62206  1.049551  0.285131 -0.94420   0.82432
-# 7   1.91231 -2.28949  0.346864  0.059722  1.09657  -0.13682
-# 10  1.24958 -1.35061  1.947791  1.125968 -0.79586   2.58731
-# 11  2.12864 -0.19558 -1.779393  0.246236 -0.32251   1.37538
-# 12  2.16190  0.16511 -1.786342  0.125825 -0.17453   1.13375
-# 13  2.29162  1.87949 -2.161318 -0.191687 -0.59319   0.15032
-# 14  1.85861  2.19432 -1.472445  0.084282 -1.00562   0.53827
-# 15  1.33811  1.87052  0.341352  0.449315 -0.93504  -0.62573
-# 16  0.70115  1.57032  2.113072 -0.238157  0.62925  -1.83993
-# 17  0.29051  0.86531  1.368926 -0.167800  1.64807   0.17059
-# 18  0.05651  0.68479  0.965786 -0.005014  1.08092   0.60339
-# 19 -0.19970  0.05475  1.064683  0.458458  0.92614   0.60861
-# 20 -0.57263 -0.02434  0.359285  0.408580  0.48971   0.14790
-# 21 -0.66495 -0.07911 -0.028650 -0.080409  0.05745   0.03087
-# 22 -0.71075 -0.04983 -0.163794 -0.180754 -0.05923  -0.05610
-# 23 -0.71881 -0.34926 -0.912791  7.297949  0.71786  -1.25267
-# 24 -0.83779 -0.26250 -1.470892  4.899937  1.26149  -0.41743
-# 25 -0.68011 -0.33390 -0.180281  3.764841 -1.79032  -1.86951
-# 26 -0.75038 -0.23767 -0.702769  0.601903 -0.13132   0.06362
-# 27 -0.74233 -0.14481 -0.559979 -0.081360 -0.19911   0.05064
-# 28 -0.76945 -0.14800 -0.716897 -0.406389 -0.11339   0.18430
-# 29 -0.59922  0.12766 -0.437857 -0.646721  0.08057   0.07932
-# 30 -0.79734 -0.08325 -0.436074 -1.168606 -0.21617   0.01955
+#         CA1       CA2        CA3      CA4      CA5      CA6
+# 1   2.76488  3.076306  5.3657489  1.99192 -5.07714 -7.80447
+# 2   2.27540  2.565531  1.2659130  0.87538 -1.89139 -0.13887
+# 3   2.01823  2.441224  0.5144079  0.79436 -1.03741  0.56015
+# 4   1.28485  1.935664 -0.2509482  0.76470  0.54752  0.10579
+# 5   0.08875  1.015182 -1.4555434  0.47672  2.69249 -2.92498
+# 6   1.03188  1.712163 -0.9544059  0.01584  0.91932  0.39856
+# 7   1.91427  2.256208 -0.0001407  0.39844 -1.07017  0.32127
+# 9   0.25591  1.443008 -2.5777721 -3.41400  2.36613  2.71741
+# 10  1.24517  1.526391 -1.9635663 -0.41230  0.69647  1.51859
+# 11  2.14501  0.110278  1.6108693 -0.82023  0.53918  1.01153
+# 12  2.17418 -0.251649  1.5845397 -0.81483  0.52623  1.05501
+# 13  2.30944 -2.034439  1.9181448 -0.60481  0.64435 -0.14844
+# 14  1.87141 -2.262503  1.1066796 -0.80840  1.09542  0.11038
+# 15  1.34659 -1.805967 -0.6441505 -0.52803  0.76871 -0.67165
+# 16  0.70214 -1.501167 -1.9735888  0.98502 -0.93585 -1.27168
+# 17  0.28775 -0.836803 -1.2259108  0.73302 -1.57036  0.57315
+# 18  0.05299 -0.647950 -0.9234228  0.35770 -0.95401  0.77738
+# 19 -0.20584 -0.007252 -1.0154343  0.07041 -1.03450  0.51442
+# 20 -0.57879  0.042849 -0.3660551 -0.15019 -0.61357  0.10115
+# 21 -0.67320  0.038875  0.1194956  0.17256 -0.14686 -0.12018
+# 22 -0.71933  0.014694  0.2204186  0.13598  0.09459 -0.02068
+# 23 -0.70438  0.735398 -0.6546250 -6.61523 -2.49441 -1.73215
+# 24 -0.83976  0.390120  0.5605295 -4.38864 -2.56916 -0.96702
+# 25 -0.68476  0.418842 -0.2860819 -2.80336 -0.37540 -3.93791
+# 26 -0.75808  0.210204  0.5894091 -0.70004 -0.01880 -0.10779
+# 27 -0.75046  0.100869  0.5531191 -0.12946  0.29164  0.11280
+# 28 -0.77878  0.088976  0.7379012  0.05204  0.40940  0.43236
+# 29 -0.60815 -0.203235  0.5522726  0.43621  0.15010  0.25618
+# 30 -0.80860 -0.019592  0.6686542  0.88136  0.52744  0.16456
 ```
 
 
@@ -2893,16 +3613,17 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ```
 
 ---
+exclude: true
 
 # Solution #4
 
-&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-96-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-en_files/figure-html/unnamed-chunk-121-1.png" width="720" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script src="qcbsR-macros.js"></script>
 <script>var slideshow = remark.create({
-"countIncrementalSlides": true,
+"countIncrementalSlides": false,
 "highlightLines": true
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
