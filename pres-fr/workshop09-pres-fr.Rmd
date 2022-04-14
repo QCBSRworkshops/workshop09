@@ -127,7 +127,11 @@ Mi Lin
 
 Linley Sherin
 
+]
+]
 
+.pull-right[
+.left[
 **2019** - **2018** - **2017**
 
 Gabriel Muñoz
@@ -137,12 +141,6 @@ Marie Hélène-Brice
 Pedro Henrique P. Braga
 
 <br>
-]
-]
-
-
-.pull-right[
-.left[
 
 **2016** - **2015** - **2014**
 
@@ -160,7 +158,7 @@ Monica Granados
 ]
 </p>
 
-<br>
+<br><br>
 .center[
 __Si vous voulez contribuer aussi__, visitez [r.qcbs.ca/fr/contributing](https://r.qcbs.ca/fr/contributing/) <br> et n'hésitez pas à [nous contacter](mailto:csbq.qcbs.r@gmail.com)!
 ]
@@ -169,7 +167,7 @@ __Si vous voulez contribuer aussi__, visitez [r.qcbs.ca/fr/contributing](https:/
 
 # Matériel requis
 
-Cet atelier requiert les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
+Pour suivre cet atelier, vous devez avoir téléchargé et installé les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
 
 .pull-left[
 Vous devez également avoir installé ces paquets:
@@ -341,8 +339,6 @@ Données de Verneaux (1973) :
 
 ---
 # Données de poissons de la rivière Doubs
-
-Vous pouvez télécharger les jeux de données sur [r.qcbs.ca/fr/workshops/r-workshop-09](http://r.qcbs.ca/fr/workshops/r-workshop-09/).
 
 Chargement des données espèces (`doubsspe.csv`)
 
