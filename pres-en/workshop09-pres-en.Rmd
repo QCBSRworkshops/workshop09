@@ -52,10 +52,36 @@ htmltools::tagList(
 )
 ```
 
+```{r output-lines, echo = FALSE}
+# sometimes cache needs to be set to true in the knitr setup chunk for this to take effect
+# in xaringan::infinite_moon_reader()
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+```
+
 ```{r install_pkgs, message=FALSE, warning=FALSE, include=FALSE, results=0}
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
+list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -71,18 +97,19 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 ```
 
 # About this workshop
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=repo&message=dev&color=6f42c1&logo=github)](https://github.com/QCBSRworkshops/workshop09)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-en/workshop09-pres-en.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-en/workshop09-pres-en.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/book-en/workshop09-script-en.R)
+
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=BF616A)](https://r.qcbs.ca/workshop09/pres-en/workshop09-pres-en.html)    [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Script&message=09&color=D08770&logo=r)](https://r.qcbs.ca/workshop09/book-en/workshop09-script-en.R) 
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Book&message=09&color=EBCB8B)](https://r.qcbs.ca/workshop09/book-en/index.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Site&message=r.qcbs.ca&color=A3BE8C)](https://r.qcbs.ca/workshops/r-workshop-09/)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub&message=09&color=B48EAD&logo=github)](https://github.com/QCBSRworkshops/workshop09)
+
 
 ---
 
 <p style="font-size:75%">
 
 .center[
-**Contributors to the development of this workshop**
+**QCBS members who contributed to this workshop**
 
 by modifying and improving its content as part of the <br> *Le*arning *a*nd *D*evelopment *A*ward
 ]
@@ -93,13 +120,13 @@ by modifying and improving its content as part of the <br> *Le*arning *a*nd *D*e
 
 **2022** - **2021** - **2020**
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
-[Katherine Hébert]()
+Katherine Hébert
 
-[Mi Lin]()
+Mi Lin
 
-[Linley Sherin]()
+Linley Sherin
 
 ]
 ]
@@ -108,39 +135,46 @@ by modifying and improving its content as part of the <br> *Le*arning *a*nd *D*e
 .left[
 **2019** - **2018** - **2017**
 
-[Gabriel Muñoz](https://github.com/fgabriel1891)
+Gabriel Muñoz
 
-[Marie Hélène-Brice]()
+Marie Hélène-Brice
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
 <br>
 
 **2016** - **2015** - **2014**
 
-[Bérenger Bourgeois]()
+Bérenger Bourgeois
 
-[Xavier Giroux-Bougard]()
+Xavier Giroux-Bougard
 
-[Amanda Winegardner]()
+Amanda Winegardner
 
-[Emmanuelle Chrétien]()
+Emmanuelle Chrétien
 
-[Monica Granados]()
+Monica Granados
 
 ]
 ]
 </p>
 
+<br><br>
+.center[
+__If you would like to contribute too__, visit [r.qcbs.ca/contributing](https://r.qcbs.ca/contributing/) <br> and don't hesitate to [get in touch](mailto:qcbs.csbq.r@gmail.com) with us!
+]
+
 ---
 
 # Required material
 
-To follow this workshop, you are required to have downloaded and installed the earliest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
+This workshop requires the latest [RStudio](https://rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/) versions.
 
 .pull-left[
 You must also use these packages:
 * [ape](https://cran.r-project.org/package=ape)
+* [ade4](https://cran.r-project.org/package=ade4)
+* [codep](https://cran.r-project.org/package=codep)
 * [gclus](https://cran.r-project.org/package=gclus)
 * [vegan](https://cran.r-project.org/package=vegan)
 * [GGally](https://cran.r-project.org/package=GGally)
@@ -156,6 +190,8 @@ To install them from CRAN, run:
 
 ```{r eval = FALSE}
 install.packages(c("ape", 
+                   "ade4",
+                   "codep",
                    "gclus", 
                    "vegan",
                    "GGally", 
@@ -251,11 +287,11 @@ This interest may be driven by hypothesis testing and modelling, but also be ent
 
 For instance, our research question might be:
 
-1. How does the _bacterial composition_ on maple leaves changes along the elevational gradient?
+1. How does the _bacterial composition_ on maple leaves change along the elevational gradient?
 
-2. What is the _compositional dissimilarity_ of the bat communities?
+2. What is the _composition dissimilarity_ of bat communities?
 
-3. How _closely-related_ spider local communities are in relation to their _composition_?
+3. How _closely-related_ are local spider communities in terms of their _composition_?
 
 ???
 
@@ -535,13 +571,11 @@ a_{n,1} & a_{m,2} & \cdots & a_{n,n}
 
 ]
 
+
 .pull-right[
 
 .pull-left[
 
-<br>
-
-🡐 
 **_R-mode_** 
 analysis
 for descriptors or species
@@ -549,7 +583,7 @@ for descriptors or species
 ]
 
 .pull-right[
-🠅 **_Q-mode_** analysis
+**_Q-mode_** analysis
 for objects or sites
 
 ]
@@ -637,8 +671,8 @@ env <- read.csv("data/doubsenv.csv",
 
 Their data can also be retrieved from the `ade4` package:
 ```{r eval=FALSE, echo = TRUE}
-library (ade4)
-data (doubs)
+library(ade4)
+data(doubs)
 
 spe <- doubs$fish
 env <- doubs$env
@@ -646,8 +680,8 @@ env <- doubs$env
 
 Alternatively, from the `codep` package:
 ```{r eval=FALSE, echo = TRUE}
-library (codep)
-data (Doubs)
+library(codep)
+data(Doubs)
 
 spe <- Doubs.fish
 env <- Doubs.env
@@ -686,14 +720,11 @@ str(env)
 |dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
 
 ]
+
 ```{r, eval = F}
-names(env) # Names of objects
-dim(env) # dimensions
 summary(env) # summary statistics
-head(env) # first 6 rows
 ```
 
-]
 
 ---
 
@@ -736,20 +767,16 @@ We can obtain an association matrix $A_{m,m}$ in the form of pairwise distances 
 
 --
 
-.pull-left[
 In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`:
 
-```{r, eval = T}
+```{r, eval = T, results='hide'}
 dist(spe)
 ```
 
-]
+---
+# (Dis)similarity measures
 
---
-
-.pull-right[
-
-For the sake of simplification, we have done this without specifying arguments.
+For simplicity, we have done this without specifying arguments.
 
 Run `dist(spe)` from your end, note what you observe and see what the commands below show you:
 
@@ -769,9 +796,9 @@ as.matrix(dist(spe))
 dim(as.matrix(dist(spe)))
 ```
 
-]
 
 ??? 
+
 If possible, do this part with the participants.
 
 Show them how a dist class object is structured. Highlight that it is a lower-triangular matrix, where the distances between the same objects are hidden.
@@ -3139,7 +3166,7 @@ biplot(spe.h.pca, scaling = 2)
 1: **Best for interpreting relationships among objects (sites)!**
 
 ---
-# Challenge # 3 ![:cube]()
+# Challenge #2 ![:cube]()
 
 Using everything you have learned, compute a PCA on the mite species abundance data
 
@@ -3154,7 +3181,7 @@ Be ready to discuss and answer:
 
 ---
 
-# Solution #3
+# Challenge #2: Solution
 
 Compute PCA on the Hellinger-transformed species data
 
@@ -3202,7 +3229,7 @@ legend("topright",
 ]
 
 ---
-# Solution #3
+# Challenge #2: Solution
 
 ```{r, echo = -1, fig.height=6.5, fig.width=7}
 par(mar = c(4,4,0.05,0.05), cex = 1.5)
@@ -3306,7 +3333,7 @@ biplot.pcoa(spe.bray.pcoa)
 ]
 
 ---
-# Challenge #5 ![:cube]()
+# Challenge #3 ![:cube]()
 
 Compute a PCoA on the Hellinger-transformed mite species abundance data
 
@@ -3318,9 +3345,10 @@ Be ready to answer:
 - How do the PCoA results compare with the PCA results?
 
 ---
-# Solution #5
+# Challenge #3: Solution
 
 - Hellinger transform the species data
+
 ```{r}
 mite.spe <- mite
 mite.spe.hel <- decostand(mite.spe, method = "hellinger")
@@ -3333,9 +3361,10 @@ mite.spe.h.pcoa <- pcoa(dist(mite.spe.hel))
 ```
 
 ---
-# Solution #5
+# Challenge #3: Solution
 
-- Build a biplot to visualize the data:
+- Build a biplot to visualize the results:
+
 ```{r, fig.width=6, fig.height=6}
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
@@ -3374,7 +3403,7 @@ We can attempt using *non-metric multidimensional scaling*!
 spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
 ```
 
-```{r include=FALSE}
+```{r, include=FALSE}
 spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
 ```
 
@@ -3401,8 +3430,8 @@ plot(spe.nmds, type = "none",
                   round(spe.nmds$stress, 3)),
      xlab = c("NMDS1"), ylab = "NMDS2")
 
-points(scores(spe.nmds, display = "sites",
-              choiches = c(1,2),
+points(scores(spe.nmds, display = "sites"),
+              choices = c(1,2),
               pch = 21,
               col = "black",
               g = "steelblue",
@@ -3431,12 +3460,12 @@ plot(spe.nmds, type = "none",
                   round(spe.nmds$stress, 3)),
      xlab = c("NMDS1"), ylab = "NMDS2")
 
-points(scores(spe.nmds, display = "sites",
-              choiches = c(1,2),
+points(scores(spe.nmds, display = "sites"),
+              choices = c(1,2),
               pch = 21,
               col = "black",
               g = "steelblue",
-              cex = 1.2))
+              cex = 1.2)
 text(scores(spe.nmds, display = "species", choices = c(1)),
      scores(spe.nmds, display = "species", choices = c(2)),
      labels = rownames(scores(spe.nmds, display = "species")),
@@ -3445,35 +3474,82 @@ text(scores(spe.nmds, display = "species", choices = c(1)),
 ]
 
 ---
-# Challenge #6 ![:cube]()
+# Challenge #4 ![:cube]()
 
 <br>
 
-Run the NMDS of the mite species abundances in 2 dimensions based on a Bray-Curtis distance.
+Run the NMDS of the `mite.spe` species abundances in 2 dimensions based on a Bray-Curtis distance.
 
-Assess the goodness-of-fit of the ordination and interprete the biplot.
+Assess the goodness-of-fit of the ordination and interpret the biplot.
 
----
-# Solution #6
+Recall these helpful functions:
 
-.pull-left[
-![](images/SheplSol6.png)
-]
-
-.pull-right[
-The correlation between observed dissimilarity and ordination distance (R2 > 0.91) and the stress value relatively low, showing together a good accuracy of the NMDS ordination
-]
+```{r, eval = F}
+?metaMDS
+?stressplot
+```
 
 ---
-# Solution #6
+# Challenge #4: Solution
 
-.pull-left[
-![](images/NMDSSol61.png)
-]
+Run the NMDS of the `mite` species abundances in 2 dimensions based on a Bray-Curtis distance:
 
-.pull-right[
-No cluster of sites can be precisely defined from the NMDS biplot showing that most of the species occurred in most of the sites, i.e. a few sites shelter specific communities
-]
+```{r, results='hide'}
+mite.nmds <- metaMDS(mite.spe, distance = 'bray', k = 2)
+```
+
+---
+# Challenge #4: Solution
+
+```{r, eval = F}
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+
+points(scores(mite.nmds, display = "sites"),
+              choices = c(1,2),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+```
+
+---
+# Challenge #4: Solution
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 7}
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+
+points(scores(mite.nmds, display = "sites"),
+              choices = c(1,2),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+```
+
+There is not really any obvious clustering of sites in the NMDS biplot. This tells us that the species occurred in most of the sites. Only a few sites shelter specific communities.
+
+---
+# Challenge #4: Solution
+
+```{r}
+stressplot(mite.nmds, main = "Shepard plot")
+```
+
+The observed dissimilarity is highly correlated with ordination distance, and the NMDS stress value is relatively low, which tells us that the NMDS ordination is relatively accurate.
 
 ---
 # Conclusion
@@ -3488,7 +3564,7 @@ No cluster of sites can be precisely defined from the NMDS biplot showing that m
 |NMDS| User defined | Quantitative, semi-quantitative, mixed data| User defined|
 
 ---
-# Prime time 4 quiz time
+# Quiz time!
 
 .alert[What does PCA stand for?]
 
@@ -3513,28 +3589,21 @@ Principal Coordinate Analysis (PCoA)
 The proportion of variance explained by a principal component
 
 ---
-# Prime time 4 quiz time
+# Quiz time!
 
-Spot what is sketchy
+What is wrong with this plot?
 
 ![:scale 90%](images/Chall7.png)
 
 --
 .alert[
-- Data non centered, Yikes!
+- The data is not centered. Yikes!
 ]
-
----
-# Prime time 4 quiz time
-
-Spot what is sketchy
-
-![:scale 90%](images/Chall7_2.png)
 
 --
 
 .alert[
-- 2 first PCs explain 100% of the variation!
+- The first two principal components explain 100% of the variation!
 ]
 
 ---
@@ -3708,6 +3777,7 @@ legend("topright", "Average eigenvalue", lwd = 2, col = red3, bty = "n")
 ```
 
 ---
+exclude: true
 
 # Solution #4
 
