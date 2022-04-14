@@ -52,10 +52,37 @@ htmltools::tagList(
 )
 ```
 
+```{r output-lines, echo = FALSE}
+# sometimes cache needs to be set to true in the knitr setup chunk for this to take effect
+# in xaringan::infinite_moon_reader()
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+```
+
+
 ```{r install_pkgs, message=FALSE, warning=FALSE, include=FALSE, results=0}
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes")
+list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -63,7 +90,7 @@ if(length(new.packages) > 0) {
   install.packages(new.packages, dependencies = TRUE) 
   print(paste0("The following package was installed:", new.packages)) 
 } else if(length(new.packages) == 0) {
-    print("All packages were already installed previously")
+  print("All packages were already installed previously")
 }
 
 # Load all required libraries at once
@@ -72,19 +99,17 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 
 # À propos de cet atelier
 
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=repo&message=dev&color=6f42c1&logo=github)](https://github.com/QCBSRworkshops/workshop09)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/book-fr/workshop09-script-fr.R)
-
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Présentation&message=09&color=BF616A)](https://r.qcbs.ca/workshop09/pres-fr/workshop09-pres-fr.html)    [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Script&message=09&color=D08770&logo=r)](https://r.qcbs.ca/workshop09/book-fr/workshop09-script-fr.R) 
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Livre&message=09&color=EBCB8B)](https://r.qcbs.ca/workshop09/book-fr/index.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Site&message=r.qcbs.ca&color=A3BE8C)](https://r.qcbs.ca/fr/workshops/r-workshop-09/)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub&message=09&color=B48EAD&logo=github)](https://github.com/QCBSRworkshops/workshop09) 
 
 ---
 
 <p style="font-size:75%">
 
 .center[
-**Contributeurs et contributrices au développement de cet atelier**
+**Membres du CSBQ qui ont contribué à cet atelier**
 
 en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentissage et du développement (*Le*arning *a*nd *D*evelopment *A*ward*).
 ]
@@ -94,89 +119,63 @@ en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentis
 
  **2022** - **2021** - **2020**
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
-[Katherine Hébert]()
+Katherine Hébert
 
-[Mi Lin]()
+Mi Lin
 
-[Linley Sherin]()
+Linley Sherin
 
-]
-]
 
-.pull-right[
-.left[
 **2019** - **2018** - **2017**
 
-[Gabriel Muñoz](https://github.com/fgabriel1891)
+Gabriel Muñoz
 
-[Marie Hélène-Brice]()
+Marie Hélène-Brice
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
 <br>
-
-**2016** - **2015** - **2014**
-
-[Bérenger Bourgeois]()
-
-[Xavier Giroux-Bougard]()
-
-[Amanda Winegardner]()
-
-[Emmanuelle Chrétien]()
-
-[Monica Granados]()
-
 ]
 ]
-</p>
 
----
-<p style="font-size:75%">
-
-.center[
-**Contributeurs et contributrices au développement de cet atelier**
-
-en modifiant et en améliorant son contenu dans le cadre du <br> Prix d'apprentissage et de développement (*Le*arning *a*nd *D*evelopment *A*ward)
-]
-
-
-.pull-left[
-.right[
-
- **2022** - **2021** - **2020**
-
-
-
-]
-]
 
 .pull-right[
 .left[
-**2019** - **2018** - **2017**
-
-
 
 **2016** - **2015** - **2014**
 
+Bérenger Bourgeois
 
+Xavier Giroux-Bougard
+
+Amanda Winegardner
+
+Emmanuelle Chrétien
+
+Monica Granados
 
 ]
-
 ]
 </p>
+
+<br>
+.center[
+__Si vous voulez contribuer aussi__, visitez [r.qcbs.ca/fr/contributing](https://r.qcbs.ca/fr/contributing/) <br> et n'hésitez pas à [nous contacter](mailto:csbq.qcbs.r@gmail.com)!
+]
 
 ---
 
 # Matériel requis
 
-Pour suivre cet atelier, vous devez avoir téléchargé et installé les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
+Cet atelier requiert les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
 
 .pull-left[
 Vous devez également avoir installé ces paquets:
 * [ape](https://cran.r-project.org/package=ape)
+* [ade4](https://cran.r-project.org/package=ade4)
+* [codep](https://cran.r-project.org/package=codep)
 * [gclus](https://cran.r-project.org/package=gclus)
 * [vegan](https://cran.r-project.org/package=vegan)
 * [GGally](https://cran.r-project.org/package=GGally)
@@ -192,6 +191,8 @@ Pour les installer à partir de CRAN, roulez:
 
 ```{r eval = FALSE}
 install.packages(c("ape", 
+                   "ade4",
+                   "codep",
                    "gclus", 
                    "vegan",
                    "GGally", 
@@ -204,7 +205,7 @@ install.packages(c("ape",
 <br>
 
 .pull-left2[
-Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reconnaître par ce cube de Rubix.
+Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reconnaître par ce cube de Rubik.
 
 **Pendant ces défis, n'hésitez pas à collaborer!**
 ]
@@ -340,6 +341,8 @@ Données de Verneaux (1973) :
 
 ---
 # Données de poissons de la rivière Doubs
+
+Vous pouvez télécharger les jeux de données sur [r.qcbs.ca/fr/workshops/r-workshop-09](http://r.qcbs.ca/fr/workshops/r-workshop-09/).
 
 Chargement des données espèces (`doubsspe.csv`)
 
@@ -2868,17 +2871,10 @@ Trouvez l'erreur!
 - Données non centrées, beurk!
 ]
 
----
-# C'est l'heure du quiz !
-
-Trouvez l'erreur!
-
-![:scale 90%](images/Chall7_2.png)
-
 --
 
 .alert[
-- Les 2 premiers axes capturent 100% de la variation
+- Les 2 premiers axes capturent 100% de la variation.
 ]
 
 ---

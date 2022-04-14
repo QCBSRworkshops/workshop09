@@ -32,21 +32,22 @@ class: inverse, center, middle
 
 
 
+
+
+
 # À propos de cet atelier
 
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=repo&amp;message=dev&amp;color=6f42c1&amp;logo=github)](https://github.com/QCBSRworkshops/workshop09)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=wiki&amp;message=09&amp;logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Slides&amp;message=09&amp;color=red&amp;logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=script&amp;message=09&amp;color=2a50b8&amp;logo=r)](https://qcbsrworkshops.github.io/workshop09/book-fr/workshop09-script-fr.R)
-
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Présentation&amp;message=09&amp;color=BF616A)](https://r.qcbs.ca/workshop09/pres-fr/workshop09-pres-fr.html)    [![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Script&amp;message=09&amp;color=D08770&amp;logo=r)](https://r.qcbs.ca/workshop09/book-fr/workshop09-script-fr.R) 
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Livre&amp;message=09&amp;color=EBCB8B)](https://r.qcbs.ca/workshop09/book-fr/index.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=Site&amp;message=r.qcbs.ca&amp;color=A3BE8C)](https://r.qcbs.ca/fr/workshops/r-workshop-09/)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&amp;label=GitHub&amp;message=09&amp;color=B48EAD&amp;logo=github)](https://github.com/QCBSRworkshops/workshop09) 
 
 ---
 
 &lt;p style="font-size:75%"&gt;
 
 .center[
-**Contributeurs et contributrices au développement de cet atelier**
+**Membres du CSBQ qui ont contribué à cet atelier**
 
 en modifiant et en améliorant son contenu dans le cadre du &lt;br&gt;Prix d'apprentissage et du développement (*Le*arning *a*nd *D*evelopment *A*ward*).
 ]
@@ -56,89 +57,63 @@ en modifiant et en améliorant son contenu dans le cadre du &lt;br&gt;Prix d'app
 
  **2022** - **2021** - **2020**
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
-[Katherine Hébert]()
+Katherine Hébert
 
-[Mi Lin]()
+Mi Lin
 
-[Linley Sherin]()
+Linley Sherin
 
-]
-]
 
-.pull-right[
-.left[
 **2019** - **2018** - **2017**
 
-[Gabriel Muñoz](https://github.com/fgabriel1891)
+Gabriel Muñoz
 
-[Marie Hélène-Brice]()
+Marie Hélène-Brice
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
 &lt;br&gt;
-
-**2016** - **2015** - **2014**
-
-[Bérenger Bourgeois]()
-
-[Xavier Giroux-Bougard]()
-
-[Amanda Winegardner]()
-
-[Emmanuelle Chrétien]()
-
-[Monica Granados]()
-
 ]
 ]
-&lt;/p&gt;
 
----
-&lt;p style="font-size:75%"&gt;
-
-.center[
-**Contributeurs et contributrices au développement de cet atelier**
-
-en modifiant et en améliorant son contenu dans le cadre du &lt;br&gt; Prix d'apprentissage et de développement (*Le*arning *a*nd *D*evelopment *A*ward)
-]
-
-
-.pull-left[
-.right[
-
- **2022** - **2021** - **2020**
-
-
-
-]
-]
 
 .pull-right[
 .left[
-**2019** - **2018** - **2017**
-
-
 
 **2016** - **2015** - **2014**
 
+Bérenger Bourgeois
 
+Xavier Giroux-Bougard
+
+Amanda Winegardner
+
+Emmanuelle Chrétien
+
+Monica Granados
 
 ]
-
 ]
 &lt;/p&gt;
+
+&lt;br&gt;
+.center[
+__Si vous voulez contribuer aussi__, visitez [r.qcbs.ca/fr/contributing](https://r.qcbs.ca/fr/contributing/) &lt;br&gt; et n'hésitez pas à [nous contacter](mailto:csbq.qcbs.r@gmail.com)!
+]
 
 ---
 
 # Matériel requis
 
-Pour suivre cet atelier, vous devez avoir téléchargé et installé les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
+Cet atelier requiert les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
 
 .pull-left[
 Vous devez également avoir installé ces paquets:
 * [ape](https://cran.r-project.org/package=ape)
+* [ade4](https://cran.r-project.org/package=ade4)
+* [codep](https://cran.r-project.org/package=codep)
 * [gclus](https://cran.r-project.org/package=gclus)
 * [vegan](https://cran.r-project.org/package=vegan)
 * [GGally](https://cran.r-project.org/package=GGally)
@@ -155,6 +130,8 @@ Pour les installer à partir de CRAN, roulez:
 
 ```r
 install.packages(c("ape", 
+                   "ade4",
+                   "codep",
                    "gclus", 
                    "vegan",
                    "GGally", 
@@ -167,7 +144,7 @@ install.packages(c("ape",
 &lt;br&gt;
 
 .pull-left2[
-Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reconnaître par ce cube de Rubix.
+Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reconnaître par ce cube de Rubik.
 
 **Pendant ces défis, n'hésitez pas à collaborer!**
 ]
@@ -303,6 +280,8 @@ Données de Verneaux (1973) :
 
 ---
 # Données de poissons de la rivière Doubs
+
+Vous pouvez télécharger les jeux de données sur [r.qcbs.ca/fr/workshops/r-workshop-09](http://r.qcbs.ca/fr/workshops/r-workshop-09/).
 
 Chargement des données espèces (`doubsspe.csv`)
 
@@ -1071,9 +1050,9 @@ cov(xyz)
 
 ```
 #          x        y        z
-# x  1.00384  0.01152 -0.00182
-# y  0.01152  0.98187 -0.01086
-# z -0.00182 -0.01086  0.96051
+# x  0.98137 -0.00024  0.01704
+# y -0.00024  0.99976 -0.00306
+# z  0.01704 -0.00306  1.01953
 ```
 
 Si les variables sont parfaitement indépendantes (ou non corrélées), la matrice de covariance `\(C(x, y, z)\)` est :
@@ -2604,17 +2583,10 @@ Trouvez l'erreur!
 - Données non centrées, beurk!
 ]
 
----
-# C'est l'heure du quiz !
-
-Trouvez l'erreur!
-
-![:scale 90%](images/Chall7_2.png)
-
 --
 
 .alert[
-- Les 2 premiers axes capturent 100% de la variation
+- Les 2 premiers axes capturent 100% de la variation.
 ]
 
 ---

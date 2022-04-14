@@ -1,5 +1,7 @@
 knitr
 ape
+ade4
+codep
 cluster
 gclus
 permute
@@ -9,3 +11,4 @@ ggplot2
 GGally
 PlaneGeometry
 remotes
+matlib
