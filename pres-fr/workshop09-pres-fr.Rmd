@@ -99,10 +99,10 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 
 # À propos de cet atelier
 
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Présentation&message=09&color=BF616A)](https://r.qcbs.ca/workshop09/pres-fr/workshop09-pres-fr.html)    [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Script&message=09&color=D08770&logo=r)](https://r.qcbs.ca/workshop09/book-fr/workshop09-script-fr.R)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Présentation&message=09&color=BF616A)](https://r.qcbs.ca/workshop09/pres-fr/workshop09-pres-fr.html)    [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Script&message=09&color=D08770&logo=r)](https://r.qcbs.ca/workshop09/book-fr/workshop09-script-fr.R) 
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Livre&message=09&color=EBCB8B)](https://r.qcbs.ca/workshop09/book-fr/index.html)
 [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Site&message=r.qcbs.ca&color=A3BE8C)](https://r.qcbs.ca/fr/workshops/r-workshop-09/)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub&message=09&color=B48EAD&logo=github)](https://github.com/QCBSRworkshops/workshop09)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub&message=09&color=B48EAD&logo=github)](https://github.com/QCBSRworkshops/workshop09) 
 
 ---
 
@@ -139,7 +139,6 @@ Pedro Henrique P. Braga
 <br>
 ]
 ]
-
 
 .pull-right[
 .left[
