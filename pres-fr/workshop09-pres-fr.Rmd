@@ -733,7 +733,6 @@ Si possible, faites cette partie avec les participants.
 Montrez-leur comment est structuré un objet de classe dist. Soulignez qu'il s'agit d'une matrice triangulaire inférieure, où les distances entre les mêmes objets sont cachées.
 
 ---
-
 # Standardisation
 
 La standardisation des variables environnementales est cruciale car vous ne pouvez pas comparer les effets de variables ayant des unités différentes :
@@ -905,9 +904,9 @@ spe.db <- as.matrix(spe.db.pa)
 ```
 
 --
-- La diagonale est égale à zéro, car les sites sont comparés les uns aux autres.  
-- Les sites 3 et 7 sont les plus similaires (*plus petite distance*).  
-- Les sites 1 et 9 sont les plus différents (1 = ils sont *complètement* différents).   
+- La diagonale est égale à zéro, car les sites sont comparés les uns aux autres.
+- Les sites 3 et 7 sont les plus similaires (*plus petite distance*).
+- Les sites 1 et 9 sont les plus différents (1 = ils sont *complètement* différents).
 
 ---
 
