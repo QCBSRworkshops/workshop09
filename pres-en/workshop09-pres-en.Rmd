@@ -128,11 +128,8 @@ Mi Lin
 
 Linley Sherin
 
-]
-]
+<br>
 
-.pull-right[
-.left[
 **2019** - **2018** - **2017**
 
 Gabriel Muñoz
@@ -140,9 +137,11 @@ Gabriel Muñoz
 Marie Hélène-Brice
 
 Pedro Henrique P. Braga
+]
+]
 
-<br>
-
+.pull-right[
+.left[
 **2016** - **2015** - **2014**
 
 Bérenger Bourgeois
@@ -159,7 +158,7 @@ Monica Granados
 ]
 </p>
 
-<br><br>
+<br>
 .center[
 __If you would like to contribute too__, visit [r.qcbs.ca/contributing](https://r.qcbs.ca/contributing/) <br> and don't hesitate to [get in touch](mailto:qcbs.csbq.r@gmail.com) with us!
 ]
@@ -575,18 +574,16 @@ a_{n,1} & a_{m,2} & \cdots & a_{n,n}
 .pull-right[
 
 .pull-left[
-
-**_R-mode_** 
-analysis
+$\leftarrow$ **_R-mode_** analysis 
 for descriptors or species
-
 ]
 
 .pull-right[
+$\uparrow$
 **_Q-mode_** analysis
 for objects or sites
-
 ]
+
 ]
 
 ---
