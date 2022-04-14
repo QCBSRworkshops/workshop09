@@ -52,18 +52,45 @@ htmltools::tagList(
 )
 ```
 
+```{r output-lines, echo = FALSE}
+# sometimes cache needs to be set to true in the knitr setup chunk for this to take effect
+# in xaringan::infinite_moon_reader()
+library(knitr)
+hook_output <- knit_hooks$get("output")
+knit_hooks$set(output = function(x, options) {
+   lines <- options$output.lines
+   if (is.null(lines)) {
+     return(hook_output(x, options))  # pass to default hook
+   }
+   x <- unlist(strsplit(x, "\n"))
+   more <- "..."
+   if (length(lines)==1) {        # first n lines
+     if (length(x) > lines) {
+       # truncate the output, but add ....
+       x <- c(head(x, lines), more)
+     }
+   } else {
+     x <- c(more, x[lines], more)
+   }
+   # paste these lines together
+   x <- paste(c(x, ""), collapse = "\n")
+   hook_output(x, options)
+ })
+```
+
+
 ```{r install_pkgs, message=FALSE, warning=FALSE, include=FALSE, results=0}
 # Standard procedure to check and install packages and their dependencies, if needed.
 
-list.of.packages <- c("ape", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib", "ade4")
+list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
 if(length(new.packages) > 0) {
-  install.packages(new.packages, dependencies = TRUE) 
-  print(paste0("The following package was installed:", new.packages)) 
+  install.packages(new.packages, dependencies = TRUE)
+  print(paste0("The following package was installed:", new.packages))
 } else if(length(new.packages) == 0) {
-    print("All packages were already installed previously")
+  print("All packages were already installed previously")
 }
 
 # Load all required libraries at once
@@ -72,19 +99,17 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 
 # À propos de cet atelier
 
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=repo&message=dev&color=6f42c1&logo=github)](https://github.com/QCBSRworkshops/workshop09)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=wiki&message=09&logo=wikipedia)](https://wiki.qcbs.ca/r_workshop9)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=html5)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.html)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Slides&message=09&color=red&logo=adobe-acrobat-reader)](https://qcbsrworkshops.github.io/workshop09/pres-fr/workshop09-pres-fr.pdf)
-[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=script&message=09&color=2a50b8&logo=r)](https://qcbsrworkshops.github.io/workshop09/book-fr/workshop09-script-fr.R)
-
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Présentation&message=09&color=BF616A)](https://r.qcbs.ca/workshop09/pres-fr/workshop09-pres-fr.html)    [![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Script&message=09&color=D08770&logo=r)](https://r.qcbs.ca/workshop09/book-fr/workshop09-script-fr.R)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Livre&message=09&color=EBCB8B)](https://r.qcbs.ca/workshop09/book-fr/index.html)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=Site&message=r.qcbs.ca&color=A3BE8C)](https://r.qcbs.ca/fr/workshops/r-workshop-09/)
+[![badge](https://img.shields.io/static/v1?style=for-the-badge&label=GitHub&message=09&color=B48EAD&logo=github)](https://github.com/QCBSRworkshops/workshop09)
 
 ---
 
 <p style="font-size:75%">
 
 .center[
-**Contributeurs et contributrices au développement de cet atelier**
+**Membres du CSBQ qui ont contribué à cet atelier**
 
 en modifiant et en améliorant son contenu dans le cadre du <br> Prix d'apprentissage et de développement (*Le*arning *a*nd *D*evelopment *A*ward)
 ]
@@ -94,53 +119,63 @@ en modifiant et en améliorant son contenu dans le cadre du <br> Prix d'apprenti
 
 **2022** - **2021** - **2020**
 
-[Pedro Henrique P. Braga]()
+Pedro Henrique P. Braga
 
-[Katherine Hébert]()
+Katherine Hébert
 
-[Mi Lin]()
+Mi Lin
 
-[Linley Sherin]()
+Linley Sherin
 
+
+**2019** - **2018** - **2017**
+
+Gabriel Muñoz
+
+Marie Hélène-Brice
+
+Pedro Henrique P. Braga
+
+<br>
 ]
 ]
+
 
 .pull-right[
 .left[
-**2019** - **2018** - **2017**
-
-[Gabriel Muñoz](https://github.com/fgabriel1891)
-
-[Marie Hélène-Brice]()
-
-[Pedro Henrique P. Braga]()
-
-<br>
 
 **2016** - **2015** - **2014**
 
-[Bérenger Bourgeois]()
+Bérenger Bourgeois
 
-[Xavier Giroux-Bougard]()
+Xavier Giroux-Bougard
 
-[Amanda Winegardner]()
+Amanda Winegardner
 
-[Emmanuelle Chrétien]()
+Emmanuelle Chrétien
 
-[Monica Granados]()
+Monica Granados
 
 ]
 ]
 </p>
+
+<br>
+.center[
+__Si vous voulez contribuer aussi__, visitez [r.qcbs.ca/fr/contributing](https://r.qcbs.ca/fr/contributing/) <br> et n'hésitez pas à [nous contacter](mailto:csbq.qcbs.r@gmail.com)!
+]
+
 ---
 
 # Matériel requis
 
-Pour suivre cet atelier, vous devez avoir téléchargé et installé les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
+Cet atelier requiert les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
 
 .pull-left[
 Vous devez également avoir installé ces paquets:
 * [ape](https://cran.r-project.org/package=ape)
+* [ade4](https://cran.r-project.org/package=ade4)
+* [codep](https://cran.r-project.org/package=codep)
 * [gclus](https://cran.r-project.org/package=gclus)
 * [vegan](https://cran.r-project.org/package=vegan)
 * [GGally](https://cran.r-project.org/package=GGally)
@@ -155,11 +190,13 @@ Vous devez également avoir installé ces paquets:
 Pour les installer à partir de CRAN, roulez:
 
 ```{r eval = FALSE}
-install.packages(c("ape", 
-                   "gclus", 
+install.packages(c("ape",
+                   "ade4",
+                   "codep",
+                   "gclus",
                    "vegan",
-                   "GGally", 
-                   "PlaneGeometry", 
+                   "GGally",
+                   "PlaneGeometry",
                    "remotes"))
 ```
 ]
@@ -168,7 +205,7 @@ install.packages(c("ape",
 <br>
 
 .pull-left2[
-Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reconnaître par ce cube de Rubix.
+Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reconnaître par ce cube de Rubik.
 
 **Pendant ces défis, n'hésitez pas à collaborer!**
 ]
@@ -218,7 +255,7 @@ Nous avons appris une multitude d'analyses qui nous ont permis d'interpréter de
 .pull-left[
 Nous pouvons rappeler les :
 
-1. Modèles linéaires généraux 
+1. Modèles linéaires généraux
   1. `lm()` ;
   2. `anova()` ;
   3. `t.test()` ;
@@ -247,7 +284,7 @@ Ces modèles nous ont permis de poser des questions telles que :
 
 Cependant, on peut être intéressé à faire des inférences à partir de données écologiques contenant _plus d'une_ variable dépendante.
 
-Cet intérêt peut être motivé par la validation d'hypothèses et la modélisation, mais peut aussi être entièrement exploratoire. 
+Cet intérêt peut être motivé par la validation d'hypothèses et la modélisation, mais peut aussi être entièrement exploratoire.
 
 --
 
@@ -318,7 +355,7 @@ $$Y = [y_{m,n}] =
 y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
 y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
 \end{bmatrix}$$
 
 où les lettres minuscules indiquent les _éléments_, et les lettres en indice indiquent la _position de ces éléments_ dans la matrice (et dans le tableau !).
@@ -354,7 +391,7 @@ $$Y = [y_{m,n}] =
 y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
 y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
 \end{bmatrix}$$
 
 où les lettres minuscules indiquent les _éléments_, et les lettres en indice indiquent la _position de ces éléments_ dans la matrice (et dans le tableau !).
@@ -375,7 +412,7 @@ En utilisant les données de notre matrice $Y$,
 
 
 <div class="math">
-\[ Y = 
+\[ Y =
 \begin{array}{cc}
 \begin{array}{ccc}
 x_1 \rightarrow\\
@@ -388,7 +425,7 @@ x_m \rightarrow\\
 y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
 y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
 \end{bmatrix}
 \end{array}
 \]
@@ -404,7 +441,7 @@ y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
 </div>
 
 <div class="math">
-\[x_2 \rightarrow 
+\[x_2 \rightarrow
 \begin{bmatrix}
 y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
 \end{bmatrix}
@@ -422,16 +459,16 @@ y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
 Nous pouvons remplir la matrice d'association $A_{n,n}$ avec les relations entre tous les objets de $Y$ :
 
 <div class="math">
-\[A_{n,n} = 
+\[A_{n,n} =
 \begin{bmatrix}
 a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
 a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-a_{n,1} & a_{n,2} & \cdots & a_{n,n} 
+a_{n,1} & a_{n,2} & \cdots & a_{n,n}
 \end{bmatrix}\]
 </div>
 
-<p>Parce que \(A_{n,n}\) a le même nombre de lignes et de colonnes, elle est notée <i>matrice carrée</i>.</p> 
+<p>Parce que \(A_{n,n}\) a le même nombre de lignes et de colonnes, elle est notée <i>matrice carrée</i>.</p>
 
 <p>Par conséquent, elle possède \(n^2\) éléments.</p>
 
@@ -446,38 +483,38 @@ a_{n,1} & a_{n,2} & \cdots & a_{n,n}
 Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la _**matrice d'association entre objets**_ et la _**matrice d'association entre descripteurs**_.
 
 
-Ces matrices sont la base des analyses **_mode Q_** et **_mode R_** en écologie. 
+Ces matrices sont la base des analyses **_mode Q_** et **_mode R_** en écologie.
 
 .pull-left[
-$$Y_{m,n} = 
+$$Y_{m,n} =
 \begin{bmatrix}
 y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
 y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
 \end{bmatrix}$$
 ]
 
 .pull-right[
 
-$$A_{m,m} = 
+$$A_{m,m} =
 \begin{bmatrix}
 a_{1,1} & a_{1,2} & \cdots & a_{1,m} \\
 a_{2,1} & a_{2,2} & \cdots & a_{2,m} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-a_{m,1} & a_{m,2} & \cdots & a_{m,m} 
+a_{m,1} & a_{m,2} & \cdots & a_{m,m}
 \end{bmatrix}$$
 
 ]
 
 .pull-left[
 
-$$A_{n,n} = 
+$$A_{n,n} =
 \begin{bmatrix}
 a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
 a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
 \vdots  & \vdots  & \ddots & \vdots  \\
-a_{n,1} & a_{m,2} & \cdots & a_{n,n} 
+a_{n,1} & a_{m,2} & \cdots & a_{n,n}
 \end{bmatrix}$$
 
 ]
@@ -507,7 +544,7 @@ Nous allons nous plonger dans les analyses en **R-mode** et **Q-mode**, et nous 
 3. Analyses de regroupement
 4. Analyses d'ordination dans l'espace réduit
 
-<br> 
+<br>
 
 .center[**Mais, tout d'abord, présentons un ensemble de données réelles.**]
 
@@ -519,7 +556,7 @@ Nous allons nous plonger dans les analyses en **R-mode** et **Q-mode**, et nous 
 .pull-left3[
 Verneaux (1973) a proposé d'utiliser les espèces de poissons pour caractériser les zones écologiques le long des cours d'eau européens.
 
-Il a recueilli des données dans **30 localités** le long de la rivière Doubs, qui coule près de la frontière franco-suisse, dans les montagnes du Jura. Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d'eau. 
+Il a recueilli des données dans **30 localités** le long de la rivière Doubs, qui coule près de la frontière franco-suisse, dans les montagnes du Jura. Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d'eau.
 ]
 
 .pull.right3[
@@ -542,19 +579,19 @@ Leurs données sont réparties en trois matrices :
 <br>
 ]
 
-.xsmall[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.] 
+.xsmall[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.]
 
 ---
 # Communautés de poissons de la rivière Doubs
 
 .pull-left3[
 
-Nous pouvons charger leurs données depuis le répertoire `data/` dans cet atelier :
+Vous pouvez télécharger les jeux de données sur [r.qcbs.ca/fr/workshops/r-workshop-09](http://r.qcbs.ca/fr/workshops/r-workshop-09/).
 
 ```{r}
-spe <- read.csv("data/doubsspe.csv", 
-                row.names = 1) 
-env <- read.csv("data/doubsenv.csv", 
+spe <- read.csv("data/doubsspe.csv",
+                row.names = 1)
+env <- read.csv("data/doubsenv.csv",
                 row.names = 1)
 ```
 
@@ -691,7 +728,7 @@ dim(as.matrix(dist(spe)))
 
 ]
 
-??? 
+???
 Si possible, faites cette partie avec les participants.
 
 Montrez-leur comment est structuré un objet de classe dist. Soulignez qu'il s'agit d'une matrice triangulaire inférieure, où les distances entre les mêmes objets sont cachées.
@@ -782,10 +819,10 @@ $$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
 xlim <- c(0,4)
 ylim <- c(-1,5)
 par(mar=c(1,1,1,1)+.1)
-plot(xlim, 
-     ylim, type="n", 
-     xlab="X1", 
-     ylab="X2", 
+plot(xlim,
+     ylim, type="n",
+     xlab="X1",
+     ylab="X2",
      asp=1)
 grid()
 # define some vectors
@@ -811,7 +848,7 @@ text(x=4.1, y=4.2, labels="x2")
 En utilisant `stats::dist()`, nous pouvons la calculer avec :
 
 ```{r, eval = T}
-spe.D.Euclid <- dist(x = spe,  
+spe.D.Euclid <- dist(x = spe,
                      method = "euclidean")
 ```
 
@@ -865,7 +902,7 @@ Après cela, examinez les chiffres, réfléchissez-y de manière critique et soy
 **Solution:**
 
 ```{r, eval = F}
-Y.hmm.DistEu <- dist(x = Y.hmm,  
+Y.hmm.DistEu <- dist(x = Y.hmm,
                      method = "euclidean")
 as.matrix(Y.hmm.DistEu)
 ```
@@ -877,7 +914,7 @@ as.matrix(Y.hmm.DistEu)
 **Résultat**:
 
 ```{r echo=FALSE}
-Y.hmm.DistEu <- dist(x = Y.hmm,  
+Y.hmm.DistEu <- dist(x = Y.hmm,
                      method = "euclidean")
 as.matrix(Y.hmm.DistEu)
 ```
@@ -949,12 +986,12 @@ $$D_{3} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y'_{1j} - y'_{2j})^2}$$
 Nous pouvons utiliser `vegan::vegdist()` pour cela :
 
 ```{r, eval = T}
-spe.D.Ch <- vegdist(spe,  
+spe.D.Ch <- vegdist(spe,
                     method = "chord")
 as.matrix(spe.D.Ch)[1:3, 1:3]
 ```
 
-Lorsque deux sites partagent les mêmes espèces dans les mêmes proportions du nombre d'individus, la valeur de $D_3$ est de $0$, et lorsqu'aucune espèce n'est partagée, sa valeur est de $\sqrt{2}$. 
+Lorsque deux sites partagent les mêmes espèces dans les mêmes proportions du nombre d'individus, la valeur de $D_3$ est de $0$, et lorsqu'aucune espèce n'est partagée, sa valeur est de $\sqrt{2}$.
 
 ]
 
@@ -982,7 +1019,7 @@ as.matrix(Y.hmm.DistEu)
 .pull-right[
 
 ```{r, eval = T}
-Y.hmm.DistCh <- vegdist(Y.hmm,  
+Y.hmm.DistCh <- vegdist(Y.hmm,
                     method = "chord")
 ```
 
@@ -993,7 +1030,7 @@ as.matrix(Y.hmm.DistCh)
 
 --
 
-L'ajout d'un nombre quelconque de doubles zéros à une paire de sites ne modifie pas la valeur de $D_3$. 
+L'ajout d'un nombre quelconque de doubles zéros à une paire de sites ne modifie pas la valeur de $D_3$.
 
 Par conséquent, les _distances de cordes_ peuvent être utilisées pour comparer des sites décrits par des abondances d'espèces !
 
@@ -1010,7 +1047,7 @@ où,
 
 - $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
 - $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
-- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, _c.-à-d._ toutes deux $0$. 
+- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, _c.-à-d._ toutes deux $0$.
 
 --
 
@@ -1057,7 +1094,7 @@ $$D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}$$
 où,
 - $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
 - $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
-- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, _c.-à-d. _ toutes deux $0$. 
+- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, _c.-à-d. _ toutes deux $0$.
 
 ---
 # Mesures de (dis)similarité : Bray-Curtis
@@ -1103,7 +1140,7 @@ Dans `R`, vous pouvez utiliser la fonction `vegan::vegdist()` pour calculer les 
 .pull-left[
 
 ```{r}
-spe.D.Jac <- vegdist(spe, 
+spe.D.Jac <- vegdist(spe,
                      method = "jaccard",
                      binary = TRUE)
 ```
@@ -1113,7 +1150,7 @@ spe.D.Jac <- vegdist(spe,
 .pull-right[
 
 ```{r}
-spe.D.Sor <- vegdist(spe, 
+spe.D.Sor <- vegdist(spe,
                      method = "bray",
                      binary = TRUE)
 ```
@@ -1127,7 +1164,7 @@ Pour calculer le _coefficient de dissimilarité de Bray-Curtis_, qui peut tenir 
 
 
 ```{r}
-spe.D.Bray <- vegdist(spe, 
+spe.D.Bray <- vegdist(spe,
                       method = "bray",
                       binary = FALSE)
 ```
@@ -1141,42 +1178,42 @@ Nous pouvons créer des représentations graphiques des matrices d'association e
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
 #
-# License: GPL-2 
+# License: GPL-2
 # Author: Francois Gillet, 23 August 2012
 #
 "coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
 {
   require(gclus)
-  
+
   if (max(D)>1) D <- D/max(D)
-  
+
   if (byrank) {
     spe.color <- dmat.color(1-D, cm.colors(nc))
   }
   else {
     spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
   }
-  
+
   spe.o <- order.single(1-D)
   speo.color <- spe.color[spe.o, spe.o]
-  
+
   op <- par(mfrow=c(1,2), pty="s")
-  
+
   if (diag) {
-    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-               main="Dissimilarity Matrix", 
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
+               main="Dissimilarity Matrix",
                dlabels=attributes(D)$Labels)
-    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-               main="Ordered Dissimilarity Matrix", 
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
+               main="Ordered Dissimilarity Matrix",
                dlabels=attributes(D)$Labels[spe.o])
   }
   else {
-    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
                main="Dissimilarity Matrix")
-    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
                main="Ordered Dissimilarity Matrix")
   }
-  
+
   par(op)
 }
 # Usage:
@@ -1200,7 +1237,7 @@ coldiss(spe.D.Jac)
 
 Les communautés échantillonnées dans des conditions environnementales homogènes ou courtes peuvent avoir des compositions d'espèces avec peu de zéros, de sorte que les distances euclidiennes pourraient suffire à les caractériser.
 
-Néanmoins, c'est rarement la réalité. 
+Néanmoins, c'est rarement la réalité.
 
 Les espèces peuvent être très fréquentes lorsque les conditions sont favorables, ou être absentes de nombreux sites. Parfois, cette asymétrie peut introduire des problèmes parasites dans nos analyses.
 
@@ -1208,7 +1245,7 @@ Nous pouvons alors être amenés à transformer nos données de composition pour
 
 --
 
-Dans `R`, nous pouvons compter sur `vegan::decostand()` pour de nombreux types de transformations. 
+Dans `R`, nous pouvons compter sur `vegan::decostand()` pour de nombreux types de transformations.
 
 Jetez un coup d'oeil à l'aide de cette fonction pour voir les options disponibles :
 
@@ -1228,7 +1265,7 @@ Rappelons notre ensemble de données `spe` :
 
 ```{r}
 spe[1:6, 1:6]
-``` 
+```
 ]
 
 Transformons les abondances `spe` en présence-absence :
@@ -1250,13 +1287,13 @@ Rappelons notre jeu de données `spe` :
 
 ```{r}
 spe[1:5, 1:6]
-``` 
+```
 ]
 
 Avec `decostand()`:
 
 ```{r}
-spe.total <- decostand(spe, 
+spe.total <- decostand(spe,
                        method = "total")
 spe.total[1:5, 1:6]
 ```
@@ -1278,13 +1315,13 @@ Rappelons notre jeu de données `spe` :
 
 ```{r}
 spe[1:5, 1:6]
-``` 
+```
 ]
 
 Avec `decostand()`:
 
 ```{r}
-spe.total <- decostand(spe, 
+spe.total <- decostand(spe,
                        method = "hellinger")
 spe.total[1:5, 1:6]
 ```
@@ -1299,7 +1336,7 @@ Visualisez le nombre d'espèces présentes sur chaque site :
 par(mar = c(4,4,1,.5), cex = 1.5)
 site.pre <- rowSums(spe > 0)
 barplot(site.pre, main = "Species richness",
-        xlab = "Sites", 
+        xlab = "Sites",
         ylab = "Number of species",
         col = "grey ", las = 1)
 ```
@@ -1313,42 +1350,42 @@ exclude: true
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
 #
-# License: GPL-2 
+# License: GPL-2
 # Author: Francois Gillet, 23 August 2012
 #
 "coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
 {
   require(gclus)
-  
+
   if (max(D)>1) D <- D/max(D)
-  
+
   if (byrank) {
     spe.color <- dmat.color(1-D, cm.colors(nc))
   }
   else {
     spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
   }
-  
+
   spe.o <- order.single(1-D)
   speo.color <- spe.color[spe.o, spe.o]
-  
+
   op <- par(mfrow=c(1,2), pty="s")
-  
+
   if (diag) {
-    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-               main="Dissimilarity Matrix", 
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
+               main="Dissimilarity Matrix",
                dlabels=attributes(D)$Labels)
-    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-               main="Ordered Dissimilarity Matrix", 
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
+               main="Ordered Dissimilarity Matrix",
                dlabels=attributes(D)$Labels[spe.o])
   }
   else {
-    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
                main="Dissimilarity Matrix")
-    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
                main="Ordered Dissimilarity Matrix")
   }
-  
+
   par(op)
 }
 # Usage:
@@ -1376,7 +1413,7 @@ class: inverse, middle, center
 ---
 # Regroupement
 
-Une application des matrices d'association est le _regroupement hierarchique._ 
+Une application des matrices d'association est le _regroupement hierarchique._
 
 Le regroupement met en évidence les structures des données en partitionnant soit les objets, soit les descripteurs.
 
@@ -1428,7 +1465,7 @@ voisins), les objets les plus proches s'agglomèrent.
 ce qui génère souvent de longues et fines grappes ou chaînes d'objets. À l'inverse, dans le clustering agglomératif à liens complets, un objet ne s'agglomère à un groupe que lorsqu'il est lié à l'élément le plus éloigné du groupe, qui le lie à son tour à tous les membres de ce groupe. Il formera de nombreux petits groupes séparés, et est plus approprié pour rechercher des contrastes, des discontinuités dans les données.
 Le clustering à variance minimale de Ward diffère de ces deux méthodes en ce que
 elle regroupe les objets en groupes en utilisant le critère des moindres carrés
-(similaire aux modèles linéaires). Son dendogramme montre par défaut les distances au carré. Pour comparer avec d'autres méthodes, calculez d'abord la racine carrée des distances. 
+(similaire aux modèles linéaires). Son dendogramme montre par défaut les distances au carré. Pour comparer avec d'autres méthodes, calculez d'abord la racine carrée des distances.
 
 ---
 
@@ -1444,7 +1481,7 @@ elle regroupe les objets en groupes en utilisant le critère des moindres carré
 
 - Les objets sont répartis en petits groupes (1-2, 3-4, 5)
 
-- Relier les petits groupes en utilisant la plus grande distance entre leurs éléments 
+- Relier les petits groupes en utilisant la plus grande distance entre leurs éléments
 * (1-3=0,15, 2-4=0,35, 2-3=0,6, choisir 0,6 pour relier le groupe 1-2 et 3-4)
 
 
@@ -1561,7 +1598,7 @@ Ici, nous allons explorer :
 .small[
 .center[
 .pull-left2[
-**A**nalyse des **C**omposants **P**rincipales 
+**A**nalyse des **C**omposants **P**rincipales
 
 **A**nalyse des **Co**ordonnées **P**rincipales
 ]
@@ -1620,10 +1657,10 @@ $$cov_{x,z}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(z_{i}-\bar{z})}{N-1}$$
 $$cov_{z,y}=\frac{\sum_{i=1}^{N}(z_{i}-\bar{z})(y_{i}-\bar{y})}{N-1}$$
 Nous pouvons représenter ces calculs dans une **matrice de covariance** :
 
-$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+$${C(x, y, z)} = \left[ \begin{array}{ccc}
 cov_{x,x} & cov_{y,x} & cov_{z,x} \\
 cov_{x,y} & cov_{y,y} & cov_{z,y} \\
-cov_{x,z} & cov_{y,z} & cov_{z,z}   
+cov_{x,z} & cov_{y,z} & cov_{z,z}
 \end{array} \right]$$
 
 --
@@ -1643,18 +1680,18 @@ $$cov_{x,x}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(x_{i}-\bar{x})}{N} = \frac{\sum_
 
 Afin que :
 
-$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+$${C(x, y, z)} = \left[ \begin{array}{ccc}
 cov_{x,x} & cov_{y,x} & cov_{z,x} \\
 cov_{x,y} & cov_{y,y} & cov_{z,y} \\
-cov_{x,z} & cov_{y,z} & cov_{z,z}   
-\end{array} \right] = \left[ \begin{array}{ccc} 
+cov_{x,z} & cov_{y,z} & cov_{z,z}
+\end{array} \right] = \left[ \begin{array}{ccc}
 var_{x} & cov_{y,x} & cov_{z,x} \\
 cov_{x,y} & var_{y} & cov_{z,y} \\
-cov_{x,z} & cov_{y,z} & var_{z}   
+cov_{x,z} & cov_{y,z} & var_{z}
 \end{array} \right]$$
 
  <br>
- 
+
 .center[La covariance d'une variable avec elle-même est sa *variance* !]
 
 ---
@@ -1671,7 +1708,7 @@ z <- rnorm(5000, mean = 0, sd = 1)
 
 xyz <- data.frame(x, y, z)
 
-GGally::ggpairs(xyz) 
+GGally::ggpairs(xyz)
 ```
 ]
 
@@ -1688,10 +1725,10 @@ round(cov(xyz), digits = 5)
 
 Si les variables sont parfaitement indépendantes (ou non corrélées), la matrice de covariance $C(x, y, z)$ est :
 
-$${C(x, y, z)} =  \left[ \begin{array}{ccc} 
+$${C(x, y, z)} =  \left[ \begin{array}{ccc}
 var_{x} & 0 & 0 \\
 0 & var_{y} & 0 \\
-0 & 0 & var_{z}   
+0 & 0 & var_{z}
 \end{array} \right]$$
 
 *i*.*e*. une covariance plus proche de $1$ signifie que les variables sont *colinéaires*.
@@ -1703,7 +1740,7 @@ Et ici, $var_{x} = var_{y} = var_{z} = 1$.
 ---
 ## Transformations linéaires
 
-Nous sommes souvent intéressés à l'observation des variables d'autres *formes*. 
+Nous sommes souvent intéressés à l'observation des variables d'autres *formes*.
 
 Pour cela, nous créons une nouvelle variable, disons $x_{new}$, en utilisant des constantes pour modifier la variable originale $x$. Par exemple :
 
@@ -1715,7 +1752,7 @@ $$d_{mi} = 0.62 \times d_{km}$$
 ]
 
 .pull-right[
-On peut aussi transformer des degrés Fahrenheit en degrés Celsius : 
+On peut aussi transformer des degrés Fahrenheit en degrés Celsius :
 
 $$T_{C} = 0.5556\times T_{Fahr} - 17.778$$
 ]
@@ -1738,7 +1775,7 @@ $$x' = x_i - \bar{x}$$
 $$x'' = \frac{x_i}{\sigma_x}$$
 ]
 
-??? 
+???
 
 Le centrage est essentiellement une technique où la moyenne des variables indépendantes est soustraite de toutes les valeurs. Cela signifie que toutes les variables indépendantes ont une moyenne nulle. La réduction est complementaire au centrage. Les variables prédictives sont divisées par leur écart type.
 
@@ -1752,8 +1789,8 @@ Le présentateur doit mentionner ici que le centrage amène la moyenne à zéro 
 
 Pour une matrice carrée, $A_{n \times n}$, un vecteur $v$ est un *vecteur propre* de $A$ s'il y a un *scalaire*, $\lambda$, pour lequel :
 
-.center[ 
-$A_{n \times n} v_{n \times 1} = \lambda  v_{n \times 1}$, or $\left(\begin{matrix}a_{11}&\cdots&a_{1n}\\\vdots&\ddots&\vdots\\a_{1n}&\cdots&a_{nn}\\\end{matrix}\right)\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)=\lambda\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)$ 
+.center[
+$A_{n \times n} v_{n \times 1} = \lambda  v_{n \times 1}$, or $\left(\begin{matrix}a_{11}&\cdots&a_{1n}\\\vdots&\ddots&\vdots\\a_{1n}&\cdots&a_{nn}\\\end{matrix}\right)\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)=\lambda\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)$
 ]
 
 la valeur de $\lambda$ étant la *valeur propre* correspondante.
@@ -1794,15 +1831,15 @@ En revanche, la flèche rouge a changé de direction, et *n'est donc pas* un *ve
 ```{r echo = FALSE}
 library(PlaneGeometry)
 
-P <- c(0, 0) 
-w <- c(1, 0) 
+P <- c(0, 0)
+w <- c(1, 0)
 
-ratio <- 1 
+ratio <- 1
 angle <- 30
 
-shear <- Shear$new(P, 
-                   w, 
-                   ratio, 
+shear <- Shear$new(P,
+                   w,
+                   ratio,
                    angle)
 
 wt <- ratio * c(-w[2], w[1])
@@ -1818,22 +1855,22 @@ D <- shear$transform(S)
 
 plot(0, 0, type = "n", asp = 1, xlim = c(0,1), ylim = c(0,2))
 
-lines(rbind(P, Q, R, S, P), 
+lines(rbind(P, Q, R, S, P),
       lwd = 2) # unit square
 
-lines(rbind(A, B, C, D, A), 
-      lwd = 2, 
+lines(rbind(A, B, C, D, A),
+      lwd = 2,
       col = "blue") # image by the shear
 
-arrows(x0 = A[1], 
-       y0 = A[2], 
+arrows(x0 = A[1],
+       y0 = A[2],
        x1 = B[1],
        y1 = B[2],
        col = "red",
        lwd = 2)
 
-arrows(x0 = A[1], 
-       y0 = A[2], 
+arrows(x0 = A[1],
+       y0 = A[2],
        x1 = D[1],
        y1 = D[2],
        col = "purple",
@@ -1846,7 +1883,7 @@ arrows(x0 = A[1],
 ##### Décomposition des matrices en éléments propres : implications
 
 .center[
-*Suivons avec la torture algébrique !* 
+*Suivons avec la torture algébrique !*
 ]
 
 ### Orthogonalité
@@ -1872,7 +1909,7 @@ Maintenant, soustrayons la deuxième équation de la première et utilisons la c
 
 $y^{\intercal}Ax-x^{\intercal}A^{\intercal}y=\lambda_1y^{\intercal}x - \lambda_2x^{\intercal}y \\ 0 = (\lambda_1 - \lambda_2)y^{\intercal}x$
 
-Parce que nous savons que $\lambda_1-\lambda_2\neq 0$, alors 
+Parce que nous savons que $\lambda_1-\lambda_2\neq 0$, alors
 $y^{\intercal}x = 0$, *c-*.*à*.*-d*., $\mathbf{x}\perp\mathbf{y}$, *c-*.*à*.*-d*. sont **orthogonaux** !
 
 *Alors, que révèle la décomposition de la matrice de variance-covariance en elements propres ?*
@@ -1880,13 +1917,13 @@ $y^{\intercal}x = 0$, *c-*.*à*.*-d*., $\mathbf{x}\perp\mathbf{y}$, *c-*.*à*.*-
 
 ???
 
-L'explication de cette partie est très utile et assez simple, afin que chacun puisse comprendre ce qu'est l'orthogonalité. Il s'agit d'opérations simples d'équations et de soustractions.  
+L'explication de cette partie est très utile et assez simple, afin que chacun puisse comprendre ce qu'est l'orthogonalité. Il s'agit d'opérations simples d'équations et de soustractions.
 
 ---
 ##### Décomposition des matrices en éléments propres : implications
 
 .center[
-*Suivons avec la torture algébrique !* 
+*Suivons avec la torture algébrique !*
 ]
 
 ### Maximisation
@@ -1894,7 +1931,7 @@ L'explication de cette partie est très utile et assez simple, afin que chacun p
 .pull-left[
 Si $v_i' v_i = 1$, alors $Av_i=\lambda_iv_i$ peut être écrite comme :
 $$v_i' A v_i = \lambda_i$$
-En effet, $v' A v$ 
+En effet, $v' A v$
 est la variance d'une combinaison linéaire avec des poids en $v$, *i*.*e*. $\text{Var}(v_i'\,A)=v_i'\,\text{Var}(A)\,v_i$.
 
 *Donc, on peut relier les points !*
@@ -1956,7 +1993,7 @@ En bref, l'ACP transforme *linéairement* des variables originales vers des nouv
 $$Z_p = ∑_{j=1}^p ϕ_j * X_j$$
 ]
 .small[
-où, 
+où,
 1. $Z_p$ est la composante principale $p$ ;
 2. $ϕ_j$ est le vecteur de charge comprenant les $j$ charges pour la composante principale $p$, c.-à-d. les coefficients de la combinaison linéaire des variables originales à partir desquelles les composantes principales sont construites ;
 3. $X_j$ est le prédicteur normalisé, c.-à-d. avec une moyenne égale à zéro et un écart-type égal à un.
@@ -2011,7 +2048,7 @@ Dans `R`, à partir de zéro !
 ```{r}
 data(varechem)
 
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 head(Y)
@@ -2034,7 +2071,7 @@ Dans `R`, à partir de zéro !
 ```{r}
 data(varechem)
 
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 # Étape 2
@@ -2067,7 +2104,7 @@ Dans `R`, à partir de zéro !
 ```{r}
 data(varechem)
 
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 # Étape 2
@@ -2124,7 +2161,7 @@ Les *vecteurs propres* sont ici les **composantes principales**, et comme nous l
 
 Nous pouvons représenter les distances des observations au premier vecteur propre (`PC1`, en rouge).
 
-La première composante principale est dessinée de façon à ce que la variation des valeurs le long de sa ligne soit maximale. 
+La première composante principale est dessinée de façon à ce que la variation des valeurs le long de sa ligne soit maximale.
 
 Les flèches sur les composantes principales sont obtenues en multipliant leurs *valeurs propres* par les *vecteurs propres*.
 ]
@@ -2137,43 +2174,43 @@ colnames(Eigenvectors.) <- c("PC1", "PC2")
 Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
 Y_std <- as.data.frame(Y_std)
 
-plot(N ~ P, 
-     col = as.factor(rownames(Y_std)), 
-     main="Distances to PC1", 
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+plot(N ~ P,
+     col = as.factor(rownames(Y_std)),
+     main="Distances to PC1",
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-# abline(0, 
+# abline(0,
 #        Eigenvectors[1, 2]/Eigenvectors[2, 2],
 #        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-# arrows(x0 = 0, 
-#        y0 = 0, 
-#        x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+# arrows(x0 = 0,
+#        y0 = 0,
+#        x1 = Eigenvalues[2]*Eigenvectors[1,2],
 #        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-#        col = "orange", 
+#        col = "orange",
 #        lwd = 2)
 
 # Plot the lines from first evector to points
 
-line1 <- c(0, 
+line1 <- c(0,
            Eigenvectors[2, 1]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line1){
@@ -2182,30 +2219,30 @@ perp.segment.coord <- function(x0, y0, line1){
   b <- line1[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line1)
 # do.call(segments, ss)
 # which is the same as:
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'purple')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4))
 ```
 ]
@@ -2239,42 +2276,42 @@ colnames(Eigenvectors.) <- c("PC1", "PC2")
 Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
 Y_std <- as.data.frame(Y_std)
 
-plot(N ~ P, 
-     col = as.factor(rownames(Y_std)), 
-     main="Distances to PC2", 
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+plot(N ~ P,
+     col = as.factor(rownames(Y_std)),
+     main="Distances to PC2",
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-abline(0, 
+abline(0,
        Eigenvectors[1, 2]/Eigenvectors[2, 2],
        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-arrows(x0 = 0, 
-       y0 = 0, 
-       x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+arrows(x0 = 0,
+       y0 = 0,
+       x1 = Eigenvalues[2]*Eigenvectors[1,2],
        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-       col = "orange", 
+       col = "orange",
        lwd = 2)
 
 
-line2 <- c(0, 
+line2 <- c(0,
            Eigenvectors[1, 2]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line2){
@@ -2282,29 +2319,29 @@ perp.segment.coord <- function(x0, y0, line2){
   b <- line2[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line2)
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'orange')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4)
      )
 ```
@@ -2313,7 +2350,7 @@ with(Y_std,
 
 --
 .pull-left[
-*Nous avons représenté les vecteurs propres, c.-à-d. les composantes principales !* 
+*Nous avons représenté les vecteurs propres, c.-à-d. les composantes principales !*
 
 *Mais, quelle est l'utilité des valeurs propres ?*
 ]
@@ -2371,7 +2408,7 @@ Enfin, nous pouvons procéder à la dernière étape de notre analyse des compos
 En `R`, à partir de zéro !
 
 ```{r}
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 # Étape 2
@@ -2380,7 +2417,7 @@ Y_std <- as.matrix(scale(Y))
 # Étape 3
 Y_R <- cov(Y_std)
 
-# Étape 4 
+# Étape 4
 Eigenvalues <- eigen(Y_R)$values
 Eigenvectors <- eigen(Y_R)$vectors
 
@@ -2397,8 +2434,8 @@ head(F_PrComps)
 La *matrice des coordonnées*, $F$, (objet `F_PrComps`) permet de *rotationner* le nouvel espace de données, afin qu'il soit représenté par rapport aux composantes principales.
 
 .pull-left[
-.center[ 
-$\text{N}$ ~ $\text{P}$ 
+.center[
+$\text{N}$ ~ $\text{P}$
 ]
 
 ```{r echo=FALSE, fig.height = 6.5, fig.width = 3.5}
@@ -2412,44 +2449,44 @@ op <- par(mfrow = c(2, 1),     # 2x2 layout
     oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
     mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
     mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
-    )       
+    )
 
-plot(N ~ P, 
+plot(N ~ P,
      col = as.factor(rownames(Y_std)),
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-# abline(0, 
+# abline(0,
 #        Eigenvectors[1, 2]/Eigenvectors[2, 2],
 #        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-# arrows(x0 = 0, 
-#        y0 = 0, 
-#        x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+# arrows(x0 = 0,
+#        y0 = 0,
+#        x1 = Eigenvalues[2]*Eigenvectors[1,2],
 #        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-#        col = "orange", 
+#        col = "orange",
 #        lwd = 2)
 
 # Plot the lines from first evector to points
 
-line1 <- c(0, 
+line1 <- c(0,
            Eigenvectors[2, 1]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line1){
@@ -2457,68 +2494,68 @@ perp.segment.coord <- function(x0, y0, line1){
   b <- line1[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line1)
 # do.call(segments, ss)
 # which is the same as:
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'purple')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4))
 
 
-plot(N ~ P, 
+plot(N ~ P,
      col = as.factor(rownames(Y_std)),
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-abline(0, 
+abline(0,
        Eigenvectors[1, 2]/Eigenvectors[2, 2],
        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-arrows(x0 = 0, 
-       y0 = 0, 
-       x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+arrows(x0 = 0,
+       y0 = 0,
+       x1 = Eigenvalues[2]*Eigenvectors[1,2],
        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-       col = "orange", 
+       col = "orange",
        lwd = 2)
 
 
-line2 <- c(0, 
+line2 <- c(0,
            Eigenvectors[1, 2]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line2){
@@ -2526,29 +2563,29 @@ perp.segment.coord <- function(x0, y0, line2){
   b <- line2[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line2)
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'orange')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4)
      )
 
@@ -2561,8 +2598,8 @@ par(op)
 ]
 
 .pull-right[
-.center[ 
-$\text{PC}1$ ~ $\text{PC}2$ 
+.center[
+$\text{PC}1$ ~ $\text{PC}2$
 ]
 
 ```{r echo=FALSE, fig.height = 6.5, fig.width = 3.5}
@@ -2577,9 +2614,9 @@ op <- par(mfrow = c(2, 1),     # 2x2 layout
 )
 
 
-plot(PC2 ~ PC1, 
-     col = as.factor(rownames(score)), 
-     pch = 19, 
+plot(PC2 ~ PC1,
+     col = as.factor(rownames(score)),
+     pch = 19,
      xlim = c(-2.2, 2.2), ylim = c(-2.2,2.2), xlab='PC1', ylab='PC2',data = score)
 
 abline(h = 0, col = 'purple')
@@ -2601,7 +2638,7 @@ points(PC2 ~ PC1, col=as.factor(rownames(score)), pch = 19, xlab='V1', ylab='V2'
 with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
 
 
-plot(PC2 ~ PC1, col=as.factor(rownames(score)), 
+plot(PC2 ~ PC1, col=as.factor(rownames(score)),
      pch = 19, xlim=c(-2.2, 2.2), ylim = c(-2.2,2.2),
      xlab='PC1', ylab='PC2',data=score)
 
@@ -2612,7 +2649,7 @@ abline(v = 0, col ='orange')
 perp.segment.vert <- function(x0, y0){
   x1 <- 0
   y1 <- y0
-  
+
   list(x0 = x0, y0 = y0, x1 = x1, y1 = y1)
 }
 
@@ -2626,7 +2663,7 @@ with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
 
 title(xlab = "PC1",
       ylab = "PC2",
-      outer = TRUE, 
+      outer = TRUE,
       line = 3)
 
 par(op)
@@ -2652,7 +2689,7 @@ L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `
 ```{r}
 data(varechem)
 
-Y <- varechem[, 1:2] 
+Y <- varechem[, 1:2]
 Y_std <- as.matrix(scale(Y))
 Y_R <- cov(Y_std)
 
@@ -2669,8 +2706,8 @@ head(F_PrComps)
 <br>
 `stats::prcomp()`?
 ```{r}
-PCA_prcomp <- prcomp(Y, 
-                     center = TRUE, 
+PCA_prcomp <- prcomp(Y,
+                     center = TRUE,
                      scale = TRUE)
 
 # or PCA_prcomp <- prcomp(Y_std)
@@ -2691,7 +2728,7 @@ L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `
 ```{r}
 data(varechem)
 
-Y <- varechem[, 1:2] 
+Y <- varechem[, 1:2]
 Y_std <- as.matrix(scale(Y))
 Y_R <- cov(Y_std)
 
@@ -2726,7 +2763,7 @@ L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `
 ```{r}
 data(varechem)
 
-Y <- varechem[, 1:2] 
+Y <- varechem[, 1:2]
 Y_std <- as.matrix(scale(Y))
 Y_R <- cov(Y_std)
 
@@ -2745,8 +2782,8 @@ head(F_PrComps)
 ```{r}
 PCA_vegan_rda <- rda(Y_std)
 
-scores(PCA_vegan_rda, 
-       display = "sites", 
+scores(PCA_vegan_rda,
+       display = "sites",
        scaling = 1,
        choices = seq_len(PCA_vegan_rda$CA$rank),
        const = sqrt(PCA_vegan_rda$tot.chi * (nrow(PCA_vegan_rda$CA$u) - 1)))[1:5, ]
@@ -2927,13 +2964,13 @@ head(bstick(spe.h.pca))
 
 .pull-right[
 ```{r, echo = TRUE, fig.width=4.5, fig.height = 4.5}
-screeplot(spe.h.pca, 
+screeplot(spe.h.pca,
           bstick = TRUE, type = "lines")
 ```
 ]
 
 ---
-## Analyse en composantes principales 
+## Analyse en composantes principales
 
 Il ne reste plus qu'à discuter de la *mise à l'échelle* et à *visualiser* nos résultats.
 
@@ -3063,7 +3100,7 @@ Soyez prêt à discuter et à répondre :
 Calculer l'ACP sur les données d'espèces transformées par Hellinger.
 
 ```{r}
-mite.spe.hel <- decostand(mite, 
+mite.spe.hel <- decostand(mite,
                           method = "hellinger")
 
 mite.spe.h.pca <- rda(mite.spe.hel)
@@ -3078,13 +3115,13 @@ Appliquer le critère de Kaiser-Guttman
 ev <- mite.spe.h.pca$CA$eig
 ev[ev>mean(ev)]
 n <- length(ev)
-barplot(ev, main = "Eigenvalues", 
+barplot(ev, main = "Eigenvalues",
         col = "grey", las = 2)
 abline(h = mean(ev),
        col = "red3", lwd = 2)
-legend("topright", 
-       "Average eigenvalue", 
-       lwd = 2, 
+legend("topright",
+       "Average eigenvalue",
+       lwd = 2,
        col = "red3", bty = "n")
 ```
 ]
@@ -3094,13 +3131,13 @@ legend("topright",
 par(mar=c(4,4,2,1), cex = 1.2)
 ev <- mite.spe.h.pca$CA$eig
 n <- length(ev)
-barplot(ev, main = "Eigenvalues", 
+barplot(ev, main = "Eigenvalues",
         col = "grey", las = 2)
 abline(h = mean(ev),
        col = "red3", lwd = 2)
-legend("topright", 
-       "Average eigenvalue", 
-       lwd = 2, col = "red3", 
+legend("topright",
+       "Average eigenvalue",
+       lwd = 2, col = "red3",
        bty = "n")
 ```
 ]
@@ -3110,14 +3147,14 @@ legend("topright",
 
 ```{r, echo = -1, fig.height=6.5, fig.width=7}
 par(mar = c(4,4,0.05,0.05), cex = 1.5)
-biplot(mite.spe.h.pca, 
+biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 ```
 
 ---
 # Analyse des coordonnées principales
 
-La **ACoP** (*PCoA*, en anglais) est similaire dans son esprit à l'ACP, mais elle prend des *dissimilarités* comme données d'entrée ! 
+La **ACoP** (*PCoA*, en anglais) est similaire dans son esprit à l'ACP, mais elle prend des *dissimilarités* comme données d'entrée !
 
 Elle vise à représenter fidèlement les distances avec l'espace dimensionnel le plus bas possible.
 
@@ -3180,12 +3217,12 @@ spe.bray.pcoa$values$Eigenvalues
 ]
 
 .pull-right[
-Notez les valeurs propres négatives ! 
+Notez les valeurs propres négatives !
 
 Cela est dû au fait que les distances non métriques ne peuvent pas être représentées dans l'espace euclidien sans corrections (*voir* Legendre & Legendre 2012 pour plus de détails à ce sujet) :
 
 ```{r}
-spe.bray.pcoa <- pcoa(spe.db.pa, 
+spe.bray.pcoa <- pcoa(spe.db.pa,
                       correction = "cailliez")
 ```
 ]
@@ -3335,7 +3372,7 @@ text(scores(spe.nmds, display = "species", choices = c(1)),
 
 .pull-left[
 
-Le biplot du PMnM montre un groupe de sites fermés caractérisés par les espèces BLA, TRU, VAI, LOC, CHA et OMB, tandis que les autres espèces forment un groupe de sites dans la partie supérieure droite du graphique. 
+Le biplot du PMnM montre un groupe de sites fermés caractérisés par les espèces BLA, TRU, VAI, LOC, CHA et OMB, tandis que les autres espèces forment un groupe de sites dans la partie supérieure droite du graphique.
 
 Quatre sites dans la partie inférieure du graphique sont fortement différents des autres.
 ]
@@ -3440,17 +3477,10 @@ Trouvez l'erreur!
 - Données non centrées, beurk!
 ]
 
----
-# C'est l'heure du quiz !
-
-Trouvez l'erreur!
-
-![:scale 90%](images/Chall7_2.png)
-
 --
 
 .alert[
-- Les 2 premiers axes capturent 100% de la variation
+- Les 2 premiers axes capturent 100% de la variation.
 ]
 
 ---
