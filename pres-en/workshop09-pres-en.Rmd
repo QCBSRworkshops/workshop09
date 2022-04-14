@@ -756,6 +756,25 @@ head(spe)    # first 6 rows
 ]
 
 ---
+# Standardization
+
+Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units:
+
+```{r, eval = -1}
+?decostand
+env.z <- decostand(env, method = "standardize")
+```
+
+<Br>
+This centers and scales the variables to make your downstream analysis more appropriate:
+
+```{r}
+apply(env.z, 2, mean)
+apply(env.z, 2, sd)
+```
+
+
+---
 # (Dis)similarity measures
 
 Community resemblance is almost always assessed on the basis of species composition data in the form of a site-by-species data table $Y_{m,n}$.
@@ -1252,9 +1271,10 @@ spe.D.Sor <- vegdist(spe,
 To calculate the _Bray-Curtis dissimilarity coefficient_, which can account for abundances, you need to set `binary = FALSE`.
 
 ```{r}
-spe.D.Bray <- vegdist(spe, 
+spe.db.pa <- vegdist(spe, 
                       method = "bray",
                       binary = FALSE)
+spe.db <- as.matrix(spe.db.pa)
 ```
 
 ---
@@ -1592,7 +1612,7 @@ Create a distance matrix from Hellinger transformed Doubs river data and compute
 
 ```{r, fig.width=7, echo = -1}
 par(mar=c(.5,3.8,2,.5), cex = 1.5)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.single <- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
@@ -1603,7 +1623,7 @@ plot(spe.dhe1.single)
 
 ```{r,fig.width= 15, echo = -1}
 par(mfrow=c(1,2), mar=c(.5,2.5,1.5,2.5), cex=1)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.complete <- hclust(spe.dhe1, method = "complete")
 plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
 plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
@@ -2896,7 +2916,7 @@ Let us advance and apply it to our fish species dataset.
 For this, we will use the `vegan::rda()` function on the *Hellinger-transformed* fish data and summarise the results:
 
 ```{r}
-spe.h.pca <- rda(spec.hel)
+spe.h.pca <- rda(spe.hel)
 
 # summary(spe.h.pca)
 ```
@@ -3251,7 +3271,7 @@ Run a PCoA on the Hellinger distance-transformed fish dataset:
 
 ```{r}
 library(ape)
-spe.h.pcoa <- pcoa(dist(spec.hel))
+spe.h.pcoa <- pcoa(dist(spe.hel))
 summary(spe.h.pcoa)
 ```
 
@@ -3278,7 +3298,7 @@ head(spe.h.pcoa$vectors)[, 1:5]
 We can display, the distances between sites using the `biplot.pcoa()` function, as well as represent the species associated to each site.
 
 ```{r, fig.height=5.5, fig.width=8}
-biplot.pcoa(spe.h.pcoa, spec.hel)
+biplot.pcoa(spe.h.pcoa, spe.hel)
 ```
 
 ---
@@ -3427,12 +3447,12 @@ plot(spe.nmds, type = "none",
                   round(spe.nmds$stress, 3)),
      xlab = c("NMDS1"), ylab = "NMDS2")
 
-points(scores(spe.nmds, display = "sites"),
-              choices = c(1,2),
+points(scores(spe.nmds, display = "sites",
+              choices = c(1,2)),
               pch = 21,
               col = "black",
-              g = "steelblue",
-              cex = 1.2))
+              bg = "steelblue",
+              cex = 1.2)
 text(scores(spe.nmds, display = "species", choices = c(1)),
      scores(spe.nmds, display = "species", choices = c(2)),
      labels = rownames(scores(spe.nmds, display = "species")),
@@ -3457,11 +3477,11 @@ plot(spe.nmds, type = "none",
                   round(spe.nmds$stress, 3)),
      xlab = c("NMDS1"), ylab = "NMDS2")
 
-points(scores(spe.nmds, display = "sites"),
-              choices = c(1,2),
+points(scores(spe.nmds, display = "sites",
+              choices = c(1,2)),
               pch = 21,
               col = "black",
-              g = "steelblue",
+              bg = "steelblue",
               cex = 1.2)
 text(scores(spe.nmds, display = "species", choices = c(1)),
      scores(spe.nmds, display = "species", choices = c(2)),
@@ -3504,8 +3524,8 @@ plot(mite.nmds, type = "none",
                   round(mite.nmds$stress, 3)),
      xlab = c("NMDS1"), ylab = "NMDS2")
 
-points(scores(mite.nmds, display = "sites"),
-              choices = c(1,2),
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
               pch = 21,
               col = "black",
               bg = "steelblue",
@@ -3525,8 +3545,8 @@ plot(mite.nmds, type = "none",
                   round(mite.nmds$stress, 3)),
      xlab = c("NMDS1"), ylab = "NMDS2")
 
-points(scores(mite.nmds, display = "sites"),
-              choices = c(1,2),
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
               pch = 21,
               col = "black",
               bg = "steelblue",
@@ -3594,7 +3614,7 @@ What is wrong with this plot?
 
 --
 .alert[
-- The data is not centered. Yikes!
+- The data is not centred. Yikes!
 ]
 
 --
