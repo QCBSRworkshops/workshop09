@@ -83,12 +83,6 @@ summary(spe) # summary statistics
 
 head(spe)    # first 6 rows
 
-?decostand
-env.z <- decostand(env, method = "standardize")
-
-apply(env.z, 2, mean)
-apply(env.z, 2, sd)
-
 dist(spe)
 
 class(dist(spe))
@@ -253,6 +247,12 @@ spe[1:5, 1:6]
 spe.total <- decostand(spe, 
                        method = "hellinger")
 spe.total[1:5, 1:6]
+
+?decostand
+env.z <- decostand(env, method = "standardize")
+
+apply(env.z, 2, mean)
+apply(env.z, 2, sd)
 
 par(mar = c(4,4,1,.5), cex = 1.5)
 site.pre <- rowSums(spe > 0)

@@ -378,7 +378,7 @@ y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
 
 .center[_a column matrix_]
 $$\begin{bmatrix}
-y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+y_{1,1} \\ y_{2,1} \\ \vdots \\ y_{m,1}
 \end{bmatrix}$$
 
 ]
@@ -756,25 +756,6 @@ head(spe)    # first 6 rows
 ]
 
 ---
-# Standardization
-
-Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units:
-
-```{r, eval = -1}
-?decostand
-env.z <- decostand(env, method = "standardize")
-```
-
-<Br>
-This centers and scales the variables to make your downstream analysis more appropriate:
-
-```{r}
-apply(env.z, 2, mean)
-apply(env.z, 2, sd)
-```
-
-
----
 # (Dis)similarity measures
 
 Community resemblance is almost always assessed on the basis of species composition data in the form of a site-by-species data table $Y_{m,n}$.
@@ -785,11 +766,12 @@ We can obtain an association matrix $A_{m,m}$ in the form of pairwise distances 
 
 In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`:
 
-```{r, eval = T, results='hide'}
+```{r, eval = T, results='show'}
 dist(spe)
 ```
 
 ---
+
 # (Dis)similarity measures
 
 For simplicity, we have done this without specifying arguments.
@@ -812,8 +794,7 @@ as.matrix(dist(spe))
 dim(as.matrix(dist(spe)))
 ```
 
-
-??? 
+???
 
 If possible, do this part with the participants.
 
@@ -1373,6 +1354,10 @@ Let us see some of them.
 
 We can change the argument `method` to `"pa"` to transform our abundance data into presence-absence data:
 
+.center[
+If $y_{ij} \geq 1$, then, $y'_{ij} = 1$.
+]
+
 .pull-left[
 Let us recall our `spe` data set:
 
@@ -1439,7 +1424,30 @@ spe.total <- decostand(spe,
 spe.total[1:5, 1:6]
 ```
 
+
 ---
+
+## Transformations: Standardization
+
+Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units:
+
+```{r, eval = -1}
+?decostand
+env.z <- decostand(env, method = "standardize")
+```
+
+<Br>
+This centres and scales the variables to make your downstream analysis more appropriate:
+
+```{r}
+apply(env.z, 2, mean)
+apply(env.z, 2, sd)
+```
+
+.center[*More on this later!*]
+
+---
+exclude: true
 
 # Total Species Richness
 
@@ -1455,6 +1463,8 @@ barplot(site.pre, main = "Species richness",
 ```
 
 ---
+exclude: true
+
 # Visualization of distance matrices
 
 
