@@ -1152,7 +1152,8 @@ Another popular association coefficient is the _Jaccard similarity coefficient_ 
 
 It is only appropriate for **binary data**, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.
 
-`$$D_{7}(x_1,x_2)=1-{{\vert x_1 \cap x_2 \vert}\over{\vert x_1 \cup x_2 \vert}} = 1-{{\vert x_1 \cap x_2 \vert}\over{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert}} = 1-\frac{a}{a+b+c}$$`
+`$$D_{7}(x_1,x_2) = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \cup x_2 \vert} = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert} = 1-\frac{a}{a+b+c}$$`
+  
 where,
 
 - `\(a\)` is the number of species shared between `\(x_1\)` and `\(x_2\)` that are coded `\(1\)`;
@@ -1789,10 +1790,10 @@ cov(xyz)
 
 
 ```
-#          x       y        z
-# x  0.99468 0.01567 -0.00718
-# y  0.01567 0.96380  0.02826
-# z -0.00718 0.02826  0.99471
+#          x        y        z
+# x  1.01880 -0.01399 -0.00626
+# y -0.01399  1.00123  0.01686
+# z -0.00626  0.01686  1.01052
 ```
 
 
@@ -3178,7 +3179,7 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 5.627041e-05
+# [1] 5.156906e-05
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
