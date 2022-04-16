@@ -1147,7 +1147,8 @@ Another popular association coefficient is the _Jaccard similarity coefficient_ 
 
 It is only appropriate for **binary data**, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.
 
-$$D_{7}(x_1,x_2)=1-{{\vert x_1 \cap x_2 \vert}\over{\vert x_1 \cup x_2 \vert}} = 1-{{\vert x_1 \cap x_2 \vert}\over{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert}} = 1-\frac{a}{a+b+c}$$
+$$D_{7}(x_1,x_2) = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \cup x_2 \vert} = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert} = 1-\frac{a}{a+b+c}$$
+  
 where,
 
 - $a$ is the number of species shared between $x_1$ and $x_2$ that are coded $1$;
