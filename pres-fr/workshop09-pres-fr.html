@@ -1241,7 +1241,7 @@ Un autre coefficient d'association populaire est le _coefficient de similarité 
 
 Il n'est approprié que pour les **données binaires**, et son coefficient de distance est défini par la taille de l'intersection divisée par la taille de l'union des ensembles d'échantillons
 
-`$$D_{7}(x_1,x_2)=1-{{|x_1 \cap x_2|}\over{|x_1 \cup x_2|}} = 1-{{|x_1 \cap x_2|}\over{|x_1| + |x_2| - |x_1 \cap x_2|}} = 1-\frac{a}{a+b+c}$$`
+`$$D_{7}(x_1,x_2)=1-{ {|x_1 \cap x_2|}\over{|x_1 \cup x_2|} } = 1-{ {|x_1 \cap x_2|}\over{|x_1| + |x_2| - |x_1 \cap x_2|} } = 1-\frac{a}{a+b+c}$$`
 où,
 
 - `\(a\)` est le nombre d'espèces partagées entre `\(x_1\)` et `\(x_2\)` qui sont codées `\(1\)` ;
@@ -1301,7 +1301,7 @@ où,
 Le _coefficient de dissimilarité de Bray-Curtis_ est une version modifiée de l'indice de Sørensen et tient compte de l'abondance des espèces :
 
 .pull-left[
-`$$D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert}}{\sum{( y_{1j}+y_{2j})}}=$$`
+`$$D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert} }{\sum{( y_{1j}+y_{2j})} }=$$`
 
 `$$D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}$$`
 où,
@@ -1874,10 +1874,10 @@ cov(xyz)
 
 
 ```
-#         x        y        z
-# x 1.01852  0.00404  0.02423
-# y 0.00404  0.98268 -0.00492
-# z 0.02423 -0.00492  0.99926
+#          x        y       z
+# x  1.03561 -0.02059 0.01331
+# y -0.02059  1.01464 0.01666
+# z  0.01331  0.01666 1.02368
 ```
 
 Si les variables sont parfaitement indépendantes (ou non corrélées), la matrice de covariance `\(C(x, y, z)\)` est :
