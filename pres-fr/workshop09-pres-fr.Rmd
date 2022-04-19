@@ -10,7 +10,7 @@ output:
     seal: true
     css: ["default", "qcbsR.css", "qcbsR-fonts.css"]
     nature:
-      countIncrementalSlides: true
+      countIncrementalSlides: false
       beforeInit: "qcbsR-macros.js"
       highlightLines: true
 ---
@@ -87,8 +87,8 @@ list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "Plane
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
 if(length(new.packages) > 0) {
-  install.packages(new.packages, dependencies = TRUE) 
-  print(paste0("The following package was installed:", new.packages)) 
+  install.packages(new.packages, dependencies = TRUE)
+  print(paste0("The following package was installed:", new.packages))
 } else if(length(new.packages) == 0) {
   print("All packages were already installed previously")
 }
@@ -111,13 +111,13 @@ lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
 .center[
 **Membres du CSBQ qui ont contribué à cet atelier**
 
-en modifiant et en améliorant son contenu dans le cadre du <br>Prix d'apprentissage et du développement (*Le*arning *a*nd *D*evelopment *A*ward*).
+en modifiant et en améliorant son contenu dans le cadre du <br> Prix d'apprentissage et de développement (*Le*arning *a*nd *D*evelopment *A*ward)
 ]
 
 .pull-left[
 .right[
 
- **2022** - **2021** - **2020**
+**2022** - **2021** - **2020**
 
 Pedro Henrique P. Braga
 
@@ -127,11 +127,7 @@ Mi Lin
 
 Linley Sherin
 
-]
-]
 
-.pull-right[
-.left[
 **2019** - **2018** - **2017**
 
 Gabriel Muñoz
@@ -141,6 +137,11 @@ Marie Hélène-Brice
 Pedro Henrique P. Braga
 
 <br>
+]
+]
+
+.pull-right[
+.left[
 
 **2016** - **2015** - **2014**
 
@@ -158,7 +159,7 @@ Monica Granados
 ]
 </p>
 
-<br><br>
+<br>
 .center[
 __Si vous voulez contribuer aussi__, visitez [r.qcbs.ca/fr/contributing](https://r.qcbs.ca/fr/contributing/) <br> et n'hésitez pas à [nous contacter](mailto:csbq.qcbs.r@gmail.com)!
 ]
@@ -167,7 +168,7 @@ __Si vous voulez contribuer aussi__, visitez [r.qcbs.ca/fr/contributing](https:/
 
 # Matériel requis
 
-Pour suivre cet atelier, vous devez avoir téléchargé et installé les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
+Cet atelier requiert les dernières versions de [RStudio](https://rstudio.com/products/rstudio/download/#download) et de [R](https://cran.rstudio.com/).
 
 .pull-left[
 Vous devez également avoir installé ces paquets:
@@ -188,13 +189,13 @@ Vous devez également avoir installé ces paquets:
 Pour les installer à partir de CRAN, roulez:
 
 ```{r eval = FALSE}
-install.packages(c("ape", 
+install.packages(c("ape",
                    "ade4",
                    "codep",
-                   "gclus", 
+                   "gclus",
                    "vegan",
-                   "GGally", 
-                   "PlaneGeometry", 
+                   "GGally",
+                   "PlaneGeometry",
                    "remotes"))
 ```
 ]
@@ -217,309 +218,523 @@ Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reco
 ]
 
 ---
+
 # Objectifs d'apprentissage
 
-**Apprendre les bases de l'analyse multivariée pour découvrir des patrons dans les données de composition des communautés.
+1. Apprendre les bases de l'analyse multivariée pour révéler des modèles dans les données sur la composition des communautés.
 
-**2.** Utiliser `R` pour effectuer une ordination sans contrainte.
+2. Utiliser `R` pour effectuer une ordination sans contrainte.
 
-**3.** Choisir les mesures de distance et les transformations appropriées pour effectuer une analyse multivariée.
+3. Apprendre les coefficients de similarité et de dissimilarité et les transformations des données.
+
+4. Utiliser `R` pour créer des dendrogrammes.
+
+5. Apprendre les méthodes suivantes :
 
 * Analyse de regroupement
 * Analyse en composantes principales (ACP)
 * Analyse en coordonnées principales (ACoP)
 * Échelle multidimensionnelle non métrique (PMnM).
 
-**4.** Utilisez `R` pour créer un dendrogramme.
-
 ---
 
 class: inverse, center, middle
 
-# 1. Introduction
-## Qu'est-ce que l'ordination?
+# 1. Préambule
 
 ---
-# Une dimension
 
-Imaginons que nous voulons mieux comprendre cette réponse pour différentes espèces d'algues impliquées dans la densité de l'efflorescence algale ?
+# Récapitulation : Analyses univariées
 
-.center[![:scale 70%](images/algalBloom.png)]
+Nous avons appris une multitude d'analyses qui nous ont permis d'interpréter des données écologiques en décrivant les effets d'_une ou plusieurs_ variables sur _une_ variable de réponse.
 
+
+--
+
+.pull-left[
+Nous pouvons rappeler les :
+
+1. Modèles linéaires généraux
+  1. `lm()` ;
+  2. `anova()` ;
+  3. `t.test()` ;
+  4. `lmer()`.
+
+2. Modèles linéaires généralisés
+  1. `glm()` et `glmer()` avec plusieurs fonctions de liaison `family()`.
+
+3. Modèles additifs généralisés
+  1. `gam()`.
+]
+
+--
+
+.pull-right[
+Ces modèles nous ont permis de poser des questions telles que :
+
+1. Quels sont les effets des précipitations et de la température sur la richesse des espèces ?
+2. Comment l'abondance des microbes change-t-elle entre les hôtes ?
+3. Les poissons cooccurrents deviennent-ils plus agressifs après avoir été induits à la peur ?
+]
 
 ---
-# Deux dimensions
 
-.center[![:scale 70%](images/2dim.png)]
+# Statistiques multivariées
+
+Cependant, on peut être intéressé à faire des inférences à partir de données écologiques contenant _plus d'une_ variable dépendante.
+
+Cet intérêt peut être motivé par la validation d'hypothèses et la modélisation, mais peut aussi être entièrement exploratoire.
+
+--
+
+Par exemple, notre question de recherche pourrait être la suivante
+
+1. Comment la _composition bactérienne_ des feuilles d'érable change-t-elle le long du gradient d'altitude ?
+
+2. Quelle est la _dissimilarité compositionnelle_ des communautés de chauves-souris ?
+
+3. Quel est le rapport entre les communautés locales d'araignées et leur _composition_ ?
+
+--
+
+Dans tous ces cas, le résultat est composé de plusieurs variables, _e.g._ généralement une matrice échantillon par espèce ou échantillon par environnement.
 
 ---
-# Trois dimensions
+# Statistiques multivariées
 
-.center[
-![:scale 70%](images/3dim.png)]
-
+Nous allons maintenant plonger dans les **statistiques multivariées**, un ensemble d'outils qui nous permettront de répondre à des questions nécessitant l'observation ou l'analyse simultanée de plus d'une variable de résultat.
 
 ---
-# 4, 5, 6, ou plus de dimensions
 
-.center[![:scale 70%](images/4dim.png)]
+# Contexte des méthodes multivariées
+
+1. Mesures et matrices d'association (ou de dissimilarité)
+
+2. Analyse de classification (ou _cluster_)
+
+3. Ordination sans contrainte
+
+4. Ordination contrainte (ou canonique)
+
+--
 
 <br>
 
-.center[ **?** ]
-
-???
-
-En écologie, plusieurs descripteurs sont généralement observés pour chaque objet étudié. Dans la plupart des cas, les écologistes sont intéressés par la caractérisation des principales tendances de variation des objets par rapport à tous les descripteurs, et pas seulement à quelques-uns d'entre eux. L'examen des diagrammes de dispersion des objets par rapport à toutes les paires possibles de descripteurs est une approche fastidieuse, qui n'apporte généralement pas beaucoup de lumière sur le problème à résoudre.
-Même avec une approche multivariée, il n'est pas possible de dessiner un tel diagramme sur un papier à plus de trois dimensions, même s'il s'agit d'une construction mathématique parfaitement valable.
+.center[
+Mais, avant cela, il faut rappeler les bases de **l'algèbre matricielle**.
+]
 
 ---
 
-# Ordination en espace réduit
+# Algèbre matricielle : un résumé très bref
 
-.center[![:scale 70%](images/Ord1.png)]
-
-- L'ordination est la représentation d'objets (sites, stations, relevés, etc.) sous forme de données ponctuelles le long d'un ou plusieurs axes de référence.
-
-- L'ordination répond à la problématique de la projection de la dispersion des objets écologiques, qui sont situés dans l'espace multidimensionnel des descripteurs, dans un plus petit nombre de dimensions. 
-
-- Espace réduit : espace dont la dimensionnalité est réduite par rapport à l'ensemble des données d'origine.
-
-???
-
-Ref: https://doi.org/10.1016/B978-0-444-53868-0.50009-5
-
----
-
-# Ordination en espace réduit
+L'algèbre matricielle est bien adaptée à l'écologie, car la plupart des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
 
 
-.center[![:scale 70%](images/Ord3.png)]
+.pull-left[
+Les tableaux de données écologiques sont obtenus sous forme d'observations d'objets ou d'unités d'échantillonnage, et sont souvent enregistrés comme ceci :
+<br>
 
-- Pour les besoins d'analyses, les écologistes projettent la dispersion multidimensionnelle de l'espace multidimensionnel en un nombre plus restreint de dimensions de descripteurs. 
+| Objets | $y_1$     | $y_2$  | $\dots$           | $y_n$  |
+| :-------------: |:-------------:| :-----:|:-----:|:-----:|
+|  $x_1$        | $y_{1,1}$     | $y_{1,2}$  | $\dots$  | $y_{1,n}$  |
+|  $x_2$        | $y_{2,1}$     | $y_{2,2}$  | $\dots$  | $y_{2,n}$  |
+|  $\vdots$     | $\vdots$     | $\vdots$  | $\ddots$  | $\vdots$  |
+|  $x_m$        | $y_{m,1}$     | $y_{m,2}$  | $\dots$  | $y_{m,n}$  |
+<br>
+où $x_m$ est l'unité d'échantillonnage $m$ ; et $y_n$ est le descripteur écologique qui peut être, _e.g._, l'espèce présente ou une variable chimique.
+]
 
-- Les axes représentent une grande fraction de la variabilité de la matrice de données multidimensionnelle.
+--
 
-???
-Proposition de scénario : Pour les besoins de leur étude, les écologistes projettent généralement le diagramme de dispersion multidimensionnel sur des graphiques bivariés dont les axes sont connus pour leur intérêt particulier. Les axes de ces graphiques sont choisis pour représenter une grande partie de la variabilité de la matrice de données multidimensionnelle, dans un espace de dimensionnalité réduite (c'est-à-dire plus faible) par rapport à l'ensemble de données original. Les méthodes d'ordination dans un espace réduit permettent également d'obtenir des informations quantitatives sur la qualité des projections, et d'étudier les relations entre les descripteurs ainsi qu'entre les objets.
+.pull-right[
 
----
-exclude: true
+Le même tableau de données écologiques peut être représenté en _notation matricielle_ de la manière suivante :
+$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
+\end{bmatrix}$$
 
-# Méthodes pour la recherche scientifique
-
-- **Questions / Hypothèses**
-- **Design expérimental**
-- **Collecte de données**
-- **Transformation / Distance**
-- **Analyses**
-- **Rédaction**
-- **Communication**
+où les lettres minuscules indiquent les _éléments_, et les lettres en indice indiquent la _position de ces éléments_ dans la matrice (et dans le tableau !).
+]
 
 ---
-class: inverse, center, middle
-# 2. Exploration des données
+
+# Algèbre matricielle : un résumé très bref
+
+L'algèbre matricielle est bien adaptée à l'écologie, car la plupart des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matriciel_.
+
+.pull-left[
+De plus, tout sous-ensemble d'une matrice peut être identifié !
+
+<br>
+
+.center[_une matrice de lignes_]
+$$\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}$$
+
+.center[_une matrice à colonnes_]
+$$\begin{bmatrix}
+y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+\end{bmatrix}$$
+
+]
+
+.pull-right[
+Le même tableau de données écologiques peut être représenté en _notation matricielle_ de la manière suivante :
+$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
+\end{bmatrix}$$
+
+où les lettres minuscules indiquent les _éléments_, et les lettres en indice indiquent la _position de ces éléments_ dans la matrice (et dans le tableau !).
+]
+
 
 ---
-# Données de poissons de la rivière Doubs
+# Algèbre matricielle : un résumé très bref
+
+###### Matrices d'association
+
+Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la _**matrice d'association entre objets**_ et la _**matrice d'association entre descripteurs**_.
+
+--
+
+.pull-left[
+En utilisant les données de notre matrice $Y$,
+
+
+<div class="math">
+\[ Y =
+\begin{array}{cc}
+\begin{array}{ccc}
+x_1 \rightarrow\\
+x_2 \rightarrow\\
+\vdots \\
+x_m \rightarrow\\
+\end{array}
+&
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
+\end{bmatrix}
+\end{array}
+\]
+</div>
+
+on peut examiner la relation entre les deux premiers objets :
+
+<div class="math">
+\[x_1 \rightarrow \begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<div class="math">
+\[x_2 \rightarrow
+\begin{bmatrix}
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<p>et obtenir \(a_{1,2}\). </p>
+
+]
+
+--
+
+.pull-right[
+
+Nous pouvons remplir la matrice d'association $A_{n,n}$ avec les relations entre tous les objets de $Y$ :
+
+<div class="math">
+\[A_{n,n} =
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n,1} & a_{n,2} & \cdots & a_{n,n}
+\end{bmatrix}\]
+</div>
+
+<p>Parce que \(A_{n,n}\) a le même nombre de lignes et de colonnes, elle est notée <i>matrice carrée</i>.</p>
+
+<p>Par conséquent, elle possède \(n^2\) éléments.</p>
+
+]
+
+
+---
+# Algèbre matricielle : un résumé très bref
+
+###### Matrices d'association
+
+Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la _**matrice d'association entre objets**_ et la _**matrice d'association entre descripteurs**_.
+
+
+Ces matrices sont la base des analyses **_mode Q_** et **_mode R_** en écologie.
+
+.pull-left[
+$$Y_{m,n} =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n}
+\end{bmatrix}$$
+]
+
+.pull-right[
+
+$$A_{m,m} =
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,m} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,m} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{m,1} & a_{m,2} & \cdots & a_{m,m}
+\end{bmatrix}$$
+
+]
 
 .pull-left[
 
-Données de Verneaux (1973) :
-- caractérisation des communautés de poissons
-- 27 espèces
-- 30 sites
-- 11 variables environnementales
+$$A_{n,n} =
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n,1} & a_{m,2} & \cdots & a_{n,n}
+\end{bmatrix}$$
 
 ]
 
-.pull.right[
-![:scale 50%](images/DoubsRiver.png)
+.pull-right[
+
+.pull-left[
+
+<br>
+
+$\leftarrow$ Analyse **_mode R_** pour les descripteurs ou les espèces
+
+]
+
+.pull-right[
+$\uparrow$ Analyse **_mode Q_** pour les objets ou les sites
+]
 ]
 
 ---
-# Données de poissons de la rivière Doubs
+## Nos projets pour les prochaines étapes...
 
-Chargement des données espèces (`doubsspe.csv`)
+Nous allons nous plonger dans les analyses en **R-mode** et **Q-mode**, et nous allons explorer :
 
-```{r}
-spe <- read.csv("data/doubsspe.csv", row.names = 1) # cette ligne dépend d'où vous avez enregistré les données
-spe <-  spe[-8,] # supprimer le site sans données
+1. Les coefficients d'association : dissimilarité et similarité
+2. La transformation des données de composition
+3. Analyses de regroupement
+4. Analyses d'ordination dans l'espace réduit
 
-# pour des plus grands jeux de données:
-row_sub = apply(spe, 1, function(row) any(row !=0 ))
-# trouver les lignes où il n'y a aucun zéro
-spe <- spe[row_sub,]
-# garder les lignes qui n'ont aucun zéro  
-```
+<br>
 
-Chargement des données environnementales (`doubsenv.csv`)
+.center[**Mais, tout d'abord, présentons un ensemble de données réelles.**]
 
-```{r}
-env <- read.csv("data/doubsenv.csv", row.names = 1)
-env <- env[-8,] # supprimer le site vide
-```
-
-.alert[Attention, n'exécuter qu'une seule fois]
-
+.center[_Ce sera votre tour de vous salir les mains!_]
 
 ---
-# Exporation des données
+# Communautés de poissons de la rivière Doubs
 
-Explorer le contenu des données espèces :
+.pull-left3[
+Verneaux (1973) a proposé d'utiliser les espèces de poissons pour caractériser les zones écologiques le long des cours d'eau européens.
 
-```{r, eval = FALSE}
-names(spe) # noms des objets
-dim(spe) # dimensions
-str(spe) # structure des objets
-summary(spe) # résumé statistique
-head(spe) # 6 premières lignes
-```
+Il a recueilli des données dans **30 sites** le long de la rivière Doubs près de la frontière franco-suisse, dans les montagnes du Jura. Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d'eau.
+]
 
-```{r, echo = FALSE}
-head(spe) # 6 premières lignes
-```
-
----
-# Fréquences des espèces
-
-Observer la distribution de fréquence des espèces :
-
-```{r, fig.width=8, echo = -1}
-par(mar = c(4,4,.5,.5), cex = 1.5)
-ab <- table(unlist(spe))
-barplot(ab, las = 1, col = grey(5:0/5),
-        xlab = "Abondance des classes", ylab = "Fréquence")
-```
-
-.alert[Notez la proportion de 0]
-
----
-# Fréquences des espèces
-
-Combien de zéros?
-
-```{r}
-sum(spe == 0)
-```
-
-Quelle proportion de zéros?
-
-```{r}
-sum(spe == 0)/(nrow(spe)*ncol(spe))
-```
-
----
-# Richesse totale en espèce
-
-Observer le nombre d'espèces présentes dans chaque site :
-
-```{r, fig.width=10, fig.height=5, echo=-1}
-par(mar = c(4,4,1,.5), cex = 1.5)
-site.pre <- rowSums(spe > 0)
-barplot(site.pre, main = "Richesse spécifique",
-        xlab = "Sites", ylab = "Nombre d'espèces",
-        col = "grey ", las = 1)
-```
-
----
-# Comprenez vos données!
-
-.center[...pour choisir la transformation et la distance appropriée]
-
-
-- Y-a-t-il beaucoup de zéros?
-
-- Que veulent-ils dire?
-
-
-.alert[Une mesure de 0 (e.g 0mg/L, 0°C) n'est pas équivalent à un 0 représentant une absence d'observation.]
-
-
----
-# Avant de transformer vos données de composition des communautés...
-
-.alert[Considérations importantes:]
+.pull.right3[
+.center[![:scale 25%](images/DoubsRiver.png)]
+]
 
 --
-- abondances/comptes/présence-absence relatives?
 
---
-- distributions asymmétriques ?
+.pull-left3[
+Leurs données sont réparties en trois matrices :
 
---
-- beaucoup d'espèces rares?
+1. L'abondance de 27 espèces de poissons dans les communautés ;
+2. Les variables environnementales enregistrées sur chaque site ; et,
+3. Les coordonnées géographiques de chaque site.
+]
 
---
-- surabondance d'espèces dominantes?
+.pull.right3[
+.center[![:scale 30%](https://upload.wikimedia.org/wikipedia/commons/c/cc/Doubs_Laissey.jpg)]
 
---
-- problème de double Zéro?
-
----
-# Transformer les données de composition des communautés
-
-.center[
-![](images/trans1.png)]
+.xsmall[Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1–257.]
+]
 
 ---
-# Transformer les données de composition des communautés
+# Communautés de poissons de la rivière Doubs
 
-## Exemples
+.pull-left3[
 
-Transformer des comptes en présence - absence
-```{r}
-library(vegan)
-spec.pa <- decostand(spe, method = "pa")
-```
-
-Réduire le poids des espèces rares
+Vous pouvez télécharger les jeux de données sur [r.qcbs.ca/fr/workshops/r-workshop-09](http://r.qcbs.ca/fr/workshops/r-workshop-09/).
 
 ```{r}
-spec.hel <- decostand(spe, method = "hellinger")
-spec.chi <- decostand(spe, method = "chi.square")
+spe <- read.csv("data/doubsspe.csv",
+                row.names = 1)
+env <- read.csv("data/doubsenv.csv",
+                row.names = 1)
 ```
 
-Réduire le poids des espèces abondantes
+]
 
-```{r}
-spe.pa <- decostand(spe, method = "log")
+--
+
+.pull-right3[
+
+Leurs données peuvent également être récupérées dans le paquet `ade4` :
+```{r eval=FALSE, echo = TRUE}
+library (ade4)
+data (doubs)
+spe <- doubs$fish
+env <- doubs$env
 ```
+
+Alternativement, à partir du paquet `codep` :
+```{r eval=FALSE, echo = TRUE}
+library (codep)
+data (Doubs)
+spe <- Doubs.fish
+env <- Doubs.env
+```
+]
 
 ---
-# Données sur l'environnement
+# Données environnementales de la rivière Doubs
 
-```{r, eval = FALSE}
-names(env) # Names of objects
+Nous pouvons alors explorer les objets contenant nos données nouvellement chargées. Jetons un coup d'oeil aux données `env` :
+
+.pull-left[
+```{r, echo = T}
+str(env)
+```
+
+]
+
+.pull-right[
+
+|Variable |Description|
+|:--:|:--|
+|das|Distance from the source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Slope [per thousand]  |
+|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
+|pH|pH of water  |
+|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
+|pho|K conc. [mgL<sup>-1</sup>]  |
+|nit|N conc. [mgL<sup>-1</sup>]  |
+|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
+|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
+|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
+
+]
+```{r, eval = F}
+names(env)
 dim(env) # dimensions
-str(env) # structure of objects
-summary(env) # summary statistics
-head(env) # first 6 rows
+summary(env) # sommaire
+head(env)
 ```
 
-```{r}
-head(env) # first 6 rows
-```
-
-Explorer la colinéarité en visualisant les corrélations entre les variables:
-
-```{r, eval = F, purl = FALSE}
-library(GGally)
-ggpairs(env, main="Bivariate Plots of the Environmental Data")
-```
+]
 
 ---
-# Données sur l'environnement
+# Communautés de poissons de la rivière Doubs
 
-```{r, echo = F, fig.align='center', fig.height = 8, fig.width = 10}
-library(GGally)
-ggpairs(env, main="Graphiques bivariés des données environnementales")
+Jetons un coup d'œil aux données `spe` :
+
+.pull-left[
+```{r, echo = T}
+head(spe)[, 1:8]
 ```
+
+```{r, echo = T, output.lines=1:8}
+str(spe)
+```
+]
+
+.pull-right[
+
+```{r, eval = F}
+# Essayez-en quelques-uns !
+names(spe)   # noms d'objets
+dim(spe)     # dimensions
+str(spe)     # structure des objets
+summary(spe) # sommaire
+head(spe)    # debut
+```
+
+]
+
+---
+# Mesures de (dis)similarité
+
+La ressemblance des communautés est frequement évaluée sur la composition des espèces, sous la forme d'un tableau de données site par espèce $Y_{m,n}$.
+
+On peut obtenir une matrice d'association $A_{m,m}$ sous la forme de distances ou de dissimilarités par paires $D_{m,m}$ (ou de similarités $S_{m,m}$), puis les analyser.
+
+--
+
+.pull-left[
+Dans `R`, nous pouvons calculer des matrices de distance en utilisant `stats::dist()` :
+
+```{r, eval = T}
+dist(spe)
+```
+
+]
+
+--
+
+.pull-right[
+
+Par mesure de simplification, nous avons fait cela sans spécifier d'arguments.
+
+Essayez `dist(spe)` de votre côté, notez ce que vous observez et voyez ce que les commandes ci-dessous vous montrent :
+
+```{r, eval = F}
+class(dist(spe))
+```
+
+```{r, eval = F}
+str(dist(spe))
+```
+
+```{r, eval = F}
+as.matrix(dist(spe))
+```
+
+```{r, eval = F}
+dim(as.matrix(dist(spe)))
+```
+
+]
+
+???
+Si possible, faites cette partie avec les participants.
+
+Montrez-leur comment est structuré un objet de classe dist. Soulignez qu'il s'agit d'une matrice triangulaire inférieure, où les distances entre les mêmes objets sont cachées.
 
 ---
 # Standardisation
 
-Standardiser les variables environnementales est indispensable car il est impossible de comparer des variables d'unités différentes :
+La standardisation des variables environnementales est cruciale car vous ne pouvez pas comparer les effets de variables ayant des unités différentes :
 
 ```{r, eval = -1}
 ?decostand
@@ -527,207 +742,518 @@ env.z <- decostand(env, method = "standardize")
 ```
 
 <Br>
-Cette fonction centre-réduit les données pour assurer la fiabilité des analyses:
+Cela centre et réduit les variables pour rendre votre analyse en aval plus appropriée:
 
 ```{r}
 apply(env.z, 2, mean)
 apply(env.z, 2, sd)
 ```
 
-
-
 ---
-class: inverse, center, middle
-# 3. Similarité / Dissimilarité
 
+# Mesures de (dis)similarité
 
----
-# Mesure d'association
+Il existe trois groupes de coefficients de distance : _métriques_, _..._ , _..._ .
 
-L'algébre matricielle est au coeur de plusieurs méthodes d'analyses multivariées
-
-$$
-\begin{bmatrix}
-    a_{1,1} & a_{1,2} & a_{1,3} & \dots  & a_{1,n} \\
-    a_{2,1} & a_{2,2} & a_{2,3} & \dots  & a_{2,n} \\
-    a_{3,1} & a_{3,2} & a_{3,3} & \dots  & a_{3,n} \\
-    \vdots & \vdots & \vdots & \ddots & \vdots \\
-    a_{m,1} & a_{m,2} & a_{m,3} & \dots  & a_{m,n}
-\end{bmatrix}
-$$
-
-- Explorer différentes mesures de distance entre objets permet de mieux comprendre le fonctionnement de l'ordination
-
-???
-.center[![](images/MatrixAlgebra.png)]
----
-# Au-délà de la 1ère dimension
+Le premier groupe est constitué de *métriques*, et ses coefficients satisfont aux propriétés suivantes :
 
 .pull-left[
-
-- Les jeux de données écologiques correspondent souvent à de grandes matrices.
-
-- L'ordination calcule les relations entre espèces, ou entre objets.
-
-- Ces relations peuvent être simplifiées par des mesures de dissimilarités.
+1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ;
+2. positivité : si $a \neq b$, alors $D(a,b) > 0$ ;
+3. la symétrie : $D(a,b) = D(b,a)$ ;
+4. inégalité triangulaire : $D(a,b) + D(b,c) \geq D(a,c)$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien est égale ou supérieure au troisième côté.
 ]
 
 .pull-right[
 
-![:scale 40%](images/PCAMatrix.png)
+Nous pouvons repérer toutes ces propriétés ci-dessous :
 
-![:scale 40%](images/distMes.png)
+```{r, eval = T}
+as.matrix(dist(spe))[1:3, 1:3]
+```
 
-![:scale 40%](images/distMat.png)
 ]
 
+???
+
+Soulignez la nature triangulaire de la classe `dist`, le fait qu'elle peut être convertie en matrice, et les dimensions (en notant qu'elle a le même nombre d'espèces).
 
 ---
-# Similarité / Dissimilarité
+# Mesures de (dis)similarité
 
-- Utile pour comprendre vos données
-- Certains types d'ordination ou de groupement nécessitent des mesures appropriées
+Il existe trois groupes de coefficients de distance : _métriques_, _semimétriques_, _..._ .
 
-.center[
-Similarité: S = 1 - D
-Distance: D = 1-S]
-
-
-![](images/similarity.png)
-
----
-# Mesures de distance des communautés
+Le deuxième groupe est constitué de *semimétriques*, et ils violent la propriété d'_inégalité des triangles_ :
 
 .pull-left[
-- **Euclidienne**  
-  $d_{jk} = \sqrt(\sum((x_{ij}-x_{ik})^2))$  
-  Utilisé en PCA et RDA.
-  <br><br>
-- **Manhattan**
-  $d_{jk} = \sum(abs(x_{ij} - x_{ik}))$  
-  Similaire à l'Euclidienne, mais sensible au problème de doubles zéros.
-  <br><br>
-- **Corde**  
-  Distance Euclidienne calculée pour une matrix standardisée par rangées.
-  <br><br>
+1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ;
+2. positivité : si $a \neq b$, alors $D(a,b) > 0$ ;
+3. la symétrie : $D(a,b) = D(b,a)$ ;
+4. ~~inégalité triangulaire~~ : ${D(a,b) + D(b,c) \geq ou < D(a,c)}$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien n'est _pas_ égale ou supérieure au troisième côté.
 ]
 
 .pull-right[
-- **Hellinger**  
-  Racines carrées de probabilités conditionnelles.  
-  S'exécute bien en ordination linéaire.
-  <br><br>
-- **Khi-carré**  
-  $d_{jk} = \sum(\frac{(x_{ij}-x_{ik})^2}{(x_{ij}+x_{ik})} ) / 2$   
-  Utilisé en CA.
-  <br><br>
-- **Bray-Curtis** (Semimétrique) 
-  $d_{jk} = \frac{\sum(abs(x_{ij}-x_{ik}))}{(\sum (x_{ij}+x_{ik}))}$  
-  Utilisé en PCoA et NMDS.
+
+
 ]
-<br>
-.center[
-
-*Où $x_{ij}$ $x_{ik}$ sont le nombre d'espèces (colonnes) $i$ dans les sites (rangées) $j$ et $k$.*]
-
---
-
-.alert[Chacune de ces distances peut être appropriée pour différentes situations.]
 
 ???
-Notes: Ref: 
-https://sites.google.com/site/mb3gustame/reference/dissimilarity
-Euclidienne : Une métrique simple et symétrique utilisant la formule de Pythagore. Plus il y a de variables dans un ensemble de données, plus on peut s'attendre à ce que les distances euclidiennes soient grandes. En plus, les doubles zéros entraînent une diminution des distances. Cette propriété rend la distance euclidienne inadaptée à de nombreux ensembles de données écologiques et des transformations à motivation écologique doivent être envisagées.  L'analyse en composantes principales et l'analyse de la redondance ordonnent les objets en utilisant les distances euclidiennes.
+
+Soulignez la nature triangulaire de la classe `dist`, le fait qu'elle peut être convertie en matrice, et les dimensions (en notant qu'elle a le même nombre d'espèces).
 
 ---
-# Comparaison des sites de la rivière Doubs
+# Mesures de (dis)similarité
 
-La fonction `vegdist()` comprend les mesures de distances communes :
+Il existe trois groupes de coefficients de distance : _métriques_, _semimétriques_, _nonmétriques_.
 
-```{r, eval = FALSE}
+Le troisième groupe est constitué de coefficients *non métriques*, et ils violent la propriété de _positivité_ des distances métriques :
+
+.pull-left[
+1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ;
+2. ~~positivité:~~ si $a \neq b$, alors $D(a,b) > ou < 0$ ;
+3. la symétrie : $D(a,b) = D(b,a)$ ;
+4. ~~inégalité triangulaire~~ : ${D(a,b) + D(b,c) \geq ou < D(a,c)}$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien n'est _pas_ égale ou supérieure au troisième côté.
+]
+
+.pull-right[
+
+
+]
+
+---
+
+# Mesures de (dis)similarité : Distances euclidiennes
+
+La mesure de distance métrique la plus courante est la _distance euclidienne_.
+
+.pull-left4[
+Elle est calculée à l'aide de la formule de Pythagore :
+$$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
+
+```{r echo=FALSE}
+#setting up the plot
+xlim <- c(0,4)
+ylim <- c(-1,5)
+par(mar=c(1,1,1,1)+.1)
+plot(xlim,
+     ylim, type="n",
+     xlab="X1",
+     ylab="X2",
+     asp=1)
+grid()
+# define some vectors
+a=c(4, 0)
+b=c(0, 4)
+# plot the vectors
+vectors(a, labels="D(y21, y11)", pos.lab=3, frac.lab=.5, col="grey")
+vectors(a + b, labels="D1(x1,x2)", pos.lab=4, frac.lab=.5, col="red")
+# vector a+b starting from a is equal to b.
+vectors(a + b, labels="D(y12, y22)", pos.lab=4, frac.lab=.5, origin=a, col="grey")
+points(x = 4, y = 0, type = "p")
+text(x=4.1, y=-0.2, labels="")
+points(x = 0, y = 0, type = "p")
+text(x=-0.1, y=-0.2, labels="x1")
+points(x = 4, y = 4, type = "p")
+text(x=4.1, y=4.2, labels="x2")
+```
+
+
+]
+
+.pull-right4[
+En utilisant `stats::dist()`, nous pouvons la calculer avec :
+
+```{r, eval = T}
+spe.D.Euclid <- dist(x = spe,
+                     method = "euclidean")
+```
+
+Et, nous pouvons tester si une distance est euclidienne en utilisant :
+
+```{r, eval = T}
+is.euclid(spe.D.Euclid)
+```
+
+]
+
+???
+
+La figure sur le côté doit être terminée. Elle est censée représenter la distance euclidienne entre les sites x1 et x2 dans l'espace cartésien 2D. Les axes sont les descripteurs y1 et y2, respectivement. La flèche en bas représente la distance entre la position de y21 et celle de y11.
+
+Vous pouvez l'utiliser pour vous rappeler le théorème de Pythagore que tout le monde apprend au lycée, où la longueur de l'hypoténuse et a et b désignent les deux longueurs des branches d'un triangle rectangle.
+
+`method = "euclidean"` est le paramètre par défaut.
+
+
+---
+Comparaison des sites Doubs
+
+La fonction `vegdist()` contient toutes les distances couramment utilisées.
+
+```{r, eval = F}
 ?vegdist
 ```
-Comment la composition des communautés diffère-t-elle entre les 30 sites de la rivière Doubs?
+
+--
+Quelle est la différence de composition des communautés entre les 30 sites de la rivière Doubs?
 
 ```{r}
 spe.db.pa <- vegdist(spe, method = "bray")
 spe.db <- as.matrix(spe.db.pa)
-
-#         1         2         3         4         5         6         7         9
-# 1  0.0000000 0.6000000 0.6842105 0.7500000 0.8918919 0.7500000 0.6842105 1.0000000
-# 2  0.6000000 0.0000000 0.1428571 0.3333333 0.6956522 0.3939394 0.1428571 0.6923077
-# 3  0.6842105 0.1428571 0.0000000 0.1891892 0.6800000 0.2972973 0.1250000 0.7333333
-#...
-
 ```
 
 --
-<br>  
-- La diagonale est composée de zéros (chaque site est comparée à lui-même).  
-- Sites 3 et 7 sont les plus similaires (*plus petite distance*).  
-- Sites 1 et 9 sont les plus dissimilaires (1 = *complètement* dissimilaire).
+- La diagonale est égale à zéro, car les sites sont comparés les uns aux autres.
+- Les sites 3 et 7 sont les plus similaires (*plus petite distance*).
+- Les sites 1 et 9 sont les plus différents (1 = ils sont *complètement* différents).
 
 ---
-exclude: true
 
-# Comparaison des sites
+# Défi #1  ![:cube]()
 
-.center[![](images/Doubs1.png)]
+**Votre tour!** En utilisant la fonction `dist()`, calculez la matrice de distance euclidienne $D_{hmm}$ pour les abondances des espèces par matrice de site $Y_{hmm}$ ci-dessous :
+
+.pull-left[
+```{r, eval = T}
+Y.hmm <- data.frame(
+  y1 = c(0, 0, 1),
+  y2 = c(4, 1, 0),
+  y3 = c(8, 1, 0))
+```
+]
+
+.pull-right[
+
+| Sites | $y_1$ | $y_2$ | $y_3$ |
+|:----: | :----:| :---: | :---: |
+| $s_1$ | 0 | 4 | 8 |
+| $s_2$ | 0 | 1 | 1 |
+| $s_3$ | 1 | 0 | 0 |
+
+]
+
+Après cela, examinez les chiffres, réfléchissez-y de manière critique et soyez prêts à discuter ! (_5 à 10 minutes_)
+
+--
+
+.pull-left[
+
+**Solution:**
+
+```{r, eval = F}
+Y.hmm.DistEu <- dist(x = Y.hmm,
+                     method = "euclidean")
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+.pull-right[
+
+**Résultat**:
+
+```{r echo=FALSE}
+Y.hmm.DistEu <- dist(x = Y.hmm,
+                     method = "euclidean")
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+<br>
+
+.center[
+Suggestion : Examinez la composition et les distances entre les sites $s_2$ et $s_3$ et entre $s_1$ et $s_2$.
+]
+
+???
 
 ---
-exclude: true 
+## Défi #1 ![:cube]()
 
-# Comparaison des sites
+.pull-left[
 
-.center[![](images/Doubs2.png)]
+**Solution:**
+
+```{r, eval = T}
+Y.hmm
+```
+
+]
+
+.pull-right[
+
+**Résultat**:
+
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+La distance euclidienne entre les sites $s_2$ et $s_3$, qui n'ont aucune espèce en commun, est plus petite que la distance entre $s_1$ et $s_2$, qui partagent les espèces $y_2$ et $y_3$ ( !).
+
+D'un point de vue écologique, _cette évaluation de la relation entre les sites est problématique.
+
+--
+
+Ce problème est comme le **paradoxe du double zéro**, _i.e._ les doubles zéros sont traités de la même manière que les doubles présences, de sorte que les doubles zéros réduisent la distance entre deux sites.
+
+Les distances euclidiennes ( $D_1$ ) ne devraient donc _pas_ être utilisées pour comparer des sites sur la base de l'abondance des espèces.
 
 ---
-# Visualisation d'une matrice de distances
+
+# Mesures de (dis)similarité : la distance des cordes
+
+Orlóci (1967) a proposé la _distance de corde_ pour analyser la composition des communautés.
+
+.pull-left[
+Elle se constitue de :
+
+1\. Normaliser les données, _c.-à-d. _ mettre à l'échelle les vecteurs de site à la longueur 1 en divisant les abondances des espèces dans un échantillon donné par la somme à racine carrée des abondances carrées dans tous les échantillons, comme suit
+
+$$y'_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}$$
+]
+
+.pull-right[
+2\. Calculer les distances euclidiennes sur ces données normalisées :
+
+$$D_{3} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y'_{1j} - y'_{2j})^2}$$
+]
+
+---
+
+# Mesures de (dis)similarité : la distance des cordes
+
+Nous pouvons utiliser `vegan::vegdist()` pour cela :
+
+```{r, eval = T}
+spe.D.Ch <- vegdist(spe,
+                    method = "chord")
+as.matrix(spe.D.Ch)[1:3, 1:3]
+```
+
+Lorsque deux sites partagent les mêmes espèces dans les mêmes proportions du nombre d'individus, la valeur de $D_3$ est de $0$, et lorsqu'aucune espèce n'est partagée, sa valeur est de $\sqrt{2}$.
+
+
+---
+# Mesures de (dis)similarité : la distance des cordes
+
+Il existe de nombreuses autres distances métriques d'intérêt, que nous pouvons utiliser :
+
+Que se passe-t-il si nous calculons les distances d'accord dans la même matrice site-espèce $Y_{hmm}$ ?
+.pull-left[
+
+```{r, eval = T}
+Y.hmm
+```
+
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistEu)
+```
+
+]
+
+.pull-right[
+
+```{r, eval = T}
+Y.hmm.DistCh <- vegdist(Y.hmm,
+                    method = "chord")
+```
+
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistCh)
+```
+]
+
+--
+
+L'ajout d'un nombre quelconque de doubles zéros à une paire de sites ne modifie pas la valeur de $D_3$.
+
+Par conséquent, les _distances de cordes_ peuvent être utilisées pour comparer des sites décrits par des abondances d'espèces !
+
+
+---
+# Mesures de (dis)similarité : Jaccard
+
+Un autre coefficient d'association populaire est le _coefficient de similarité de Jaccard_ (1900).
+
+Il n'est approprié que pour les **données binaires**, et son coefficient de distance est défini par la taille de l'intersection divisée par la taille de l'union des ensembles d'échantillons
+
+$$D_{7}(x_1,x_2)=1-{{|x_1 \cap x_2|}\over{|x_1 \cup x_2|}} = 1-{{|x_1 \cap x_2|}\over{|x_1| + |x_2| - |x_1 \cap x_2|}} = 1-\frac{a}{a+b+c}$$
+où,
+
+- $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
+- $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
+- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, _c.-à-d._ toutes deux $0$.
+
+--
+
+.pull-left[
+Par exemple, pour les sites $x_1$ et $x_2$ :
+
+| $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
+|:----: | :----:| :---: | :---: | :---: | :---: |
+| $x_1$ | 0 | 1 | 0 | 1 | 0 |
+| $x_2$ | 0 | 1 | 1 | 1 | 1 |
+]
+
+.pull-right[
+.pull-left[
+Alors:
+- $a$ = 1 + 1 = 2
+- $b$ = 1 + 1 = 2
+- $c$ = 1
+
+]
+.pull-right[
+<br>
+$D_{7}(x_1,x_2) =$
+
+$1-\frac{2}{2+2+1}=$
+
+$0.6$
+]
+]
+
+---
+# Mesures de (dis)similarité : Sørensen
+
+Tous les paramètres du _coefficient de similarité de Jaccard_ ont le même poids.
+
+$$D_{7}(x_1,x_2)=1-\frac{a}{a+b+c}$$
+
+Cependant, vous pouvez envisager que la présence d'une espèce soit plus informative que son absence.
+
+La distance correspondant au _coefficient de similarité de Sørensen_ (1948) donne du poids aux doubles présences :
+
+$$D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}$$
+
+où,
+- $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
+- $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
+- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, _c.-à-d. _ toutes deux $0$.
+
+---
+# Mesures de (dis)similarité : Bray-Curtis
+
+Le _coefficient de dissimilarité de Bray-Curtis_ est une version modifiée de l'indice de Sørensen et tient compte de l'abondance des espèces :
+
+.pull-left[
+$$D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert}}{\sum{( y_{1j}+y_{2j})}}=$$
+
+$$D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}$$
+où,
+- $W$ est la somme des plus faibles abondances de chaque espèce trouvées entre les sites $x_1$ et $x_2$ ;
+- $A$ est la somme de toutes les abondances dans $x_1$ ; et,
+- $B$ est la somme de toutes les abondances dans $x_2$.
+]
+
+--
+
+.pull-right[
+Par exemple, pour les sites $x_1$ et $x_2$ :
+
+| $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
+|:----: | :----:| :---: | :---: | :---: | :---: |
+| $x_1$ | _2_ | _1_ | _0_ | 5 | 2 |
+| $x_2$ | 5 | _1_ | 3 | _1_ | 1 |
+
+<br>
+
+Alors:
+- $W = 2 + 1 + 0 + 1 + 1 = 5$
+- $A = 2 + 1 + 0 + 5 + 0 = 8$
+- $B = 5 + 1 + 3 + 1 + 2 = 12$
+
+$$D_{14}(x_1,x_2) = 1-\frac{2 \times 5}{8+12}=$$
+$$D_{14}(x_1,x_2) = 0.5$$
+]
+
+---
+##### Mesures de (dés)similarité : Coefficients de Jaccard et de Sørensen
+
+Dans `R`, vous pouvez utiliser la fonction `vegan::vegdist()` pour calculer les indices de Jaccard et de Sørensen :
+
+.pull-left[
+
+```{r}
+spe.D.Jac <- vegdist(spe,
+                     method = "jaccard",
+                     binary = TRUE)
+```
+
+]
+
+.pull-right[
+
+```{r}
+spe.D.Sor <- vegdist(spe,
+                     method = "bray",
+                     binary = TRUE)
+```
+]
+<br>
+> Comme la méthode de Jaccard et celle de Sørensen ne sont appropriées que pour les données de présence-absence, vous devez effectuer une transformation binaire des données d'abondance en utilisant `binary = TRUE` dans `vegdist()`.
+
+##### Coefficient de dissimilarité de Bray-Curtis
+
+Pour calculer le _coefficient de dissimilarité de Bray-Curtis_, qui peut tenir compte des abondances, vous devez définir `binary = FALSE`.
+
+
+```{r}
+spe.D.Bray <- vegdist(spe,
+                      method = "bray",
+                      binary = FALSE)
+```
+
+---
+# Mesures de (dis)similarité : représentation
+
+Nous pouvons créer des représentations graphiques des matrices d'association en utilisant la fonction `coldiss()` :
 
 ```{r, echo = FALSE}
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
 #
-# License: GPL-2 
+# License: GPL-2
 # Author: Francois Gillet, 23 August 2012
 #
-
 "coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
 {
-	require(gclus)
+  require(gclus)
 
-	if (max(D)>1) D <- D/max(D)
+  if (max(D)>1) D <- D/max(D)
 
-	if (byrank) {
-		spe.color <- dmat.color(1-D, cm.colors(nc))
-	}
-	else {
-		spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
-	}
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
 
-	spe.o <- order.single(1-D)
-	speo.color <- spe.color[spe.o, spe.o]
-	
-	op <- par(mfrow=c(1,2), pty="s")
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
 
-	if (diag) {
-		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-			main="Dissimilarity Matrix", 
-			dlabels=attributes(D)$Labels)
-		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-			main="Ordered Dissimilarity Matrix", 
-			dlabels=attributes(D)$Labels[spe.o])
-	}
-	else {
-		plotcolors(spe.color, rlabels=attributes(D)$Labels, 
-			main="Dissimilarity Matrix")
-		plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
-			main="Ordered Dissimilarity Matrix")
-	}
+  op <- par(mfrow=c(1,2), pty="s")
 
-	par(op)
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
+               main="Dissimilarity Matrix",
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
+               main="Ordered Dissimilarity Matrix",
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
+               main="Ordered Dissimilarity Matrix")
+  }
+
+  par(op)
 }
-
 # Usage:
 # coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
 # If D is not a dissimilarity matrix (max(D) > 1), then D is divided by max(D)
@@ -735,167 +1261,291 @@ exclude: true
 # byrank= TRUE		equal-sized classes
 # byrank= FALSE		equal-length intervals
 # diag = TRUE			print object labels also on the diagonal
-
 # Example:
 # coldiss(spe.dj, nc=9, byrank=F, diag=T)
 ```
 
 
-```{r, fig.width = 10, fig.height = 8}
-# Le code pour créer la fonction coldiss() est dans le script de l'atelier.
-coldiss(spe.db.pa)
+```{r, fig.height = 8, fig.width = 16}
+coldiss(spe.D.Jac)
+```
+
+---
+# Transformations pour les données de composition des communautés
+
+Les communautés échantillonnées dans des conditions environnementales homogènes ou courtes peuvent avoir des compositions d'espèces avec peu de zéros, de sorte que les distances euclidiennes pourraient suffire à les caractériser.
+
+Néanmoins, c'est rarement la réalité.
+
+Les espèces peuvent être très fréquentes lorsque les conditions sont favorables, ou être absentes de nombreux sites. Parfois, cette asymétrie peut introduire des problèmes parasites dans nos analyses.
+
+Nous pouvons alors être amenés à transformer nos données de composition pour les analyser de manière appropriée.
+
+--
+
+Dans `R`, nous pouvons compter sur `vegan::decostand()` pour de nombreux types de transformations.
+
+Jetez un coup d'oeil à l'aide de cette fonction pour voir les options disponibles :
+
+```
+?decostand()
+```
+
+Voyons-en quelques-uns.
+
+---
+## Transformations : présence-absence
+
+Nous pouvons changer l'argument `method` en `"pa"` pour transformer nos données d'abondance en données de présence-absence :
+
+.pull-left[
+Rappelons notre ensemble de données `spe` :
+
+```{r}
+spe[1:6, 1:6]
+```
+]
+
+Transformons les abondances `spe` en présence-absence :
+
+```{r}
+spe.pa <- decostand(spe, method = "pa")
+spe.pa[1:6, 1:6]
+```
+
+---
+## Transformations : profils d'espèces
+
+Parfois, on souhaite éliminer les effets des unités très abondantes. Nous pouvons transformer les données en profils d'abondance relative des espèces grâce à l'équation suivante :
+
+$$y'_{ij} = \frac{y_{ij}}{y_{i+}}$$
+
+.pull-left[
+Rappelons notre jeu de données `spe` :
+
+```{r}
+spe[1:5, 1:6]
+```
+]
+
+Avec `decostand()`:
+
+```{r}
+spe.total <- decostand(spe,
+                       method = "total")
+spe.total[1:5, 1:6]
 ```
 
 
----
-# Défi #1 ![:cube]()
-
-<br/>
-
-Discuter en groupes:
-
-<br/>
-
-.center[**Comment savoir si deux objets caractérisés par des données multidimensionnelles sont similaires?**]
-
-<br/>
-
-- Faites une liste de vos suggestions
-
-
----
-# Et qu'en est-il de l'ordination?
-
-Avec des méthodes d'ordination, nous ordonnons vos objets (sites) en fonction de leur similarité
-
-- Plus les sites sont similaires, plus ils sont proches dans l'espace d'ordination (plus petites distances)
-
-- En écologie, on calcule habituellement la similarité entre sites en fonction de leur composition en espèces ou de leur conditions environnementales.
-
-
----
-# Analyse schématique des analyses multivariées
-
-.center[![:scale 120%](images/Schema2.png)]
-
 ???
-Note: re-added the picture, rename it as Schema 2.
+
+yi+ est utilisé pour indiquer le nombre total de l'échantillon pour toutes les espèces j=1,...,m, pour le ième échantillon.
 
 ---
-# Groupement
+## Transformations : Hellinger
 
-- Permet de mettre en lumière des structures dans les données en partitionnant les objets
+We can take the square-root of the _species profile transformation_ and obtain the _Hellinger transformation_, which has very good mathematical properties and allows us to reduce the effects of $y_{ij}$ values that are extremely large.
 
-- Les résultats sont représentés sous forme de dendrogramme (arbre)
+$$y'_{ij} = \sqrt{\frac{y_{ij}}{y_{i+}}}$$
 
-- Pas une méthode statistique!
+.pull-left[
+Rappelons notre jeu de données `spe` :
+
+```{r}
+spe[1:5, 1:6]
+```
+]
+
+Avec `decostand()`:
+
+```{r}
+spe.total <- decostand(spe,
+                       method = "hellinger")
+spe.total[1:5, 1:6]
+```
+
+---
+exclude: true
+# Richesse totale en espèces
+
+Visualisez le nombre d'espèces présentes sur chaque site :
+
+```{r, fig.width=10, fig.height=5, echo=-1}
+par(mar = c(4,4,1,.5), cex = 1.5)
+site.pre <- rowSums(spe > 0)
+barplot(site.pre, main = "Species richness",
+        xlab = "Sites",
+        ylab = "Number of species",
+        col = "grey ", las = 1)
+```
+
+---
+exclude: true
+
+# Visualisation des matrices de distance
+
+```{r, echo = FALSE}
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2
+# Author: Francois Gillet, 23 August 2012
+#
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+  require(gclus)
+
+  if (max(D)>1) D <- D/max(D)
+
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+
+  op <- par(mfrow=c(1,2), pty="s")
+
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
+               main="Dissimilarity Matrix",
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
+               main="Ordered Dissimilarity Matrix",
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels,
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o],
+               main="Ordered Dissimilarity Matrix")
+  }
+
+  par(op)
+}
+# Usage:
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+# If D is not a dissimilarity matrix (max(D) > 1), then D is divided by max(D)
+# nc 							number of colours (classes)
+# byrank= TRUE		equal-sized classes
+# byrank= FALSE		equal-length intervals
+# diag = TRUE			print object labels also on the diagonal
+# Example:
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
+```
+
+
+```{r, fig.width = 10, fig.height = 8, eval = F}
+# the code for the coldiss() function is in the workshop script.
+coldiss(spe.db.pa)
+```
+
+---
+class: inverse, middle, center
+
+# _Clustering_ ou regroupement
+
+---
+# Regroupement
+
+Une application des matrices d'association est le _regroupement hierarchique._
+
+Le regroupement met en évidence les structures des données en partitionnant soit les objets, soit les descripteurs.
+
+Un objectif des écologistes pourrait être de diviser un ensemble de sites en groupes en fonction de leurs conditions environnementales ou de la composition de leur communauté.
+
+Ses résultats peuvent être représentés sous forme de dendrogrammes (diagrammes en forme d'arbre), qui décrivent la proximité des observations.
 
 ```{r, fig.width=10, echo = FALSE}
-# Démonstration d'un dendrogramme
+# Demonstration of a cluster dendrogram
 spe.hel<-decostand(spe, method="hellinger")
-spe.dhel<-vegdist(spe.hel,method="euclidean")
-spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
+spe.dhel <- vegdist(spe.hel,method="euclidean")
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 ```
 
 ???
-.center[
-![:scale 80%](images/cluster1.png)]
+.center[![:scale 80%](images/cluster1_revised.jpg)]
 
 ---
-# Aperçu de 3 méthodes hiérarchiques
+# Méthodes de regroupement hiérarchique
 
+Les algorithmes de regroupement s'appuient généralement sur cette série d'étapes :
+
+1. Calculer une matrice d'association avec toutes les similitudes par paires entre tous les objets ;
+2. Réunir les paires d'objets qui sont les plus similaires (ou dissemblables) ;
+3. Recalculer la matrice de similarité pour ce groupe _par rapport à tous les objets restants ;
+4. Répétez les étapes 2 et 3 jusqu'à ce que tous les objets soient réunis.
+
+--
 <br>
 
-**1.** Groupement agglomératif à liens simples ("single").
+Parmi les nombreux algorithmes de clustering hiérarchique existants, nous allons explorer :
 
-<br>
+1. Le regroupement agglomératif à liaison unique ;
+2. Liaison complète, regroupement agglomératif ;
+3. Regroupement à variance minimale de Ward.
 
-**2.** Liens complets, groupement agglomératif ("complete")
-
-<br>
-
-**3.** Groupement à variance minimale de Ward ("ward.D2")
-
-<br>
-
-Les éléments de rang(s) inférieur(s) sont imbriqués dans des clusters de rang supérieur. Par exemple, les espèces sont regroupées par genre, famille, ordre, et ainsi de suite.
-
-???
-Dans le clustering agglomératif à liens simples (également appelé tri par plus proches voisins), les objets à l'emplacement de l'objet sont classés par ordre de priorité et les objets les plus proches s'agglomèrent.
-Ceci génère souvent de longues et fines grappes ou chaînes d'objets. À l'inverse, dans le clustering agglomératif à liens complets, un objet ne s'agglomère à un groupe que lorsqu'il est lié à l'élément le plus éloigné du groupe, qui le lie à son tour à tous les membres de ce groupe. Il formera de nombreux petits groupes séparés, et est plus approprié pour rechercher des contrastes, des discontinuités dans les données.
-Le clustering à variance minimale de Ward diffère de ces deux méthodes en ce que
-elle regroupe les objets en groupes en utilisant le critère des moindres carrés
-(similaire aux modèles linéaires). Son dendogramme montre par défaut les distances au carré. Pour comparer avec les autres méthodes, calculez d'abord la racine carrée des distances. 
-
----
-# Groupement hiérarchique
-
-À partir d'une matrice de distances, on classe les objets en ordre croissant
-
-![](images/Hierachic1.png)
-
-
----
-# Groupement à liens simples
-
-.pull-left[
-
-![:scale 50%](images/singleClust1.png)
 --
 
-]
+<br>
 
-.pull-right[
+Dans `R`, nous utiliserons les fonctions `hclust()` et `agnes()` pour construire nos dendrogrammes.
 
-- Les deux objets les plus proches se regroupent
+???
 
-- Ensuite les deux objets les plus proches suivants
-
-- et ainsi de suite.
-
-![](images/singleClust2.png)
-
-]
+Dans le cas d'un regroupement agglomératif par liaison simple (également appelé tri par
+voisins), les objets les plus proches s'agglomèrent.
+ce qui génère souvent de longues et fines grappes ou chaînes d'objets. À l'inverse, dans le clustering agglomératif à liens complets, un objet ne s'agglomère à un groupe que lorsqu'il est lié à l'élément le plus éloigné du groupe, qui le lie à son tour à tous les membres de ce groupe. Il formera de nombreux petits groupes séparés, et est plus approprié pour rechercher des contrastes, des discontinuités dans les données.
+Le clustering à variance minimale de Ward diffère de ces deux méthodes en ce que
+elle regroupe les objets en groupes en utilisant le critère des moindres carrés
+(similaire aux modèles linéaires). Son dendogramme montre par défaut les distances au carré. Pour comparer avec d'autres méthodes, calculez d'abord la racine carrée des distances.
 
 ---
-# Groupement à liens complet
 
-.pull-left[
+# Regroupement complet de liens
+
+.pull-left4[
 
 ![:scale 50%](images/compleClust1.png)
 
 ]
 
-.pull-right[
+.pull-right4[
 
-- Les deux objets les plus proches se regroupent
+- Les objets sont répartis en petits groupes (1-2, 3-4, 5)
 
-- Ensuite les groupes se lient à la distance à laquelle les objets qu'ils contiennent sont tous liés
+- Relier les petits groupes en utilisant la plus grande distance entre leurs éléments
+* (1-3=0,15, 2-4=0,35, 2-3=0,6, choisir 0,6 pour relier le groupe 1-2 et 3-4)
+
 
 ![](images/compleClust2.png)
 ]
 
 
 ---
-# Comparaison
+# Comparison
 
-Créer une matrice de distance à partir des données de la rivière Doubs transformées Hellinger et faire le groupement à liens simples :
+Créez une matrice de distance à partir des données sur les rivières du Doubs transformées par Hellinger et calculez le regroupement par liaison simple :
 
 ```{r, fig.width=7, echo = -1}
 par(mar=c(.5,3.8,2,.5), cex = 1.5)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.single <- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
+
 ---
-# Comparaison
+# Comparaison entre methodes
 
 ```{r,fig.width= 15, echo = -1}
 par(mfrow=c(1,2), mar=c(.5,2.5,1.5,2.5), cex=1)
-spe.dhe1 <- vegdist(spec.hel, method = "euclidean")
+spe.dhe1 <- vegdist(spe.hel, method = "euclidean")
 spe.dhe1.complete <- hclust(spe.dhe1, method = "complete")
 plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
 plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
@@ -903,60 +1553,58 @@ plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
 
 .pull-left[
 
-**Liens simples :**
+**Single linkage:**
 
-Les objets ont tendance à s'enchaîner (e.g. 19,29,30,26).
+Des chaînes d'objets se produisent  (e.g. 19, 29, 30, 26)
 ]
 
 .pull-right[
 
-**Liens complets :**  
+**Complete linkage:**
+Les groupes contrastés sont formés d'objets se produisent
+]
 
-Les groupes sont plus distincts.
+???
+![](images/comparison.png)
+
+---
+# Méthode de variance minimale de Ward
+
+.pull-left[
+- Utilise le critère des moindres carrés pour regrouper les objets en groupes.
+
+- À chaque étape, la paire de clusters qui fusionne est celle qui entraîne l'augmentation minimale de la somme totale des carrés à l'intérieur du groupe.
+
+- Les groupes générés par cette méthode ont tendance à être plus sphériques et à contenir un nombre similaire d'objets.
 ]
 
 ---
-# Groupement de Ward
+# Méthode de variance minimale de Ward
 
-Le groupement de Ward utilise la méthode des moindres carrés pour lier les objets.
-- Les groupes fusionnent de façon à minimiser la variance intragroupe.
-- C'est-à-dire qu'à chaque étape, la paire de groupes qui résulte à la plus petite augmentation de la somme des carrés des écarts intra-groupes est celle qui fusionne.
+Calculez le regroupement à variance minimale de Ward et tracez le dendrogramme en utilisant la racine carrée des distances :
 
-
----
-# Groupement de Ward
-
-Faire le groupement de Ward et dessiner le dendrogramme en utilisant la racine carrée des distances :
-
-```{r, fig.width=9, echo = -1}
-par(mar=c(.5,3.8,2,.5), cex = 1.5)
+```{r, fig.height=4, echo=-1}
+par(mar=c(.5,2.5,1.5,.5), cex = 1)
 spe.dhel.ward <- hclust(spe.dhe1, method = "ward.D2")
 spe.dhel.ward$height <- sqrt(spe.dhel.ward$height)
-plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at the same level
+plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at 0
 ```
 
----
-# Groupement de Ward
-
-```{r, fig.width=9, echo = FALSE}
-par(mar=c(.5,3.8,2,.5), cex = 1.5)
-plot(spe.dhel.ward, hang = -1) # hang = -1 permet d'afficher les objets sur la même ligne
-```
-
-Les objets ont tendance à former des groupes plus homogènes (en termes du nombdre d'objets inclus dans chaque groupe).
+> L'algorithme de clustering de Ward ne peut être appliqué qu'avec des distances euclidiennes. Les distances de Bray-Curtis ne sont pas euclidiennes, elles doivent donc être racinées au carré avant.
 
 ---
-# Comment choisir la bonne méthode ?
+# Questions importantes à aborder
 
-- Choisir une méthode appropriée dépend de votre objectif.
-  - Démontrer des gradients? des contrastes?
-- Si plus d'une méthode semble adéquate, comparer les dendrogrammes.
-- Encore une fois : ceci **n'est pas** une méthode statistique! 
+- Le choix de la méthode "appropriée" dépend de votre objectif ;
+- Voulez-vous mettre en évidence des gradients ou des contrastes ?
+- Il ne s'agit *pas* d'une méthode statistique et vous devrez peut-être vous appuyer sur des méthodes complémentaires pour étayer vos hypothèses.
 
-Mais, le groupement permet de:
-- Déterminer un nombre de groupes optimal.
-- Faire des tests statistiques sur le groupement résultant.
-- Combiner le groupement à l'ordination pour distinguer des groupes de sites.
+<br>
+
+Cependant, le clustering nous permet de :
+- Déterminer le nombre optimal de clusters interprétables ;
+- Calculer les statistiques de clustering ;
+- Combiner le clustering à l'ordination pour distinguer des groupes de sites.
 
 ---
 
@@ -988,7 +1636,7 @@ Ici, nous allons explorer :
 .small[
 .center[
 .pull-left2[
-**A**nalyse des **C**omposants **P**rincipales 
+**A**nalyse des **C**omposants **P**rincipales
 
 **A**nalyse des **Co**ordonnées **P**rincipales
 ]
@@ -1047,15 +1695,15 @@ $$cov_{x,z}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(z_{i}-\bar{z})}{N-1}$$
 $$cov_{z,y}=\frac{\sum_{i=1}^{N}(z_{i}-\bar{z})(y_{i}-\bar{y})}{N-1}$$
 Nous pouvons représenter ces calculs dans une **matrice de covariance** :
 
-$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+$${C(x, y, z)} = \left[ \begin{array}{ccc}
 cov_{x,x} & cov_{y,x} & cov_{z,x} \\
 cov_{x,y} & cov_{y,y} & cov_{z,y} \\
-cov_{x,z} & cov_{y,z} & cov_{z,z}   
+cov_{x,z} & cov_{y,z} & cov_{z,z}
 \end{array} \right]$$
 
 --
 
-**QUIZ TIME**: *Que sont les diagonales ?* *Et, que se passe-t-il si les variables sont indépendantes ?*
+**QUIZ**: *Que sont les diagonales ?* *Et, que se passe-t-il si les variables sont indépendantes ?*
 
 ---
 
@@ -1070,18 +1718,18 @@ $$cov_{x,x}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(x_{i}-\bar{x})}{N} = \frac{\sum_
 
 Afin que :
 
-$${C(x, y, z)} = \left[ \begin{array}{ccc} 
+$${C(x, y, z)} = \left[ \begin{array}{ccc}
 cov_{x,x} & cov_{y,x} & cov_{z,x} \\
 cov_{x,y} & cov_{y,y} & cov_{z,y} \\
-cov_{x,z} & cov_{y,z} & cov_{z,z}   
-\end{array} \right] = \left[ \begin{array}{ccc} 
+cov_{x,z} & cov_{y,z} & cov_{z,z}
+\end{array} \right] = \left[ \begin{array}{ccc}
 var_{x} & cov_{y,x} & cov_{z,x} \\
 cov_{x,y} & var_{y} & cov_{z,y} \\
-cov_{x,z} & cov_{y,z} & var_{z}   
+cov_{x,z} & cov_{y,z} & var_{z}
 \end{array} \right]$$
 
  <br>
- 
+
 .center[La covariance d'une variable avec elle-même est sa *variance* !]
 
 ---
@@ -1098,7 +1746,7 @@ z <- rnorm(5000, mean = 0, sd = 1)
 
 xyz <- data.frame(x, y, z)
 
-GGally::ggpairs(xyz) 
+GGally::ggpairs(xyz)
 ```
 ]
 
@@ -1115,10 +1763,10 @@ round(cov(xyz), digits = 5)
 
 Si les variables sont parfaitement indépendantes (ou non corrélées), la matrice de covariance $C(x, y, z)$ est :
 
-$${C(x, y, z)} =  \left[ \begin{array}{ccc} 
+$${C(x, y, z)} =  \left[ \begin{array}{ccc}
 var_{x} & 0 & 0 \\
 0 & var_{y} & 0 \\
-0 & 0 & var_{z}   
+0 & 0 & var_{z}
 \end{array} \right]$$
 
 *i*.*e*. une covariance plus proche de $1$ signifie que les variables sont *colinéaires*.
@@ -1130,7 +1778,7 @@ Et ici, $var_{x} = var_{y} = var_{z} = 1$.
 ---
 ## Transformations linéaires
 
-Nous sommes souvent intéressés à l'observation des variables d'autres *formes*. 
+Nous sommes souvent intéressés à l'observation des variables d'autres *formes*.
 
 Pour cela, nous créons une nouvelle variable, disons $x_{new}$, en utilisant des constantes pour modifier la variable originale $x$. Par exemple :
 
@@ -1142,7 +1790,7 @@ $$d_{mi} = 0.62 \times d_{km}$$
 ]
 
 .pull-right[
-On peut aussi transformer des degrés Fahrenheit en degrés Celsius : 
+On peut aussi transformer des degrés Fahrenheit en degrés Celsius :
 
 $$T_{C} = 0.5556\times T_{Fahr} - 17.778$$
 ]
@@ -1165,7 +1813,7 @@ $$x' = x_i - \bar{x}$$
 $$x'' = \frac{x_i}{\sigma_x}$$
 ]
 
-??? 
+???
 
 Le centrage est essentiellement une technique où la moyenne des variables indépendantes est soustraite de toutes les valeurs. Cela signifie que toutes les variables indépendantes ont une moyenne nulle. La réduction est complementaire au centrage. Les variables prédictives sont divisées par leur écart type.
 
@@ -1179,15 +1827,15 @@ Le présentateur doit mentionner ici que le centrage amène la moyenne à zéro 
 
 Pour une matrice carrée, $A_{n \times n}$, un vecteur $v$ est un *vecteur propre* de $A$ s'il y a un *scalaire*, $\lambda$, pour lequel :
 
-.center[ 
-$A_{n \times n} v_{n \times 1} = \lambda  v_{n \times 1}$, or $\left(\begin{matrix}a_{11}&\cdots&a_{1n}\\\vdots&\ddots&\vdots\\a_{1n}&\cdots&a_{nn}\\\end{matrix}\right)\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)=\lambda\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)$ 
+.center[
+$A_{n \times n} v_{n \times 1} = \lambda  v_{n \times 1}$, or $\left(\begin{matrix}a_{11}&\cdots&a_{1n}\\\vdots&\ddots&\vdots\\a_{1n}&\cdots&a_{nn}\\\end{matrix}\right)\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)=\lambda\left(\begin{matrix}v_1\\\vdots\\v_n\\\end{matrix}\right)$
 ]
 
 la valeur de $\lambda$ étant la *valeur propre* correspondante.
 
 --
 
-C'est-à-dire que la matrice $A$ *étire* effectivement le vecteur propre $v$ par la quantité spécifiée par la valeur propre (*scalaire*) $\lambda$.
+c.-à-d. que la matrice $A$ *étire* effectivement le vecteur propre $v$ par la quantité spécifiée par la valeur propre (*scalaire*) $\lambda$.
 
 Un *vecteur propre* est un vecteur dont la direction reste inchangée lorsqu'on lui applique une **transformation linéaire**.
 
@@ -1212,7 +1860,7 @@ Nous pouvons transformer un carré en un parallélogramme à l'aide d'une **tran
 .pull-left[
 Soit $S$ le carré de vertices $(0,0),\,(1,0),\,(1,1),\,(1,0)$ qui sera transformé par cisaillement en parallélogramme $P$ de vertices $(0,0),\,(1,0),\,(1,1.57),\,(1,0.57)$.
 
-Nous pouvons voir qu'après la transformation linéaire, la flèche violette n'a pas changé de direction, c'est-à-dire qu'elle est un *vecteur propre* de $S$.
+Nous pouvons voir qu'après la transformation linéaire, la flèche violette n'a pas changé de direction, c.-à-d. qu'elle est un *vecteur propre* de $S$.
 
 En revanche, la flèche rouge a changé de direction, et *n'est donc pas* un *vecteur propre* de $S$.
 ]
@@ -1221,15 +1869,15 @@ En revanche, la flèche rouge a changé de direction, et *n'est donc pas* un *ve
 ```{r echo = FALSE}
 library(PlaneGeometry)
 
-P <- c(0, 0) 
-w <- c(1, 0) 
+P <- c(0, 0)
+w <- c(1, 0)
 
-ratio <- 1 
+ratio <- 1
 angle <- 30
 
-shear <- Shear$new(P, 
-                   w, 
-                   ratio, 
+shear <- Shear$new(P,
+                   w,
+                   ratio,
                    angle)
 
 wt <- ratio * c(-w[2], w[1])
@@ -1245,22 +1893,22 @@ D <- shear$transform(S)
 
 plot(0, 0, type = "n", asp = 1, xlim = c(0,1), ylim = c(0,2))
 
-lines(rbind(P, Q, R, S, P), 
+lines(rbind(P, Q, R, S, P),
       lwd = 2) # unit square
 
-lines(rbind(A, B, C, D, A), 
-      lwd = 2, 
+lines(rbind(A, B, C, D, A),
+      lwd = 2,
       col = "blue") # image by the shear
 
-arrows(x0 = A[1], 
-       y0 = A[2], 
+arrows(x0 = A[1],
+       y0 = A[2],
        x1 = B[1],
        y1 = B[2],
        col = "red",
        lwd = 2)
 
-arrows(x0 = A[1], 
-       y0 = A[2], 
+arrows(x0 = A[1],
+       y0 = A[2],
        x1 = D[1],
        y1 = D[2],
        col = "purple",
@@ -1273,7 +1921,7 @@ arrows(x0 = A[1],
 ##### Décomposition des matrices en éléments propres : implications
 
 .center[
-*Suivons avec la torture algébrique !* 
+*Suivons avec la torture algébrique !*
 ]
 
 ### Orthogonalité
@@ -1299,7 +1947,7 @@ Maintenant, soustrayons la deuxième équation de la première et utilisons la c
 
 $y^{\intercal}Ax-x^{\intercal}A^{\intercal}y=\lambda_1y^{\intercal}x - \lambda_2x^{\intercal}y \\ 0 = (\lambda_1 - \lambda_2)y^{\intercal}x$
 
-Parce que nous savons que $\lambda_1-\lambda_2\neq 0$, alors 
+Parce que nous savons que $\lambda_1-\lambda_2\neq 0$, alors
 $y^{\intercal}x = 0$, *c-*.*à*.*-d*., $\mathbf{x}\perp\mathbf{y}$, *c-*.*à*.*-d*. sont **orthogonaux** !
 
 *Alors, que révèle la décomposition de la matrice de variance-covariance en elements propres ?*
@@ -1307,13 +1955,13 @@ $y^{\intercal}x = 0$, *c-*.*à*.*-d*., $\mathbf{x}\perp\mathbf{y}$, *c-*.*à*.*-
 
 ???
 
-L'explication de cette partie est très utile et assez simple, afin que chacun puisse comprendre ce qu'est l'orthogonalité. Il s'agit d'opérations simples d'équations et de soustractions.  
+L'explication de cette partie est très utile et assez simple, afin que chacun puisse comprendre ce qu'est l'orthogonalité. Il s'agit d'opérations simples d'équations et de soustractions.
 
 ---
 ##### Décomposition des matrices en éléments propres : implications
 
 .center[
-*Suivons avec la torture algébrique !* 
+*Suivons avec la torture algébrique !*
 ]
 
 ### Maximisation
@@ -1321,7 +1969,7 @@ L'explication de cette partie est très utile et assez simple, afin que chacun p
 .pull-left[
 Si $v_i' v_i = 1$, alors $Av_i=\lambda_iv_i$ peut être écrite comme :
 $$v_i' A v_i = \lambda_i$$
-En effet, $v' A v$ 
+En effet, $v' A v$
 est la variance d'une combinaison linéaire avec des poids en $v$, *i*.*e*. $\text{Var}(v_i'\,A)=v_i'\,\text{Var}(A)\,v_i$.
 
 *Donc, on peut relier les points !*
@@ -1342,7 +1990,7 @@ De sorte que la variance maximale soit de $\lambda_1$ !
 
 La *variance expliquée* de chaque *vecteur propre* obéit à l'ordre : $\lambda_1 > \lambda_2 > \dots > \lambda_k$.
 
-Cela nous permet de condenser un plus grand nombre de variables originales en un ensemble plus petit de vecteurs sélectionnés avec une perte minimale d'informations (c'est-à-dire **une réduction de la dimensionnalité**).
+Cela nous permet de condenser un plus grand nombre de variables originales en un ensemble plus petit de vecteurs sélectionnés avec une perte minimale d'informations (c.-à-d. **une réduction de la dimensionnalité**).
 
 ---
 # Méthodes d'ordination sans contrainte
@@ -1370,9 +2018,9 @@ Ici, nous apprendrons :
 # Analyse en Composantes Principales
 
 .small[
-L'analyse en composantes principales (ACP) est une technique de réduction de la dimensionnalité *linéaire*, c'est-à-dire qu'elle réduit les données fortement corrélées.
+L'analyse en composantes principales (ACP) est une technique de réduction de la dimensionnalité *linéaire*, c.-à-d. qu'elle réduit les données fortement corrélées.
 
-En bref, l'ACP transforme *linéairement* des variables originales vers des nouvelles variables contenant des **composantes principales**, qui expliquent la plupart de la variance dans l'ensemble de données, c'est-à-dire qui maximisent la séparation entre les données.
+En bref, l'ACP transforme *linéairement* des variables originales vers des nouvelles variables contenant des **composantes principales**, qui expliquent la plupart de la variance dans l'ensemble de données, c.-à-d. qui maximisent la séparation entre les données.
 ]
 
 --
@@ -1383,15 +2031,15 @@ En bref, l'ACP transforme *linéairement* des variables originales vers des nouv
 $$Z_p = ∑_{j=1}^p ϕ_j * X_j$$
 ]
 .small[
-où, 
+où,
 1. $Z_p$ est la composante principale $p$ ;
-2. $ϕ_j$ est le vecteur de charge comprenant les $j$ charges pour la composante principale $p$, c'est-à-dire les coefficients de la combinaison linéaire des variables originales à partir desquelles les composantes principales sont construites ;
-3. $X_j$ est le prédicteur normalisé, c'est-à-dire avec une moyenne égale à zéro et un écart-type égal à un.
+2. $ϕ_j$ est le vecteur de charge comprenant les $j$ charges pour la composante principale $p$, c.-à-d. les coefficients de la combinaison linéaire des variables originales à partir desquelles les composantes principales sont construites ;
+3. $X_j$ est le prédicteur normalisé, c.-à-d. avec une moyenne égale à zéro et un écart-type égal à un.
 ]
 
 ???
 
-C'est-à-dire que la reconstruction des données peut être donnée par une simple combinaison linéaire des composantes.
+c.-à-d. que la reconstruction des données peut être donnée par une simple combinaison linéaire des composantes.
 
 
 Les futures versions de ce document devraient inclure une figure (telle qu'une carte thermique) avec les données normalisées originales sur le côté gauche, et sur le côté droit, une carte thermique des chargements fois une carte thermique des composants (qui peut être considérée comme égale à la somme des matrices de rang un) étant égale à la carte thermique des données reconstruites.
@@ -1438,7 +2086,7 @@ Dans `R`, à partir de zéro !
 ```{r}
 data(varechem)
 
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 head(Y)
@@ -1461,7 +2109,7 @@ Dans `R`, à partir de zéro !
 ```{r}
 data(varechem)
 
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 # Étape 2
@@ -1494,7 +2142,7 @@ Dans `R`, à partir de zéro !
 ```{r}
 data(varechem)
 
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 # Étape 2
@@ -1551,7 +2199,7 @@ Les *vecteurs propres* sont ici les **composantes principales**, et comme nous l
 
 Nous pouvons représenter les distances des observations au premier vecteur propre (`PC1`, en rouge).
 
-La première composante principale est dessinée de façon à ce que la variation des valeurs le long de sa ligne soit maximale. 
+La première composante principale est dessinée de façon à ce que la variation des valeurs le long de sa ligne soit maximale.
 
 Les flèches sur les composantes principales sont obtenues en multipliant leurs *valeurs propres* par les *vecteurs propres*.
 ]
@@ -1564,43 +2212,43 @@ colnames(Eigenvectors.) <- c("PC1", "PC2")
 Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
 Y_std <- as.data.frame(Y_std)
 
-plot(N ~ P, 
-     col = as.factor(rownames(Y_std)), 
-     main="Distances to PC1", 
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+plot(N ~ P,
+     col = as.factor(rownames(Y_std)),
+     main="Distances to PC1",
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-# abline(0, 
+# abline(0,
 #        Eigenvectors[1, 2]/Eigenvectors[2, 2],
 #        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-# arrows(x0 = 0, 
-#        y0 = 0, 
-#        x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+# arrows(x0 = 0,
+#        y0 = 0,
+#        x1 = Eigenvalues[2]*Eigenvectors[1,2],
 #        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-#        col = "orange", 
+#        col = "orange",
 #        lwd = 2)
 
 # Plot the lines from first evector to points
 
-line1 <- c(0, 
+line1 <- c(0,
            Eigenvectors[2, 1]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line1){
@@ -1609,30 +2257,30 @@ perp.segment.coord <- function(x0, y0, line1){
   b <- line1[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line1)
 # do.call(segments, ss)
 # which is the same as:
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'purple')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4))
 ```
 ]
@@ -1666,42 +2314,42 @@ colnames(Eigenvectors.) <- c("PC1", "PC2")
 Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
 Y_std <- as.data.frame(Y_std)
 
-plot(N ~ P, 
-     col = as.factor(rownames(Y_std)), 
-     main="Distances to PC2", 
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+plot(N ~ P,
+     col = as.factor(rownames(Y_std)),
+     main="Distances to PC2",
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-abline(0, 
+abline(0,
        Eigenvectors[1, 2]/Eigenvectors[2, 2],
        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-arrows(x0 = 0, 
-       y0 = 0, 
-       x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+arrows(x0 = 0,
+       y0 = 0,
+       x1 = Eigenvalues[2]*Eigenvectors[1,2],
        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-       col = "orange", 
+       col = "orange",
        lwd = 2)
 
 
-line2 <- c(0, 
+line2 <- c(0,
            Eigenvectors[1, 2]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line2){
@@ -1709,29 +2357,29 @@ perp.segment.coord <- function(x0, y0, line2){
   b <- line2[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line2)
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'orange')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4)
      )
 ```
@@ -1740,7 +2388,7 @@ with(Y_std,
 
 --
 .pull-left[
-*Nous avons représenté les vecteurs propres, c'est-à-dire les composantes principales !* 
+*Nous avons représenté les vecteurs propres, c.-à-d. les composantes principales !*
 
 *Mais, quelle est l'utilité des valeurs propres ?*
 ]
@@ -1798,7 +2446,7 @@ Enfin, nous pouvons procéder à la dernière étape de notre analyse des compos
 En `R`, à partir de zéro !
 
 ```{r}
-# Étape 1 
+# Étape 1
 Y <- varechem[, 1:2]
 
 # Étape 2
@@ -1807,7 +2455,7 @@ Y_std <- as.matrix(scale(Y))
 # Étape 3
 Y_R <- cov(Y_std)
 
-# Étape 4 
+# Étape 4
 Eigenvalues <- eigen(Y_R)$values
 Eigenvectors <- eigen(Y_R)$vectors
 
@@ -1824,8 +2472,8 @@ head(F_PrComps)
 La *matrice des coordonnées*, $F$, (objet `F_PrComps`) permet de *rotationner* le nouvel espace de données, afin qu'il soit représenté par rapport aux composantes principales.
 
 .pull-left[
-.center[ 
-$\text{N}$ ~ $\text{P}$ 
+.center[
+$\text{N}$ ~ $\text{P}$
 ]
 
 ```{r echo=FALSE, fig.height = 6.5, fig.width = 3.5}
@@ -1839,44 +2487,44 @@ op <- par(mfrow = c(2, 1),     # 2x2 layout
     oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
     mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
     mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
-    )       
+    )
 
-plot(N ~ P, 
+plot(N ~ P,
      col = as.factor(rownames(Y_std)),
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-# abline(0, 
+# abline(0,
 #        Eigenvectors[1, 2]/Eigenvectors[2, 2],
 #        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-# arrows(x0 = 0, 
-#        y0 = 0, 
-#        x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+# arrows(x0 = 0,
+#        y0 = 0,
+#        x1 = Eigenvalues[2]*Eigenvectors[1,2],
 #        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-#        col = "orange", 
+#        col = "orange",
 #        lwd = 2)
 
 # Plot the lines from first evector to points
 
-line1 <- c(0, 
+line1 <- c(0,
            Eigenvectors[2, 1]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line1){
@@ -1884,68 +2532,68 @@ perp.segment.coord <- function(x0, y0, line1){
   b <- line1[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line1)
 # do.call(segments, ss)
 # which is the same as:
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'purple')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4))
 
 
-plot(N ~ P, 
+plot(N ~ P,
      col = as.factor(rownames(Y_std)),
-     pch = 19, 
-     xlim=c(-2.2, 2.2), 
-     ylim = c(-2.2,2.2), 
+     pch = 19,
+     xlim=c(-2.2, 2.2),
+     ylim = c(-2.2,2.2),
      data = as.data.frame(Y_std))
 
-abline(v=0 , h=0, 
+abline(v=0 , h=0,
        col = "dark gray")
 
 #Overlap pertinent evectors
 
-abline(0, 
+abline(0,
        Eigenvectors[2, 1]/Eigenvectors[1, 1],
        col='purple')
-abline(0, 
+abline(0,
        Eigenvectors[1, 2]/Eigenvectors[2, 2],
        col='orange')
 
-arrows(x0 = 0, 
-       y0 = 0, 
+arrows(x0 = 0,
+       y0 = 0,
        x1 = Eigenvalues[1]*Eigenvectors[1, 1],
        y1 = Eigenvalues[1]*Eigenvectors[2, 1],
        col = "purple",
        lwd = 2)
 
-arrows(x0 = 0, 
-       y0 = 0, 
-       x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+arrows(x0 = 0,
+       y0 = 0,
+       x1 = Eigenvalues[2]*Eigenvectors[1,2],
        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
-       col = "orange", 
+       col = "orange",
        lwd = 2)
 
 
-line2 <- c(0, 
+line2 <- c(0,
            Eigenvectors[1, 2]/Eigenvectors[1, 1])
 
 perp.segment.coord <- function(x0, y0, line2){
@@ -1953,29 +2601,29 @@ perp.segment.coord <- function(x0, y0, line2){
   b <- line2[2]  #slope
   x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
   y1 <- a + b * x1
-  list(x0 = x0, y0 = y0, 
+  list(x0 = x0, y0 = y0,
        x1 = x1, y1 = y1)
 }
 
-ss <- perp.segment.coord(Y_std$P, 
-                         Y_std$N, 
+ss <- perp.segment.coord(Y_std$P,
+                         Y_std$N,
                          line2)
 
-segments(x0 = ss$x0, 
-         x1 = ss$x1, 
-         y0 = ss$y0, 
-         y1 = ss$y1, 
+segments(x0 = ss$x0,
+         x1 = ss$x1,
+         y0 = ss$y0,
+         y1 = ss$y1,
          col = 'orange')
 
-points(N ~ P, 
-       col = as.factor(rownames(Y_std)), 
+points(N ~ P,
+       col = as.factor(rownames(Y_std)),
        pch = 19,
        data = Y_std)
 
 with(Y_std,
-     text(N ~ P, 
+     text(N ~ P,
           labels = as.factor(rownames(Y_std)),
-                     pos = 1, 
+                     pos = 1,
           cex=1.4)
      )
 
@@ -1988,8 +2636,8 @@ par(op)
 ]
 
 .pull-right[
-.center[ 
-$\text{PC}1$ ~ $\text{PC}2$ 
+.center[
+$\text{PC}1$ ~ $\text{PC}2$
 ]
 
 ```{r echo=FALSE, fig.height = 6.5, fig.width = 3.5}
@@ -2004,9 +2652,9 @@ op <- par(mfrow = c(2, 1),     # 2x2 layout
 )
 
 
-plot(PC2 ~ PC1, 
-     col = as.factor(rownames(score)), 
-     pch = 19, 
+plot(PC2 ~ PC1,
+     col = as.factor(rownames(score)),
+     pch = 19,
      xlim = c(-2.2, 2.2), ylim = c(-2.2,2.2), xlab='PC1', ylab='PC2',data = score)
 
 abline(h = 0, col = 'purple')
@@ -2028,7 +2676,7 @@ points(PC2 ~ PC1, col=as.factor(rownames(score)), pch = 19, xlab='V1', ylab='V2'
 with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
 
 
-plot(PC2 ~ PC1, col=as.factor(rownames(score)), 
+plot(PC2 ~ PC1, col=as.factor(rownames(score)),
      pch = 19, xlim=c(-2.2, 2.2), ylim = c(-2.2,2.2),
      xlab='PC1', ylab='PC2',data=score)
 
@@ -2039,7 +2687,7 @@ abline(v = 0, col ='orange')
 perp.segment.vert <- function(x0, y0){
   x1 <- 0
   y1 <- y0
-  
+
   list(x0 = x0, y0 = y0, x1 = x1, y1 = y1)
 }
 
@@ -2053,7 +2701,7 @@ with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
 
 title(xlab = "PC1",
       ylab = "PC2",
-      outer = TRUE, 
+      outer = TRUE,
       line = 3)
 
 par(op)
@@ -2079,7 +2727,7 @@ L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `
 ```{r}
 data(varechem)
 
-Y <- varechem[, 1:2] 
+Y <- varechem[, 1:2]
 Y_std <- as.matrix(scale(Y))
 Y_R <- cov(Y_std)
 
@@ -2096,8 +2744,8 @@ head(F_PrComps)
 <br>
 `stats::prcomp()`?
 ```{r}
-PCA_prcomp <- prcomp(Y, 
-                     center = TRUE, 
+PCA_prcomp <- prcomp(Y,
+                     center = TRUE,
                      scale = TRUE)
 
 # or PCA_prcomp <- prcomp(Y_std)
@@ -2118,7 +2766,7 @@ L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `
 ```{r}
 data(varechem)
 
-Y <- varechem[, 1:2] 
+Y <- varechem[, 1:2]
 Y_std <- as.matrix(scale(Y))
 Y_R <- cov(Y_std)
 
@@ -2153,7 +2801,7 @@ L'ACP peut aussi être calculée en utilisant les fonctions `stats::prcomp()`, `
 ```{r}
 data(varechem)
 
-Y <- varechem[, 1:2] 
+Y <- varechem[, 1:2]
 Y_std <- as.matrix(scale(Y))
 Y_R <- cov(Y_std)
 
@@ -2172,8 +2820,8 @@ head(F_PrComps)
 ```{r}
 PCA_vegan_rda <- rda(Y_std)
 
-scores(PCA_vegan_rda, 
-       display = "sites", 
+scores(PCA_vegan_rda,
+       display = "sites",
        scaling = 1,
        choices = seq_len(PCA_vegan_rda$CA$rank),
        const = sqrt(PCA_vegan_rda$tot.chi * (nrow(PCA_vegan_rda$CA$u) - 1)))[1:5, ]
@@ -2198,7 +2846,7 @@ Avançons et appliquons-la à notre jeu de données sur les espèces de poissons
 Pour cela, nous allons utiliser la fonction `vegan::rda()` sur les données de poissons *transformées par Hellinger* et résumer les résultats :
 
 ```{r}
-spe.h.pca <- rda(spec.hel)
+spe.h.pca <- rda(spe.hel)
 
 # summary(spe.h.pca)
 ```
@@ -2263,7 +2911,7 @@ paste(capture.output(summary(spe.h.pca))[c(26:29, 31:32, 34:40, 63:64, 66:72)])
 # Analyse en composantes principales
 
 .pull-left[
-`Species` fait référence à vos descripteurs (c'est-à-dire les colonnes de votre ensemble de données), qui sont ici les espèces de poissons.
+`Species` fait référence à vos descripteurs (c.-à-d. les colonnes de votre ensemble de données), qui sont ici les espèces de poissons.
 
 `Scores` font référence à la position de chaque espèce le long des composantes principales.
 ]
@@ -2354,13 +3002,13 @@ head(bstick(spe.h.pca))
 
 .pull-right[
 ```{r, echo = TRUE, fig.width=4.5, fig.height = 4.5}
-screeplot(spe.h.pca, 
+screeplot(spe.h.pca,
           bstick = TRUE, type = "lines")
 ```
 ]
 
 ---
-## Analyse en composantes principales 
+## Analyse en composantes principales
 
 Il ne reste plus qu'à discuter de la *mise à l'échelle* et à *visualiser* nos résultats.
 
@@ -2470,7 +3118,7 @@ biplot(spe.h.pca, scaling = 2)
 1 : **Meilleur pour l'interprétation des relations entre les objets (sites)!**
 
 ---
-# Défi # 3 ![:cube]()
+# Défi #2 ![:cube]()
 
 En utilisant tout ce que vous avez appris, calculez une ACP sur les données d'abondance des espèces d'acariens.
 
@@ -2479,18 +3127,18 @@ data(mite)
 ```
 
 Soyez prêt à discuter et à répondre :
-- Quelles sont les composantes principales *les plus pertinentes*, c'est-à-dire les sous-ensembles ?
+- Quelles sont les composantes principales *les plus pertinentes*, c.-à-d. les sous-ensembles ?
 - Quels groupes de sites pouvez-vous identifier ?
 - Quels groupes d'espèces sont liés à ces groupes de sites ?
 
 ---
 
-# Solution #3
+# Défi #2: Solution
 
 Calculer l'ACP sur les données d'espèces transformées par Hellinger.
 
 ```{r}
-mite.spe.hel <- decostand(mite, 
+mite.spe.hel <- decostand(mite,
                           method = "hellinger")
 
 mite.spe.h.pca <- rda(mite.spe.hel)
@@ -2505,13 +3153,13 @@ Appliquer le critère de Kaiser-Guttman
 ev <- mite.spe.h.pca$CA$eig
 ev[ev>mean(ev)]
 n <- length(ev)
-barplot(ev, main = "Eigenvalues", 
+barplot(ev, main = "Eigenvalues",
         col = "grey", las = 2)
 abline(h = mean(ev),
        col = "red3", lwd = 2)
-legend("topright", 
-       "Average eigenvalue", 
-       lwd = 2, 
+legend("topright",
+       "Average eigenvalue",
+       lwd = 2,
        col = "red3", bty = "n")
 ```
 ]
@@ -2521,30 +3169,30 @@ legend("topright",
 par(mar=c(4,4,2,1), cex = 1.2)
 ev <- mite.spe.h.pca$CA$eig
 n <- length(ev)
-barplot(ev, main = "Eigenvalues", 
+barplot(ev, main = "Eigenvalues",
         col = "grey", las = 2)
 abline(h = mean(ev),
        col = "red3", lwd = 2)
-legend("topright", 
-       "Average eigenvalue", 
-       lwd = 2, col = "red3", 
+legend("topright",
+       "Average eigenvalue",
+       lwd = 2, col = "red3",
        bty = "n")
 ```
 ]
 
 ---
-# Solution #3
+# Défi #2: Solution
 
 ```{r, echo = -1, fig.height=6.5, fig.width=7}
 par(mar = c(4,4,0.05,0.05), cex = 1.5)
-biplot(mite.spe.h.pca, 
+biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 ```
 
 ---
 # Analyse des coordonnées principales
 
-La **ACoP** (*PCoA*, en anglais) est similaire dans son esprit à l'ACP, mais elle prend des *dissimilarités* comme données d'entrée ! 
+La **ACoP** (*PCoA*, en anglais) est similaire dans son esprit à l'ACP, mais elle prend des *dissimilarités* comme données d'entrée !
 
 Elle vise à représenter fidèlement les distances avec l'espace dimensionnel le plus bas possible.
 
@@ -2556,7 +3204,7 @@ Pour calculer une ACoP, nous pouvons utiliser les fonctions `cmdscale()` ou `pco
 
 ```{r}
 library(ape)
-spe.h.pcoa <- pcoa(dist(spec.hel))
+spe.h.pcoa <- pcoa(dist(spe.hel))
 summary(spe.h.pcoa)
 ```
 
@@ -2586,7 +3234,7 @@ head(spe.h.pcoa$vectors)[, 1:5]
 Nous pouvons afficher les distances entre les sites en utilisant la fonction `biplot.pcoa()`, ainsi que représenter les espèces associées à chaque site.
 
 ```{r, fig.height=5.5, fig.width=8}
-biplot.pcoa(spe.h.pcoa, spec.hel)
+biplot.pcoa(spe.h.pcoa, spe.hel)
 ```
 
 ---
@@ -2607,12 +3255,12 @@ spe.bray.pcoa$values$Eigenvalues
 ]
 
 .pull-right[
-Notez les valeurs propres négatives ! 
+Notez les valeurs propres négatives !
 
 Cela est dû au fait que les distances non métriques ne peuvent pas être représentées dans l'espace euclidien sans corrections (*voir* Legendre & Legendre 2012 pour plus de détails à ce sujet) :
 
 ```{r}
-spe.bray.pcoa <- pcoa(spe.db.pa, 
+spe.bray.pcoa <- pcoa(spe.db.pa,
                       correction = "cailliez")
 ```
 ]
@@ -2641,7 +3289,7 @@ biplot.pcoa(spe.bray.pcoa)
 ]
 
 ---
-# Défi #5 ![:cube]()
+# Défi #3 ![:cube]()
 
 Calculez une ACoP sur les données d'abondance des espèces d'acariens transformées par Hellinger.
 
@@ -2653,7 +3301,7 @@ Soyez prêt à répondre :
 - Comment les résultats de la ACoP se comparent-ils à ceux de l'ACP ?
 
 ---
-# Solution #5
+# Défi #3: Solution
 
 - Transformation de Hellinger des données sur les espèces
 ```{r}
@@ -2668,7 +3316,7 @@ mite.spe.h.pcoa <- pcoa(dist(mite.spe.hel))
 ```
 
 ---
-# Solution #5
+# Défi #3: Solution
 
 - Construisez un biplot pour visualiser les données :
 ```{r, fig.width=6, fig.height=6}
@@ -2762,7 +3410,7 @@ text(scores(spe.nmds, display = "species", choices = c(1)),
 
 .pull-left[
 
-Le biplot du PMnM montre un groupe de sites fermés caractérisés par les espèces BLA, TRU, VAI, LOC, CHA et OMB, tandis que les autres espèces forment un groupe de sites dans la partie supérieure droite du graphique. 
+Le biplot du PMnM montre un groupe de sites fermés caractérisés par les espèces BLA, TRU, VAI, LOC, CHA et OMB, tandis que les autres espèces forment un groupe de sites dans la partie supérieure droite du graphique.
 
 Quatre sites dans la partie inférieure du graphique sont fortement différents des autres.
 ]
@@ -2788,40 +3436,85 @@ text(scores(spe.nmds, display = "species", choices = c(1)),
 ]
 
 ---
-# Défi #6 ![:cube]()
+# Défi #4 ![:cube]()
 
 <br>
 
-Exécutez le PMnM de l'abondance des espèces d'acariens en 2 dimensions basé sur une distance de Bray-Curtis.
+Exécutez le PMnM de l'abondance des espèces d'acariens `mite.spe` en 2 dimensions basé sur une distance de Bray-Curtis.
 
 Évaluez la qualité de l'ajustement de l'ordination et interprétez le biplot.
 
----
-# Solution #6
+Rappelez-vous de ces fonctions utiles:
 
-.pull-left[
-![](images/SheplSol6.png)
-]
-
-.pull-right[
-La corrélation entre la dissimilarité observée et la distance d'ordination $(R^2 > 0,91)$ et la valeur de contrainte relativement faible, montrant ensemble une bonne précision de l'ordination NMDS.
-]
+```{r, eval = F}
+?metaMDS
+?stressplot
+```
 
 ---
-# Solution #6
+# Défi #4: Solution
 
-.pull-left[
-![](images/NMDSSol61.png)
-]
+Exécutez le PMnM de l'abondance des espèces d'acariens `mite.spe` en 2 dimensions basé sur une distance de Bray-Curtis.
 
-.pull-right[
-Aucun groupe de sites ne peut être défini précisément à partir du biplot NMDS montrant que la plupart des espèces sont présentes dans la plupart des sites, c'est-à-dire que quelques sites abritent des communautés spécifiques.
-]
+```{r, results='hide'}
+mite.nmds <- metaMDS(mite.spe, distance = 'bray', k = 2)
+```
+
+---
+# Défi #4: Solution
+
+```{r, eval = F}
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+```
+
+---
+# Défi #4: Solution
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 7}
+plot(mite.nmds, type = "none",
+     main = paste("NMDS/Bray - Stress =",
+                  round(mite.nmds$stress, 3)),
+     xlab = c("NMDS1"), ylab = "NMDS2")
+points(scores(mite.nmds, display = "sites",
+              choices = c(1,2)),
+              pch = 21,
+              col = "black",
+              bg = "steelblue",
+              cex = 1.2)
+text(scores(mite.nmds, display = "species", choices = c(1)),
+     scores(mite.nmds, display = "species", choices = c(2)),
+     labels = rownames(scores(mite.nmds, display = "species")),
+     col = "red", cex = 0.8)
+```
+
+Il n'y a pas vraiment de regroupement évident de sites dans le biplot NMDS. Cela nous indique que les espèces sont présentes dans la plupart des sites. Seuls quelques sites contiennent des communautés spécifiques.
+
+---
+# Défi #4: Solution
+
+```{r}
+stressplot(mite.nmds)
+```
+
+La dissimilarité observée est fortement corrélée avec la distance d'ordination, et la valeur de stress NMDS est relativement faible, ce qui nous indique que l'ordination NMDS est relativement précise.
 
 ---
 # Conclusion
 
-.alert[De nombreuses techniques d'ordination existent, mais leur spécificité doit guider vos choix sur les méthodes à utiliser]
+.alert[De nombreuses techniques d'ordination existent, mais leur spécificité doit guider vos choix sur les méthodes à utiliser.]
 
 | | Distance préservée | Variables | Nombre maximal d'axes |
 |---|---------|--------------|------|
@@ -2856,21 +3549,21 @@ Analyse en coordonnées principales (ACoP)
 La proportion de variance capturée par une composante principale
 
 ---
-# C'est l'heure du quiz !
+# C'est l'heure du quiz!
 
-Trouvez l'erreur!
+Trouvez l'erreur dans cette figure!
 
 ![:scale 90%](images/Chall7.png)
 
 --
 .alert[
-- Données non centrées, beurk!
+- Les données ne sont pas centrées. Beurk!
 ]
 
 --
 
 .alert[
-- Les 2 premiers axes capturent 100% de la variation.
+- Les deux premiers axes capturent 100% de la variation.
 ]
 
 ---
