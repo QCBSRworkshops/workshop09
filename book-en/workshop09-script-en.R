@@ -15,15 +15,33 @@
 #Happy coding!                                                               #
 
 
-install.packages("vegan")
-install.packages("gclus")
-install.packages("ape")
+library (ade4)
+data (doubs)
 
-library(vegan)
-library(gclus)
-library(ape)
+spe <- doubs$fish
+env <- doubs$env
 
-source(file.choose()) # use coldiss.R which you have downloaded to your own directory
+library (codep)
+data (Doubs)
+
+spe <- Doubs.fish
+env <- Doubs.env
+
+list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
+
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+if(length(new.packages) > 0) {
+  install.packages(new.packages, dependencies = TRUE) 
+  print(paste0("The following package was installed:", new.packages)) 
+} else if(length(new.packages) == 0) {
+  print("All packages were already installed previously")
+}
+
+# Load all required libraries at once
+lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
+
+# source(file.choose()) # use coldiss.R which you have downloaded to your own directory
 
 
 ##Section: 02-introduction.R 
@@ -33,62 +51,202 @@ source(file.choose()) # use coldiss.R which you have downloaded to your own dire
 
 ##Section: 03-data-exploration.R 
 
-#Species community data frame (fish abundance): “DoubsSpe.csv”
-spe<- read.csv(file.choose(), row.names=1)
-spe<- spe[-8,] #Site number 8 contains no species and so row 8 (site 8) is removed. Be careful to
-#only run this command line once as you are overwriting "spe" each time.
+spe <- read.csv("data/doubsspe.csv", 
+                row.names = 1) 
 
-#Environmental data frame: “DoubsEnv.csv”
-env<- read.csv(file.choose(), row.names=1)
-env<- env[-8,] #Remove corresponding abiotic data for site 8 (since removed from fish data).
-#Again, be careful to only run the last line once.
+env <- read.csv("data/doubsenv.csv", 
+                row.names = 1)
 
-names(spe) #see names of columns in spe
-dim(spe) #dimensions of spe; number of columns and rows
-str(spe) #displays internal structure of objects
-head(spe) #first few rows of the data frame
-summary(spe) #summary statistics for each column; min value, median value, max value, mean value etc.
+library (ade4)
+data (doubs)
 
-#Species distribution
-(ab <- table(unlist(spe))) #note that when you put an entire line of code in brackets like this, the output for that operation is displayed right away in the R console
+spe <- doubs$fish
+env <- doubs$env
 
-barplot(ab, las=1, xlab="Abundance class", ylab="Frequency", col=grey(5:0/5))
+library (codep)
+data (Doubs)
 
-sum(spe==0)
+spe <- Doubs.fish
+env <- Doubs.env
 
-sum(spe==0)/(nrow(spe)*ncol(spe))
+head(spe)[, 1:8]
 
-spe.pres <- colSums(spe>0) #compute the number of sites where each species is present.
-hist(spe.pres, main="Species occurrence", las=1, xlab="Frequency of occurrences", breaks=seq(0,30, by=5), col="grey")
+str(spe)
 
-site.pres <- rowSums(spe>0) #number of species with a value greater than 0 in that site row
-hist(site.pres, main="Species richness", las=1, xlab="Frequency of sites", ylab="Number of species", breaks=seq(0,30, by=5), col="grey")
+# Try some of these!
 
-names(env)
-dim(env)
+names(spe)   # names of objects
+dim(spe)     # dimensions
+
+str(spe)     # structure of objects
+summary(spe) # summary statistics
+
+head(spe)    # first 6 rows
+
 str(env)
-head(env)
-summary(env)
-pairs(env, main="Bivariate Plots of the Environmental Data" )
 
-env.z <- decostand(env, method="standardize")
-apply(env.z, 2, mean) # the data are now centered (means~0)
-apply(env.z, 2, sd)   # the data are now scaled (standard deviations=1)
+summary(env) # summary statistics
 
 
 ##Section: 04-association-distances.R 
 
-spe.db<-vegdist(spe, method="bray") # "bray" with presence-absence data is Sorensen dissimilarity
-spe.dj<-vegdist(spe, method="jac") # Jaccard dissimilarity
-spe.dg<-vegdist(spe, method="gower") # Gower dissimilarity
-spe.db<-as.matrix(spe.db) #Put in matrix form (can visualize, write to .csv etc)
+dist(spe)
 
-windows()
-coldiss(spe.db, byrank=FALSE, diag=TRUE) # Heat map of Bray-Curtis dissimilarity
-windows()
-coldiss(spe.dj, byrank=FALSE, diag=TRUE) # Heat map of Jaccard dissimilarity
-windows()
-coldiss(spe.dg, byrank=FALSE, diag=TRUE) # Heat map of Gower dissimilarity
+class(dist(spe))
+
+str(dist(spe))
+
+as.matrix(dist(spe))
+
+dim(as.matrix(dist(spe)))
+
+as.matrix(dist(spe))[1:3, 1:3]
+
+#setting up the plot
+xlim <- c(0,4)
+ylim <- c(-1,5)
+par(mar=c(1,1,1,1)+.1)
+plot(xlim, 
+     ylim, type="n", 
+     xlab="X1", 
+     ylab="X2", 
+     asp=1)
+grid()
+# define some vectors
+a=c(4, 0)
+b=c(0, 4)
+# plot the vectors
+vectors(a, labels="D(y21, y11)", pos.lab=3, frac.lab=.5, col="grey")
+vectors(a + b, labels="D1(x1,x2)", pos.lab=4, frac.lab=.5, col="red")
+# vector a+b starting from a is equal to b.
+vectors(a + b, labels="D(y12, y22)", pos.lab=4, frac.lab=.5, origin=a, col="grey")
+
+points(x = 4, y = 0, type = "p")
+text(x=4.1, y=-0.2, labels="")
+
+points(x = 0, y = 0, type = "p")
+text(x=-0.1, y=-0.2, labels="x1")
+
+points(x = 4, y = 4, type = "p")
+text(x=4.1, y=4.2, labels="x2")
+
+spe.D.Euclid <- dist(x = spe,  
+                     method = "euclidean")
+
+is.euclid(spe.D.Euclid)
+
+Y.hmm <- data.frame(
+  y1 = c(0, 0, 1),
+  y2 = c(4, 1, 0),
+  y3 = c(8, 1, 0))
+
+Y.hmm.DistEu <- dist(x = Y.hmm,  
+                     method = "euclidean")
+
+as.matrix(Y.hmm.DistEu)
+
+spe.D.Ch <- vegdist(spe,  
+                    method = "chord")
+
+as.matrix(spe.D.Ch)[1:3, 1:3]
+
+Y.hmm.DistCh <- vegdist(Y.hmm,  
+                    method = "chord")
+
+as.matrix(Y.hmm.DistCh)
+
+as.matrix(Y.hmm.DistEu)
+
+Y.hmm
+
+spe.D.Jac <- vegdist(spe, 
+                     method = "jaccard",
+                     binary = TRUE)
+
+spe.D.Sor <- vegdist(spe, 
+                     method = "bray",
+                     binary = TRUE)
+
+spe.db.pa <- vegdist(spe, 
+                      method = "bray",
+                      binary = FALSE)
+spe.db <- as.matrix(spe.db.pa)
+
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+  require(gclus)
+  
+  if (max(D)>1) D <- D/max(D)
+  
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+  
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+  
+  op <- par(mfrow=c(1,2), pty="s")
+  
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix")
+  }
+  
+  par(op)
+}
+
+# Usage:
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+# If D is not a dissimilarity matrix (max(D) > 1), then D is divided by max(D)
+# nc 							number of colours (classes)
+# byrank= TRUE		equal-sized classes
+# byrank= FALSE		equal-length intervals
+# diag = TRUE			print object labels also on the diagonal
+
+# Example:
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
+
+
+coldiss(spe.D.Jac)
+
+spe[1:6, 1:6]
+
+spe.pa <- decostand(spe, method = "pa")
+spe.pa[1:6, 1:6]
+
+spe.total <- decostand(spe, 
+                       method = "total")
+spe.total[1:5, 1:6]
+
+spe.total <- decostand(spe, 
+                       method = "hellinger")
+spe.total[1:5, 1:6]
+
+?decostand
+env.z <- decostand(env, method = "standardize")
+
+apply(env.z, 2, mean)
+apply(env.z, 2, sd)
 
 ?dist # this function also compute dissimilarity matrix
 env.de<-dist(env.z, method = "euclidean") # euclidean distance matrix of the standardized environmental variables
@@ -160,49 +318,13 @@ Range.spe3<-max(spe.challenge[,3]) - min (spe.challenge[,3])
 # Compare your results
 (spe.db.challenge<-vegdist(spe.challenge, method="gower"))
 
-spe.pa<-decostand(spe, method="pa")
+# Demonstration of a cluster dendrogram
+spe.hel<-decostand(spe, method="hellinger")
+spe.dhel <- vegdist(spe.hel,method="euclidean")
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
+spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 
-#Hellinger transformation
-spe.hel<-decostand(spe, method="hellinger") #can also use method=”hell”
-
-#Chi-square transformation
-spe.chi<-decostand(spe, method="chi.square")
-
-# Hellinger transformation
-# First calculate the total species abundances by site
-(site.totals=apply(spe, 1, sum))
-
-# Scale species abundances by dividing them by site totals
-(scale.spe<-spe/site.totals)
-
-# Calculate the square root of scaled species abundances
-(sqrt.scale.spe<-sqrt(scale.spe))
-
-# Compare the results
-sqrt.scale.spe
-spe.hel
-sqrt.scale.spe-spe.hel # or: sqrt.scale.spe/spe.hel
-
-# Chi-square transformation
-# First calculate the total species abundances by site
-(site.totals<-apply(spe, 1, sum))
-
-# Then calculate the square root of total species abundances
-(sqrt.spe.totals<-sqrt(apply(spe, 2, sum)))
-
-# Scale species abundances by dividing them by the site totals and the species totals
-scale.spe2<-spe
-for (i in 1:nrow(spe)) {
-  for (j in 1:ncol(spe)) {
-   (scale.spe2[i,j]=scale.spe2[i,j]/(site.totals[i]*sqrt.spe.totals[j]))   }}
-
-#Adjust the scale abundance species by multiplying by the square root of the species matrix total
-(adjust.scale.spe2<-scale.spe2*sqrt(sum(rowSums(spe))))
-
-# Compare the results
-adjust.scale.spe2
-spe.chi
-adjust.scale.spe2-spe.chi # or: adjust.scale.spe2/spe.chi
 
 spe.dhel<-vegdist(spe.hel,method="euclidean") #generates the distance matrix from Hellinger transformed data
 

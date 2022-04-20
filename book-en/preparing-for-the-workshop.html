@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Preparing for the workshop | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Preparing for the workshop | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
@@ -30,7 +30,7 @@
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="learning-objectives.html"/>
-<link rel="next" href="what-is-ordination.html"/>
+<link rel="next" href="recap-univariate-analyses.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -136,39 +136,68 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
 
 <li class="divider"></li>
-<li class="part"><span><b>QCBS R Workshop Series<span></span></b></span></li>
-<li><a href="index.html#preface">Preface<span></span></a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>0.1</b> Code of conduct<span></span></a><ul>
-<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour<span></span></a></li>
-<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour<span></span></a></li>
+<li class="part"><span><b>QCBS R Workshop Series</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
+<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>0.2</b> Contributors<span></span></a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#contributing"><i class="fa fa-check"></i><b>0.3</b> Contributing<span></span></a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>0.2</b> Contributors</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#contributing"><i class="fa fa-check"></i><b>0.3</b> Contributing</a></li>
 </ul></li>
-<li class="part"><span><b>Multivariate Analyses in <code>R</code><span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>1</b> Learning objectives<span></span></a></li>
-<li class="chapter" data-level="2" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>2</b> Preparing for the workshop<span></span></a></li>
-<li class="chapter" data-level="3" data-path="what-is-ordination.html"><a href="what-is-ordination.html"><i class="fa fa-check"></i><b>3</b> What is ordination?<span></span></a></li>
-<li class="chapter" data-level="4" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>4</b> Exploring the dataset<span></span></a><ul>
-<li class="chapter" data-level="4.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#species-data"><i class="fa fa-check"></i><b>4.1</b> Species data<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#environmental-data"><i class="fa fa-check"></i><b>4.2</b> Environmental data<span></span></a></li>
+<li class="part"><span><b>Multivariate Analyses in <code>R</code></b></span></li>
+<li class="chapter" data-level="1" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>1</b> Learning objectives</a></li>
+<li class="chapter" data-level="2" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>2</b> Preparing for the workshop</a></li>
+<li class="part"><span><b>PREAMBLE</b></span></li>
+<li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
+<li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
+<li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="part"><span><b>Measures of association<span></span></b></span></li>
-<li class="chapter" data-level="5" data-path="data-dissimilarity.html"><a href="data-dissimilarity.html"><i class="fa fa-check"></i><b>5</b> Data (dis)similarity<span></span></a></li>
-<li class="chapter" data-level="6" data-path="quantifying-data-dissimilarity.html"><a href="quantifying-data-dissimilarity.html"><i class="fa fa-check"></i><b>6</b> Quantifying data (dis)similarity<span></span></a><ul>
-<li class="chapter" data-level="6.1" data-path="quantifying-data-dissimilarity.html"><a href="quantifying-data-dissimilarity.html#transformations-of-community-composition-data"><i class="fa fa-check"></i><b>6.1</b> Transformations of community composition data<span></span></a></li>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
+<li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering<span></span></a></li>
-<li class="part"><span><b>Unconstrained Ordination<span></span></b></span></li>
-<li class="chapter" data-level="8" data-path="what-does-unconstrained-mean.html"><a href="what-does-unconstrained-mean.html"><i class="fa fa-check"></i><b>8</b> What does “unconstrained” mean?<span></span></a></li>
-<li class="chapter" data-level="9" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principal Component Analysis<span></span></a></li>
-<li class="chapter" data-level="10" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>10</b> Correspondence Analysis<span></span></a></li>
-<li class="chapter" data-level="11" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Coordinates Analysis<span></span></a></li>
-<li class="chapter" data-level="12" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>12</b> Nonmetric MultiDimensional Scaling<span></span></a></li>
-<li class="part"><span><b>Final considerations<span></span></b></span></li>
-<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary<span></span></a></li>
-<li class="chapter" data-level="14" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>14</b> Additional resources<span></span></a></li>
-<li class="chapter" data-level="15" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>15</b> References<span></span></a></li>
+<li class="part"><span><b>(Dis)similarity measures</b></span></li>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
+<li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
+<li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
+<li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
+</ul></li>
+<li class="part"><span><b>Unconstrained Ordination</b></span></li>
+<li class="chapter" data-level="12" data-path="what-does-unconstrained-mean.html"><a href="what-does-unconstrained-mean.html"><i class="fa fa-check"></i><b>12</b> What does “unconstrained” mean?</a></li>
+<li class="chapter" data-level="13" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>13</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="14" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>14</b> Correspondence Analysis</a></li>
+<li class="chapter" data-level="15" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>15</b> Principal Coordinates Analysis</a></li>
+<li class="chapter" data-level="16" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>16</b> Nonmetric MultiDimensional Scaling</a></li>
+<li class="part"><span><b>Final considerations</b></span></li>
+<li class="chapter" data-level="17" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>17</b> Summary</a></li>
+<li class="chapter" data-level="18" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>18</b> Additional resources</a></li>
+<li class="chapter" data-level="19" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>19</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
 
@@ -207,33 +236,120 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="preparing-for-the-workshop" class="section level1 hasAnchor">
 <h1><span class="header-section-number">Chapter 2</span> Preparing for the workshop<a href="preparing-for-the-workshop.html#preparing-for-the-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>To prepare for this workshop, you must do the following steps:</p>
-<p>Download the R script and data required for this workshop:</p>
+<p>Download the data required for this workshop:</p>
 <ul>
-<li><a href="http://qcbs.ca/wiki/_media/multivar1_e.r">R Script</a></li>
 <li><a href="http://qcbs.ca/wiki/_media/DoubsEnv.csv">DoubsEnv data</a></li>
 <li><a href="http://qcbs.ca/wiki/_media/DoubsSpe.csv">DoubsSpe data</a></li>
+</ul>
+<p>Their data can also be retrieved from the <code>ade4</code> package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="preparing-for-the-workshop.html#cb1-1"></a><span class="kw">library</span>(ade4)</span>
+<span id="cb1-2"><a href="preparing-for-the-workshop.html#cb1-2"></a><span class="kw">data</span>(doubs)</span>
+<span id="cb1-3"><a href="preparing-for-the-workshop.html#cb1-3"></a></span>
+<span id="cb1-4"><a href="preparing-for-the-workshop.html#cb1-4"></a>spe &lt;-<span class="st"> </span>doubs<span class="op">$</span>fish</span>
+<span id="cb1-5"><a href="preparing-for-the-workshop.html#cb1-5"></a>env &lt;-<span class="st"> </span>doubs<span class="op">$</span>env</span></code></pre></div>
+<p>Alternatively, from the <code>codep</code> package:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="preparing-for-the-workshop.html#cb2-1"></a><span class="kw">library</span>(codep)</span>
+<span id="cb2-2"><a href="preparing-for-the-workshop.html#cb2-2"></a><span class="kw">data</span>(Doubs)</span>
+<span id="cb2-3"><a href="preparing-for-the-workshop.html#cb2-3"></a></span>
+<span id="cb2-4"><a href="preparing-for-the-workshop.html#cb2-4"></a>spe &lt;-<span class="st"> </span>Doubs.fish</span>
+<span id="cb2-5"><a href="preparing-for-the-workshop.html#cb2-5"></a>env &lt;-<span class="st"> </span>Doubs.env</span></code></pre></div>
+<p>Download the RScript containing the <code>coldiss()</code> function:</p>
+<ul>
+<li><a href="http://qcbs.ca/wiki/_media/multivar1_e.r">R Script</a></li>
 <li><a href="http://qcbs.ca/wiki/_media/coldiss.R">Coldiss R function</a></li>
 </ul>
-<p>Make sure to load the following packages (see how in the R script):</p>
-<ul>
-<li><a href="http://cran.r-project.org/web/packages/vegan/index.html">vegan (for multivariate
-analyses)</a></li>
-<li><a href="http://cran.r-project.org/web/packages/gclus/index.html">gclus (for clustering
-graphics)</a></li>
-<li><a href="http://cran.r-project.org/web/packages/ape/index.html">ape (for
-phylogenetics)</a></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="preparing-for-the-workshop.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;vegan&quot;</span>)</span>
-<span id="cb1-2"><a href="preparing-for-the-workshop.html#cb1-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;gclus&quot;</span>)</span>
-<span id="cb1-3"><a href="preparing-for-the-workshop.html#cb1-3"></a><span class="kw">install.packages</span>(<span class="st">&quot;ape&quot;</span>)</span>
-<span id="cb1-4"><a href="preparing-for-the-workshop.html#cb1-4"></a></span>
-<span id="cb1-5"><a href="preparing-for-the-workshop.html#cb1-5"></a><span class="kw">library</span>(vegan)</span>
-<span id="cb1-6"><a href="preparing-for-the-workshop.html#cb1-6"></a><span class="kw">library</span>(gclus)</span>
-<span id="cb1-7"><a href="preparing-for-the-workshop.html#cb1-7"></a><span class="kw">library</span>(ape)</span>
-<span id="cb1-8"><a href="preparing-for-the-workshop.html#cb1-8"></a></span>
-<span id="cb1-9"><a href="preparing-for-the-workshop.html#cb1-9"></a><span class="kw">source</span>(<span class="kw">file.choose</span>())  <span class="co"># use coldiss.R which you have downloaded to your own directory</span></span></code></pre></div>
+<p>You must also use these packages:
+* <a href="https://cran.r-project.org/package=ape">ape</a>
+* <a href="https://cran.r-project.org/package=ade4">ade4</a>
+* <a href="https://cran.r-project.org/package=codep">codep</a>
+* <a href="https://cran.r-project.org/package=gclus">gclus</a>
+* <a href="https://cran.r-project.org/package=vegan">vegan</a>
+* <a href="https://cran.r-project.org/package=GGally">GGally</a>
+* <a href="https://cran.r-project.org/package=PlaneGeometry">PlaneGeometry</a>
+* <a href="https://cran.r-project.org/package=remotes">remotes</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="preparing-for-the-workshop.html#cb3-1"></a>list.of.packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ape&quot;</span>, <span class="st">&quot;ade4&quot;</span>, <span class="st">&quot;codep&quot;</span>, <span class="st">&quot;gclus&quot;</span>, <span class="st">&quot;vegan&quot;</span>,</span>
+<span id="cb3-2"><a href="preparing-for-the-workshop.html#cb3-2"></a>    <span class="st">&quot;GGally&quot;</span>, <span class="st">&quot;PlaneGeometry&quot;</span>, <span class="st">&quot;remotes&quot;</span>, <span class="st">&quot;matlib&quot;</span>)</span>
+<span id="cb3-3"><a href="preparing-for-the-workshop.html#cb3-3"></a></span>
+<span id="cb3-4"><a href="preparing-for-the-workshop.html#cb3-4"></a>new.packages &lt;-<span class="st"> </span>list.of.packages[<span class="op">!</span>(list.of.packages <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()[,</span>
+<span id="cb3-5"><a href="preparing-for-the-workshop.html#cb3-5"></a>    <span class="st">&quot;Package&quot;</span>])]</span>
+<span id="cb3-6"><a href="preparing-for-the-workshop.html#cb3-6"></a></span>
+<span id="cb3-7"><a href="preparing-for-the-workshop.html#cb3-7"></a><span class="cf">if</span> (<span class="kw">length</span>(new.packages) <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb3-8"><a href="preparing-for-the-workshop.html#cb3-8"></a>    <span class="kw">install.packages</span>(new.packages, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb3-9"><a href="preparing-for-the-workshop.html#cb3-9"></a>    <span class="kw">print</span>(<span class="kw">paste0</span>(<span class="st">&quot;The following package was installed:&quot;</span>, new.packages))</span>
+<span id="cb3-10"><a href="preparing-for-the-workshop.html#cb3-10"></a>} <span class="cf">else</span> <span class="cf">if</span> (<span class="kw">length</span>(new.packages) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</span>
+<span id="cb3-11"><a href="preparing-for-the-workshop.html#cb3-11"></a>    <span class="kw">print</span>(<span class="st">&quot;All packages were already installed previously&quot;</span>)</span>
+<span id="cb3-12"><a href="preparing-for-the-workshop.html#cb3-12"></a>}</span></code></pre></div>
+<pre><code>## Installing packages into &#39;/home/runner/work/_temp/Library&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<pre><code>## Warning: dependency &#39;webshot2&#39; is not available</code></pre>
+<pre><code>## also installing the dependencies &#39;curl&#39;, &#39;XML&#39;, &#39;httr&#39;, &#39;segmented&#39;, &#39;terra&#39;, &#39;rncl&#39;, &#39;RNeXML&#39;, &#39;seqinr&#39;, &#39;reshape2&#39;, &#39;raster&#39;, &#39;classInt&#39;, &#39;DBI&#39;, &#39;wk&#39;, &#39;SparseM&#39;, &#39;MatrixModels&#39;, &#39;minqa&#39;, &#39;nloptr&#39;, &#39;phylobase&#39;, &#39;adegenet&#39;, &#39;spData&#39;, &#39;sf&#39;, &#39;units&#39;, &#39;s2&#39;, &#39;pbkrtest&#39;, &#39;quantreg&#39;, &#39;maptools&#39;, &#39;lme4&#39;, &#39;pixmap&#39;, &#39;ade4TkGUI&#39;, &#39;adegraphics&#39;, &#39;adephylo&#39;, &#39;CircStats&#39;, &#39;deldir&#39;, &#39;spdep&#39;, &#39;splancs&#39;, &#39;waveslim&#39;, &#39;foreach&#39;, &#39;doParallel&#39;, &#39;iterators&#39;, &#39;car&#39;, &#39;rglwidget&#39;, &#39;carData&#39;</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;curl&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;terra&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;units&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;httr&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;raster&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;RNeXML&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;spData&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;sf&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;phylobase&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;spdep&#39; had non-zero exit status</code></pre>
+<pre><code>## Warning in install.packages(new.packages, dependencies = TRUE): installation of
+## package &#39;adephylo&#39; had non-zero exit status</code></pre>
+<pre><code>## [1] &quot;The following package was installed:ade4&quot;  
+## [2] &quot;The following package was installed:codep&quot; 
+## [3] &quot;The following package was installed:matlib&quot;</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="preparing-for-the-workshop.html#cb19-1"></a><span class="co"># Load all required libraries at once</span></span>
+<span id="cb19-2"><a href="preparing-for-the-workshop.html#cb19-2"></a><span class="kw">lapply</span>(list.of.packages, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## Registered S3 method overwritten by &#39;vegan&#39;:
+##   method         from 
+##   reorder.hclust gclus</code></pre>
+<pre><code>## This is vegan 2.5-7</code></pre>
+<pre><code>## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2</code></pre>
+<pre><code>## [[1]]
+## [1] TRUE
+## 
+## [[2]]
+## [1] TRUE
+## 
+## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] TRUE
+## 
+## [[5]]
+## [1] TRUE
+## 
+## [[6]]
+## [1] TRUE
+## 
+## [[7]]
+## [1] TRUE
+## 
+## [[8]]
+## [1] TRUE
+## 
+## [[9]]
+## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="preparing-for-the-workshop.html#cb24-1"></a><span class="co"># source(file.choose()) # use coldiss.R which you have</span></span>
+<span id="cb24-2"><a href="preparing-for-the-workshop.html#cb24-2"></a><span class="co"># downloaded to your own directory</span></span></code></pre></div>
 
 </div>
+
+
+
 <hr>
 <center> 
   <div class="footer">
@@ -246,7 +362,7 @@ phylogenetics)</a></li>
         </div>
       </div>
 <a href="learning-objectives.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="what-is-ordination.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="recap-univariate-analyses.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Types of distance coefficients | Workshop 9: Multivariate Analyses in R</title>
+  <meta name="description" content="Multivariate Analyses in R" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Types of distance coefficients | Workshop 9: Multivariate Analyses in R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+  <meta property="og:description" content="Multivariate Analyses in R" />
+  <meta name="github-repo" content="qcbsRworkshops/workshop09" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Types of distance coefficients | Workshop 9: Multivariate Analyses in R" />
+  
+  <meta name="twitter:description" content="Multivariate Analyses in R" />
+  <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+
+<meta name="author" content="Developed and maintained by the contributors of the QCBS R Workshop Series" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="dist.html"/>
+<link rel="next" href="transformations.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/qcbs-style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="assets/images/csbq_logo_gray_accueil.png"></a></li>
+<link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
+
+<li class="divider"></li>
+<li class="part"><span><b>QCBS R Workshop Series</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
+<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
+</ul></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>0.2</b> Contributors</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#contributing"><i class="fa fa-check"></i><b>0.3</b> Contributing</a></li>
+</ul></li>
+<li class="part"><span><b>Multivariate Analyses in <code>R</code></b></span></li>
+<li class="chapter" data-level="1" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>1</b> Learning objectives</a></li>
+<li class="chapter" data-level="2" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>2</b> Preparing for the workshop</a></li>
+<li class="part"><span><b>PREAMBLE</b></span></li>
+<li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
+<li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
+<li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
+<li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
+</ul></li>
+<li class="part"><span><b>(Dis)similarity measures</b></span></li>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
+<li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
+<li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
+<li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
+</ul></li>
+<li class="part"><span><b>Unconstrained Ordination</b></span></li>
+<li class="chapter" data-level="12" data-path="what-does-unconstrained-mean.html"><a href="what-does-unconstrained-mean.html"><i class="fa fa-check"></i><b>12</b> What does “unconstrained” mean?</a></li>
+<li class="chapter" data-level="13" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>13</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="14" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>14</b> Correspondence Analysis</a></li>
+<li class="chapter" data-level="15" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>15</b> Principal Coordinates Analysis</a></li>
+<li class="chapter" data-level="16" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>16</b> Nonmetric MultiDimensional Scaling</a></li>
+<li class="part"><span><b>Final considerations</b></span></li>
+<li class="chapter" data-level="17" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>17</b> Summary</a></li>
+<li class="chapter" data-level="18" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>18</b> Additional resources</a></li>
+<li class="chapter" data-level="19" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>19</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Workshop 9: Multivariate Analyses in <code>R</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!------------------------ Hero Image Container --------------------------> 
+
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/6a26f47516.js"></script>
+  <script src="assets/qcbs-hideOutput.js"></script>
+  <link href="assets/qcbs-style.css" rel="stylesheet">
+</head>
+
+
+<!-- 
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
+</div>
+--!>
+<div id="types-of-distance-coefficients" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 9</span> Types of distance coefficients<a href="types-of-distance-coefficients.html#types-of-distance-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>There are three groups of distance coefficients: <em>metrics</em>, <em>semimetrics</em>, and <em>nonmetrics</em> .</p>
+<div id="metric-distances" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.1</span> Metric distances<a href="types-of-distance-coefficients.html#metric-distances" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first group consists of <em>metrics</em>, and its coefficients satisfy the following properties:</p>
+<ol style="list-style-type: decimal">
+<li><p>minimum 0: if species <span class="math inline">\(a\)</span> is equal to species <span class="math inline">\(b\)</span>, then <span class="math inline">\(D(a,b)=0\)</span>;</p></li>
+<li><p>positiveness: if <span class="math inline">\(a \neq b\)</span>, then <span class="math inline">\(D(a,b) &gt; 0\)</span>;</p></li>
+<li><p>symmetry: <span class="math inline">\(D(a,b) = D(b,a)\)</span>;</p></li>
+<li><p>triangle inequality: <span class="math inline">\(D(a,b) + D(b,c) \geq D(a,c)\)</span>. The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.</p></li>
+</ol>
+<p>We can spot all these properties below:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="types-of-distance-coefficients.html#cb43-1"></a><span class="kw">as.matrix</span>(<span class="kw">dist</span>(spe))[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>##          1        2        3
+## 1 0.000000 5.385165 7.416198
+## 2 5.385165 0.000000 2.449490
+## 3 7.416198 2.449490 0.000000</code></pre>
+<div id="euclidean-distances" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.1.1</span> Euclidean distances<a href="types-of-distance-coefficients.html#euclidean-distances" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The most common metric distance measure is the <em>Euclidean distance</em>.</p>
+<p>It is computed using the Pythagorean formula:</p>
+<p><span class="math display">\[D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}\]</span></p>
+<p><img src="book-en_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>Using <code>stats::dist()</code>, we can compute it with:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="types-of-distance-coefficients.html#cb45-1"></a>spe.D.Euclid &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="dt">x =</span> spe, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span></code></pre></div>
+<p>And, we can test whether a distance is Euclidean using:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="types-of-distance-coefficients.html#cb46-1"></a><span class="kw">is.euclid</span>(spe.D.Euclid)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="challenge-1" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.1.2</span> Challenge #1<a href="types-of-distance-coefficients.html#challenge-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Your turn!</strong> Using the <code>dist()</code> function, compute the Euclidean distance matrix <span class="math inline">\(D_{hmm}\)</span> for the species abundances by site matrix <span class="math inline">\(Y_{hmm}\)</span> below:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Sites</th>
+<th align="center"><span class="math inline">\(y_1\)</span></th>
+<th align="center"><span class="math inline">\(y_2\)</span></th>
+<th align="center"><span class="math inline">\(y_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(s_1\)</span></td>
+<td align="center">0</td>
+<td align="center">4</td>
+<td align="center">8</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(s_2\)</span></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(s_3\)</span></td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="types-of-distance-coefficients.html#cb48-1"></a>Y.hmm &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y1 =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">y2 =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">y3 =</span> <span class="kw">c</span>(<span class="dv">8</span>,</span>
+<span id="cb48-2"><a href="types-of-distance-coefficients.html#cb48-2"></a>    <span class="dv">1</span>, <span class="dv">0</span>))</span></code></pre></div>
+<p>After this, look into the numbers, think critically about them!</p>
+<p><strong>Solution:</strong></p>
+<p>You should have something similar to this:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="types-of-distance-coefficients.html#cb49-1"></a>Y.hmm.DistEu &lt;-<span class="st"> </span><span class="kw">dist</span>(<span class="dt">x =</span> Y.hmm, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb49-2"><a href="types-of-distance-coefficients.html#cb49-2"></a></span>
+<span id="cb49-3"><a href="types-of-distance-coefficients.html#cb49-3"></a><span class="kw">as.matrix</span>(Y.hmm.DistEu)</span></code></pre></div>
+<pre><code>##          1        2        3
+## 1 0.000000 7.615773 9.000000
+## 2 7.615773 0.000000 1.732051
+## 3 9.000000 1.732051 0.000000</code></pre>
+<p><em>Now, look into the composition and the distances between sites <span class="math inline">\(s_2\)</span> and <span class="math inline">\(s_3\)</span> and between <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>. What is going on?</em></p>
+<p>The Euclidean distance between sites <span class="math inline">\(s_2\)</span> and <span class="math inline">\(s_3\)</span>, which have no species in common, is smaller than the distance between <span class="math inline">\(s_1\)</span> and <span class="math inline">\(s_2\)</span>, which share species <span class="math inline">\(y_2\)</span> and <span class="math inline">\(y_3\)</span> (!).</p>
+<p>From an ecological perspective, <em>this is a problematic</em> assessment of the relationship among sites.</p>
+<p>This issue is known as the <strong>double-zero problem</strong>, <em>i.e.</em> double zeroes are treated in the same way as double presences, so that the double zeros shrink the distance between two sites.</p>
+<p>Euclidean distances ( <span class="math inline">\(D_1\)</span> ) should thus <em>not</em> be used to compare sites based on species abundances.</p>
+</div>
+<div id="chord-distances" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.1.3</span> Chord distances<a href="types-of-distance-coefficients.html#chord-distances" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Orlóci (1967) proposed the <em>Chord distance</em> to analyse community composition.</p>
+<p>It consists of:</p>
+<p>1. Normalizing the data, <em>i.e.</em> scaling site vectors to length 1 by dividing species abundances in a given sample by the square-rooted sum of square abundances in all samples as</p>
+<p><span class="math display">\[y&#39;_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}\]</span></p>
+<p>2. Calculating the Euclidean distances on this normalized data:</p>
+<p><span class="math display">\[D_{3} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y&#39;_{1j} - y&#39;_{2j})^2}\]</span></p>
+<p>We can use <code>vegan::vegdist()</code> for this one:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="types-of-distance-coefficients.html#cb51-1"></a>spe.D.Ch &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;chord&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in vegdist(spe, method = &quot;chord&quot;): you have empty rows: their
+## dissimilarities may be meaningless in method &quot;chord&quot;</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="types-of-distance-coefficients.html#cb53-1"></a><span class="kw">as.matrix</span>(spe.D.Ch)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>##           1         2         3
+## 1 0.0000000 0.7653669 0.9235374
+## 2 0.7653669 0.0000000 0.2309609
+## 3 0.9235374 0.2309609 0.0000000</code></pre>
+<p>When two sites share the same species in the same proportions of the number of individuals the value of <span class="math inline">\(D_3\)</span> is <span class="math inline">\(0\)</span>, and when no species are shared, its value is <span class="math inline">\(\sqrt{2}\)</span>.</p>
+<p><em>What happens if we compute Chord distances in the same site-by-species matrix <span class="math inline">\(Y_{hmm}\)</span>?</em></p>
+<p>Let us try the Chord distances in the same matrix we used for Challenge #1:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="types-of-distance-coefficients.html#cb55-1"></a>Y.hmm.DistCh &lt;-<span class="st"> </span><span class="kw">vegdist</span>(Y.hmm, <span class="dt">method =</span> <span class="st">&quot;chord&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="types-of-distance-coefficients.html#cb56-1"></a><span class="kw">as.matrix</span>(Y.hmm.DistCh)</span></code></pre></div>
+<pre><code>##           1         2        3
+## 1 0.0000000 0.3203645 1.414214
+## 2 0.3203645 0.0000000 1.414214
+## 3 1.4142136 1.4142136 0.000000</code></pre>
+<p>Now, let us compare with what we obtained when we used Euclidean distances:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="types-of-distance-coefficients.html#cb58-1"></a><span class="kw">as.matrix</span>(Y.hmm.DistEu)</span></code></pre></div>
+<pre><code>##          1        2        3
+## 1 0.000000 7.615773 9.000000
+## 2 7.615773 0.000000 1.732051
+## 3 9.000000 1.732051 0.000000</code></pre>
+<p>See again how our matrix looks:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="types-of-distance-coefficients.html#cb60-1"></a>Y.hmm</span></code></pre></div>
+<pre><code>##   y1 y2 y3
+## 1  0  4  8
+## 2  0  1  1
+## 3  1  0  0</code></pre>
+<p>So, adding any number of double zeroes to a pair of sites does <em>not</em> change the value of <span class="math inline">\(D_3\)</span>. Hence, <em>Chord distances</em> can be used to compare sites described by species abundances!</p>
+</div>
+<div id="jaccards-coefficient" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.1.4</span> Jaccard’s coefficient<a href="types-of-distance-coefficients.html#jaccards-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another popular association coefficient is the <em>Jaccard similarity coefficient</em> (1900).</p>
+<p>It is only appropriate for <strong>binary data</strong>, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.</p>
+<p><span class="math display">\[D_{7}(x_1,x_2) = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \cup x_2 \vert} = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert} = 1-\frac{a}{a+b+c}\]</span></p>
+<p>where,</p>
+<ul>
+<li><span class="math inline">\(a\)</span> is the number of species shared between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> that are coded <span class="math inline">\(1\)</span>;</li>
+<li><span class="math inline">\(b\)</span> is the number of occurrences where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are known to be different;</li>
+<li><span class="math inline">\(c\)</span> is the number of common absences between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, <em>i.e.</em> both <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>For example, for sites <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x_1,x_2\)</span></th>
+<th align="center"><span class="math inline">\(y_1\)</span></th>
+<th align="center"><span class="math inline">\(y_2\)</span></th>
+<th align="center"><span class="math inline">\(y_3\)</span></th>
+<th align="center"><span class="math inline">\(y_4\)</span></th>
+<th align="center"><span class="math inline">\(y_5\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_1\)</span></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_2\)</span></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>So, we can calculate <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span>, and <span class="math inline">\(c\)</span>:
+- <span class="math inline">\(a\)</span> = 1 + 1 = 2</p>
+<ul>
+<li><p><span class="math inline">\(b\)</span> = 1 + 1 = 2</p></li>
+<li><p><span class="math inline">\(c\)</span> = 1</p></li>
+</ul>
+<p>And, then our distance coefficient:</p>
+<p><span class="math display">\[D_{7}(x_1,x_2) = 1-\frac{2}{2+2+1}= 0.6\]</span></p>
+<p>In <code>R</code>, you can use use the <code>vegan::vegdist()</code> function to calculate the Jaccard’s coefficient:</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="types-of-distance-coefficients.html#cb62-1"></a>spe.D.Jac &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;jaccard&quot;</span>, <span class="dt">binary =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning in vegdist(spe, method = &quot;jaccard&quot;, binary = TRUE): you have empty rows:
+## their dissimilarities may be meaningless in method &quot;jaccard&quot;</code></pre>
+</div>
+</div>
+<div id="semimetric-distances" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.2</span> Semimetric distances<a href="types-of-distance-coefficients.html#semimetric-distances" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The second group consists of <em>semimetrics</em>, and they violate the <em>triangle inequality</em> property:</p>
+<ol style="list-style-type: decimal">
+<li><p>minimum 0: if species <span class="math inline">\(a\)</span> is equal to species <span class="math inline">\(b\)</span>, then <span class="math inline">\(D(a,b)=0\)</span>;</p></li>
+<li><p>positiveness: if <span class="math inline">\(a \neq b\)</span>, then <span class="math inline">\(D(a,b) &gt; 0\)</span>;</p></li>
+<li><p>symmetry: <span class="math inline">\(D(a,b) = D(b,a)\)</span>;</p></li>
+<li><p><del>triangle inequality</del>: <span class="math inline">\({D(a,b) + D(b,c) \geq or &lt; D(a,c)}\)</span>. The sum of two sides of a triangle drawn in the Euclidean space is <em>not</em> equal or greater than the third side.</p></li>
+</ol>
+<div id="sørensens-coefficient" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.2.1</span> Sørensen’s coefficient<a href="types-of-distance-coefficients.html#sørensens-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>All parameters in <em>Jaccard’s similarity coefficient</em> have equal weights.</p>
+<p><span class="math display">\[D_{7}(x_1,x_2)=1-\frac{a}{a+b+c}\]</span></p>
+<p>However, you may want to consider that a presence of a species is more informative than its absence.</p>
+<p>The distance corresponding to <em>Sørensen’s similarity coefficient</em> (1948) gives weight to double presences:</p>
+<p><span class="math display">\[D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}\]</span></p>
+<p>where,</p>
+<ul>
+<li><span class="math inline">\(a\)</span> is the number of species shared between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> that are coded <span class="math inline">\(1\)</span>;</li>
+<li><span class="math inline">\(b\)</span> is the number of occurrences where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are known to be different;</li>
+<li><span class="math inline">\(c\)</span> is the number of common absences between <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, <em>i.e.</em> both <span class="math inline">\(0\)</span>.</li>
+</ul>
+<p>In <code>R</code>, you can also use use the <code>vegan::vegdist()</code> function to calculate the Sørensen’s coefficient:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="types-of-distance-coefficients.html#cb64-1"></a>spe.D.Sor &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>, <span class="dt">binary =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning in vegdist(spe, method = &quot;bray&quot;, binary = TRUE): you have empty rows:
+## their dissimilarities may be meaningless in method &quot;bray&quot;</code></pre>
+<blockquote>
+<p>Because both Jaccard’s and Sørensen’s are only appropriate for presence-absence data, you must binary-transform abundance data using <code>binary = TRUE</code> in <code>vegdist()</code>.</p>
+</blockquote>
+</div>
+<div id="bray-curtis-coefficient" class="section level3 hasAnchor">
+<h3><span class="header-section-number">9.2.2</span> Bray-Curtis’ coefficient<a href="types-of-distance-coefficients.html#bray-curtis-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <em>Bray-Curtis dissimilarity coefficient</em> is a modified version of the Sørensen’s index and allows for species abundances:</p>
+<p><span class="math display">\[D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert}}{\sum{( y_{1j}+y_{2j})}}=\]</span></p>
+<p><span class="math display">\[D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}\]</span></p>
+<p>where,</p>
+<ul>
+<li><p><span class="math inline">\(W\)</span> is the sum of the lowest abundances in each species found between sites <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>;</p></li>
+<li><p><span class="math inline">\(A\)</span> is the sum of all abundances in <span class="math inline">\(x_1\)</span>; and,</p></li>
+<li><p><span class="math inline">\(B\)</span> is the sum of all abundances in <span class="math inline">\(x_2\)</span>.</p></li>
+</ul>
+<p>For example, for sites <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x_1,x_2\)</span></th>
+<th align="center"><span class="math inline">\(y_1\)</span></th>
+<th align="center"><span class="math inline">\(y_2\)</span></th>
+<th align="center"><span class="math inline">\(y_3\)</span></th>
+<th align="center"><span class="math inline">\(y_4\)</span></th>
+<th align="center"><span class="math inline">\(y_5\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_1\)</span></td>
+<td align="center"><em>2</em></td>
+<td align="center"><em>1</em></td>
+<td align="center"><em>0</em></td>
+<td align="center">5</td>
+<td align="center">2</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_2\)</span></td>
+<td align="center">5</td>
+<td align="center"><em>1</em></td>
+<td align="center">3</td>
+<td align="center"><em>1</em></td>
+<td align="center">1</td>
+</tr>
+</tbody>
+</table>
+<p>So:
+- <span class="math inline">\(W = 2 + 1 + 0 + 1 + 1 = 5\)</span></p>
+<ul>
+<li><p><span class="math inline">\(A = 2 + 1 + 0 + 5 + 0 = 8\)</span></p></li>
+<li><p><span class="math inline">\(B = 5 + 1 + 3 + 1 + 2 = 12\)</span></p></li>
+</ul>
+<p><span class="math display">\[D_{14}(x_1,x_2) = 1-\frac{2 \times 5}{8+12} = 0.5\]</span></p>
+<p>To calculate the <em>Bray-Curtis dissimilarity coefficient</em>, which can account for abundances, you need to set <code>binary = FALSE</code>.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="types-of-distance-coefficients.html#cb66-1"></a>spe.db.pa &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>, <span class="dt">binary =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## Warning in vegdist(spe, method = &quot;bray&quot;, binary = FALSE): you have empty rows:
+## their dissimilarities may be meaningless in method &quot;bray&quot;</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="types-of-distance-coefficients.html#cb68-1"></a>spe.db &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(spe.db.pa)</span></code></pre></div>
+</div>
+</div>
+<div id="nonmetric-distances" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.3</span> Nonmetric distances<a href="types-of-distance-coefficients.html#nonmetric-distances" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>minimum 0: if species <span class="math inline">\(a\)</span> is equal to species <span class="math inline">\(b\)</span>, then <span class="math inline">\(D(a,b)=0\)</span>;</p></li>
+<li><p><del>positiveness:</del> if <span class="math inline">\(a \neq b\)</span>, then <span class="math inline">\(D(a,b) &gt; or &lt; 0\)</span>;</p></li>
+<li><p>symmetry: <span class="math inline">\(D(a,b) = D(b,a)\)</span>;</p></li>
+<li><p><del>triangle inequality</del>: <span class="math inline">\({D(a,b) + D(b,c) \geq or &lt; D(a,c)}\)</span>. The sum of two sides of a triangle drawn in the Euclidean space is <em>not</em> equal or greater than the third side.</p></li>
+</ol>
+</div>
+<div id="representation" class="section level2 hasAnchor">
+<h2><span class="header-section-number">9.4</span> Representation<a href="types-of-distance-coefficients.html#representation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can create graphical depictions of association matrices using the <code>coldiss()</code> function:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="types-of-distance-coefficients.html#cb69-1"></a><span class="kw">coldiss</span>(spe.D.Jac)</span></code></pre></div>
+<p><img src="book-en_files/figure-html/unnamed-chunk-35-1.png" width="1536" /></p>
+</div>
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All the content of the workshop series is under a <a href="https://creativecommons.org/licenses/by-nc/2.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="dist.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transformations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

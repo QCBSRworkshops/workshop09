@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Exploring the dataset | Workshop 9: Multivariate Analyses in R</title>
+  <title>Chapter 7 Exploring the dataset | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Exploring the dataset | Workshop 9: Multivariate Analyses in R" />
+  <meta property="og:title" content="Chapter 7 Exploring the dataset | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Multivariate Analyses in R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Exploring the dataset | Workshop 9: Multivariate Analyses in R" />
+  <meta name="twitter:title" content="Chapter 7 Exploring the dataset | Workshop 9: Multivariate Analyses in R" />
   
   <meta name="twitter:description" content="Multivariate Analyses in R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="what-is-ordination.html"/>
-<link rel="next" href="data-dissimilarity.html"/>
+<link rel="prev" href="matrix-algebra-very-briefly.html"/>
+<link rel="next" href="dist.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -136,39 +136,68 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
 
 <li class="divider"></li>
-<li class="part"><span><b>QCBS R Workshop Series<span></span></b></span></li>
-<li><a href="index.html#preface">Preface<span></span></a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>0.1</b> Code of conduct<span></span></a><ul>
-<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour<span></span></a></li>
-<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour<span></span></a></li>
+<li class="part"><span><b>QCBS R Workshop Series</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
+<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
-<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>0.2</b> Contributors<span></span></a></li>
-<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#contributing"><i class="fa fa-check"></i><b>0.3</b> Contributing<span></span></a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i><b>0.2</b> Contributors</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#contributing"><i class="fa fa-check"></i><b>0.3</b> Contributing</a></li>
 </ul></li>
-<li class="part"><span><b>Multivariate Analyses in <code>R</code><span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>1</b> Learning objectives<span></span></a></li>
-<li class="chapter" data-level="2" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>2</b> Preparing for the workshop<span></span></a></li>
-<li class="chapter" data-level="3" data-path="what-is-ordination.html"><a href="what-is-ordination.html"><i class="fa fa-check"></i><b>3</b> What is ordination?<span></span></a></li>
-<li class="chapter" data-level="4" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>4</b> Exploring the dataset<span></span></a><ul>
-<li class="chapter" data-level="4.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#species-data"><i class="fa fa-check"></i><b>4.1</b> Species data<span></span></a></li>
-<li class="chapter" data-level="4.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#environmental-data"><i class="fa fa-check"></i><b>4.2</b> Environmental data<span></span></a></li>
+<li class="part"><span><b>Multivariate Analyses in <code>R</code></b></span></li>
+<li class="chapter" data-level="1" data-path="learning-objectives.html"><a href="learning-objectives.html"><i class="fa fa-check"></i><b>1</b> Learning objectives</a></li>
+<li class="chapter" data-level="2" data-path="preparing-for-the-workshop.html"><a href="preparing-for-the-workshop.html"><i class="fa fa-check"></i><b>2</b> Preparing for the workshop</a></li>
+<li class="part"><span><b>PREAMBLE</b></span></li>
+<li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
+<li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
+<li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="part"><span><b>Measures of association<span></span></b></span></li>
-<li class="chapter" data-level="5" data-path="data-dissimilarity.html"><a href="data-dissimilarity.html"><i class="fa fa-check"></i><b>5</b> Data (dis)similarity<span></span></a></li>
-<li class="chapter" data-level="6" data-path="quantifying-data-dissimilarity.html"><a href="quantifying-data-dissimilarity.html"><i class="fa fa-check"></i><b>6</b> Quantifying data (dis)similarity<span></span></a><ul>
-<li class="chapter" data-level="6.1" data-path="quantifying-data-dissimilarity.html"><a href="quantifying-data-dissimilarity.html#transformations-of-community-composition-data"><i class="fa fa-check"></i><b>6.1</b> Transformations of community composition data<span></span></a></li>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
+<li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>7</b> Clustering<span></span></a></li>
-<li class="part"><span><b>Unconstrained Ordination<span></span></b></span></li>
-<li class="chapter" data-level="8" data-path="what-does-unconstrained-mean.html"><a href="what-does-unconstrained-mean.html"><i class="fa fa-check"></i><b>8</b> What does “unconstrained” mean?<span></span></a></li>
-<li class="chapter" data-level="9" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9</b> Principal Component Analysis<span></span></a></li>
-<li class="chapter" data-level="10" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>10</b> Correspondence Analysis<span></span></a></li>
-<li class="chapter" data-level="11" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>11</b> Principal Coordinates Analysis<span></span></a></li>
-<li class="chapter" data-level="12" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>12</b> Nonmetric MultiDimensional Scaling<span></span></a></li>
-<li class="part"><span><b>Final considerations<span></span></b></span></li>
-<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary<span></span></a></li>
-<li class="chapter" data-level="14" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>14</b> Additional resources<span></span></a></li>
-<li class="chapter" data-level="15" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>15</b> References<span></span></a></li>
+<li class="part"><span><b>(Dis)similarity measures</b></span></li>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
+<li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
+<li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
+<li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
+</ul></li>
+<li class="part"><span><b>Unconstrained Ordination</b></span></li>
+<li class="chapter" data-level="12" data-path="what-does-unconstrained-mean.html"><a href="what-does-unconstrained-mean.html"><i class="fa fa-check"></i><b>12</b> What does “unconstrained” mean?</a></li>
+<li class="chapter" data-level="13" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>13</b> Principal Component Analysis</a></li>
+<li class="chapter" data-level="14" data-path="correspondence-analysis.html"><a href="correspondence-analysis.html"><i class="fa fa-check"></i><b>14</b> Correspondence Analysis</a></li>
+<li class="chapter" data-level="15" data-path="principal-coordinates-analysis.html"><a href="principal-coordinates-analysis.html"><i class="fa fa-check"></i><b>15</b> Principal Coordinates Analysis</a></li>
+<li class="chapter" data-level="16" data-path="nonmetric-multidimensional-scaling.html"><a href="nonmetric-multidimensional-scaling.html"><i class="fa fa-check"></i><b>16</b> Nonmetric MultiDimensional Scaling</a></li>
+<li class="part"><span><b>Final considerations</b></span></li>
+<li class="chapter" data-level="17" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>17</b> Summary</a></li>
+<li class="chapter" data-level="18" data-path="additional-resources.html"><a href="additional-resources.html"><i class="fa fa-check"></i><b>18</b> Additional resources</a></li>
+<li class="chapter" data-level="19" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>19</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
 
@@ -205,90 +234,160 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 --!>
 <div id="exploring-the-dataset" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 4</span> Exploring the dataset<a href="exploring-the-dataset.html#exploring-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We will use two main data sets in the first part of this workshop.
-“DoubsSpe.csv” is a data frame of fish community data where the first
-column contains site names from 1 to 30 and the remaining columns are
-fish taxa. The taxa columns are populated by fish abundance data
-(counts). “DoubsEnv.csv” is a data frame of environmental data for the
-same sites contained in the fish community data frame. Again, the first
-column contains site names from 1 to 30. The remaining columns contain
-measurements for 11 abiotic variables. Note that data used in ordination
-analyses is generally in
-<a href="http://en.wikipedia.org/wiki/Wide_and_narrow_data">wide-format</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="exploring-the-dataset.html#cb2-1"></a><span class="co"># Species community data frame (fish abundance):</span></span>
-<span id="cb2-2"><a href="exploring-the-dataset.html#cb2-2"></a><span class="co"># “DoubsSpe.csv”</span></span>
-<span id="cb2-3"><a href="exploring-the-dataset.html#cb2-3"></a>spe &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">file.choose</span>(), <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb2-4"><a href="exploring-the-dataset.html#cb2-4"></a>spe &lt;-<span class="st"> </span>spe[<span class="op">-</span><span class="dv">8</span>, ]  <span class="co">#Site number 8 contains no species and so row 8 (site 8) is removed. Be careful to</span></span>
-<span id="cb2-5"><a href="exploring-the-dataset.html#cb2-5"></a><span class="co"># only run this command line once as you are overwriting</span></span>
-<span id="cb2-6"><a href="exploring-the-dataset.html#cb2-6"></a><span class="co"># &#39;spe&#39; each time.</span></span>
-<span id="cb2-7"><a href="exploring-the-dataset.html#cb2-7"></a></span>
-<span id="cb2-8"><a href="exploring-the-dataset.html#cb2-8"></a><span class="co"># Environmental data frame: “DoubsEnv.csv”</span></span>
-<span id="cb2-9"><a href="exploring-the-dataset.html#cb2-9"></a>env &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="kw">file.choose</span>(), <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb2-10"><a href="exploring-the-dataset.html#cb2-10"></a>env &lt;-<span class="st"> </span>env[<span class="op">-</span><span class="dv">8</span>, ]  <span class="co">#Remove corresponding abiotic data for site 8 (since removed from fish data). </span></span>
-<span id="cb2-11"><a href="exploring-the-dataset.html#cb2-11"></a><span class="co"># Again, be careful to only run the last line once.</span></span></code></pre></div>
-<div id="species-data" class="section level2 hasAnchor">
-<h2><span class="header-section-number">4.1</span> Species data<a href="exploring-the-dataset.html#species-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We can use summary functions to explore the “spe” data (fish community
-data) and discover things like the dimensions of the matrix, column
-headings and summary statistics for the columns. This is a review from
-===== Workshop 2.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exploring-the-dataset.html#cb3-1"></a><span class="kw">names</span>(spe)  <span class="co">#see names of columns in spe</span></span>
-<span id="cb3-2"><a href="exploring-the-dataset.html#cb3-2"></a><span class="kw">dim</span>(spe)  <span class="co">#dimensions of spe; number of columns and rows </span></span>
-<span id="cb3-3"><a href="exploring-the-dataset.html#cb3-3"></a><span class="kw">str</span>(spe)  <span class="co">#displays internal structure of objects</span></span>
-<span id="cb3-4"><a href="exploring-the-dataset.html#cb3-4"></a><span class="kw">head</span>(spe)  <span class="co">#first few rows of the data frame</span></span>
-<span id="cb3-5"><a href="exploring-the-dataset.html#cb3-5"></a><span class="kw">summary</span>(spe)  <span class="co">#summary statistics for each column; min value, median value, max value, mean value etc.  </span></span></code></pre></div>
-<p>Look at the species’ distribution frequencies.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="exploring-the-dataset.html#cb4-1"></a><span class="co"># Species distribution</span></span>
-<span id="cb4-2"><a href="exploring-the-dataset.html#cb4-2"></a>(ab &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">unlist</span>(spe)))  <span class="co">#note that when you put an entire line of code in brackets like this, the output for that operation is displayed right away in the R console</span></span>
-<span id="cb4-3"><a href="exploring-the-dataset.html#cb4-3"></a></span>
-<span id="cb4-4"><a href="exploring-the-dataset.html#cb4-4"></a><span class="kw">barplot</span>(ab, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Abundance class&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Frequency&quot;</span>,</span>
-<span id="cb4-5"><a href="exploring-the-dataset.html#cb4-5"></a>    <span class="dt">col =</span> <span class="kw">grey</span>(<span class="dv">5</span><span class="op">:</span><span class="dv">0</span><span class="op">/</span><span class="dv">5</span>))</span></code></pre></div>
-<p><img src="/spe_barplot.png" width="300" /> Can see that there is a high
-frequency of zeros in the abundance data.</p>
-<p>See how many absences there are in the fish community data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exploring-the-dataset.html#cb5-1"></a><span class="kw">sum</span>(spe <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
-<p>Look at the proportion of zeros in the fish community data.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exploring-the-dataset.html#cb6-1"></a><span class="kw">sum</span>(spe <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)<span class="op">/</span>(<span class="kw">nrow</span>(spe) <span class="op">*</span><span class="st"> </span><span class="kw">ncol</span>(spe))</span></code></pre></div>
-<p>The proportion of zeros in the dataset is ~0.5.</p>
-<p>See the frequency at which different numbers of species occur together.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exploring-the-dataset.html#cb7-1"></a>spe.pres &lt;-<span class="st"> </span><span class="kw">colSums</span>(spe <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)  <span class="co">#compute the number of sites where each species is present. </span></span>
-<span id="cb7-2"><a href="exploring-the-dataset.html#cb7-2"></a><span class="kw">hist</span>(spe.pres, <span class="dt">main =</span> <span class="st">&quot;Species occurrence&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Frequency of occurrences&quot;</span>,</span>
-<span id="cb7-3"><a href="exploring-the-dataset.html#cb7-3"></a>    <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">5</span>), <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)</span></code></pre></div>
-<p>Can see that an intermediate number of sites contain the highest number
-of species.</p>
-<p>Calculate the number of species that occur at each site. This is a
-simplistic way of calculating species richness for each site. In some
-cases, the number of individuals found in a site may differ between
-sites. Because there may be a relationship between the number of
-individuals counted in a site or sample and the taxa or species
-richness, <a href="http://cc.oulu.fi/~jarioksa/softhelp/vegan/html/diversity.html">rarefied species
-richness</a>
-may be a more appropriate metric than total richness. The rarefy()
-function in vegan can be used to generate rarefied species richness.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exploring-the-dataset.html#cb8-1"></a>site.pres &lt;-<span class="st"> </span><span class="kw">rowSums</span>(spe <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)  <span class="co">#number of species with a value greater than 0 in that site row</span></span>
-<span id="cb8-2"><a href="exploring-the-dataset.html#cb8-2"></a><span class="kw">hist</span>(site.pres, <span class="dt">main =</span> <span class="st">&quot;Species richness&quot;</span>, <span class="dt">las =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;Frequency of sites&quot;</span>,</span>
-<span id="cb8-3"><a href="exploring-the-dataset.html#cb8-3"></a>    <span class="dt">ylab =</span> <span class="st">&quot;Number of species&quot;</span>, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dt">by =</span> <span class="dv">5</span>),</span>
-<span id="cb8-4"><a href="exploring-the-dataset.html#cb8-4"></a>    <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>)</span></code></pre></div>
+<h1><span class="header-section-number">Chapter 7</span> Exploring the dataset<a href="exploring-the-dataset.html#exploring-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We will use two main data sets in the first part of this workshop.</p>
+<p>They come from Verneaux’s PhD thesis (1973), where he proposed to use fish species to characterize ecological zones along European rivers and streams.</p>
+<p>He collected data at <strong>30 localities</strong> along the Doubs river, which runs near the France-Switzerland border, in the Jura Mountains.</p>
+<p>He showed that fish communities were biological indicators of these water bodies.</p>
+<p>Their data is split in three matrices:</p>
+<ol style="list-style-type: decimal">
+<li>The abundance of 27 fish species across the communities (<code>DoubsSpe.csv</code> and hereon, the <code>spe</code> object);</li>
+<li>The environmental variables recorded at each site (<code>DoubsEnv.csv</code> and hereon, the <code>env</code> object); and,</li>
+<li>The geographical coordinates of each site.</li>
+</ol>
+<p>Verneaux, J. (1973) <em>Cours d’eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs</em>. Essai de biotypologie. Thèse d’état, Besançon. 1–257.</p>
+<div id="doubs-river-fish-communities" class="section level2 hasAnchor">
+<h2><span class="header-section-number">7.1</span> Doubs river fish communities<a href="exploring-the-dataset.html#doubs-river-fish-communities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You can download these datasets from <a href="http://r.qcbs.ca/workshops/r-workshop-09/">r.qcbs.ca/workshops/r-workshop-09</a>.</p>
+<p>We can load their data from the <code>data/</code> directory in this workshop:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="exploring-the-dataset.html#cb25-1"></a>spe &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/doubsspe.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb25-2"><a href="exploring-the-dataset.html#cb25-2"></a></span>
+<span id="cb25-3"><a href="exploring-the-dataset.html#cb25-3"></a>env &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/doubsenv.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Their data can also be retrieved from the <code>ade4</code> package:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="exploring-the-dataset.html#cb26-1"></a><span class="kw">library</span>(ade4)</span>
+<span id="cb26-2"><a href="exploring-the-dataset.html#cb26-2"></a><span class="kw">data</span>(doubs)</span>
+<span id="cb26-3"><a href="exploring-the-dataset.html#cb26-3"></a></span>
+<span id="cb26-4"><a href="exploring-the-dataset.html#cb26-4"></a>spe &lt;-<span class="st"> </span>doubs<span class="op">$</span>fish</span>
+<span id="cb26-5"><a href="exploring-the-dataset.html#cb26-5"></a>env &lt;-<span class="st"> </span>doubs<span class="op">$</span>env</span></code></pre></div>
+<p>Alternatively, from the <code>codep</code> package:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploring-the-dataset.html#cb27-1"></a><span class="kw">library</span>(codep)</span>
+<span id="cb27-2"><a href="exploring-the-dataset.html#cb27-2"></a><span class="kw">data</span>(Doubs)</span>
+<span id="cb27-3"><a href="exploring-the-dataset.html#cb27-3"></a></span>
+<span id="cb27-4"><a href="exploring-the-dataset.html#cb27-4"></a>spe &lt;-<span class="st"> </span>Doubs.fish</span>
+<span id="cb27-5"><a href="exploring-the-dataset.html#cb27-5"></a>env &lt;-<span class="st"> </span>Doubs.env</span></code></pre></div>
+<p>We can then explore the objects containing our newly loaded data.</p>
+<p>Let us peek into the <code>spe</code> data:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exploring-the-dataset.html#cb28-1"></a><span class="kw">head</span>(spe)[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]</span></code></pre></div>
+<pre><code>##   CHA TRU VAI LOC OMB BLA HOT TOX
+## 1   0   3   0   0   0   0   0   0
+## 2   0   5   4   3   0   0   0   0
+## 3   0   5   5   5   0   0   0   0
+## 4   0   4   5   5   0   0   0   0
+## 5   0   2   3   2   0   0   0   0
+## 6   0   3   4   5   0   0   0   0</code></pre>
+<p>We can also use the <code>str()</code> function, which we learned in Workshops 1 and 2:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="exploring-the-dataset.html#cb30-1"></a><span class="kw">str</span>(spe)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  27 variables:
+##  $ CHA: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TRU: int  3 5 5 4 2 3 5 0 0 1 ...
+##  $ VAI: int  0 4 5 5 3 4 4 0 1 4 ...
+##  $ LOC: int  0 3 5 5 2 5 5 0 3 4 ...
+##  $ OMB: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ BLA: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ HOT: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TOX: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ VAN: int  0 0 0 0 5 1 1 0 0 2 ...
+##  $ CHE: int  0 0 0 1 2 2 1 0 5 2 ...
+##  $ BAR: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ SPI: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ GOU: int  0 0 0 1 2 1 0 0 0 1 ...
+##  $ BRO: int  0 0 1 2 4 1 0 0 0 0 ...
+##  $ PER: int  0 0 0 2 4 1 0 0 0 0 ...
+##  $ BOU: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ PSO: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ROT: int  0 0 0 0 2 0 0 0 0 0 ...
+##  $ CAR: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TAN: int  0 0 0 1 3 2 0 0 1 0 ...
+##  $ BCO: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ PCH: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ GRE: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ GAR: int  0 0 0 0 5 1 0 0 4 0 ...
+##  $ BBO: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ABL: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ANG: int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<p>You can also try some of these!</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="exploring-the-dataset.html#cb32-1"></a><span class="co"># Try some of these!</span></span>
+<span id="cb32-2"><a href="exploring-the-dataset.html#cb32-2"></a></span>
+<span id="cb32-3"><a href="exploring-the-dataset.html#cb32-3"></a><span class="kw">names</span>(spe)  <span class="co"># names of objects</span></span>
+<span id="cb32-4"><a href="exploring-the-dataset.html#cb32-4"></a><span class="kw">dim</span>(spe)  <span class="co"># dimensions</span></span>
+<span id="cb32-5"><a href="exploring-the-dataset.html#cb32-5"></a></span>
+<span id="cb32-6"><a href="exploring-the-dataset.html#cb32-6"></a><span class="kw">str</span>(spe)  <span class="co"># structure of objects</span></span>
+<span id="cb32-7"><a href="exploring-the-dataset.html#cb32-7"></a><span class="kw">summary</span>(spe)  <span class="co"># summary statistics</span></span>
+<span id="cb32-8"><a href="exploring-the-dataset.html#cb32-8"></a></span>
+<span id="cb32-9"><a href="exploring-the-dataset.html#cb32-9"></a><span class="kw">head</span>(spe)  <span class="co"># first 6 rows</span></span></code></pre></div>
 </div>
-<div id="environmental-data" class="section level2 hasAnchor">
-<h2><span class="header-section-number">4.2</span> Environmental data<a href="exploring-the-dataset.html#environmental-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Explore the environmental data and create a panel of plots to compare
-collinearity:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="exploring-the-dataset.html#cb9-1"></a><span class="kw">names</span>(env)</span>
-<span id="cb9-2"><a href="exploring-the-dataset.html#cb9-2"></a><span class="kw">dim</span>(env)</span>
-<span id="cb9-3"><a href="exploring-the-dataset.html#cb9-3"></a><span class="kw">str</span>(env)</span>
-<span id="cb9-4"><a href="exploring-the-dataset.html#cb9-4"></a><span class="kw">head</span>(env)</span>
-<span id="cb9-5"><a href="exploring-the-dataset.html#cb9-5"></a><span class="kw">summary</span>(env)</span>
-<span id="cb9-6"><a href="exploring-the-dataset.html#cb9-6"></a><span class="kw">pairs</span>(env, <span class="dt">main =</span> <span class="st">&quot;Bivariate Plots of the Environmental Data&quot;</span>)</span></code></pre></div>
-<p>In this case, the environmental data (explanatory variables) are all in
-different units and need to be standardized prior to computing distance
-measures to perform most ordination analyses. Standardize the
-environmental data (11 variables) using the function decostand() in
-vegan.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="exploring-the-dataset.html#cb10-1"></a>env.z &lt;-<span class="st"> </span><span class="kw">decostand</span>(env, <span class="dt">method =</span> <span class="st">&quot;standardize&quot;</span>)</span>
-<span id="cb10-2"><a href="exploring-the-dataset.html#cb10-2"></a><span class="kw">apply</span>(env.z, <span class="dv">2</span>, mean)  <span class="co"># the data are now centered (means~0)</span></span>
-<span id="cb10-3"><a href="exploring-the-dataset.html#cb10-3"></a><span class="kw">apply</span>(env.z, <span class="dv">2</span>, sd)  <span class="co"># the data are now scaled (standard deviations=1)</span></span></code></pre></div>
+<div id="doubs-river-environmental-data" class="section level2 hasAnchor">
+<h2><span class="header-section-number">7.2</span> Doubs river environmental data<a href="exploring-the-dataset.html#doubs-river-environmental-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploring-the-dataset.html#cb33-1"></a><span class="kw">str</span>(env)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  11 variables:
+##  $ das: num  0.3 2.2 10.2 18.5 21.5 32.4 36.8 49.1 70.5 99 ...
+##  $ alt: int  934 932 914 854 849 846 841 792 752 617 ...
+##  $ pen: num  48 3 3.7 3.2 2.3 3.2 6.6 2.5 1.2 9.9 ...
+##  $ deb: num  0.84 1 1.8 2.53 2.64 2.86 4 1.3 4.8 10 ...
+##  $ pH : num  7.9 8 8.3 8 8.1 7.9 8.1 8.1 8 7.7 ...
+##  $ dur: int  45 40 52 72 84 60 88 94 90 82 ...
+##  $ pho: num  0.01 0.02 0.05 0.1 0.38 0.2 0.07 0.2 0.3 0.06 ...
+##  $ nit: num  0.2 0.2 0.22 0.21 0.52 0.15 0.15 0.41 0.82 0.75 ...
+##  $ amm: num  0 0.1 0.05 0 0.2 0 0 0.12 0.12 0.01 ...
+##  $ oxy: num  12.2 10.3 10.5 11 8 10.2 11.1 7 7.2 10 ...
+##  $ dbo: num  2.7 1.9 3.5 1.3 6.2 5.3 2.2 8.1 5.2 4.3 ...</code></pre>
+<p>It contains the following variables:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Variable</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">das</td>
+<td align="left">Distance from the source [km]</td>
+</tr>
+<tr class="even">
+<td align="center">alt</td>
+<td align="left">Altitude [m a.s.l.]</td>
+</tr>
+<tr class="odd">
+<td align="center">pen</td>
+<td align="left">Slope [per thousand]</td>
+</tr>
+<tr class="even">
+<td align="center">deb</td>
+<td align="left">Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">pH</td>
+<td align="left">pH of water</td>
+</tr>
+<tr class="even">
+<td align="center">dur</td>
+<td align="left">Ca conc. (hardness) [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">pho</td>
+<td align="left">K conc. [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="even">
+<td align="center">nit</td>
+<td align="left">N conc. [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">amn</td>
+<td align="left">NH₄⁺ conc. [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="even">
+<td align="center">oxy</td>
+<td align="left">Diss. oxygen [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">dbo</td>
+<td align="left">Biol. oxygen demand [mgL<sup>-1</sup>]</td>
+</tr>
+</tbody>
+</table>
+<p>You can also use <code>summary()</code> to obtain summary statistics from the variables in <code>env</code>:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="exploring-the-dataset.html#cb35-1"></a><span class="kw">summary</span>(env)  <span class="co"># summary statistics</span></span></code></pre></div>
 
 </div>
 </div>
@@ -306,8 +405,8 @@ vegan.</p>
           </div>
         </div>
       </div>
-<a href="what-is-ordination.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-dissimilarity.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="matrix-algebra-very-briefly.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dist.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

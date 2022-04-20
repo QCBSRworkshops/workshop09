@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Workshop 9: Multivariate Analyses in R</title>
+  <title>Chapter 6 Matrix algebra, very briefly | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Workshop 9: Multivariate Analyses in R" />
+  <meta property="og:title" content="Chapter 6 Matrix algebra, very briefly | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Multivariate Analyses in R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Workshop 9: Multivariate Analyses in R" />
+  <meta name="twitter:title" content="Chapter 6 Matrix algebra, very briefly | Workshop 9: Multivariate Analyses in R" />
   
   <meta name="twitter:description" content="Multivariate Analyses in R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-
-<link rel="next" href="learning-objectives.html"/>
+<link rel="prev" href="setting-up-our-goals.html"/>
+<link rel="next" href="exploring-the-dataset.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -233,73 +233,157 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="header">
-<h1 class="title">Workshop 9: Multivariate Analyses in <code>R</code></h1>
-<h2 class="subtitle"><em>QCBS R Workshop Series</em></h2>
-<p class="author"><em>Developed and maintained by the contributors of the QCBS R Workshop Series<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></em></p>
-<p class="date"><em>2022-04-20 04:22:12</em></p>
+<div id="matrix-algebra-very-briefly" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 6</span> Matrix algebra, very briefly<a href="matrix-algebra-very-briefly.html#matrix-algebra-very-briefly" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Matrix algebra is well-suited for ecology, because most (if not all) <em>data sets</em> we work with are in a <em>matrix</em> format.</p>
+<div id="data-sets-are-matrices" class="section level2 hasAnchor">
+<h2><span class="header-section-number">6.1</span> Data sets <em>are</em> matrices<a href="matrix-algebra-very-briefly.html#data-sets-are-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ecological data tables are obtained as object-observations or sampling units, and are often recorded as this:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Objects</th>
+<th align="center"><span class="math inline">\(y_1\)</span></th>
+<th align="center"><span class="math inline">\(y_2\)</span></th>
+<th align="center"><span class="math inline">\(\dots\)</span></th>
+<th align="center"><span class="math inline">\(y_n\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_1\)</span></td>
+<td align="center"><span class="math inline">\(y_{1,1}\)</span></td>
+<td align="center"><span class="math inline">\(y_{1,2}\)</span></td>
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+<td align="center"><span class="math inline">\(y_{1,n}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_2\)</span></td>
+<td align="center"><span class="math inline">\(y_{2,1}\)</span></td>
+<td align="center"><span class="math inline">\(y_{2,2}\)</span></td>
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+<td align="center"><span class="math inline">\(y_{2,n}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\ddots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_m\)</span></td>
+<td align="center"><span class="math inline">\(y_{m,1}\)</span></td>
+<td align="center"><span class="math inline">\(y_{m,2}\)</span></td>
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+<td align="center"><span class="math inline">\(y_{m,n}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>where <span class="math inline">\(x_m\)</span> is the sampling unit <span class="math inline">\(m\)</span>; and <span class="math inline">\(y_n\)</span> is the ecological descripor that can be, for example, species present in a sampling unit, locality, or a chemical variable.</p>
+<p>The same ecological data table can be represented in <em>matrix notation</em> like this:</p>
+<p><span class="math display">\[Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+\end{bmatrix}\]</span></p>
+<p>where lowercase letters indicate <em>elements</em>, and the subscript letters indicate the <em>position of these elements</em> in the matrix (and in the table!).</p>
+<p>Moreover, any subset of a matrix can be recognized.</p>
+<p>We can subset <em>a row matrix</em>, as below:</p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+\end{bmatrix}\]</span></p>
+<p>We can also subset <em>a column matrix</em>, as below:</p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+\end{bmatrix}\]</span></p>
 </div>
-<div id="preface" class="section level1 unnumbered hasAnchor">
-<h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The <strong>QCBS R Workshop Series</strong> is a series of 10 workshops that walks participants through the steps required to use R for a wide array of statistical analyses relevant to research in biology and ecology. These open-access workshops were created by members of the QCBS both for members of the QCBS and the larger community.</p>
-<p>The content of this workshop has been peer-reviewed by several QCBS members. If you would like to suggest modifications, please contact the current series coordinators, listed on the main Github page.</p>
-<div id="code-of-conduct" class="section level2 hasAnchor">
-<h2><span class="header-section-number">0.1</span> Code of conduct<a href="index.html#code-of-conduct" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The QCBS R Workshop Series and the QCBS R Symposium are venues dedicated to providing a welcoming and supportive environment for all people, regardless of background or identity.</p>
-<p>Participants, presenters and organizers of the workshop series and other related activities accept this Code of Conduct when being present at any workshop-related activities.</p>
-<p>We do not tolerate behaviour that is disrespectful or that excludes, intimidates, or causes discomfort to others.</p>
-<p>We do not tolerate discrimination or harassment based on characteristics that include, but are not limited to, gender identity and expression, sexual orientation, disability, physical appearance, body size, citizenship, nationality, ethnic or social origin, pregnancy, familial status, genetic information, religion or belief (or lack thereof), membership of a national minority, property, age, education, socio-economic status, technical choices, and experience level.</p>
-<p>It applies to all spaces managed by or affiliated with the workshop, including, but not limited to, workshops, email lists, and online forums such as GitHub, Slack and Twitter.</p>
-<div id="expected-behaviour" class="section level3 hasAnchor">
-<h3><span class="header-section-number">0.1.1</span> Expected behaviour<a href="index.html#expected-behaviour" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>All participants are expected to show respect and courtesy to others. All interactions should be professional regardless of platform: either online or in-person. In order to foster a positive and professional learning environment we encourage the following kinds of behaviours in all workshop events and platforms:</p>
-<ul>
-<li>Use welcoming and inclusive language</li>
-<li>Be respectful of different viewpoints and experiences</li>
-<li>Gracefully accept constructive criticism</li>
-<li>Focus on what is best for the community</li>
-<li>Show courtesy and respect towards other community members</li>
-</ul>
+<div id="association-matrices" class="section level2 hasAnchor">
+<h2><span class="header-section-number">6.2</span> Association matrices<a href="matrix-algebra-very-briefly.html#association-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Two important matrices can be derived from the ecological data matrix: the <em><strong>association matrix among objects</strong></em> and the <em><strong>association matrix among descriptors</strong></em>.</p>
+<p>Using the data from our matrix <span class="math inline">\(Y\)</span>,</p>
+<div class="math">
+<p><span class="math display">\[ Y = 
+\begin{array}{cc}
+\begin{array}{ccc}
+x_1 \rightarrow\\
+x_2 \rightarrow\\
+\vdots \\
+x_m \rightarrow\\
+\end{array}
+&amp;
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+\end{bmatrix}
+\end{array}
+\]</span></p>
 </div>
-<div id="unacceptable-behaviour" class="section level3 hasAnchor">
-<h3><span class="header-section-number">0.1.2</span> Unacceptable behaviour<a href="index.html#unacceptable-behaviour" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Examples of unacceptable behaviour by participants at any workshop event/platform include:</p>
-<ul>
-<li>written or verbal comments which have the effect of excluding people on the - basis of membership of any specific group;</li>
-<li>causing someone to fear for their safety, such as through stalking or intimidation;</li>
-<li>violent threats or language directed against another person;</li>
-<li>the display of sexual or violent images;</li>
-<li>unwelcome sexual attention;</li>
-<li>nonconsensual or unwelcome physical contact;</li>
-<li>insults or put-downs;</li>
-<li>sexist, racist, homophobic, transphobic, ableist, or exclusionary jokes;</li>
-<li>incitement to violence, suicide, or self-harm;</li>
-<li>continuing to initiate interaction (including photography or recording) with - someone after being asked to stop;</li>
-<li>publication of private communication without consent.</li>
-</ul>
+<p>one can examine the relationship between the first two objects:</p>
+<div class="math">
+<p><span class="math display">\[x_1 \rightarrow \begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+\end{bmatrix}
+\]</span></p>
 </div>
+<div class="math">
+<p><span class="math display">\[x_2 \rightarrow 
+\begin{bmatrix}
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\end{bmatrix}
+\]</span></p>
 </div>
-<div id="contributors" class="section level2 hasAnchor">
-<h2><span class="header-section-number">0.2</span> Contributors<a href="index.html#contributors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Originally developed by:</p>
-<p>Contributed with changes to the presentation:</p>
-<p>Contributed with changes to the written material:</p>
-<p>Contributed by reporting issues and suggesting modifications:</p>
+<p>
+and obtain <span class="math inline">\(a_{1,2}\)</span>.
+</p>
+<p>We can populate the association matrix <span class="math inline">\(A_{n,n}\)</span> with the relationships between all objects from <span class="math inline">\(Y\)</span>:</p>
+<div class="math">
+<p><span class="math display">\[A_{n,n} = 
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{n,1} &amp; a_{n,2} &amp; \cdots &amp; a_{n,n} 
+\end{bmatrix}\]</span></p>
 </div>
-<div id="contributing" class="section level2 hasAnchor">
-<h2><span class="header-section-number">0.3</span> Contributing<a href="index.html#contributing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Under construction.</p>
-
+<p>
+Because <span class="math inline">\(A_{n,n}\)</span> has the same number of rows and columns, it is denoted a <i>square matrix</i>.
+</p>
+<p>
+Therefore, <span class="math inline">\(A_{n,n}\)</span> has <span class="math inline">\(n^2\)</span> elements.
+</p>
+<p>We can also obtain the relationship between the first two descriptors of <span class="math inline">\(Y\)</span>, <span class="math inline">\(y_1\)</span> and <span class="math inline">\(y_2\)</span>:</p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,2} \\
+y_{2,2} \\
+\vdots  \\
+y_{m,2} 
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,1} \\
+y_{2,1} \\
+\vdots  \\
+y_{m,1} 
+\end{bmatrix}\]</span></p>
+<p>and store it in <span class="math inline">\(a_{1,2}\)</span>.</p>
+<p>We can populate the association matrix <span class="math inline">\(A_{m,m}\)</span> with the relationships between all descriptors from <span class="math inline">\(Y\)</span>:</p>
+<p><span class="math display">\[A_{m,m} = 
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,m} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,m} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,m} 
+\end{bmatrix}\]</span></p>
+<p>
+This <span class="math inline">\(A_{m,m}\)</span> is a <i>square matrix</i>, and it has <span class="math inline">\(m^2\)</span> elements.
+</p>
+<p>These matrices, <span class="math inline">\(A_{n,n}\)</span> and <span class="math inline">\(A_{m,m}\)</span>, are the basis of <strong><em>Q-mode</em></strong> and <strong><em>R-mode</em></strong> analyses in ecology.</p>
+<p><strong><em>R-mode</em></strong> constitutes of analyzing the association between descriptors or species, while <strong><em>Q-mode</em></strong> analyzes the association between OTUs, objects or sites.</p>
 </div>
-</div>
-
-
-
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>The QCBS R Workshop Series is part of the <a href="https://www.qcbs.ca">Québec Centre for Biodiversity Science</a>, and is maintained by the series coordinators and graduent student, postdoctoral, and research professional members. <strong>The contributors for this workshop can be accessed <a href="link">here</a></strong>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-</ol>
 </div>
 <hr>
 <center> 
@@ -312,8 +396,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="learning-objectives.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="setting-up-our-goals.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploring-the-dataset.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
