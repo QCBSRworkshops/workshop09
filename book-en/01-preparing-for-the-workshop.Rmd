@@ -2,8 +2,22 @@
 
 # Learning objectives
 
-*Include learning objectives.*
 
+1. Learn the basics of multivariate analysis to reveal patterns in community composition data
+
+2. Use `R` to perform an unconstrained ordination
+
+3. Learn about similarity and dissimilarity coefficients and transformations to perform multivariate analysis
+
+4. Use `R` to create dendrograms
+
+5. Learn the following methods:
+
+  * Clustering analysis
+  * Principal Component Analysis (PCA)
+  * Principal Coordinate Analysis (PCoA)
+  * Non-Metric MultiDimensional Scaling (NMDS)
+  
 # Preparing for the workshop
 
 ```{r eval=FALSE, echo=FALSE, purl=TRUE}
@@ -25,31 +39,59 @@
 
 To prepare for this workshop, you must do the following steps:
 
-Download the R script and data required for this workshop:
+Download the data required for this workshop:
 
--    [R Script](http://qcbs.ca/wiki/_media/multivar1_e.r)
--    [DoubsEnv data](http://qcbs.ca/wiki/_media/DoubsEnv.csv)
--    [DoubsSpe data](http://qcbs.ca/wiki/_media/DoubsSpe.csv)
--    [Coldiss R function](http://qcbs.ca/wiki/_media/coldiss.R)
+- [DoubsEnv data](http://qcbs.ca/wiki/_media/DoubsEnv.csv)
+- [DoubsSpe data](http://qcbs.ca/wiki/_media/DoubsSpe.csv)
 
-Make sure to load the following packages (see how in the R script):
+Their data can also be retrieved from the `ade4` package:
+```{r eval=FALSE, echo = TRUE}
+library (ade4)
+data (doubs)
 
--    [vegan (for multivariate
-    analyses)](http://cran.r-project.org/web/packages/vegan/index.html)
--    [gclus (for clustering
-    graphics)](http://cran.r-project.org/web/packages/gclus/index.html)
--    [ape (for
-    phylogenetics)](http://cran.r-project.org/web/packages/ape/index.html)
+spe <- doubs$fish
+env <- doubs$env
+```
 
-```{r, echo = TRUE, eval = FALSE}
-install.packages("vegan")
-install.packages("gclus")
-install.packages("ape")
+Alternatively, from the `codep` package:
+```{r eval=FALSE, echo = TRUE}
+library (codep)
+data (Doubs)
 
-library(vegan)
-library(gclus)
-library(ape)
+spe <- Doubs.fish
+env <- Doubs.env
+```
 
-source(file.choose()) # use coldiss.R which you have downloaded to your own directory
+Download the RScript containing the `coldiss()` function:
+
+- [R Script](http://qcbs.ca/wiki/_media/multivar1_e.r)
+- [Coldiss R function](http://qcbs.ca/wiki/_media/coldiss.R)
+
+You must also use these packages:
+* [ape](https://cran.r-project.org/package=ape)
+* [ade4](https://cran.r-project.org/package=ade4)
+* [codep](https://cran.r-project.org/package=codep)
+* [gclus](https://cran.r-project.org/package=gclus)
+* [vegan](https://cran.r-project.org/package=vegan)
+* [GGally](https://cran.r-project.org/package=GGally)
+* [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
+* [remotes](https://cran.r-project.org/package=remotes)
+
+```{r, echo = TRUE, eval = TRUE}
+list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
+
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+if(length(new.packages) > 0) {
+  install.packages(new.packages, dependencies = TRUE) 
+  print(paste0("The following package was installed:", new.packages)) 
+} else if(length(new.packages) == 0) {
+  print("All packages were already installed previously")
+}
+
+# Load all required libraries at once
+lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
+
+# source(file.choose()) # use coldiss.R which you have downloaded to your own directory
 ```
 
