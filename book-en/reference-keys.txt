@@ -31,7 +31,8 @@ presence-absence-transformation
 species-profiles-transformation
 hellinger-transformation
 z-score-standardization
-little-recap
+little-review
+extra-environmental-data-set
 clustering
 single-linkage-agglomerative-clustering
 complete-linkage-agglomerative-clustering

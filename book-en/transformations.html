@@ -314,8 +314,8 @@ If <span class="math inline">\(y_{ij} \geq 1\)</span>, then, <span class="math i
 <pre><code>## das alt pen deb  pH dur pho nit amm oxy dbo 
 ##   1   1   1   1   1   1   1   1   1   1   1</code></pre>
 <p>We will see more details about this transformation in the next sections!</p>
-<div id="little-recap" class="section level4 hasAnchor">
-<h4><span class="header-section-number">10.4.0.1</span> Little recap<a href="transformations.html#little-recap" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="little-review" class="section level4 hasAnchor">
+<h4><span class="header-section-number">10.4.0.1</span> Little review<a href="transformations.html#little-review" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="explanation">
 <p><strong>Association -</strong> “general term to describe any measure or coefficient
 to quantify the resemblance or difference between objects or
@@ -329,16 +329,7 @@ identical and minimum when two objects are completely different.”
 2012). Distance or dissimilarity (D) = 1-S</p>
 </div>
 <p>Choosing an association measure depends on your data, but also on what
-you know, ecologically about your data. For example, Euclidean distance
-is a very common and easy to use distance measure and is useful for
-understanding how different two samples are based on co-occurrence of
-species. The way Euclidean distance is calculated though relies on zeros
-in the dataset, meaning that two samples or sites without any species in
-common may appear more similar than two samples that share a few
-species. This could be misleading and it would be best to choose a
-different distance measure if you have a lot of zeros in your species
-matrix. This is commonly referred to the “double zero” problem in
-ordination analyses.</p>
+you know, ecologically about your data.</p>
 <p>Here are some commonly used dissimilarity (distance) measures (recreated
 from Gotelli and Ellison 2004):</p>
 <table>
@@ -392,6 +383,9 @@ from Gotelli and Ellison 2004):</p>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="extra-environmental-data-set" class="section level4 hasAnchor">
+<h4><span class="header-section-number">10.4.0.2</span> Extra: environmental data set<a href="transformations.html#extra-environmental-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Quantitative environmental data</strong> Let’s look at <em>associations</em> between
 environmental variables (also known as Q mode):</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="transformations.html#cb84-1"></a><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(dist  <span class="co"># this function also compute dissimilarity matrix</span></span>
@@ -425,21 +419,13 @@ the Gower dissimilarity matrix:</p>
 <span id="cb87-2"><a href="transformations.html#cb87-2"></a>)</span>
 <span id="cb87-3"><a href="transformations.html#cb87-3"></a>(dat2.dg &lt;-<span class="st"> </span><span class="kw">daisy</span>(dat2, <span class="dt">metric =</span> <span class="st">&quot;gower&quot;</span>))</span>
 <span id="cb87-4"><a href="transformations.html#cb87-4"></a><span class="kw">coldiss</span>(dat2.dg)</span></code></pre></div>
-<p><strong>Challenge 1 - Introductory</strong> Discuss with your neighbour: How can we
-tell how similar objects are when we have multivariate data? Make a list
-of all your suggestions.</p>
-<p><strong>Challenge 1 - Introductory Solution</strong> &lt;hidden&gt; Discuss as a group.
-&lt;/hidden&gt;</p>
 <p><strong>Challenge 1 - Advanced</strong> Calculate the Bray-Curtis and the Gower
 dissimilarity of species abundance CHA, TRU and VAI for sites 1, 2 and 3
 (using the “spe” and “env” dataframes) <em>without using the decostand()
 function.</em></p>
 <p><strong>Challenge 1 - Advanced Solution</strong> &lt;hidden&gt;</p>
-<p>First, it is helpful to know the formula for Bray-Curtis dissimilarity
-Bray-Curtis dissimilarity : d<span class="math display">\[jk\]</span> = (sum abs(x<span class="math display">\[ij\]</span>-x<span class="math display">\[ik\]</span>))/(sum
-(x<span class="math display">\[ij\]</span>+x<span class="math display">\[ik\]</span>))</p>
-<p>Next, subset the species data so that only sites 1, 2 are included and
-only the species CHA, TRU and VAI</p>
+<p>Subset the species data so that only sites 1, 2 are included and
+only the species CHA, TRU and VAI.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="transformations.html#cb88-1"></a>spe.challenge &lt;-<span class="st"> </span>spe[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]  <span class="co">#”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)</span></span></code></pre></div>
 <p>Determine total species abundance for each site of interest (sum of the
 3 rows). This will be for the denominator in the above equation.</p>
@@ -500,8 +486,7 @@ manual calculations:</p>
 </tbody>
 </table>
 <p>For the Gower dissimilarity, proceed in the same way but use the
-appropriate equation: Gower dissimilarity : d<span class="math display">\[jk\]</span> = (1/M)
-sum(abs(x<span class="math display">\[ij\]</span>-x<span class="math display">\[ik\]</span>)/(max(x<span class="math display">\[i\]</span>)-min(x<span class="math display">\[i\]</span>)))</p>
+appropriate equation:</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="transformations.html#cb93-1"></a><span class="co"># Calculate the number of columns in your dataset</span></span>
 <span id="cb93-2"><a href="transformations.html#cb93-2"></a>M &lt;-<span class="st"> </span><span class="kw">ncol</span>(spe.challenge)</span>
 <span id="cb93-3"><a href="transformations.html#cb93-3"></a></span>
