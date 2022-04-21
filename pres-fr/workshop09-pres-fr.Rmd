@@ -616,43 +616,6 @@ env <- Doubs.env
 ```
 ]
 
----
-# Données environnementales de la rivière Doubs
-
-Nous pouvons alors explorer les objets contenant nos données nouvellement chargées. Jetons un coup d'oeil aux données `env` :
-
-.pull-left[
-```{r, echo = T}
-str(env)
-```
-
-]
-
-.pull-right[
-
-|Variable |Description|
-|:--:|:--|
-|das|Distance from the source [km]  |
-|alt|Altitude [m a.s.l.]  |
-|pen|Slope [per thousand]  |
-|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
-|pH|pH of water  |
-|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
-|pho|K conc. [mgL<sup>-1</sup>]  |
-|nit|N conc. [mgL<sup>-1</sup>]  |
-|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
-|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
-|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
-
-]
-```{r, eval = F}
-names(env)
-dim(env) # dimensions
-summary(env) # sommaire
-head(env)
-```
-
-]
 
 ---
 # Communautés de poissons de la rivière Doubs
@@ -679,6 +642,61 @@ str(spe)     # structure des objets
 summary(spe) # sommaire
 head(spe)    # debut
 ```
+
+```{r}
+# Nous devrons enlever des sites avec 
+# aucune spèce
+
+# Obtenir les lignes avec qui ont des 
+# valeurs differents de zero
+row_sub <- apply(spe, 
+                 1, function(row) any(row !=0 ))
+
+# Garder ces lignes dans `spe`
+spe <- spe[row_sub, ]
+```
+
+]
+
+---
+# Données environnementales de la rivière Doubs
+
+Nous pouvons alors explorer les objets contenant nos données nouvellement chargées. Jetons un coup d'oeil aux données `env` :
+
+.pull-left[
+```{r, echo = T}
+# Garder les lignes avec != 0 dans `env`
+env <- env[row_sub,]
+
+str(env)
+```
+
+]
+
+.pull-right[
+
+|Variable |Description|
+|:--:|:--|
+|das|Distance de la source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Pente [par millier m.]  |
+|deb|Decharge min. moy. [m<sup>3</sup>s<sup>-1</sup>]  |
+|pH|pH de l'eau  |
+|dur|Conc. Ca (hardness) [mgL<sup>-1</sup>]  |
+|pho|Conc. K [mgL<sup>-1</sup>]  |
+|nit|Conc. N [mgL<sup>-1</sup>]  |
+|amn|Conc. NH₄⁺ [mgL<sup>-1</sup>]  |
+|oxy|Diss. d'oxygen [mgL<sup>-1</sup>]  |
+|dbo|Demande biol. d'oxygen [mgL<sup>-1</sup>]  |
+
+]
+```{r, eval = F}
+names(env)
+dim(env) # dimensions
+summary(env) # sommaire
+head(env)
+```
+
 
 ]
 
