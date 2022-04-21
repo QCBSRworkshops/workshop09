@@ -3057,7 +3057,7 @@ ev <- spe.h.pca$CA$eig
 ```{r, echo = -1, fig.width=10, fig.height = 5.5}
 par(mar=c(4,4,2.5,.5), cex = 1.5)
 n <- length(ev)
-barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+barplot(ev, main = "", col = "grey", las = 2)
 abline(h = mean(ev), col = "red3", lwd = 2)
 legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
@@ -3428,11 +3428,20 @@ We can attempt using *non-metric multidimensional scaling*!
 - `k` specifies the number of dimensions.
 
 ```{r, eval = FALSE, echo = TRUE}
-spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
+# Dune meadow vegetation data, dune, has cover class values of 30 species on 20
+# sites.
+data(dune)
+
+spe.nmds <- metaMDS(dune, 
+                    distance = 'bray', 
+                    k = 2)
 ```
 
 ```{r, include=FALSE}
-spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
+data(dune)
+spe.nmds <- metaMDS(dune, 
+                    distance = 'bray', 
+                    k = 2)
 ```
 
 ---

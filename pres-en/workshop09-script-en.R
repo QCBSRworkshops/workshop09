@@ -930,7 +930,7 @@ ev <- spe.h.pca$CA$eig
 
 par(mar=c(4,4,2.5,.5), cex = 1.5)
 n <- length(ev)
-barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+barplot(ev, main = "", col = "grey", las = 2)
 abline(h = mean(ev), col = "red3", lwd = 2)
 legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
@@ -1030,9 +1030,18 @@ mite.spe.h.pcoa <- pcoa(dist(mite.spe.hel))
 
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 
-spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
+# Dune meadow vegetation data, dune, has cover class values of 30 species on 20
+# sites.
+data(dune)
 
-spe.nmds <- metaMDS(spe, distance = 'bray', k = 2)
+spe.nmds <- metaMDS(dune,
+                    distance = 'bray',
+                    k = 2)
+
+data(dune)
+spe.nmds <- metaMDS(dune, 
+                    distance = 'bray', 
+                    k = 2)
 
 spe.nmds$stress
 stressplot(spe.nmds, main = "Shepard plot")

@@ -1950,10 +1950,10 @@ cov(xyz)
 
 
 ```
-#         x        y        z
-# x 1.02305  0.00213  0.00813
-# y 0.00213  1.02347 -0.02073
-# z 0.00813 -0.02073  0.98327
+#          x        y        z
+# x  0.99028 -0.00309 -0.00846
+# y -0.00309  0.99141 -0.02120
+# z -0.00846 -0.02120  0.99536
 ```
 
 
@@ -2899,7 +2899,7 @@ ev &lt;- spe.h.pca$CA$eig
 
 ```r
 n &lt;- length(ev)
-barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+barplot(ev, main = "", col = "grey", las = 2)
 abline(h = mean(ev), col = "red3", lwd = 2)
 legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
@@ -3326,7 +3326,13 @@ We can attempt using *non-metric multidimensional scaling*!
 
 
 ```r
-spe.nmds &lt;- metaMDS(spe, distance = 'bray', k = 2)
+# Dune meadow vegetation data, dune, has cover class values of 30 species on 20
+# sites.
+data(dune)
+
+spe.nmds &lt;- metaMDS(dune, 
+                    distance = 'bray', 
+                    k = 2)
 ```
 
 
@@ -3339,7 +3345,7 @@ The *Shepard* diagram and stress values can be obtained from `stressplot()`:
 
 ```r
 spe.nmds$stress
-# [1] 4.79541e-05
+# [1] 0.1183186
 stressplot(spe.nmds, main = "Shepard plot")
 ```
 
