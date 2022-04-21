@@ -558,57 +558,6 @@ env &lt;- Doubs.env
 ```
 ]
 
----
-# Données environnementales de la rivière Doubs
-
-Nous pouvons alors explorer les objets contenant nos données nouvellement chargées. Jetons un coup d'oeil aux données `env` :
-
-.pull-left[
-
-```r
-str(env)
-# 'data.frame':	30 obs. of  11 variables:
-#  $ das: num  0.3 2.2 10.2 18.5 21.5 32.4 36.8 49.1 70.5 99 ...
-#  $ alt: int  934 932 914 854 849 846 841 792 752 617 ...
-#  $ pen: num  48 3 3.7 3.2 2.3 3.2 6.6 2.5 1.2 9.9 ...
-#  $ deb: num  0.84 1 1.8 2.53 2.64 2.86 4 1.3 4.8 10 ...
-#  $ pH : num  7.9 8 8.3 8 8.1 7.9 8.1 8.1 8 7.7 ...
-#  $ dur: int  45 40 52 72 84 60 88 94 90 82 ...
-#  $ pho: num  0.01 0.02 0.05 0.1 0.38 0.2 0.07 0.2 0.3 0.06 ...
-#  $ nit: num  0.2 0.2 0.22 0.21 0.52 0.15 0.15 0.41 0.82 0.75 ...
-#  $ amm: num  0 0.1 0.05 0 0.2 0 0 0.12 0.12 0.01 ...
-#  $ oxy: num  12.2 10.3 10.5 11 8 10.2 11.1 7 7.2 10 ...
-#  $ dbo: num  2.7 1.9 3.5 1.3 6.2 5.3 2.2 8.1 5.2 4.3 ...
-```
-
-]
-
-.pull-right[
-
-|Variable |Description|
-|:--:|:--|
-|das|Distance from the source [km]  |
-|alt|Altitude [m a.s.l.]  |
-|pen|Slope [per thousand]  |
-|deb|Mean min. discharge [m&lt;sup&gt;3&lt;/sup&gt;s&lt;sup&gt;-1&lt;/sup&gt;]  |
-|pH|pH of water  |
-|dur|Ca conc. (hardness) [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
-|pho|K conc. [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
-|nit|N conc. [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
-|amn|NH₄⁺ conc. [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
-|oxy|Diss. oxygen [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
-|dbo|Biol. oxygen demand [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
-
-]
-
-```r
-names(env)
-dim(env) # dimensions
-summary(env) # sommaire
-head(env)
-```
-
-]
 
 ---
 # Communautés de poissons de la rivière Doubs
@@ -656,6 +605,76 @@ summary(spe) # sommaire
 head(spe)    # debut
 ```
 
+
+```r
+# Nous devrons enlever des sites avec 
+# aucune spèce
+
+# Obtenir les lignes avec qui ont des 
+# valeurs differents de zero
+row_sub &lt;- apply(spe, 
+                 1, function(row) any(row !=0 ))
+
+# Garder ces lignes dans `spe`
+spe &lt;- spe[row_sub, ]
+```
+
+]
+
+---
+# Données environnementales de la rivière Doubs
+
+Nous pouvons alors explorer les objets contenant nos données nouvellement chargées. Jetons un coup d'oeil aux données `env` :
+
+.pull-left[
+
+```r
+# Garder les lignes avec != 0 dans `env`
+env &lt;- env[row_sub,]
+
+str(env)
+# 'data.frame':	29 obs. of  11 variables:
+#  $ das: num  0.3 2.2 10.2 18.5 21.5 ...
+#  $ alt: int  934 932 914 854 849 846 841 752 617 483 ...
+#  $ pen: num  48 3 3.7 3.2 2.3 3.2 6.6 1.2 9.9 4.1 ...
+#  $ deb: num  0.84 1 1.8 2.53 2.64 2.86 4 4.8 10 19.9 ...
+#  $ pH : num  7.9 8 8.3 8 8.1 7.9 8.1 8 7.7 8.1 ...
+#  $ dur: int  45 40 52 72 84 60 88 90 82 96 ...
+#  $ pho: num  0.01 0.02 0.05 0.1 0.38 0.2 0.07 0.3 0.06 0.3 ...
+#  $ nit: num  0.2 0.2 0.22 0.21 0.52 0.15 0.15 0.82 0.75 1.6 ...
+#  $ amm: num  0 0.1 0.05 0 0.2 0 0 0.12 0.01 0 ...
+#  $ oxy: num  12.2 10.3 10.5 11 8 10.2 11.1 7.2 10 11.5 ...
+#  $ dbo: num  2.7 1.9 3.5 1.3 6.2 5.3 2.2 5.2 4.3 2.7 ...
+```
+
+]
+
+.pull-right[
+
+|Variable |Description|
+|:--:|:--|
+|das|Distance de la source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Pente [par millier m.]  |
+|deb|Decharge min. moy. [m&lt;sup&gt;3&lt;/sup&gt;s&lt;sup&gt;-1&lt;/sup&gt;]  |
+|pH|pH de l'eau  |
+|dur|Conc. Ca (hardness) [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|pho|Conc. K [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|nit|Conc. N [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|amn|Conc. NH₄⁺ [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|oxy|Diss. d'oxygen [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+|dbo|Demande biol. d'oxygen [mgL&lt;sup&gt;-1&lt;/sup&gt;]  |
+
+]
+
+```r
+names(env)
+dim(env) # dimensions
+summary(env) # sommaire
+head(env)
+```
+
+
 ]
 
 ---
@@ -680,7 +699,6 @@ dist(spe)
 # 5  10.816654 10.677078 10.862780  9.219544                              
 # 6   7.348469  4.582576  4.123106  2.828427  8.185353                    
 # 7   6.855655  2.449490  2.000000  3.605551 10.488088  3.605551          
-# 8   3.000000  7.071068  8.717798  8.774964 10.954451  7.937254  8.246211
 # 9   7.810250  8.717798  9.380832  8.774964  9.380832  6.708204  8.485281
 # 10  6.708204  5.099020  5.291503  5.000000  9.273618  3.605551  4.472136
 # 11  4.472136  3.316625  5.000000  5.477226 10.246951  5.291503  4.795832
@@ -703,44 +721,42 @@ dist(spe)
 # 28 16.522712 17.549929 18.000000 16.941074 14.352700 15.905974 17.606817
 # 29 18.761663 19.364917 19.621417 18.384776 15.524175 17.776389 19.364917
 # 30 20.396078 21.377558 21.794495 20.542639 17.117243 19.849433 21.517435
-#            8         9        10        11        12        13        14
+#            9        10        11        12        13        14        15
 # 2                                                                       
 # 3                                                                       
 # 4                                                                       
 # 5                                                                       
 # 6                                                                       
 # 7                                                                       
-# 8                                                                       
-# 9   7.211103                                                            
-# 10  6.480741  6.480741                                                  
-# 11  5.385165  7.549834  4.582576                                        
-# 12  8.124038  8.717798  5.477226  3.872983                              
-# 13  8.426150 10.049876  6.855655  4.000000  3.316625                    
-# 14 10.198039 10.583005  7.615773  6.244998  4.242641  3.316625          
-# 15 10.630146  9.746794  6.855655  7.745967  6.403124  6.633250  5.000000
-# 16 11.489125 10.862780  8.485281 10.049876  9.591663  9.746794  8.944272
-# 17 10.770330  9.899495  8.246211  9.219544  9.273618  9.643651  9.380832
-# 18  9.695360  8.602325  7.874008  8.774964  9.380832  9.949874  9.797959
-# 19 11.313708  9.486833  9.273618 11.000000 11.313708 12.041595 11.832160
-# 20 13.114877 11.489125 12.727922 13.527749 14.422205 15.000000 14.966630
-# 21 14.142136 13.266499 14.142136 14.662878 15.684387 16.031220 16.062378
-# 22 16.370706 15.033296 16.248077 16.941074 17.832555 18.303005 18.165902
-# 23  2.449490  6.324555  6.633250  5.744563  8.366600  8.774964 10.392305
-# 24  6.403124  7.549834  8.544004  8.124038 10.148892 10.583005 11.789826
-# 25  4.358899  7.280110  7.000000  6.782330  9.110434  9.486833 10.723805
-# 26 10.723805 10.148892 11.445523 11.747340 13.000000 13.490738 13.892444
-# 27 15.066519 13.892444 15.264338 15.748016 16.703293 17.146428 17.117243
-# 28 16.248077 14.899664 16.309506 16.822604 17.720045 18.193405 18.220867
-# 29 18.681542 17.521415 18.303005 18.761663 19.416488 19.646883 19.313208
-# 30 20.174241 19.467922 20.371549 20.736441 21.610183 21.863211 21.931712
-#           15        16        17        18        19        20        21
+# 9                                                                       
+# 10  6.480741                                                            
+# 11  7.549834  4.582576                                                  
+# 12  8.717798  5.477226  3.872983                                        
+# 13 10.049876  6.855655  4.000000  3.316625                              
+# 14 10.583005  7.615773  6.244998  4.242641  3.316625                    
+# 15  9.746794  6.855655  7.745967  6.403124  6.633250  5.000000          
+# 16 10.862780  8.485281 10.049876  9.591663  9.746794  8.944272  5.916080
+# 17  9.899495  8.246211  9.219544  9.273618  9.643651  9.380832  8.185353
+# 18  8.602325  7.874008  8.774964  9.380832  9.949874  9.797959  8.660254
+# 19  9.486833  9.273618 11.000000 11.313708 12.041595 11.832160 10.630146
+# 20 11.489125 12.727922 13.527749 14.422205 15.000000 14.966630 13.674794
+# 21 13.266499 14.142136 14.662878 15.684387 16.031220 16.062378 15.066519
+# 22 15.033296 16.248077 16.941074 17.832555 18.303005 18.165902 16.763055
+# 23  6.324555  6.633250  5.744563  8.366600  8.774964 10.392305 10.630146
+# 24  7.549834  8.544004  8.124038 10.148892 10.583005 11.789826 11.747340
+# 25  7.280110  7.000000  6.782330  9.110434  9.486833 10.723805 10.583005
+# 26 10.148892 11.445523 11.747340 13.000000 13.490738 13.892444 13.190906
+# 27 13.892444 15.264338 15.748016 16.703293 17.146428 17.117243 16.062378
+# 28 14.899664 16.309506 16.822604 17.720045 18.193405 18.220867 17.175564
+# 29 17.521415 18.303005 18.761663 19.416488 19.646883 19.313208 18.330303
+# 30 19.467922 20.371549 20.736441 21.610183 21.863211 21.931712 21.023796
+#           16        17        18        19        20        21        22
 # 2                                                                       
 # 3                                                                       
 # 4                                                                       
 # 5                                                                       
 # 6                                                                       
 # 7                                                                       
-# 8                                                                       
 # 9                                                                       
 # 10                                                                      
 # 11                                                                      
@@ -748,29 +764,28 @@ dist(spe)
 # 13                                                                      
 # 14                                                                      
 # 15                                                                      
-# 16  5.916080                                                            
-# 17  8.185353  6.164414                                                  
-# 18  8.660254  7.615773  3.464102                                        
-# 19 10.630146  9.165151  6.633250  6.000000                              
-# 20 13.674794 12.649111  9.380832  7.615773  6.324555                    
-# 21 15.066519 13.928388 11.224972  9.380832  7.874008  3.741657          
-# 22 16.763055 15.556349 13.416408 11.489125 10.583005  6.480741  4.000000
-# 23 10.630146 11.489125 10.295630  9.055385 10.488088 11.916375 13.114877
-# 24 11.747340 12.449900 10.723805  9.110434  9.746794 10.148892 11.269428
-# 25 10.583005 11.180340 10.148892  8.660254  9.539392 10.630146 11.618950
-# 26 13.190906 13.076697 10.816654  8.774964  7.810250  5.385165  5.385165
-# 27 16.062378 15.329710 13.304135 11.532563 10.246951  6.244998  4.582576
-# 28 17.175564 16.370706 14.352700 12.489996 11.489125  7.745967  6.000000
-# 29 18.330303 17.058722 14.662878 13.076697 12.767145  9.000000  7.000000
-# 30 21.023796 19.621417 17.117243 15.652476 15.000000 11.180340  9.000000
-#           22        23        24        25        26        27        28
+# 16                                                                      
+# 17  6.164414                                                            
+# 18  7.615773  3.464102                                                  
+# 19  9.165151  6.633250  6.000000                                        
+# 20 12.649111  9.380832  7.615773  6.324555                              
+# 21 13.928388 11.224972  9.380832  7.874008  3.741657                    
+# 22 15.556349 13.416408 11.489125 10.583005  6.480741  4.000000          
+# 23 11.489125 10.295630  9.055385 10.488088 11.916375 13.114877 15.362291
+# 24 12.449900 10.723805  9.110434  9.746794 10.148892 11.269428 13.304135
+# 25 11.180340 10.148892  8.660254  9.539392 10.630146 11.618950 13.964240
+# 26 13.076697 10.816654  8.774964  7.810250  5.385165  5.385165  7.549834
+# 27 15.329710 13.304135 11.532563 10.246951  6.244998  4.582576  5.000000
+# 28 16.370706 14.352700 12.489996 11.489125  7.745967  6.000000  5.099020
+# 29 17.058722 14.662878 13.076697 12.767145  9.000000  7.000000  5.567764
+# 30 19.621417 17.117243 15.652476 15.000000 11.180340  9.000000  8.185353
+#           23        24        25        26        27        28        29
 # 2                                                                       
 # 3                                                                       
 # 4                                                                       
 # 5                                                                       
 # 6                                                                       
 # 7                                                                       
-# 8                                                                       
 # 9                                                                       
 # 10                                                                      
 # 11                                                                      
@@ -785,44 +800,14 @@ dist(spe)
 # 20                                                                      
 # 21                                                                      
 # 22                                                                      
-# 23 15.362291                                                            
-# 24 13.304135  4.358899                                                  
-# 25 13.964240  3.000000  3.741657                                        
-# 26  7.549834  9.433981  7.071068  8.000000                              
-# 27  5.000000 14.035669 11.916375 12.649111  5.291503                    
-# 28  5.099020 15.231546 13.076697 13.964240  7.000000  3.872983          
-# 29  5.567764 17.804494 15.874508 16.431677  9.899495  6.633250  5.567764
-# 30  8.185353 19.416488 17.832555 18.055470 11.916375  9.165151  7.280110
-#           29
-# 2           
-# 3           
-# 4           
-# 5           
-# 6           
-# 7           
-# 8           
-# 9           
-# 10          
-# 11          
-# 12          
-# 13          
-# 14          
-# 15          
-# 16          
-# 17          
-# 18          
-# 19          
-# 20          
-# 21          
-# 22          
-# 23          
-# 24          
-# 25          
-# 26          
-# 27          
-# 28          
-# 29          
-# 30  6.480741
+# 23                                                                      
+# 24  4.358899                                                            
+# 25  3.000000  3.741657                                                  
+# 26  9.433981  7.071068  8.000000                                        
+# 27 14.035669 11.916375 12.649111  5.291503                              
+# 28 15.231546 13.076697 13.964240  7.000000  3.872983                    
+# 29 17.804494 15.874508 16.431677  9.899495  6.633250  5.567764          
+# 30 19.416488 17.832555 18.055470 11.916375  9.165151  7.280110  6.480741
 ```
 
 ]
@@ -880,11 +865,11 @@ Cela centre et réduit les variables pour rendre votre analyse en aval plus appr
 ```r
 apply(env.z, 2, mean)
 #           das           alt           pen           deb            pH 
-#  1.000429e-16  1.814232e-18 -1.659010e-17  1.233099e-17 -4.096709e-15 
+# -7.959539e-17 -4.795165e-17  2.494600e-17 -7.323225e-17 -1.730430e-15 
 #           dur           pho           nit           amm           oxy 
-#  3.348595e-16  1.327063e-17 -8.925898e-17 -4.289646e-17 -2.886092e-16 
+# -2.028505e-16  4.445790e-17  2.875893e-17  2.754434e-17 -4.038167e-16 
 #           dbo 
-#  7.656545e-17
+#  9.829975e-17
 apply(env.z, 2, sd)
 # das alt pen deb  pH dur pho nit amm oxy dbo 
 #   1   1   1   1   1   1   1   1   1   1   1
@@ -976,7 +961,7 @@ La mesure de distance métrique la plus courante est la _distance euclidienne_.
 Elle est calculée à l'aide de la formule de Pythagore :
 `$$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$`
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-18-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-19-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -1384,7 +1369,7 @@ Nous pouvons créer des représentations graphiques des matrices d'association e
 coldiss(spe.D.Jac)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-37-1.png" width="1152" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-38-1.png" width="1152" style="display: block; margin: auto;" /&gt;
 
 ---
 # Transformations pour les données de composition des communautés
@@ -1539,7 +1524,7 @@ barplot(site.pre, main = "Species richness",
         col = "grey ", las = 1)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 exclude: true
@@ -1555,7 +1540,7 @@ exclude: true
 coldiss(spe.db.pa)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-46-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse, middle, center
@@ -1573,7 +1558,7 @@ Un objectif des écologistes pourrait être de diviser un ensemble de sites en g
 
 Ces résultats peuvent être représentés sous forme de dendrogrammes (diagrammes en forme d'arbre), qui décrivent la proximité des observations.
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-48-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ???
 .center[![:scale 80%](images/cluster1_revised.jpg)]
@@ -1646,7 +1631,7 @@ spe.dhe1.single &lt;- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-48-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-49-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1660,7 +1645,7 @@ plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
 plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-49-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-50-1.png" width="1080" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
 
@@ -1701,7 +1686,7 @@ spe.dhel.ward$height &lt;- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at 0
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-50-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-51-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 &gt; L'algorithme de clustering de Ward ne peut être appliqué qu'avec des distances euclidiennes. Les distances de Bray-Curtis ne sont pas euclidiennes, elles doivent donc être racinées au carré avant.
 
@@ -1877,9 +1862,9 @@ cov(xyz)
 
 ```
 #          x        y        z
-# x  0.98659 -0.00323 -0.00883
-# y -0.00323  1.01817 -0.02137
-# z -0.00883 -0.02137  1.01282
+# x  1.01454 -0.02778 -0.01346
+# y -0.02778  1.01822 -0.01220
+# z -0.01346 -0.01220  1.02422
 ```
 
 Si les variables sont parfaitement indépendantes (ou non corrélées), la matrice de covariance `\(C(x, y, z)\)` est :
@@ -1987,7 +1972,7 @@ En revanche, la flèche rouge a changé de direction, et *n'est donc pas* un *ve
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-51-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-52-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2323,7 +2308,7 @@ Les flèches sur les composantes principales sont obtenues en multipliant leurs 
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-57-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-58-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2348,7 +2333,7 @@ Notez comment les composantes principales sont orthogonales !
 
 .pull-right[
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-58-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-59-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -2453,7 +2438,7 @@ La *matrice des coordonnées*, `\(F\)`, (objet `F_PrComps`) permet de *rotationn
 `\(\text{N}\)` ~ `\(\text{P}\)`
 ]
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-61-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-62-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -2461,7 +2446,7 @@ La *matrice des coordonnées*, `\(F\)`, (objet `F_PrComps`) permet de *rotationn
 `\(\text{PC}1\)` ~ `\(\text{PC}2\)`
 ]
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-62-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-63-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2668,7 +2653,7 @@ Les premières lignes de `summary.rda()` nous renseignent sur la *variance total
 
 ```
 # [1] "Partitioning of variance:"        "              Inertia Proportion"
-# [3] "Total          0.5023          1" "Unconstrained  0.5023          1"
+# [3] "Total          0.5025          1" "Unconstrained  0.5025          1"
 ```
 ]
 
@@ -2678,15 +2663,15 @@ Les premières lignes de `summary.rda()` nous renseignent sur la *variance total
 
 
 ```
-# [1] "Importance of components:"                                                    
-# [2] "                         PC1     PC2     PC3     PC4     PC5     PC6     PC7" 
-# [3] "Eigenvalue            0.2491 0.06592 0.04615 0.03723 0.02125 0.01662 0.01477" 
-# [4] "Proportion Explained  0.4959 0.13122 0.09188 0.07412 0.04230 0.03309 0.02940" 
-# [5] "Cumulative Proportion 0.4959 0.62715 0.71903 0.79315 0.83544 0.86853 0.89794" 
-# [6] "                          PC14     PC15     PC16     PC17      PC18      PC19"
-# [7] "Eigenvalue            0.002612 0.001505 0.001387 0.001037 0.0007815 0.0004749"
-# [8] "Proportion Explained  0.005200 0.002996 0.002761 0.002065 0.0015557 0.0009454"
-# [9] "Cumulative Proportion 0.987229 0.990225 0.992986 0.995051 0.9966069 0.9975523"
+# [1] "Importance of components:"                                                     
+# [2] "                         PC1     PC2     PC3     PC4     PC5     PC6     PC7"  
+# [3] "Eigenvalue            0.2580 0.06424 0.04632 0.03850 0.02197 0.01675 0.01472"  
+# [4] "Proportion Explained  0.5133 0.12784 0.09218 0.07662 0.04371 0.03334 0.02930"  
+# [5] "Cumulative Proportion 0.5133 0.64118 0.73337 0.80999 0.85370 0.88704 0.91634"  
+# [6] "                          PC14     PC15     PC16      PC17      PC18      PC19"
+# [7] "Eigenvalue            0.001835 0.001455 0.001118 0.0008309 0.0005415 0.0004755"
+# [8] "Proportion Explained  0.003651 0.002895 0.002225 0.0016535 0.0010776 0.0009463"
+# [9] "Cumulative Proportion 0.988888 0.991783 0.994008 0.9956612 0.9967389 0.9976852"
 ```
 
 ]
@@ -2701,7 +2686,7 @@ En fait, si nous additionnons toutes nos *valeurs propres*, nous obtiendrons la 
 
 ```r
 sum(spe.h.pca$CA$eig)
-# [1] 0.5023429
+# [1] 0.5025103
 ```
 
 ]
@@ -2720,25 +2705,25 @@ Les informations suivantes sont liées à la *mise à l'échelle* (`scaling`), a
 
 
 ```
-#  [1] "Eigenvalue            0.0004263 0.0002812 0.0002188 0.0001382 0.0000876"
-#  [2] "Proportion Explained  0.0008487 0.0005598 0.0004356 0.0002752 0.0001744"
-#  [3] "Cumulative Proportion 0.9984010 0.9989608 0.9993965 0.9996717 0.9998460"
-#  [4] "                           PC25      PC26      PC27"                    
-#  [5] "Proportion Explained  1.062e-04 2.938e-05 1.835e-05"                    
-#  [6] "Cumulative Proportion 1.000e+00 1.000e+00 1.000e+00"                    
+#  [1] "Eigenvalue            0.0003680 0.0002765 0.0002253 0.0001429 7.618e-05"
+#  [2] "Proportion Explained  0.0007324 0.0005503 0.0004483 0.0002845 1.516e-04"
+#  [3] "Cumulative Proportion 0.9984176 0.9989678 0.9994161 0.9997006 9.999e-01"
+#  [4] "                          PC25      PC26      PC27"                     
+#  [5] "Proportion Explained  9.93e-05 3.036e-05 1.814e-05"                     
+#  [6] "Cumulative Proportion 1.00e+00 1.000e+00 1.000e+00"                     
 #  [7] "Scaling 2 for species and site scores"                                  
 #  [8] "* Species are scaled proportional to eigenvalues"                       
 #  [9] "* Sites are unscaled: weighted dispersion equal on all dimensions"      
-# [10] "* General scaling constant of scores:  1.953663 "                       
+# [10] "* General scaling constant of scores:  1.93676 "                        
 # [11] ""                                                                       
 # [12] ""                                                                       
 # [13] "Species scores"                                                         
-# [14] "BCO -0.20055  0.08332 -0.074787 -0.0504875  0.073890  0.0249842"        
-# [15] "PCH -0.14626  0.05268 -0.072012 -0.0432572  0.050318  0.0178776"        
-# [16] "GAR -0.35085 -0.09353  0.198664  0.0178669  0.023796 -0.0971362"        
-# [17] "BBO -0.24167  0.03598 -0.079528 -0.0339049  0.096690  0.0620979"        
-# [18] "ABL -0.42269 -0.22879  0.007158  0.1128353  0.006759  0.1248913"        
-# [19] "ANG -0.20521  0.11557 -0.072060 -0.0159902  0.072030 -0.0003801"        
+# [14] "BCO -0.20174  0.08807 -0.067086 -0.0529106  0.0737228  0.037312"        
+# [15] "PCH -0.14717  0.05829 -0.067311 -0.0458414  0.0501013  0.031605"        
+# [16] "GAR -0.35245 -0.14076  0.168014  0.0185946  0.0213462 -0.129788"        
+# [17] "BBO -0.24317  0.03679 -0.082731 -0.0384489  0.0939828  0.063369"        
+# [18] "ABL -0.42536 -0.26155 -0.054190  0.1021959 -0.0078085  0.044540"        
+# [19] "ANG -0.20631  0.11889 -0.062079 -0.0175733  0.0718743 -0.001956"        
 # [20] ""                                                                       
 # [21] ""                                                                       
 # [22] "Site scores (weighted sums of species scores)"
@@ -2758,11 +2743,11 @@ Les informations suivantes sont liées à la *mise à l'échelle* (`scaling`), a
 .pull-right[
 
 ```
-# [1] "Cumulative Proportion 1.000e+00 1.000e+00 1.000e+00"              
+# [1] "Cumulative Proportion 1.00e+00 1.000e+00 1.000e+00"               
 # [2] "Scaling 2 for species and site scores"                            
 # [3] "* Species are scaled proportional to eigenvalues"                 
 # [4] "* Sites are unscaled: weighted dispersion equal on all dimensions"
-# [5] "* General scaling constant of scores:  1.953663 "                 
+# [5] "* General scaling constant of scores:  1.93676 "                  
 # [6] ""                                                                 
 # [7] ""                                                                 
 # [8] "Species scores"
@@ -2775,11 +2760,11 @@ Les informations suivantes sont liées à la *mise à l'échelle* (`scaling`), a
 .pull-left2[
 
 ```
-# [1] "PCH -0.14626  0.05268 -0.072012 -0.0432572  0.050318  0.0178776"
-# [2] "GAR -0.35085 -0.09353  0.198664  0.0178669  0.023796 -0.0971362"
-# [3] "BBO -0.24167  0.03598 -0.079528 -0.0339049  0.096690  0.0620979"
-# [4] "ABL -0.42269 -0.22879  0.007158  0.1128353  0.006759  0.1248913"
-# [5] "ANG -0.20521  0.11557 -0.072060 -0.0159902  0.072030 -0.0003801"
+# [1] "PCH -0.14717  0.05829 -0.067311 -0.0458414  0.0501013  0.031605"
+# [2] "GAR -0.35245 -0.14076  0.168014  0.0185946  0.0213462 -0.129788"
+# [3] "BBO -0.24317  0.03679 -0.082731 -0.0384489  0.0939828  0.063369"
+# [4] "ABL -0.42536 -0.26155 -0.054190  0.1021959 -0.0078085  0.044540"
+# [5] "ANG -0.20631  0.11889 -0.062079 -0.0175733  0.0718743 -0.001956"
 # [6] ""                                                               
 # [7] ""                                                               
 # [8] "Site scores (weighted sums of species scores)"
@@ -2841,7 +2826,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-78-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-79-1.png" width="720" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2858,7 +2843,7 @@ Le modèle *broken-stick* retient les composantes qui expliquent plus de varianc
 ```r
 head(bstick(spe.h.pca))
 #        PC1        PC2        PC3        PC4        PC5        PC6 
-# 0.07240169 0.05379640 0.04449375 0.03829199 0.03364067 0.02991961
+# 0.07242581 0.05381432 0.04450858 0.03830475 0.03365187 0.02992957
 ```
 ]
 
@@ -2869,7 +2854,7 @@ screeplot(spe.h.pca,
           bstick = TRUE, type = "lines")
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-80-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-81-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2899,14 +2884,14 @@ ev &lt;- env.pca$CA$eig
 ```r
 ev[ev&gt;mean(ev)]
 #      PC1      PC2      PC3 
-# 5.968749 2.163818 1.065164
+# 6.097995 2.167126 1.037603
 ```
 ]
 
 --
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-84-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-85-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2922,7 +2907,7 @@ Nous pouvons produire un biplot rapide de l'ACP en utilisant la fonction `plot()
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-85-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-86-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2938,7 +2923,7 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-86-1.png" width="468" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-87-1.png" width="468" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right2[
@@ -2970,7 +2955,7 @@ Les descripteurs situés à 0 degré l'un de l'autre sont positivement corrélé
 biplot(spe.h.pca, scaling = 1)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-87-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-88-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -2979,7 +2964,7 @@ biplot(spe.h.pca, scaling = 1)
 biplot(spe.h.pca, scaling = 2)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-88-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-89-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -3039,7 +3024,7 @@ legend("topright",
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-92-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-93-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -3051,7 +3036,7 @@ biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-93-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-94-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # Analyse des coordonnées principales
@@ -3075,7 +3060,7 @@ summary(spe.h.pcoa)
 # correction   2    -none-     character
 # note         1    -none-     character
 # values       5    data.frame list     
-# vectors    810    -none-     numeric  
+# vectors    783    -none-     numeric  
 # trace        1    -none-     numeric
 ```
 
@@ -3087,12 +3072,12 @@ summary(spe.h.pcoa)
 ```r
 head(spe.h.pcoa$values)
 #   Eigenvalues Relative_eig Broken_stick Cumul_eig Cumul_br_stick
-# 1   7.2247720   0.49593627   0.14412803 0.4959363      0.1441280
-# 2   1.9115366   0.13121526   0.10709099 0.6271515      0.2512190
-# 3   1.3384761   0.09187817   0.08857247 0.7190297      0.3397915
-# 4   1.0797364   0.07411728   0.07622679 0.7931470      0.4160183
-# 5   0.6161946   0.04229798   0.06696753 0.8354450      0.4829858
-# 6   0.4820459   0.03308949   0.05956013 0.8685345      0.5425459
+# 1   7.2228939   0.51334374   0.14412803 0.5133437      0.1441280
+# 2   1.7987449   0.12783995   0.10709099 0.6411837      0.2512190
+# 3   1.2970423   0.09218307   0.08857247 0.7333668      0.3397915
+# 4   1.0780684   0.07662021   0.07622679 0.8099870      0.4160183
+# 5   0.6150273   0.04371107   0.06696753 0.8536980      0.4829858
+# 6   0.4691296   0.03334186   0.05956013 0.8870399      0.5425459
 ```
 
 ---
@@ -3106,12 +3091,12 @@ Nous pouvons également voir les *vecteurs propres* associés à chaque *valeur 
 ```r
 head(spe.h.pcoa$vectors)[, 1:5]
 #         Axis.1      Axis.2      Axis.3     Axis.4       Axis.5
-# 1 -0.510156945  0.34756659  0.60308559 -0.3105433 -0.197553521
-# 2 -0.697567847  0.04025083  0.10420566 -0.2256121  0.163849922
-# 3 -0.639279415 -0.02078733  0.03988954 -0.2636284  0.130319412
-# 4 -0.411968300 -0.13472113 -0.14290276 -0.2900746  0.003953021
-# 5  0.005052046 -0.09541567 -0.30540211 -0.2852990 -0.319905818
-# 6 -0.292971968 -0.11423456 -0.31865809 -0.2359718 -0.055670665
+# 1 -0.509824403 -0.27654372  0.64011383 -0.3393734  0.207330880
+# 2 -0.698794880 -0.03935586  0.11324989 -0.2328859 -0.157730682
+# 3 -0.640690642  0.01566707  0.03835044 -0.2669706 -0.125293094
+# 4 -0.413985947  0.10477084 -0.15728486 -0.2851828 -0.001250382
+# 5  0.003083242  0.05284310 -0.32206098 -0.2730693  0.315944703
+# 6 -0.295314224  0.05778805 -0.32395301 -0.2262902  0.056493824
 ```
 
 ---
@@ -3125,7 +3110,7 @@ Nous pouvons afficher les distances entre les sites en utilisant la fonction `bi
 biplot.pcoa(spe.h.pcoa, spe.hel)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-97-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-98-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -3143,12 +3128,12 @@ spe.bray.pcoa &lt;- pcoa(spe.db.pa)
 
 ```r
 spe.bray.pcoa$values$Eigenvalues
-#  [1]  3.695332e+00  1.197352e+00  8.465325e-01  5.253896e-01  4.147227e-01
-#  [6]  2.977969e-01  1.913094e-01  1.554757e-01  1.307617e-01  1.272105e-01
-# [11]  8.550928e-02  4.357746e-02  3.862321e-02  2.727686e-02  1.303318e-02
-# [16]  6.704839e-03  3.817779e-03  1.300463e-03  0.000000e+00 -3.597737e-05
-# [21] -4.167639e-03 -8.970687e-03 -1.473688e-02 -1.601025e-02 -2.165231e-02
-# [26] -3.127263e-02 -3.443356e-02 -3.763160e-02 -6.064415e-02 -6.882758e-02
+#  [1]  3.695331e+00  1.098472e+00  7.104740e-01  4.149729e-01  3.045604e-01
+#  [6]  1.917884e-01  1.569703e-01  1.319099e-01  1.294251e-01  8.667896e-02
+# [11]  4.615780e-02  3.864487e-02  2.745800e-02  1.306508e-02  7.087896e-03
+# [16]  4.039469e-03  1.300594e-03  0.000000e+00 -3.534426e-05 -3.940676e-03
+# [21] -8.956051e-03 -1.461149e-02 -1.598905e-02 -2.145686e-02 -3.017013e-02
+# [26] -3.432671e-02 -3.760052e-02 -6.037087e-02 -6.880061e-02
 ```
 ]
 
@@ -3174,11 +3159,11 @@ Les valeurs propres corrigées sont maintenant sur une nouvelle colonne !
 
 ```r
 spe.bray.pcoa$values$Corr_eig
-#  [1] 5.208616362 1.735210656 1.249426268 0.813115534 0.690430331 0.513559025
-#  [7] 0.387520962 0.363702867 0.296206500 0.273082611 0.215178142 0.154525233
-# [13] 0.150803988 0.118203435 0.088726577 0.073233820 0.069460754 0.057344134
-# [19] 0.056008651 0.054525339 0.049309077 0.040482831 0.037906147 0.034709860
-# [25] 0.029748166 0.023624321 0.019072278 0.003071851 0.000000000 0.000000000
+#  [1] 5.20461437 1.60465006 1.09152082 0.68985417 0.52129425 0.38710929
+#  [7] 0.36447367 0.29671255 0.27559544 0.21600584 0.15419396 0.15378333
+# [13] 0.11812808 0.08848541 0.07304055 0.06999353 0.05712927 0.05587583
+# [19] 0.05432215 0.04912221 0.04100207 0.03777775 0.03451234 0.02959507
+# [25] 0.02436729 0.01902747 0.00284371 0.00000000 0.00000000
 ```
 
 ]
@@ -3191,7 +3176,7 @@ Utilisez un biplot sans les espèces pour la représenter !
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-102-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-103-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -3233,7 +3218,7 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-105-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-106-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -3284,7 +3269,7 @@ stressplot(spe.nmds, main = "Shepard plot")
 ```
 
 .pull-left[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-109-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-110-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
 &lt;Br&gt;&lt;Br&gt;
@@ -3327,7 +3312,7 @@ Quatre sites dans la partie inférieure du graphique sont fortement différents 
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-111-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-112-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -3381,7 +3366,7 @@ text(scores(mite.nmds, display = "species", choices = c(1)),
 ---
 # Défi #4: Solution
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-115-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-116-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 Il n'y a pas vraiment de regroupement évident de sites dans le biplot NMDS. Cela nous indique que les espèces sont présentes dans la plupart des sites. Seuls quelques sites contiennent des communautés spécifiques.
 
@@ -3393,7 +3378,7 @@ Il n'y a pas vraiment de regroupement évident de sites dans le biplot NMDS. Cel
 stressplot(mite.nmds)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-116-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-117-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 La dissimilarité observée est fortement corrélée avec la distance d'ordination, et la valeur de stress NMDS est relativement faible, ce qui nous indique que l'ordination NMDS est relativement précise.
 

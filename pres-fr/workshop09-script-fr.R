@@ -62,13 +62,6 @@ data (Doubs)
 spe <- Doubs.fish
 env <- Doubs.env
 
-str(env)
-
-names(env)
-dim(env) # dimensions
-summary(env) # sommaire
-head(env)
-
 head(spe)[, 1:8]
 
 str(spe)
@@ -79,6 +72,27 @@ dim(spe)     # dimensions
 str(spe)     # structure des objets
 summary(spe) # sommaire
 head(spe)    # debut
+
+# Nous devrons enlever des sites avec 
+# aucune spèce
+
+# Obtenir les lignes avec qui ont des 
+# valeurs differents de zero
+row_sub <- apply(spe, 
+                 1, function(row) any(row !=0 ))
+
+# Garder ces lignes dans `spe`
+spe <- spe[row_sub, ]
+
+# Garder les lignes avec != 0 dans `env`
+env <- env[row_sub,]
+
+str(env)
+
+names(env)
+dim(env) # dimensions
+summary(env) # sommaire
+head(env)
 
 dist(spe)
 
