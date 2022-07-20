@@ -20,9 +20,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Workshop 9: Multivariate Analyses
+]
+.subtitle[
 ## QCBS R Workshop Series
+]
+.author[
 ### Québec Centre for Biodiversity Science
+]
 
 ---
 
@@ -1950,10 +1956,10 @@ cov(xyz)
 
 
 ```
-#          x        y        z
-# x  0.99028 -0.00309 -0.00846
-# y -0.00309  0.99141 -0.02120
-# z -0.00846 -0.02120  0.99536
+#          x        y       z
+# x  0.98513 -0.00651 0.00801
+# y -0.00651  0.96541 0.03001
+# z  0.00801  0.03001 1.02718
 ```
 
 
@@ -3832,6 +3838,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

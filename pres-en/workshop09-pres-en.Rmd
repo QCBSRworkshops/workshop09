@@ -904,7 +904,7 @@ a=c(4, 0)
 b=c(0, 4)
 # plot the vectors
 vectors(a, labels="D(y21, y11)", pos.lab=3, frac.lab=.5, col="grey")
-vectors(a + b, labels="D1(x1,x2)", pos.lab=4, frac.lab=.5, col="red")
+vectors(a + b, labels="D1(x1, x2)", pos.lab=4, frac.lab=.5, col="red")
 # vector a+b starting from a is equal to b.
 vectors(a + b, labels="D(y12, y22)", pos.lab=4, frac.lab=.5, origin=a, col="grey")
 
@@ -3055,7 +3055,7 @@ ev <- spe.h.pca$CA$eig
 
 .pull-right[
 ```{r, echo = -1, fig.width=10, fig.height = 5.5}
-par(mar=c(4,4,2.5,.5), cex = 1.5)
+par(mar=c(1,4,2.5,.5), cex = 1.5)
 n <- length(ev)
 barplot(ev, main = "", col = "grey", las = 2)
 abline(h = mean(ev), col = "red3", lwd = 2)
