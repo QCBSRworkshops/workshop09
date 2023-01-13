@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 11 Clustering | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 11 Clustering | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
@@ -48,25 +48,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,8 +136,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="part"><span><b>QCBS R Workshop Series</b></span></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a>
+<ul>
 <li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
 <li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
@@ -152,38 +153,45 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
 <li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
 <li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
-<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
 <li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
 <li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
 <li class="part"><span><b>(Dis)similarity measures</b></span></li>
 <li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
-<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
-<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
 <li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
 <li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
 <li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
 <li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
 <li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
 <li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
 <li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
 <li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
 </ul></li>
 <li class="part"><span><b>Clustering</b></span></li>
-<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
@@ -233,7 +241,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="clustering" class="section level1 hasAnchor">
+<div id="clustering" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">Chapter 11</span> Clustering<a href="clustering.html#clustering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>One application of association matrices is clustering.
 Clustering highlights structures in the data by partitioning either the objects or the descriptors.
@@ -254,7 +262,7 @@ functions in R. The association matrix is first sorted in increasing
 distance order (or decreasing similarities). Then, groups are formed
 hierarchically following rules specific to each method.</p>
 <p><img src="book-en_files/figure-html/unnamed-chunk-52-1.png" width="960" /></p>
-<div id="single-linkage-agglomerative-clustering" class="section level2 hasAnchor">
+<div id="single-linkage-agglomerative-clustering" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Single linkage agglomerative clustering<a href="clustering.html#single-linkage-agglomerative-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let's take a simple example of a euclidean distance matrix between 5
 objets which were sorted in ascending order.</p>
@@ -273,35 +281,35 @@ are all linked). As a result, complete linkage clustering will form many
 small separate groups, and is more appropriate to look for contrasts,
 discontinuities in the data.</p>
 </div>
-<div id="complete-linkage-agglomerative-clustering" class="section level2 hasAnchor">
+<div id="complete-linkage-agglomerative-clustering" class="section level2 hasAnchor" number="11.2">
 <h2><span class="header-section-number">11.2</span> Complete linkage agglomerative clustering<a href="clustering.html#complete-linkage-agglomerative-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s compare the single and complete linkage clustering methods using
 the Doubs fish species data.</p>
 <p>Species data were already Hellinger-transformed. The cluster analysis
 requiring similarity or dissimilarity indices, the first step will be to
 generate the Hellinger distance indices.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="clustering.html#cb94-1"></a>spe.dhel &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.hel, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co">#generates the distance matrix from Hellinger transformed data</span></span>
-<span id="cb94-2"><a href="clustering.html#cb94-2"></a></span>
-<span id="cb94-3"><a href="clustering.html#cb94-3"></a><span class="co"># See difference between the two matrices</span></span>
-<span id="cb94-4"><a href="clustering.html#cb94-4"></a><span class="kw">head</span>(spe.hel)  <span class="co"># Hellinger-transformed species data</span></span>
-<span id="cb94-5"><a href="clustering.html#cb94-5"></a><span class="kw">head</span>(spe.dhel)  <span class="co"># Hellinger distances among sites</span></span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="clustering.html#cb96-1" aria-hidden="true" tabindex="-1"></a>spe.dhel <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(spe.hel, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co">#generates the distance matrix from Hellinger transformed data</span></span>
+<span id="cb96-2"><a href="clustering.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="clustering.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="co"># See difference between the two matrices</span></span>
+<span id="cb96-4"><a href="clustering.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe.hel)  <span class="co"># Hellinger-transformed species data</span></span>
+<span id="cb96-5"><a href="clustering.html#cb96-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe.dhel)  <span class="co"># Hellinger distances among sites</span></span></code></pre></div>
 <p>Most clustering methods can be computed with the function hclust() of
 the stats package.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="clustering.html#cb95-1"></a><span class="co"># Faire le groupement à liens simples Perform single</span></span>
-<span id="cb95-2"><a href="clustering.html#cb95-2"></a><span class="co"># linkage clustering</span></span>
-<span id="cb95-3"><a href="clustering.html#cb95-3"></a>spe.dhel.single &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;single&quot;</span>)</span>
-<span id="cb95-4"><a href="clustering.html#cb95-4"></a><span class="kw">plot</span>(spe.dhel.single)</span>
-<span id="cb95-5"><a href="clustering.html#cb95-5"></a></span>
-<span id="cb95-6"><a href="clustering.html#cb95-6"></a><span class="co"># Perform complete linkage clustering</span></span>
-<span id="cb95-7"><a href="clustering.html#cb95-7"></a>spe.dhel.complete &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
-<span id="cb95-8"><a href="clustering.html#cb95-8"></a><span class="kw">plot</span>(spe.dhel.complete)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="clustering.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Faire le groupement à liens simples Perform single</span></span>
+<span id="cb97-2"><a href="clustering.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="co"># linkage clustering</span></span>
+<span id="cb97-3"><a href="clustering.html#cb97-3" aria-hidden="true" tabindex="-1"></a>spe.dhel.single <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.dhel, <span class="at">method =</span> <span class="st">&quot;single&quot;</span>)</span>
+<span id="cb97-4"><a href="clustering.html#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.single)</span>
+<span id="cb97-5"><a href="clustering.html#cb97-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-6"><a href="clustering.html#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform complete linkage clustering</span></span>
+<span id="cb97-7"><a href="clustering.html#cb97-7" aria-hidden="true" tabindex="-1"></a>spe.dhel.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.dhel, <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb97-8"><a href="clustering.html#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.complete)</span></code></pre></div>
 <p><img src="/clust_single.png" class="align-center" /><img src="/clust_complete.png" class="align-center" /></p>
 <p>Are there big differences between the two dendrograms?</p>
 <p>In single linkage clustering, chains of objets occur (e.g. 19, 29, 30,
 20, 26, etc.), whereas more contrasted groups are formed in the complete
 linkage clustering.</p>
 </div>
-<div id="wards-minimum-variance-clustering" class="section level2 hasAnchor">
+<div id="wards-minimum-variance-clustering" class="section level2 hasAnchor" number="11.3">
 <h2><span class="header-section-number">11.3</span> Ward’s minimum variance clustering<a href="clustering.html#wards-minimum-variance-clustering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ward’s minimum variance clustering differ from these two methods in that
 it clusters objects into groups using the criterion of least squares
@@ -314,15 +322,15 @@ with hclust(). However, the dendogram shows squared distances by
 default. In order to compare this dendrogram to the single and complete
 linkage clustering results, one must calculate the square root of the
 distances.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="clustering.html#cb96-1"></a><span class="co"># Perform Ward minimum variance clustering</span></span>
-<span id="cb96-2"><a href="clustering.html#cb96-2"></a>spe.dhel.ward &lt;-<span class="st"> </span><span class="kw">hclust</span>(spe.dhel, <span class="dt">method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
-<span id="cb96-3"><a href="clustering.html#cb96-3"></a><span class="kw">plot</span>(spe.dhel.ward)</span>
-<span id="cb96-4"><a href="clustering.html#cb96-4"></a></span>
-<span id="cb96-5"><a href="clustering.html#cb96-5"></a><span class="co"># Re-plot the dendrogram by using the square roots of the</span></span>
-<span id="cb96-6"><a href="clustering.html#cb96-6"></a><span class="co"># fusion levels</span></span>
-<span id="cb96-7"><a href="clustering.html#cb96-7"></a>spe.dhel.ward<span class="op">$</span>height &lt;-<span class="st"> </span><span class="kw">sqrt</span>(spe.dhel.ward<span class="op">$</span>height)</span>
-<span id="cb96-8"><a href="clustering.html#cb96-8"></a><span class="kw">plot</span>(spe.dhel.ward)</span>
-<span id="cb96-9"><a href="clustering.html#cb96-9"></a><span class="kw">plot</span>(spe.dhel.ward, <span class="dt">hang =</span> <span class="dv">-1</span>)  <span class="co"># hang=-1 aligns all objets on the same line</span></span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="clustering.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Ward minimum variance clustering</span></span>
+<span id="cb98-2"><a href="clustering.html#cb98-2" aria-hidden="true" tabindex="-1"></a>spe.dhel.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.dhel, <span class="at">method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
+<span id="cb98-3"><a href="clustering.html#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.ward)</span>
+<span id="cb98-4"><a href="clustering.html#cb98-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-5"><a href="clustering.html#cb98-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Re-plot the dendrogram by using the square roots of the</span></span>
+<span id="cb98-6"><a href="clustering.html#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="co"># fusion levels</span></span>
+<span id="cb98-7"><a href="clustering.html#cb98-7" aria-hidden="true" tabindex="-1"></a>spe.dhel.ward<span class="sc">$</span>height <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(spe.dhel.ward<span class="sc">$</span>height)</span>
+<span id="cb98-8"><a href="clustering.html#cb98-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.ward)</span>
+<span id="cb98-9"><a href="clustering.html#cb98-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.ward, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)  <span class="co"># hang=-1 aligns all objets on the same line</span></span></code></pre></div>
 <p><img src="/clust_ward.png" class="align-center" />
 <img src="/clust_wardfinal.png" class="align-center" /></p>
 <p>The clusters generated using Ward’s method tend to be more spherical and
@@ -417,7 +425,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

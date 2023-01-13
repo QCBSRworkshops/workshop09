@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Matrix algebra, very briefly | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Matrix algebra, very briefly | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
@@ -48,25 +48,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,8 +136,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="part"><span><b>QCBS R Workshop Series</b></span></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a>
+<ul>
 <li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
 <li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
@@ -152,38 +153,45 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
 <li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
 <li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
-<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
 <li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
 <li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
 <li class="part"><span><b>(Dis)similarity measures</b></span></li>
 <li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
-<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
-<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
 <li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
 <li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
 <li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
 <li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
 <li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
 <li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
 <li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
 <li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
 </ul></li>
 <li class="part"><span><b>Clustering</b></span></li>
-<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
@@ -233,10 +241,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="matrix-algebra-very-briefly" class="section level1 hasAnchor">
+<div id="matrix-algebra-very-briefly" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Matrix algebra, very briefly<a href="matrix-algebra-very-briefly.html#matrix-algebra-very-briefly" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Matrix algebra is well-suited for ecology, because most (if not all) <em>data sets</em> we work with are in a <em>matrix</em> format.</p>
-<div id="data-sets-are-matrices" class="section level2 hasAnchor">
+<div id="data-sets-are-matrices" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Data sets <em>are</em> matrices<a href="matrix-algebra-very-briefly.html#data-sets-are-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ecological data tables are obtained as object-observations or sampling units, and are often recorded as this:</p>
 <table>
@@ -287,7 +295,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
 y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
 \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
-y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n}
 \end{bmatrix}\]</span></p>
 <p>where lowercase letters indicate <em>elements</em>, and the subscript letters indicate the <em>position of these elements</em> in the matrix (and in the table!).</p>
 <p>Moreover, any subset of a matrix can be recognized.</p>
@@ -300,12 +308,12 @@ y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
 y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
 \end{bmatrix}\]</span></p>
 </div>
-<div id="association-matrices" class="section level2 hasAnchor">
+<div id="association-matrices" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Association matrices<a href="matrix-algebra-very-briefly.html#association-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Two important matrices can be derived from the ecological data matrix: the <em><strong>association matrix among objects</strong></em> and the <em><strong>association matrix among descriptors</strong></em>.</p>
 <p>Using the data from our matrix <span class="math inline">\(Y\)</span>,</p>
 <div class="math">
-<p><span class="math display">\[ Y = 
+<p><span class="math display">\[ Y =
 \begin{array}{cc}
 \begin{array}{ccc}
 x_1 \rightarrow\\
@@ -318,7 +326,7 @@ x_m \rightarrow\\
 y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
 y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
 \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
-y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n} 
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n}
 \end{bmatrix}
 \end{array}
 \]</span></p>
@@ -331,7 +339,7 @@ y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
 \]</span></p>
 </div>
 <div class="math">
-<p><span class="math display">\[x_2 \rightarrow 
+<p><span class="math display">\[x_2 \rightarrow
 \begin{bmatrix}
 y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
 \end{bmatrix}
@@ -342,12 +350,12 @@ and obtain <span class="math inline">\(a_{1,2}\)</span>.
 </p>
 <p>We can populate the association matrix <span class="math inline">\(A_{n,n}\)</span> with the relationships between all objects from <span class="math inline">\(Y\)</span>:</p>
 <div class="math">
-<p><span class="math display">\[A_{n,n} = 
+<p><span class="math display">\[A_{n,n} =
 \begin{bmatrix}
 a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
 a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,n} \\
 \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
-a_{n,1} &amp; a_{n,2} &amp; \cdots &amp; a_{n,n} 
+a_{n,1} &amp; a_{n,2} &amp; \cdots &amp; a_{n,n}
 \end{bmatrix}\]</span></p>
 </div>
 <p>
@@ -361,22 +369,22 @@ Therefore, <span class="math inline">\(A_{n,n}\)</span> has <span class="math in
 y_{1,2} \\
 y_{2,2} \\
 \vdots  \\
-y_{m,2} 
+y_{m,2}
 \end{bmatrix}\]</span></p>
 <p><span class="math display">\[\begin{bmatrix}
 y_{1,1} \\
 y_{2,1} \\
 \vdots  \\
-y_{m,1} 
+y_{m,1}
 \end{bmatrix}\]</span></p>
 <p>and store it in <span class="math inline">\(a_{1,2}\)</span>.</p>
 <p>We can populate the association matrix <span class="math inline">\(A_{m,m}\)</span> with the relationships between all descriptors from <span class="math inline">\(Y\)</span>:</p>
-<p><span class="math display">\[A_{m,m} = 
+<p><span class="math display">\[A_{m,m} =
 \begin{bmatrix}
 a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,m} \\
 a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,m} \\
 \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
-a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,m} 
+a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,m}
 \end{bmatrix}\]</span></p>
 <p>
 This <span class="math inline">\(A_{m,m}\)</span> is a <i>square matrix</i>, and it has <span class="math inline">\(m^2\)</span> elements.
@@ -457,7 +465,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

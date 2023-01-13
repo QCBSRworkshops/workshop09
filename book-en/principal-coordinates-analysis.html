@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 15 Principal Coordinates Analysis | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 15 Principal Coordinates Analysis | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
@@ -48,25 +48,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,8 +136,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="part"><span><b>QCBS R Workshop Series</b></span></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a>
+<ul>
 <li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
 <li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
@@ -152,38 +153,45 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
 <li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
 <li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
-<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
 <li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
 <li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
 <li class="part"><span><b>(Dis)similarity measures</b></span></li>
 <li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
-<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
-<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
 <li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
 <li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
 <li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
 <li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
 <li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
 <li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
 <li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
 <li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
 </ul></li>
 <li class="part"><span><b>Clustering</b></span></li>
-<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
@@ -233,7 +241,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="principal-coordinates-analysis" class="section level1 hasAnchor">
+<div id="principal-coordinates-analysis" class="section level1 hasAnchor" number="15">
 <h1><span class="header-section-number">Chapter 15</span> Principal Coordinates Analysis<a href="principal-coordinates-analysis.html#principal-coordinates-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>PCA as well as CA impose the distance preserved among objects: the
 Euclidean distance (and several others with pre-transformations) for PCA
@@ -258,19 +266,19 @@ species have been observed over a set of quadrats, then a approach based
 on a PCoA using Bray-Curtis similarity (see below) may be best suited.</p>
 <p>Run a PCoA on the Hellinger transformed species abundances (back to
 DoubsSpe):</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="principal-coordinates-analysis.html#cb114-1"></a><span class="co">#Using cmdscale()</span></span>
-<span id="cb114-2"><a href="principal-coordinates-analysis.html#cb114-2"></a>?cmdscale</span>
-<span id="cb114-3"><a href="principal-coordinates-analysis.html#cb114-3"></a><span class="kw">cmdscale</span>(<span class="kw">dist</span>(spe.hel), <span class="dt">k=</span>(<span class="kw">nrow</span>(spe)<span class="op">-</span><span class="dv">1</span>), <span class="dt">eig=</span><span class="ot">TRUE</span>)</span>
-<span id="cb114-4"><a href="principal-coordinates-analysis.html#cb114-4"></a></span>
-<span id="cb114-5"><a href="principal-coordinates-analysis.html#cb114-5"></a><span class="co">#Using pcoa()</span></span>
-<span id="cb114-6"><a href="principal-coordinates-analysis.html#cb114-6"></a>?pcoa</span>
-<span id="cb114-7"><a href="principal-coordinates-analysis.html#cb114-7"></a>spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(spe.hel))</span>
-<span id="cb114-8"><a href="principal-coordinates-analysis.html#cb114-8"></a></span>
-<span id="cb114-9"><a href="principal-coordinates-analysis.html#cb114-9"></a><span class="co"># Extract the results</span></span>
-<span id="cb114-10"><a href="principal-coordinates-analysis.html#cb114-10"></a>spe.h.pcoa </span>
-<span id="cb114-11"><a href="principal-coordinates-analysis.html#cb114-11"></a></span>
-<span id="cb114-12"><a href="principal-coordinates-analysis.html#cb114-12"></a><span class="co">#Construct the biplot</span></span>
-<span id="cb114-13"><a href="principal-coordinates-analysis.html#cb114-13"></a><span class="kw">biplot.pcoa</span>(spe .h.pcoa, spe.hel, <span class="dt">dir.axis2=</span><span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="principal-coordinates-analysis.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using cmdscale()</span></span>
+<span id="cb116-2"><a href="principal-coordinates-analysis.html#cb116-2" aria-hidden="true" tabindex="-1"></a>?cmdscale</span>
+<span id="cb116-3"><a href="principal-coordinates-analysis.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmdscale</span>(<span class="fu">dist</span>(spe.hel), <span class="at">k=</span>(<span class="fu">nrow</span>(spe)<span class="sc">-</span><span class="dv">1</span>), <span class="at">eig=</span><span class="cn">TRUE</span>)</span>
+<span id="cb116-4"><a href="principal-coordinates-analysis.html#cb116-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-5"><a href="principal-coordinates-analysis.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Using pcoa()</span></span>
+<span id="cb116-6"><a href="principal-coordinates-analysis.html#cb116-6" aria-hidden="true" tabindex="-1"></a>?pcoa</span>
+<span id="cb116-7"><a href="principal-coordinates-analysis.html#cb116-7" aria-hidden="true" tabindex="-1"></a>spe.h.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(<span class="fu">dist</span>(spe.hel))</span>
+<span id="cb116-8"><a href="principal-coordinates-analysis.html#cb116-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-9"><a href="principal-coordinates-analysis.html#cb116-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the results</span></span>
+<span id="cb116-10"><a href="principal-coordinates-analysis.html#cb116-10" aria-hidden="true" tabindex="-1"></a>spe.h.pcoa </span>
+<span id="cb116-11"><a href="principal-coordinates-analysis.html#cb116-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-12"><a href="principal-coordinates-analysis.html#cb116-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Construct the biplot</span></span>
+<span id="cb116-13"><a href="principal-coordinates-analysis.html#cb116-13" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(spe .h.pcoa, spe.hel, <span class="at">dir.axis2=</span><span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p>The output looks like this (and here
 <a href="https://www.youtube.com/watch?v=lRdX1qhI7Dw">here</a> is a video that
 might help with the explanation of eigenvalues in terms of ordination):</p>
@@ -280,21 +288,21 @@ might help with the explanation of eigenvalues in terms of ordination):</p>
 <p><img src="/pcoa_spe.png" width="500" /></p>
 <p>You can also run a PCoA using a different distance measure (e.g.
 Bray-Curtis). Here is a PCoA run on a Bray-Curtis dissimilarity matrix:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="principal-coordinates-analysis.html#cb115-1"></a>spe.bray.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(spe.db)  <span class="co">#where spe.db is the species dissimilarity matrix using Bray-Curtis. </span></span>
-<span id="cb115-2"><a href="principal-coordinates-analysis.html#cb115-2"></a>spe.bray.pcoa</span>
-<span id="cb115-3"><a href="principal-coordinates-analysis.html#cb115-3"></a><span class="kw">biplot.pcoa</span>(spe.bray.pcoa, spe.hel, <span class="dt">dir.axis2 =</span> <span class="dv">-1</span>)</span>
-<span id="cb115-4"><a href="principal-coordinates-analysis.html#cb115-4"></a><span class="co"># Note that the distance measure chosen strongly influences</span></span>
-<span id="cb115-5"><a href="principal-coordinates-analysis.html#cb115-5"></a><span class="co"># the results.</span></span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="principal-coordinates-analysis.html#cb117-1" aria-hidden="true" tabindex="-1"></a>spe.bray.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(spe.db)  <span class="co">#where spe.db is the species dissimilarity matrix using Bray-Curtis. </span></span>
+<span id="cb117-2"><a href="principal-coordinates-analysis.html#cb117-2" aria-hidden="true" tabindex="-1"></a>spe.bray.pcoa</span>
+<span id="cb117-3"><a href="principal-coordinates-analysis.html#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(spe.bray.pcoa, spe.hel, <span class="at">dir.axis2 =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb117-4"><a href="principal-coordinates-analysis.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the distance measure chosen strongly influences</span></span>
+<span id="cb117-5"><a href="principal-coordinates-analysis.html#cb117-5" aria-hidden="true" tabindex="-1"></a><span class="co"># the results.</span></span></code></pre></div>
 <p><strong>Challenge 5</strong> Run a PCoA on the Hellinger-transformed <em>mite species</em>
 abundance data. What are the significant axes? Which groups of sites can
 you identify? Which species are related to each group of sites? How do
 the PCoA results compare with the PCA results?</p>
 <p><strong>Challenge 5 - Solution</strong> &lt;hidden&gt; Your code likely looks something
 like this:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="principal-coordinates-analysis.html#cb116-1"></a>mite.spe.h.pcoa &lt;-<span class="st"> </span><span class="kw">pcoa</span>(<span class="kw">dist</span>(mite.spe.hel))</span>
-<span id="cb116-2"><a href="principal-coordinates-analysis.html#cb116-2"></a>mite.spe.h.pcoa</span>
-<span id="cb116-3"><a href="principal-coordinates-analysis.html#cb116-3"></a><span class="kw">windows</span>()</span>
-<span id="cb116-4"><a href="principal-coordinates-analysis.html#cb116-4"></a><span class="kw">biplot.pcoa</span>(mite.spe.h.pcoa, mite.spe.hel, <span class="dt">dir.axis2 =</span> <span class="dv">-1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="principal-coordinates-analysis.html#cb118-1" aria-hidden="true" tabindex="-1"></a>mite.spe.h.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(<span class="fu">dist</span>(mite.spe.hel))</span>
+<span id="cb118-2"><a href="principal-coordinates-analysis.html#cb118-2" aria-hidden="true" tabindex="-1"></a>mite.spe.h.pcoa</span>
+<span id="cb118-3"><a href="principal-coordinates-analysis.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()</span>
+<span id="cb118-4"><a href="principal-coordinates-analysis.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(mite.spe.h.pcoa, mite.spe.hel, <span class="at">dir.axis2 =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p>And your biplot like this:</p>
 <p><img src="/pcoa_mite.png" width="500" /></p>
 <p>We see that species 16 and 31 are farther away from other species in
@@ -377,7 +385,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

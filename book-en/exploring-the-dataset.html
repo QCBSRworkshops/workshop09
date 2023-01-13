@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Exploring the dataset | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Exploring the dataset | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
@@ -48,25 +48,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,8 +136,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="part"><span><b>QCBS R Workshop Series</b></span></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a>
+<ul>
 <li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
 <li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
@@ -152,38 +153,45 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
 <li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
 <li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
-<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
 <li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
 <li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
 <li class="part"><span><b>(Dis)similarity measures</b></span></li>
 <li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
-<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
-<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
 <li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
 <li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
 <li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
 <li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
 <li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
 <li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
 <li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
 <li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
 </ul></li>
 <li class="part"><span><b>Clustering</b></span></li>
-<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
@@ -233,7 +241,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="exploring-the-dataset" class="section level1 hasAnchor">
+<div id="exploring-the-dataset" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Exploring the dataset<a href="exploring-the-dataset.html#exploring-the-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>We will use two main data sets in the first part of this workshop.</p>
 <p>They come from Verneaux’s PhD thesis (1973), where he proposed to use fish species to characterize ecological zones along European rivers and streams.</p>
@@ -246,28 +254,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>The geographical coordinates of each site.</li>
 </ol>
 <p>Verneaux, J. (1973) <em>Cours d’eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs</em>. Essai de biotypologie. Thèse d’état, Besançon. 1–257.</p>
-<div id="doubs-river-fish-communities" class="section level2 hasAnchor">
+<div id="doubs-river-fish-communities" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Doubs river fish communities<a href="exploring-the-dataset.html#doubs-river-fish-communities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You can download these datasets from <a href="http://r.qcbs.ca/workshops/r-workshop-09/">r.qcbs.ca/workshops/r-workshop-09</a>.</p>
 <p>We can load their data from the <code>data/</code> directory in this workshop:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="exploring-the-dataset.html#cb25-1"></a>spe &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/doubsspe.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span>
-<span id="cb25-2"><a href="exploring-the-dataset.html#cb25-2"></a></span>
-<span id="cb25-3"><a href="exploring-the-dataset.html#cb25-3"></a>env &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/doubsenv.csv&quot;</span>, <span class="dt">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="exploring-the-dataset.html#cb26-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/doubsspe.csv&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb26-2"><a href="exploring-the-dataset.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="exploring-the-dataset.html#cb26-3" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/doubsenv.csv&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Their data can also be retrieved from the <code>ade4</code> package:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="exploring-the-dataset.html#cb26-1"></a><span class="kw">library</span>(ade4)</span>
-<span id="cb26-2"><a href="exploring-the-dataset.html#cb26-2"></a><span class="kw">data</span>(doubs)</span>
-<span id="cb26-3"><a href="exploring-the-dataset.html#cb26-3"></a></span>
-<span id="cb26-4"><a href="exploring-the-dataset.html#cb26-4"></a>spe &lt;-<span class="st"> </span>doubs<span class="op">$</span>fish</span>
-<span id="cb26-5"><a href="exploring-the-dataset.html#cb26-5"></a>env &lt;-<span class="st"> </span>doubs<span class="op">$</span>env</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploring-the-dataset.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ade4)</span>
+<span id="cb27-2"><a href="exploring-the-dataset.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(doubs)</span>
+<span id="cb27-3"><a href="exploring-the-dataset.html#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="exploring-the-dataset.html#cb27-4" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> doubs<span class="sc">$</span>fish</span>
+<span id="cb27-5"><a href="exploring-the-dataset.html#cb27-5" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> doubs<span class="sc">$</span>env</span></code></pre></div>
 <p>Alternatively, from the <code>codep</code> package:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="exploring-the-dataset.html#cb27-1"></a><span class="kw">library</span>(codep)</span>
-<span id="cb27-2"><a href="exploring-the-dataset.html#cb27-2"></a><span class="kw">data</span>(Doubs)</span>
-<span id="cb27-3"><a href="exploring-the-dataset.html#cb27-3"></a></span>
-<span id="cb27-4"><a href="exploring-the-dataset.html#cb27-4"></a>spe &lt;-<span class="st"> </span>Doubs.fish</span>
-<span id="cb27-5"><a href="exploring-the-dataset.html#cb27-5"></a>env &lt;-<span class="st"> </span>Doubs.env</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exploring-the-dataset.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(codep)</span>
+<span id="cb28-2"><a href="exploring-the-dataset.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Doubs)</span>
+<span id="cb28-3"><a href="exploring-the-dataset.html#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="exploring-the-dataset.html#cb28-4" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> Doubs.fish</span>
+<span id="cb28-5"><a href="exploring-the-dataset.html#cb28-5" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> Doubs.env</span></code></pre></div>
 <p>We can then explore the objects containing our newly loaded data.</p>
 <p>Let us peek into the <code>spe</code> data:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="exploring-the-dataset.html#cb28-1"></a><span class="kw">head</span>(spe)[, <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="exploring-the-dataset.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]</span></code></pre></div>
 <pre><code>##   CHA TRU VAI LOC OMB BLA HOT TOX
 ## 1   0   3   0   0   0   0   0   0
 ## 2   0   5   4   3   0   0   0   0
@@ -276,7 +284,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 5   0   2   3   2   0   0   0   0
 ## 6   0   3   4   5   0   0   0   0</code></pre>
 <p>We can also use the <code>str()</code> function, which we learned in Workshops 1 and 2:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="exploring-the-dataset.html#cb30-1"></a><span class="kw">str</span>(spe)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="exploring-the-dataset.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(spe)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    30 obs. of  27 variables:
 ##  $ CHA: int  0 0 0 0 0 0 0 0 0 0 ...
 ##  $ TRU: int  3 5 5 4 2 3 5 0 0 1 ...
@@ -306,19 +314,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  $ ABL: int  0 0 0 0 0 0 0 0 0 0 ...
 ##  $ ANG: int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
 <p>You can also try some of these!</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="exploring-the-dataset.html#cb32-1"></a><span class="co"># Try some of these!</span></span>
-<span id="cb32-2"><a href="exploring-the-dataset.html#cb32-2"></a></span>
-<span id="cb32-3"><a href="exploring-the-dataset.html#cb32-3"></a><span class="kw">names</span>(spe)  <span class="co"># names of objects</span></span>
-<span id="cb32-4"><a href="exploring-the-dataset.html#cb32-4"></a><span class="kw">dim</span>(spe)  <span class="co"># dimensions</span></span>
-<span id="cb32-5"><a href="exploring-the-dataset.html#cb32-5"></a></span>
-<span id="cb32-6"><a href="exploring-the-dataset.html#cb32-6"></a><span class="kw">str</span>(spe)  <span class="co"># structure of objects</span></span>
-<span id="cb32-7"><a href="exploring-the-dataset.html#cb32-7"></a><span class="kw">summary</span>(spe)  <span class="co"># summary statistics</span></span>
-<span id="cb32-8"><a href="exploring-the-dataset.html#cb32-8"></a></span>
-<span id="cb32-9"><a href="exploring-the-dataset.html#cb32-9"></a><span class="kw">head</span>(spe)  <span class="co"># first 6 rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploring-the-dataset.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try some of these!</span></span>
+<span id="cb33-2"><a href="exploring-the-dataset.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="exploring-the-dataset.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(spe)  <span class="co"># names of objects</span></span>
+<span id="cb33-4"><a href="exploring-the-dataset.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(spe)  <span class="co"># dimensions</span></span>
+<span id="cb33-5"><a href="exploring-the-dataset.html#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="exploring-the-dataset.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(spe)  <span class="co"># structure of objects</span></span>
+<span id="cb33-7"><a href="exploring-the-dataset.html#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe)  <span class="co"># summary statistics</span></span>
+<span id="cb33-8"><a href="exploring-the-dataset.html#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="exploring-the-dataset.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe)  <span class="co"># first 6 rows</span></span></code></pre></div>
 </div>
-<div id="doubs-river-environmental-data" class="section level2 hasAnchor">
+<div id="doubs-river-environmental-data" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Doubs river environmental data<a href="exploring-the-dataset.html#doubs-river-environmental-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="exploring-the-dataset.html#cb33-1"></a><span class="kw">str</span>(env)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="exploring-the-dataset.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(env)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    30 obs. of  11 variables:
 ##  $ das: num  0.3 2.2 10.2 18.5 21.5 32.4 36.8 49.1 70.5 99 ...
 ##  $ alt: int  934 932 914 854 849 846 841 792 752 617 ...
@@ -387,7 +395,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 <p>You can also use <code>summary()</code> to obtain summary statistics from the variables in <code>env</code>:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="exploring-the-dataset.html#cb35-1"></a><span class="kw">summary</span>(env)  <span class="co"># summary statistics</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="exploring-the-dataset.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env)  <span class="co"># summary statistics</span></span></code></pre></div>
 
 </div>
 </div>
@@ -466,7 +474,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

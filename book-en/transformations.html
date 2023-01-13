@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 10 Transformations | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 10 Transformations | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
@@ -48,25 +48,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,8 +136,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="part"><span><b>QCBS R Workshop Series</b></span></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a>
+<ul>
 <li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
 <li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
@@ -152,38 +153,45 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
 <li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
 <li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
-<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
 <li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
 <li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
 <li class="part"><span><b>(Dis)similarity measures</b></span></li>
 <li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
-<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
-<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
 <li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
 <li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
 <li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
 <li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
 <li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
 <li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
 <li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
 <li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
 </ul></li>
 <li class="part"><span><b>Clustering</b></span></li>
-<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
@@ -233,7 +241,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="transformations" class="section level1 hasAnchor">
+<div id="transformations" class="section level1 hasAnchor" number="10">
 <h1><span class="header-section-number">Chapter 10</span> Transformations<a href="transformations.html#transformations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Communities sampled over homogeneous or short environmental conditions can have species compositions with few zeroes, so that Euclidean distances could be enough to characterize them.</p>
 <p>Nevertheless, this is rarely the reality.</p>
@@ -242,14 +250,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>In <code>R</code>, we can rely on <code>vegan::decostand()</code> for many types of transformations.</p>
 <p>Take a look into the help of this function to see the available options:</p>
 <pre><code>?decostand()</code></pre>
-<div id="presence-absence-transformation" class="section level2 hasAnchor">
+<div id="presence-absence-transformation" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Presence-absence transformation<a href="transformations.html#presence-absence-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can change the argument <code>method</code> to <code>"pa"</code> in <code>vegdist()</code> to transform our abundance data into presence-absence data:</p>
 <center>
 If <span class="math inline">\(y_{ij} \geq 1\)</span>, then, <span class="math inline">\(y&#39;_{ij} = 1\)</span>.
 </center>
 <p>Let us recall our <code>spe</code> data set:</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="transformations.html#cb71-1"></a>spe[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="transformations.html#cb73-1" aria-hidden="true" tabindex="-1"></a>spe[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span></code></pre></div>
 <pre><code>##   CHA TRU VAI LOC OMB BLA
 ## 1   0   3   0   0   0   0
 ## 2   0   5   4   3   0   0
@@ -258,8 +266,8 @@ If <span class="math inline">\(y_{ij} \geq 1\)</span>, then, <span class="math i
 ## 5   0   2   3   2   0   0
 ## 6   0   3   4   5   0   0</code></pre>
 <p>Let us transform <code>spe</code> abundances to presence-absences:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="transformations.html#cb73-1"></a>spe.pa &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;pa&quot;</span>)</span>
-<span id="cb73-2"><a href="transformations.html#cb73-2"></a>spe.pa[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="transformations.html#cb75-1" aria-hidden="true" tabindex="-1"></a>spe.pa <span class="ot">&lt;-</span> <span class="fu">decostand</span>(spe, <span class="at">method =</span> <span class="st">&quot;pa&quot;</span>)</span>
+<span id="cb75-2"><a href="transformations.html#cb75-2" aria-hidden="true" tabindex="-1"></a>spe.pa[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span></code></pre></div>
 <pre><code>##   CHA TRU VAI LOC OMB BLA
 ## 1   0   1   0   0   0   0
 ## 2   0   1   1   1   0   0
@@ -268,14 +276,14 @@ If <span class="math inline">\(y_{ij} \geq 1\)</span>, then, <span class="math i
 ## 5   0   1   1   1   0   0
 ## 6   0   1   1   1   0   0</code></pre>
 </div>
-<div id="species-profiles-transformation" class="section level2 hasAnchor">
+<div id="species-profiles-transformation" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Species profiles transformation<a href="transformations.html#species-profiles-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Sometimes, one wants to remove the effects of highly abundant units. We can transform the data into profiles of relative species abundances through the following equation:</p>
 <p><span class="math display">\[y&#39;_{ij} = \frac{y_{ij}}{y_{i+}}\]</span></p>
 <p>where, <span class="math inline">\(yi+\)</span> indicates the sample total count over all <span class="math inline">\(j=1,…,m\)</span> species, for the <span class="math inline">\(i\)</span>-th sample.</p>
 <p>In <code>decostand()</code>, we can use the <code>method</code> with <code>"total"</code>:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="transformations.html#cb75-1"></a>spe.total &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;total&quot;</span>)</span>
-<span id="cb75-2"><a href="transformations.html#cb75-2"></a>spe.total[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="transformations.html#cb77-1" aria-hidden="true" tabindex="-1"></a>spe.total <span class="ot">&lt;-</span> <span class="fu">decostand</span>(spe, <span class="at">method =</span> <span class="st">&quot;total&quot;</span>)</span>
+<span id="cb77-2"><a href="transformations.html#cb77-2" aria-hidden="true" tabindex="-1"></a>spe.total[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span></code></pre></div>
 <pre><code>##   CHA        TRU        VAI        LOC OMB BLA
 ## 1   0 1.00000000 0.00000000 0.00000000   0   0
 ## 2   0 0.41666667 0.33333333 0.25000000   0   0
@@ -283,13 +291,13 @@ If <span class="math inline">\(y_{ij} \geq 1\)</span>, then, <span class="math i
 ## 4   0 0.19047619 0.23809524 0.23809524   0   0
 ## 5   0 0.05882353 0.08823529 0.05882353   0   0</code></pre>
 </div>
-<div id="hellinger-transformation" class="section level2 hasAnchor">
+<div id="hellinger-transformation" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> Hellinger transformation<a href="transformations.html#hellinger-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can take the square-root of the <em>species profile transformation</em> and obtain the <em>Hellinger transformation</em>, which has very good mathematical properties and allows us to reduce the effects of <span class="math inline">\(y_{ij}\)</span> values that are extremely large.</p>
 <p><span class="math display">\[y&#39;_{ij} = \sqrt{\frac{y_{ij}}{y_{i+}}}\]</span></p>
 <p>In <code>decostand()</code>, we can use the <code>method</code> with <code>"hellinger"</code>:</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="transformations.html#cb77-1"></a>spe.total &lt;-<span class="st"> </span><span class="kw">decostand</span>(spe, <span class="dt">method =</span> <span class="st">&quot;hellinger&quot;</span>)</span>
-<span id="cb77-2"><a href="transformations.html#cb77-2"></a>spe.total[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="transformations.html#cb79-1" aria-hidden="true" tabindex="-1"></a>spe.total <span class="ot">&lt;-</span> <span class="fu">decostand</span>(spe, <span class="at">method =</span> <span class="st">&quot;hellinger&quot;</span>)</span>
+<span id="cb79-2"><a href="transformations.html#cb79-2" aria-hidden="true" tabindex="-1"></a>spe.total[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span></code></pre></div>
 <pre><code>##   CHA       TRU       VAI       LOC OMB BLA
 ## 1   0 1.0000000 0.0000000 0.0000000   0   0
 ## 2   0 0.6454972 0.5773503 0.5000000   0   0
@@ -297,24 +305,24 @@ If <span class="math inline">\(y_{ij} \geq 1\)</span>, then, <span class="math i
 ## 4   0 0.4364358 0.4879500 0.4879500   0   0
 ## 5   0 0.2425356 0.2970443 0.2425356   0   0</code></pre>
 </div>
-<div id="z-score-standardization" class="section level2 hasAnchor">
+<div id="z-score-standardization" class="section level2 hasAnchor" number="10.4">
 <h2><span class="header-section-number">10.4</span> Z-score standardization<a href="transformations.html#z-score-standardization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="transformations.html#cb79-1"></a><span class="co">## `?`(decostand)</span></span>
-<span id="cb79-2"><a href="transformations.html#cb79-2"></a>env.z &lt;-<span class="st"> </span><span class="kw">decostand</span>(env, <span class="dt">method =</span> <span class="st">&quot;standardize&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="transformations.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">## `?`(decostand)</span></span>
+<span id="cb81-2"><a href="transformations.html#cb81-2" aria-hidden="true" tabindex="-1"></a>env.z <span class="ot">&lt;-</span> <span class="fu">decostand</span>(env, <span class="at">method =</span> <span class="st">&quot;standardize&quot;</span>)</span></code></pre></div>
 <p>This centres and scales the variables to make your downstream analysis more appropriate:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="transformations.html#cb80-1"></a><span class="kw">apply</span>(env.z, <span class="dv">2</span>, mean)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="transformations.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(env.z, <span class="dv">2</span>, mean)</span></code></pre></div>
 <pre><code>##           das           alt           pen           deb            pH 
 ##  1.000429e-16  1.814232e-18 -1.659010e-17  1.233099e-17 -4.096709e-15 
 ##           dur           pho           nit           amm           oxy 
 ##  3.348595e-16  1.327063e-17 -8.925898e-17 -4.289646e-17 -2.886092e-16 
 ##           dbo 
 ##  7.656545e-17</code></pre>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="transformations.html#cb82-1"></a><span class="kw">apply</span>(env.z, <span class="dv">2</span>, sd)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="transformations.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(env.z, <span class="dv">2</span>, sd)</span></code></pre></div>
 <pre><code>## das alt pen deb  pH dur pho nit amm oxy dbo 
 ##   1   1   1   1   1   1   1   1   1   1   1</code></pre>
 <p>We will see more details about this transformation in the next sections!</p>
-<div id="little-review" class="section level4 hasAnchor">
+<div id="little-review" class="section level4 hasAnchor" number="10.4.0.1">
 <h4><span class="header-section-number">10.4.0.1</span> Little review<a href="transformations.html#little-review" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="explanation">
 <p><strong>Association -</strong> “general term to describe any measure or coefficient
@@ -384,21 +392,21 @@ from Gotelli and Ellison 2004):</p>
 </tbody>
 </table>
 </div>
-<div id="extra-environmental-data-set" class="section level4 hasAnchor">
+<div id="extra-environmental-data-set" class="section level4 hasAnchor" number="10.4.0.2">
 <h4><span class="header-section-number">10.4.0.2</span> Extra: environmental data set<a href="transformations.html#extra-environmental-data-set" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p><strong>Quantitative environmental data</strong> Let’s look at <em>associations</em> between
 environmental variables (also known as Q mode):</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="transformations.html#cb84-1"></a><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(dist  <span class="co"># this function also compute dissimilarity matrix</span></span>
-<span id="cb84-2"><a href="transformations.html#cb84-2"></a>)</span>
-<span id="cb84-3"><a href="transformations.html#cb84-3"></a>env.de &lt;-<span class="st"> </span><span class="kw">dist</span>(env.z, <span class="dt">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co"># euclidean distance matrix of the standardized environmental variables </span></span>
-<span id="cb84-4"><a href="transformations.html#cb84-4"></a><span class="kw">windows</span>()  <span class="co">#Creates a separate graphical window</span></span>
-<span id="cb84-5"><a href="transformations.html#cb84-5"></a><span class="kw">coldiss</span>(env.de, <span class="dt">diag =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="transformations.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">?</span><span class="st">`</span>(dist  <span class="co"># this function also compute dissimilarity matrix</span></span>
+<span id="cb86-2"><a href="transformations.html#cb86-2" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb86-3"><a href="transformations.html#cb86-3" aria-hidden="true" tabindex="-1"></a>env.de <span class="ot">&lt;-</span> <span class="fu">dist</span>(env.z, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)  <span class="co"># euclidean distance matrix of the standardized environmental variables </span></span>
+<span id="cb86-4"><a href="transformations.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()  <span class="co">#Creates a separate graphical window</span></span>
+<span id="cb86-5"><a href="transformations.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coldiss</span>(env.de, <span class="at">diag =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>We can then look at the <em>dependence</em> between environmental variables
 (also known as R mode):</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="transformations.html#cb85-1"></a>(env.pearson &lt;-<span class="st"> </span><span class="kw">cor</span>(env))  <span class="co"># Pearson r linear correlation</span></span>
-<span id="cb85-2"><a href="transformations.html#cb85-2"></a><span class="kw">round</span>(env.pearson, <span class="dv">2</span>)  <span class="co">#Rounds the coefficients to 2 decimal points </span></span>
-<span id="cb85-3"><a href="transformations.html#cb85-3"></a>(env.ken &lt;-<span class="st"> </span><span class="kw">cor</span>(env, <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span>))  <span class="co"># Kendall tau rank correlation</span></span>
-<span id="cb85-4"><a href="transformations.html#cb85-4"></a><span class="kw">round</span>(env.ken, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="transformations.html#cb87-1" aria-hidden="true" tabindex="-1"></a>(env.pearson <span class="ot">&lt;-</span> <span class="fu">cor</span>(env))  <span class="co"># Pearson r linear correlation</span></span>
+<span id="cb87-2"><a href="transformations.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(env.pearson, <span class="dv">2</span>)  <span class="co">#Rounds the coefficients to 2 decimal points </span></span>
+<span id="cb87-3"><a href="transformations.html#cb87-3" aria-hidden="true" tabindex="-1"></a>(env.ken <span class="ot">&lt;-</span> <span class="fu">cor</span>(env, <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>))  <span class="co"># Kendall tau rank correlation</span></span>
+<span id="cb87-4"><a href="transformations.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(env.ken, <span class="dv">2</span>)</span></code></pre></div>
 <p>The Pearson correlation measures the linear correlation between two
 variables. The Kendall tau is a rank correlation which means that it
 quantifies the relationship between two descriptors or variables when
@@ -406,19 +414,19 @@ the data are ordered within each variable.</p>
 <p>In some cases, there may be mixed types of environmental variables. Q
 mode can still be used to find associations between these environmental
 variables. We’ll do this by first creating an example dataframe:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="transformations.html#cb86-1"></a>var.g1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb86-2"><a href="transformations.html#cb86-2"></a>var.g2 &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb86-3"><a href="transformations.html#cb86-3"></a>var.g3 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)</span>
-<span id="cb86-4"><a href="transformations.html#cb86-4"></a>var.g4 &lt;-<span class="st"> </span><span class="kw">gl</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span>
-<span id="cb86-5"><a href="transformations.html#cb86-5"></a>(dat2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(var.g1, var.g2, var.g3, var.g4))</span>
-<span id="cb86-6"><a href="transformations.html#cb86-6"></a><span class="kw">str</span>(dat2)</span>
-<span id="cb86-7"><a href="transformations.html#cb86-7"></a><span class="kw">summary</span>(dat2)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="transformations.html#cb88-1" aria-hidden="true" tabindex="-1"></a>var.g1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb88-2"><a href="transformations.html#cb88-2" aria-hidden="true" tabindex="-1"></a>var.g2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb88-3"><a href="transformations.html#cb88-3" aria-hidden="true" tabindex="-1"></a>var.g3 <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">3</span>, <span class="dv">10</span>)</span>
+<span id="cb88-4"><a href="transformations.html#cb88-4" aria-hidden="true" tabindex="-1"></a>var.g4 <span class="ot">&lt;-</span> <span class="fu">gl</span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">30</span>)</span>
+<span id="cb88-5"><a href="transformations.html#cb88-5" aria-hidden="true" tabindex="-1"></a>(dat2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(var.g1, var.g2, var.g3, var.g4))</span>
+<span id="cb88-6"><a href="transformations.html#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dat2)</span>
+<span id="cb88-7"><a href="transformations.html#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dat2)</span></code></pre></div>
 <p>A dissimilarity matrix can be generated for these mixed variables using
 the Gower dissimilarity matrix:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="transformations.html#cb87-1"></a><span class="st">`</span><span class="dt">?</span><span class="st">`</span>(daisy  <span class="co">#This function can handle NAs in the data</span></span>
-<span id="cb87-2"><a href="transformations.html#cb87-2"></a>)</span>
-<span id="cb87-3"><a href="transformations.html#cb87-3"></a>(dat2.dg &lt;-<span class="st"> </span><span class="kw">daisy</span>(dat2, <span class="dt">metric =</span> <span class="st">&quot;gower&quot;</span>))</span>
-<span id="cb87-4"><a href="transformations.html#cb87-4"></a><span class="kw">coldiss</span>(dat2.dg)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="transformations.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">?</span><span class="st">`</span>(daisy  <span class="co">#This function can handle NAs in the data</span></span>
+<span id="cb89-2"><a href="transformations.html#cb89-2" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb89-3"><a href="transformations.html#cb89-3" aria-hidden="true" tabindex="-1"></a>(dat2.dg <span class="ot">&lt;-</span> <span class="fu">daisy</span>(dat2, <span class="at">metric =</span> <span class="st">&quot;gower&quot;</span>))</span>
+<span id="cb89-4"><a href="transformations.html#cb89-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coldiss</span>(dat2.dg)</span></code></pre></div>
 <p><strong>Challenge 1 - Advanced</strong> Calculate the Bray-Curtis and the Gower
 dissimilarity of species abundance CHA, TRU and VAI for sites 1, 2 and 3
 (using the “spe” and “env” dataframes) <em>without using the decostand()
@@ -426,42 +434,42 @@ function.</em></p>
 <p><strong>Challenge 1 - Advanced Solution</strong> &lt;hidden&gt;</p>
 <p>Subset the species data so that only sites 1, 2 are included and
 only the species CHA, TRU and VAI.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="transformations.html#cb88-1"></a>spe.challenge &lt;-<span class="st"> </span>spe[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]  <span class="co">#”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)</span></span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="transformations.html#cb90-1" aria-hidden="true" tabindex="-1"></a>spe.challenge <span class="ot">&lt;-</span> spe[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]  <span class="co">#”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)</span></span></code></pre></div>
 <p>Determine total species abundance for each site of interest (sum of the
 3 rows). This will be for the denominator in the above equation.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="transformations.html#cb89-1"></a>(Abund.s1 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, ]))</span>
-<span id="cb89-2"><a href="transformations.html#cb89-2"></a>(Abund.s2 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">2</span>, ]))</span>
-<span id="cb89-3"><a href="transformations.html#cb89-3"></a>(Abund.s3 &lt;-<span class="st"> </span><span class="kw">sum</span>(spe.challenge[<span class="dv">3</span>, ]))</span>
-<span id="cb89-4"><a href="transformations.html#cb89-4"></a><span class="co"># () around code will cause output to print right away in</span></span>
-<span id="cb89-5"><a href="transformations.html#cb89-5"></a><span class="co"># console</span></span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="transformations.html#cb91-1" aria-hidden="true" tabindex="-1"></a>(Abund.s1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(spe.challenge[<span class="dv">1</span>, ]))</span>
+<span id="cb91-2"><a href="transformations.html#cb91-2" aria-hidden="true" tabindex="-1"></a>(Abund.s2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(spe.challenge[<span class="dv">2</span>, ]))</span>
+<span id="cb91-3"><a href="transformations.html#cb91-3" aria-hidden="true" tabindex="-1"></a>(Abund.s3 <span class="ot">&lt;-</span> <span class="fu">sum</span>(spe.challenge[<span class="dv">3</span>, ]))</span>
+<span id="cb91-4"><a href="transformations.html#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="co"># () around code will cause output to print right away in</span></span>
+<span id="cb91-5"><a href="transformations.html#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="co"># console</span></span></code></pre></div>
 <p>Now calculate the difference in species abundances for each pair of
 sites. For example, what is the difference between the abundance of CHA
 and TRU in site 1? You need to calculate the following differences: CHA
 and TRU site 1 CHA and VAI site 1 TRU and VAI site 1 CHA and TRU site 2
 CHA and VAI site 2 TRU and VAI site 2 CHA and TRU site 3 CHA and VAI
 site 3 TRU and VAI site 3</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="transformations.html#cb90-1"></a>Spec.s1s2 &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb90-2"><a href="transformations.html#cb90-2"></a>Spec.s1s3 &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb90-3"><a href="transformations.html#cb90-3"></a>Spec.s2s3 &lt;-<span class="st"> </span><span class="dv">0</span></span>
-<span id="cb90-4"><a href="transformations.html#cb90-4"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</span>
-<span id="cb90-5"><a href="transformations.html#cb90-5"></a>    Spec.s1s2 &lt;-<span class="st"> </span>Spec.s1s2 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>,</span>
-<span id="cb90-6"><a href="transformations.html#cb90-6"></a>        i]))</span>
-<span id="cb90-7"><a href="transformations.html#cb90-7"></a>    Spec.s1s3 &lt;-<span class="st"> </span>Spec.s1s3 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>,</span>
-<span id="cb90-8"><a href="transformations.html#cb90-8"></a>        i]))</span>
-<span id="cb90-9"><a href="transformations.html#cb90-9"></a>    Spec.s2s3 &lt;-<span class="st"> </span>Spec.s2s3 <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(<span class="kw">sum</span>(spe.challenge[<span class="dv">2</span>, i] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>,</span>
-<span id="cb90-10"><a href="transformations.html#cb90-10"></a>        i]))</span>
-<span id="cb90-11"><a href="transformations.html#cb90-11"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="transformations.html#cb92-1" aria-hidden="true" tabindex="-1"></a>Spec.s1s2 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb92-2"><a href="transformations.html#cb92-2" aria-hidden="true" tabindex="-1"></a>Spec.s1s3 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb92-3"><a href="transformations.html#cb92-3" aria-hidden="true" tabindex="-1"></a>Spec.s2s3 <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb92-4"><a href="transformations.html#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb92-5"><a href="transformations.html#cb92-5" aria-hidden="true" tabindex="-1"></a>    Spec.s1s2 <span class="ot">&lt;-</span> Spec.s1s2 <span class="sc">+</span> <span class="fu">abs</span>(<span class="fu">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="sc">-</span> spe.challenge[<span class="dv">2</span>,</span>
+<span id="cb92-6"><a href="transformations.html#cb92-6" aria-hidden="true" tabindex="-1"></a>        i]))</span>
+<span id="cb92-7"><a href="transformations.html#cb92-7" aria-hidden="true" tabindex="-1"></a>    Spec.s1s3 <span class="ot">&lt;-</span> Spec.s1s3 <span class="sc">+</span> <span class="fu">abs</span>(<span class="fu">sum</span>(spe.challenge[<span class="dv">1</span>, i] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>,</span>
+<span id="cb92-8"><a href="transformations.html#cb92-8" aria-hidden="true" tabindex="-1"></a>        i]))</span>
+<span id="cb92-9"><a href="transformations.html#cb92-9" aria-hidden="true" tabindex="-1"></a>    Spec.s2s3 <span class="ot">&lt;-</span> Spec.s2s3 <span class="sc">+</span> <span class="fu">abs</span>(<span class="fu">sum</span>(spe.challenge[<span class="dv">2</span>, i] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>,</span>
+<span id="cb92-10"><a href="transformations.html#cb92-10" aria-hidden="true" tabindex="-1"></a>        i]))</span>
+<span id="cb92-11"><a href="transformations.html#cb92-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Now take the differences you have calculated as the numerator in the
 equation for Bray-Curtis dissimilarity and the total species abundance
 that you already calculated as the denominator.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="transformations.html#cb91-1"></a>(db.s1s2 &lt;-<span class="st"> </span>Spec.s1s2<span class="op">/</span>(Abund.s1 <span class="op">+</span><span class="st"> </span>Abund.s2))  <span class="co">#Site 1 compared to site 2</span></span>
-<span id="cb91-2"><a href="transformations.html#cb91-2"></a>(db.s1s3 &lt;-<span class="st"> </span>Spec.s1s3<span class="op">/</span>(Abund.s1 <span class="op">+</span><span class="st"> </span>Abund.s3))  <span class="co">#Site 1 compared to site 3</span></span>
-<span id="cb91-3"><a href="transformations.html#cb91-3"></a>(db.s2s3 &lt;-<span class="st"> </span>Spec.s2s3<span class="op">/</span>(Abund.s2 <span class="op">+</span><span class="st"> </span>Abund.s3))  <span class="co">#Site 2 compared to site 3 </span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="transformations.html#cb93-1" aria-hidden="true" tabindex="-1"></a>(db.s1s2 <span class="ot">&lt;-</span> Spec.s1s2<span class="sc">/</span>(Abund.s1 <span class="sc">+</span> Abund.s2))  <span class="co">#Site 1 compared to site 2</span></span>
+<span id="cb93-2"><a href="transformations.html#cb93-2" aria-hidden="true" tabindex="-1"></a>(db.s1s3 <span class="ot">&lt;-</span> Spec.s1s3<span class="sc">/</span>(Abund.s1 <span class="sc">+</span> Abund.s3))  <span class="co">#Site 1 compared to site 3</span></span>
+<span id="cb93-3"><a href="transformations.html#cb93-3" aria-hidden="true" tabindex="-1"></a>(db.s2s3 <span class="ot">&lt;-</span> Spec.s2s3<span class="sc">/</span>(Abund.s2 <span class="sc">+</span> Abund.s3))  <span class="co">#Site 2 compared to site 3 </span></span></code></pre></div>
 <p>You should find values of 0.5 for site 1 to site 2, 0.538 for site 1 to
 site 3 and 0.053 for site 2 to 3.</p>
 <p>Check your manual results with what you would find using the function
 vegdist() with the Bray-Curtis method:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="transformations.html#cb92-1"></a>(spe.db.challenge &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.challenge, <span class="dt">method =</span> <span class="st">&quot;bray&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="transformations.html#cb94-1" aria-hidden="true" tabindex="-1"></a>(spe.db.challenge <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(spe.challenge, <span class="at">method =</span> <span class="st">&quot;bray&quot;</span>))</span></code></pre></div>
 <p>A matrix looking like this is produced, which should be the same as your
 manual calculations:</p>
 <table>
@@ -487,34 +495,34 @@ manual calculations:</p>
 </table>
 <p>For the Gower dissimilarity, proceed in the same way but use the
 appropriate equation:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="transformations.html#cb93-1"></a><span class="co"># Calculate the number of columns in your dataset</span></span>
-<span id="cb93-2"><a href="transformations.html#cb93-2"></a>M &lt;-<span class="st"> </span><span class="kw">ncol</span>(spe.challenge)</span>
-<span id="cb93-3"><a href="transformations.html#cb93-3"></a></span>
-<span id="cb93-4"><a href="transformations.html#cb93-4"></a><span class="co"># Calculate the species abundance differences between pairs</span></span>
-<span id="cb93-5"><a href="transformations.html#cb93-5"></a><span class="co"># of sites for each species</span></span>
-<span id="cb93-6"><a href="transformations.html#cb93-6"></a>Spe1.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>])</span>
-<span id="cb93-7"><a href="transformations.html#cb93-7"></a>Spe2.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>])</span>
-<span id="cb93-8"><a href="transformations.html#cb93-8"></a>Spe3.s1s2 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>])</span>
-<span id="cb93-9"><a href="transformations.html#cb93-9"></a>Spe1.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
-<span id="cb93-10"><a href="transformations.html#cb93-10"></a>Spe2.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
-<span id="cb93-11"><a href="transformations.html#cb93-11"></a>Spe3.s1s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
-<span id="cb93-12"><a href="transformations.html#cb93-12"></a>Spe1.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
-<span id="cb93-13"><a href="transformations.html#cb93-13"></a>Spe2.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
-<span id="cb93-14"><a href="transformations.html#cb93-14"></a>Spe3.s2s3 &lt;-<span class="st"> </span><span class="kw">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>] <span class="op">-</span><span class="st"> </span>spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
-<span id="cb93-15"><a href="transformations.html#cb93-15"></a></span>
-<span id="cb93-16"><a href="transformations.html#cb93-16"></a><span class="co"># Calculate the range of each species abundance between</span></span>
-<span id="cb93-17"><a href="transformations.html#cb93-17"></a><span class="co"># sites</span></span>
-<span id="cb93-18"><a href="transformations.html#cb93-18"></a>Range.spe1 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">1</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">1</span>])</span>
-<span id="cb93-19"><a href="transformations.html#cb93-19"></a>Range.spe2 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">2</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">2</span>])</span>
-<span id="cb93-20"><a href="transformations.html#cb93-20"></a>Range.spe3 &lt;-<span class="st"> </span><span class="kw">max</span>(spe.challenge[, <span class="dv">3</span>]) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(spe.challenge[, <span class="dv">3</span>])</span>
-<span id="cb93-21"><a href="transformations.html#cb93-21"></a></span>
-<span id="cb93-22"><a href="transformations.html#cb93-22"></a><span class="co"># Calculate the Gower dissimilarity</span></span>
-<span id="cb93-23"><a href="transformations.html#cb93-23"></a>(dg.s1s2 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s1s2<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s1s2<span class="op">/</span>Range.spe3)))</span>
-<span id="cb93-24"><a href="transformations.html#cb93-24"></a>(dg.s1s3 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s1s3<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s1s3<span class="op">/</span>Range.spe3)))</span>
-<span id="cb93-25"><a href="transformations.html#cb93-25"></a>(dg.s2s3 &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">/</span>M) <span class="op">*</span><span class="st"> </span>((Spe2.s2s3<span class="op">/</span>Range.spe2) <span class="op">+</span><span class="st"> </span>(Spe3.s2s3<span class="op">/</span>Range.spe3)))</span>
-<span id="cb93-26"><a href="transformations.html#cb93-26"></a></span>
-<span id="cb93-27"><a href="transformations.html#cb93-27"></a><span class="co"># Compare your results</span></span>
-<span id="cb93-28"><a href="transformations.html#cb93-28"></a>(spe.db.challenge &lt;-<span class="st"> </span><span class="kw">vegdist</span>(spe.challenge, <span class="dt">method =</span> <span class="st">&quot;gower&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="transformations.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the number of columns in your dataset</span></span>
+<span id="cb95-2"><a href="transformations.html#cb95-2" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">ncol</span>(spe.challenge)</span>
+<span id="cb95-3"><a href="transformations.html#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="transformations.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the species abundance differences between pairs</span></span>
+<span id="cb95-5"><a href="transformations.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co"># of sites for each species</span></span>
+<span id="cb95-6"><a href="transformations.html#cb95-6" aria-hidden="true" tabindex="-1"></a>Spe1.s1s2 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">-</span> spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>])</span>
+<span id="cb95-7"><a href="transformations.html#cb95-7" aria-hidden="true" tabindex="-1"></a>Spe2.s1s2 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">-</span> spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>])</span>
+<span id="cb95-8"><a href="transformations.html#cb95-8" aria-hidden="true" tabindex="-1"></a>Spe3.s1s2 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="sc">-</span> spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb95-9"><a href="transformations.html#cb95-9" aria-hidden="true" tabindex="-1"></a>Spe1.s1s3 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
+<span id="cb95-10"><a href="transformations.html#cb95-10" aria-hidden="true" tabindex="-1"></a>Spe2.s1s3 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
+<span id="cb95-11"><a href="transformations.html#cb95-11" aria-hidden="true" tabindex="-1"></a>Spe3.s1s3 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">1</span>, <span class="dv">3</span>] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
+<span id="cb95-12"><a href="transformations.html#cb95-12" aria-hidden="true" tabindex="-1"></a>Spe1.s2s3 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">1</span>] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>, <span class="dv">1</span>])</span>
+<span id="cb95-13"><a href="transformations.html#cb95-13" aria-hidden="true" tabindex="-1"></a>Spe2.s2s3 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>, <span class="dv">2</span>])</span>
+<span id="cb95-14"><a href="transformations.html#cb95-14" aria-hidden="true" tabindex="-1"></a>Spe3.s2s3 <span class="ot">&lt;-</span> <span class="fu">abs</span>(spe.challenge[<span class="dv">2</span>, <span class="dv">3</span>] <span class="sc">-</span> spe.challenge[<span class="dv">3</span>, <span class="dv">3</span>])</span>
+<span id="cb95-15"><a href="transformations.html#cb95-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-16"><a href="transformations.html#cb95-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the range of each species abundance between</span></span>
+<span id="cb95-17"><a href="transformations.html#cb95-17" aria-hidden="true" tabindex="-1"></a><span class="co"># sites</span></span>
+<span id="cb95-18"><a href="transformations.html#cb95-18" aria-hidden="true" tabindex="-1"></a>Range.spe1 <span class="ot">&lt;-</span> <span class="fu">max</span>(spe.challenge[, <span class="dv">1</span>]) <span class="sc">-</span> <span class="fu">min</span>(spe.challenge[, <span class="dv">1</span>])</span>
+<span id="cb95-19"><a href="transformations.html#cb95-19" aria-hidden="true" tabindex="-1"></a>Range.spe2 <span class="ot">&lt;-</span> <span class="fu">max</span>(spe.challenge[, <span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">min</span>(spe.challenge[, <span class="dv">2</span>])</span>
+<span id="cb95-20"><a href="transformations.html#cb95-20" aria-hidden="true" tabindex="-1"></a>Range.spe3 <span class="ot">&lt;-</span> <span class="fu">max</span>(spe.challenge[, <span class="dv">3</span>]) <span class="sc">-</span> <span class="fu">min</span>(spe.challenge[, <span class="dv">3</span>])</span>
+<span id="cb95-21"><a href="transformations.html#cb95-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-22"><a href="transformations.html#cb95-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the Gower dissimilarity</span></span>
+<span id="cb95-23"><a href="transformations.html#cb95-23" aria-hidden="true" tabindex="-1"></a>(dg.s1s2 <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>M) <span class="sc">*</span> ((Spe2.s1s2<span class="sc">/</span>Range.spe2) <span class="sc">+</span> (Spe3.s1s2<span class="sc">/</span>Range.spe3)))</span>
+<span id="cb95-24"><a href="transformations.html#cb95-24" aria-hidden="true" tabindex="-1"></a>(dg.s1s3 <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>M) <span class="sc">*</span> ((Spe2.s1s3<span class="sc">/</span>Range.spe2) <span class="sc">+</span> (Spe3.s1s3<span class="sc">/</span>Range.spe3)))</span>
+<span id="cb95-25"><a href="transformations.html#cb95-25" aria-hidden="true" tabindex="-1"></a>(dg.s2s3 <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">/</span>M) <span class="sc">*</span> ((Spe2.s2s3<span class="sc">/</span>Range.spe2) <span class="sc">+</span> (Spe3.s2s3<span class="sc">/</span>Range.spe3)))</span>
+<span id="cb95-26"><a href="transformations.html#cb95-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-27"><a href="transformations.html#cb95-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare your results</span></span>
+<span id="cb95-28"><a href="transformations.html#cb95-28" aria-hidden="true" tabindex="-1"></a>(spe.db.challenge <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(spe.challenge, <span class="at">method =</span> <span class="st">&quot;gower&quot;</span>))</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -593,7 +601,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

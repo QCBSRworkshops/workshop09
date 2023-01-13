@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 16 Nonmetric MultiDimensional Scaling | Workshop 9: Multivariate Analyses in R</title>
   <meta name="description" content="Multivariate Analyses in R" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 16 Nonmetric MultiDimensional Scaling | Workshop 9: Multivariate Analyses in R" />
   <meta property="og:type" content="book" />
@@ -48,25 +48,24 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -86,7 +85,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {  background-color: #f8f8f8; }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -137,8 +136,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="part"><span><b>QCBS R Workshop Series</b></span></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-of-conduct"><i class="fa fa-check"></i><b>0.1</b> Code of conduct</a>
+<ul>
 <li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#expected-behaviour"><i class="fa fa-check"></i><b>0.1.1</b> Expected behaviour</a></li>
 <li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#unacceptable-behaviour"><i class="fa fa-check"></i><b>0.1.2</b> Unacceptable behaviour</a></li>
 </ul></li>
@@ -152,38 +153,45 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="recap-univariate-analyses.html"><a href="recap-univariate-analyses.html"><i class="fa fa-check"></i><b>3</b> Recap: Univariate analyses</a></li>
 <li class="chapter" data-level="4" data-path="intro-multivariate-analyses.html"><a href="intro-multivariate-analyses.html"><i class="fa fa-check"></i><b>4</b> Intro: Multivariate analyses</a></li>
 <li class="chapter" data-level="5" data-path="setting-up-our-goals.html"><a href="setting-up-our-goals.html"><i class="fa fa-check"></i><b>5</b> Setting up our goals</a></li>
-<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a><ul>
+<li class="chapter" data-level="6" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html"><i class="fa fa-check"></i><b>6</b> Matrix algebra, very briefly</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#data-sets-are-matrices"><i class="fa fa-check"></i><b>6.1</b> Data sets <em>are</em> matrices</a></li>
 <li class="chapter" data-level="6.2" data-path="matrix-algebra-very-briefly.html"><a href="matrix-algebra-very-briefly.html#association-matrices"><i class="fa fa-check"></i><b>6.2</b> Association matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a><ul>
+<li class="chapter" data-level="7" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html"><i class="fa fa-check"></i><b>7</b> Exploring the dataset</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-fish-communities"><i class="fa fa-check"></i><b>7.1</b> Doubs river fish communities</a></li>
 <li class="chapter" data-level="7.2" data-path="exploring-the-dataset.html"><a href="exploring-the-dataset.html#doubs-river-environmental-data"><i class="fa fa-check"></i><b>7.2</b> Doubs river environmental data</a></li>
 </ul></li>
 <li class="part"><span><b>(Dis)similarity measures</b></span></li>
 <li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
-<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a><ul>
-<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a><ul>
+<li class="chapter" data-level="9" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html"><i class="fa fa-check"></i><b>9</b> Types of distance coefficients</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#metric-distances"><i class="fa fa-check"></i><b>9.1</b> Metric distances</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#euclidean-distances"><i class="fa fa-check"></i><b>9.1.1</b> Euclidean distances</a></li>
 <li class="chapter" data-level="9.1.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#challenge-1"><i class="fa fa-check"></i><b>9.1.2</b> Challenge #1</a></li>
 <li class="chapter" data-level="9.1.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#chord-distances"><i class="fa fa-check"></i><b>9.1.3</b> Chord distances</a></li>
 <li class="chapter" data-level="9.1.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#jaccards-coefficient"><i class="fa fa-check"></i><b>9.1.4</b> Jaccard’s coefficient</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a><ul>
+<li class="chapter" data-level="9.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#semimetric-distances"><i class="fa fa-check"></i><b>9.2</b> Semimetric distances</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#sørensens-coefficient"><i class="fa fa-check"></i><b>9.2.1</b> Sørensen’s coefficient</a></li>
 <li class="chapter" data-level="9.2.2" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#bray-curtis-coefficient"><i class="fa fa-check"></i><b>9.2.2</b> Bray-Curtis’ coefficient</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#nonmetric-distances"><i class="fa fa-check"></i><b>9.3</b> Nonmetric distances</a></li>
 <li class="chapter" data-level="9.4" data-path="types-of-distance-coefficients.html"><a href="types-of-distance-coefficients.html#representation"><i class="fa fa-check"></i><b>9.4</b> Representation</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a><ul>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#presence-absence-transformation"><i class="fa fa-check"></i><b>10.1</b> Presence-absence transformation</a></li>
 <li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#species-profiles-transformation"><i class="fa fa-check"></i><b>10.2</b> Species profiles transformation</a></li>
 <li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#hellinger-transformation"><i class="fa fa-check"></i><b>10.3</b> Hellinger transformation</a></li>
 <li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#z-score-standardization"><i class="fa fa-check"></i><b>10.4</b> Z-score standardization</a></li>
 </ul></li>
 <li class="part"><span><b>Clustering</b></span></li>
-<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a><ul>
+<li class="chapter" data-level="11" data-path="clustering.html"><a href="clustering.html"><i class="fa fa-check"></i><b>11</b> Clustering</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="clustering.html"><a href="clustering.html#single-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.1</b> Single linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.2" data-path="clustering.html"><a href="clustering.html#complete-linkage-agglomerative-clustering"><i class="fa fa-check"></i><b>11.2</b> Complete linkage agglomerative clustering</a></li>
 <li class="chapter" data-level="11.3" data-path="clustering.html"><a href="clustering.html#wards-minimum-variance-clustering"><i class="fa fa-check"></i><b>11.3</b> Ward’s minimum variance clustering</a></li>
@@ -233,7 +241,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="nonmetric-multidimensional-scaling" class="section level1 hasAnchor">
+<div id="nonmetric-multidimensional-scaling" class="section level1 hasAnchor" number="16">
 <h1><span class="header-section-number">Chapter 16</span> Nonmetric MultiDimensional Scaling<a href="nonmetric-multidimensional-scaling.html#nonmetric-multidimensional-scaling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>The unconstrained ordination methods presented above allow to organize
 objects (e.g. sites) characterized by descriptors (e.g. species) in
@@ -270,25 +278,25 @@ construct a Shepard diagram which plot distances among objects in the
 ordination plot against the original distances. The R2 obtained from the
 regression between these two distances measure the goodness-of-fit of
 the NMDS ordination.</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="nonmetric-multidimensional-scaling.html#cb117-1"></a><span class="co"># Run the NMDS</span></span>
-<span id="cb117-2"><a href="nonmetric-multidimensional-scaling.html#cb117-2"></a>spe.nmds &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(spe, <span class="dt">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>)</span>
-<span id="cb117-3"><a href="nonmetric-multidimensional-scaling.html#cb117-3"></a></span>
-<span id="cb117-4"><a href="nonmetric-multidimensional-scaling.html#cb117-4"></a><span class="co">### Extract the results</span></span>
-<span id="cb117-5"><a href="nonmetric-multidimensional-scaling.html#cb117-5"></a>spe.nmds</span>
-<span id="cb117-6"><a href="nonmetric-multidimensional-scaling.html#cb117-6"></a></span>
-<span id="cb117-7"><a href="nonmetric-multidimensional-scaling.html#cb117-7"></a><span class="co">### Assess the goodness of fit and draw a Shepard plot</span></span>
-<span id="cb117-8"><a href="nonmetric-multidimensional-scaling.html#cb117-8"></a>spe.nmds<span class="op">$</span>stress</span>
-<span id="cb117-9"><a href="nonmetric-multidimensional-scaling.html#cb117-9"></a><span class="kw">stressplot</span>(spe.nmds, <span class="dt">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span>
-<span id="cb117-10"><a href="nonmetric-multidimensional-scaling.html#cb117-10"></a></span>
-<span id="cb117-11"><a href="nonmetric-multidimensional-scaling.html#cb117-11"></a><span class="co"># Construct the biplot</span></span>
-<span id="cb117-12"><a href="nonmetric-multidimensional-scaling.html#cb117-12"></a><span class="kw">windows</span>()</span>
-<span id="cb117-13"><a href="nonmetric-multidimensional-scaling.html#cb117-13"></a><span class="kw">plot</span>(spe.nmds, <span class="dt">type =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
-<span id="cb117-14"><a href="nonmetric-multidimensional-scaling.html#cb117-14"></a>    <span class="kw">round</span>(spe.nmds<span class="op">$</span>stress, <span class="dv">3</span>)), <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="dt">ylab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
-<span id="cb117-15"><a href="nonmetric-multidimensional-scaling.html#cb117-15"></a><span class="kw">points</span>(<span class="kw">scores</span>(spe.nmds, <span class="dt">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)),</span>
-<span id="cb117-16"><a href="nonmetric-multidimensional-scaling.html#cb117-16"></a>    <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb117-17"><a href="nonmetric-multidimensional-scaling.html#cb117-17"></a><span class="kw">text</span>(<span class="kw">scores</span>(spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>)), <span class="kw">scores</span>(spe.nmds,</span>
-<span id="cb117-18"><a href="nonmetric-multidimensional-scaling.html#cb117-18"></a>    <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">2</span>)), <span class="dt">labels =</span> <span class="kw">rownames</span>(<span class="kw">scores</span>(spe.nmds,</span>
-<span id="cb117-19"><a href="nonmetric-multidimensional-scaling.html#cb117-19"></a>    <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>)), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="nonmetric-multidimensional-scaling.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the NMDS</span></span>
+<span id="cb119-2"><a href="nonmetric-multidimensional-scaling.html#cb119-2" aria-hidden="true" tabindex="-1"></a>spe.nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(spe, <span class="at">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb119-3"><a href="nonmetric-multidimensional-scaling.html#cb119-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-4"><a href="nonmetric-multidimensional-scaling.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Extract the results</span></span>
+<span id="cb119-5"><a href="nonmetric-multidimensional-scaling.html#cb119-5" aria-hidden="true" tabindex="-1"></a>spe.nmds</span>
+<span id="cb119-6"><a href="nonmetric-multidimensional-scaling.html#cb119-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-7"><a href="nonmetric-multidimensional-scaling.html#cb119-7" aria-hidden="true" tabindex="-1"></a><span class="do">### Assess the goodness of fit and draw a Shepard plot</span></span>
+<span id="cb119-8"><a href="nonmetric-multidimensional-scaling.html#cb119-8" aria-hidden="true" tabindex="-1"></a>spe.nmds<span class="sc">$</span>stress</span>
+<span id="cb119-9"><a href="nonmetric-multidimensional-scaling.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(spe.nmds, <span class="at">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span>
+<span id="cb119-10"><a href="nonmetric-multidimensional-scaling.html#cb119-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-11"><a href="nonmetric-multidimensional-scaling.html#cb119-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct the biplot</span></span>
+<span id="cb119-12"><a href="nonmetric-multidimensional-scaling.html#cb119-12" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()</span>
+<span id="cb119-13"><a href="nonmetric-multidimensional-scaling.html#cb119-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.nmds, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
+<span id="cb119-14"><a href="nonmetric-multidimensional-scaling.html#cb119-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(spe.nmds<span class="sc">$</span>stress, <span class="dv">3</span>)), <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
+<span id="cb119-15"><a href="nonmetric-multidimensional-scaling.html#cb119-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(spe.nmds, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)),</span>
+<span id="cb119-16"><a href="nonmetric-multidimensional-scaling.html#cb119-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb119-17"><a href="nonmetric-multidimensional-scaling.html#cb119-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>)), <span class="fu">scores</span>(spe.nmds,</span>
+<span id="cb119-18"><a href="nonmetric-multidimensional-scaling.html#cb119-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>)), <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(spe.nmds,</span>
+<span id="cb119-19"><a href="nonmetric-multidimensional-scaling.html#cb119-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">display =</span> <span class="st">&quot;species&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <p><img src="/shepard_plot.png" class="align-center" /></p>
 <p>The Shepard plot identifies a strong correlation between observed
 dissimilarity and ordination distance (R2 &gt; 0.95), highlighting a high
@@ -303,24 +311,24 @@ dimensions based on a Bray-Curtis distance. Assess the goodness-of-fit
 of the ordination and interpret the biplot.</p>
 <p><strong>Challenge 6 - Solution</strong> &lt;hidden&gt; Your code likely looks something
 like this:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="nonmetric-multidimensional-scaling.html#cb118-1"></a>mite.spe.nmds &lt;-<span class="st"> </span><span class="kw">metaMDS</span>(mite.spe, <span class="dt">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="dt">k =</span> <span class="dv">2</span>)</span>
-<span id="cb118-2"><a href="nonmetric-multidimensional-scaling.html#cb118-2"></a><span class="co">### Extract the results</span></span>
-<span id="cb118-3"><a href="nonmetric-multidimensional-scaling.html#cb118-3"></a>mite.spe.nmds</span>
-<span id="cb118-4"><a href="nonmetric-multidimensional-scaling.html#cb118-4"></a></span>
-<span id="cb118-5"><a href="nonmetric-multidimensional-scaling.html#cb118-5"></a><span class="co">### Assess the goodness of fit</span></span>
-<span id="cb118-6"><a href="nonmetric-multidimensional-scaling.html#cb118-6"></a>mite.spe.nmds<span class="op">$</span>stress</span>
-<span id="cb118-7"><a href="nonmetric-multidimensional-scaling.html#cb118-7"></a><span class="kw">stressplot</span>(mite.spe.nmds, <span class="dt">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span>
-<span id="cb118-8"><a href="nonmetric-multidimensional-scaling.html#cb118-8"></a></span>
-<span id="cb118-9"><a href="nonmetric-multidimensional-scaling.html#cb118-9"></a><span class="co">### Construct the biplot</span></span>
-<span id="cb118-10"><a href="nonmetric-multidimensional-scaling.html#cb118-10"></a><span class="kw">windows</span>()</span>
-<span id="cb118-11"><a href="nonmetric-multidimensional-scaling.html#cb118-11"></a><span class="kw">plot</span>(mite.spe.nmds, <span class="dt">type =</span> <span class="st">&quot;none&quot;</span>, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
-<span id="cb118-12"><a href="nonmetric-multidimensional-scaling.html#cb118-12"></a>    <span class="kw">round</span>(mite.spe.nmds<span class="op">$</span>stress, <span class="dv">3</span>)), <span class="dt">xlab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="dt">ylab =</span> <span class="kw">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
-<span id="cb118-13"><a href="nonmetric-multidimensional-scaling.html#cb118-13"></a><span class="kw">points</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>,</span>
-<span id="cb118-14"><a href="nonmetric-multidimensional-scaling.html#cb118-14"></a>    <span class="dv">2</span>)), <span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="dt">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb118-15"><a href="nonmetric-multidimensional-scaling.html#cb118-15"></a><span class="kw">text</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">1</span>)),</span>
-<span id="cb118-16"><a href="nonmetric-multidimensional-scaling.html#cb118-16"></a>    <span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>, <span class="dt">choices =</span> <span class="kw">c</span>(<span class="dv">2</span>)),</span>
-<span id="cb118-17"><a href="nonmetric-multidimensional-scaling.html#cb118-17"></a>    <span class="dt">labels =</span> <span class="kw">rownames</span>(<span class="kw">scores</span>(mite.spe.nmds, <span class="dt">display =</span> <span class="st">&quot;species&quot;</span>)),</span>
-<span id="cb118-18"><a href="nonmetric-multidimensional-scaling.html#cb118-18"></a>    <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="nonmetric-multidimensional-scaling.html#cb120-1" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mite.spe, <span class="at">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>)</span>
+<span id="cb120-2"><a href="nonmetric-multidimensional-scaling.html#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="do">### Extract the results</span></span>
+<span id="cb120-3"><a href="nonmetric-multidimensional-scaling.html#cb120-3" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds</span>
+<span id="cb120-4"><a href="nonmetric-multidimensional-scaling.html#cb120-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-5"><a href="nonmetric-multidimensional-scaling.html#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="do">### Assess the goodness of fit</span></span>
+<span id="cb120-6"><a href="nonmetric-multidimensional-scaling.html#cb120-6" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds<span class="sc">$</span>stress</span>
+<span id="cb120-7"><a href="nonmetric-multidimensional-scaling.html#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(mite.spe.nmds, <span class="at">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span>
+<span id="cb120-8"><a href="nonmetric-multidimensional-scaling.html#cb120-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-9"><a href="nonmetric-multidimensional-scaling.html#cb120-9" aria-hidden="true" tabindex="-1"></a><span class="do">### Construct the biplot</span></span>
+<span id="cb120-10"><a href="nonmetric-multidimensional-scaling.html#cb120-10" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()</span>
+<span id="cb120-11"><a href="nonmetric-multidimensional-scaling.html#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mite.spe.nmds, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
+<span id="cb120-12"><a href="nonmetric-multidimensional-scaling.html#cb120-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(mite.spe.nmds<span class="sc">$</span>stress, <span class="dv">3</span>)), <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
+<span id="cb120-13"><a href="nonmetric-multidimensional-scaling.html#cb120-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,</span>
+<span id="cb120-14"><a href="nonmetric-multidimensional-scaling.html#cb120-14" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>)), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb120-15"><a href="nonmetric-multidimensional-scaling.html#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>)),</span>
+<span id="cb120-16"><a href="nonmetric-multidimensional-scaling.html#cb120-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>)),</span>
+<span id="cb120-17"><a href="nonmetric-multidimensional-scaling.html#cb120-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>)),</span>
+<span id="cb120-18"><a href="nonmetric-multidimensional-scaling.html#cb120-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <p>And your plots like this:</p>
 <p><img src="/nmds_mite_shepard.png" class="align-center" /></p>
 <p>The correlation between observed dissimilarity and ordination distance
@@ -407,7 +415,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');
