@@ -23,12 +23,20 @@ Let us see what the commands below show us:
 class(dist(spe))
 ```
 
-```{r, eval = F}
-str(dist(spe))
-```
+The output from `dist()` is a `dist` class object by default. 
+This object is composed of a vector that contains the lower triangle of the distance matrix, distributed across columns.
+You can coerce it into a matrix with `as.matrix()`, as seen below:
 
 ```{r, eval = F}
 as.matrix(dist(spe))
+```
+
+Notably, you can coerce a matrix that contains distances ($D_{m,m}$) using `as.dist()`.
+
+You can also explore the structure and dimensions of our `dist`-class object and distance matrix:
+
+```{r, eval = F}
+str(dist(spe))
 ```
 
 ```{r, eval = T}
@@ -43,25 +51,26 @@ There are three groups of distance coefficients: _metrics_, _semimetrics_, and _
 
 The first group consists of *metrics*, and its coefficients satisfy the following properties:
 
-1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
+1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
 
-2. positiveness: if $a \neq b$, then $D(a,b) > 0$;
+2. positiveness: if $a \neq b$, then $D(a,b) > 0$; ✅
 
-3. symmetry: $D(a,b) = D(b,a)$;
+3. symmetry: $D(a,b) = D(b,a)$; ✅
 
-4. triangle inequality: $D(a,b) + D(b,c) \geq D(a,c)$. The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side.
+4. triangle inequality: $D(a,b) + D(b,c) \geq D(a,c)$. The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side. ✅
 
 We can spot all these properties below:
 
 ```{r, eval = T}
-as.matrix(dist(spe))[1:3, 1:3]
+as.matrix(dist(spe))[1:6, 1:6]
 ```
 
 ### Euclidean distances
 
 The most common metric distance measure is the _Euclidean distance_.
 
-It is computed using the Pythagorean formula:
+Euclidean distance is a measure of the distance between two points in Euclidean space. 
+In two dimensions, the Euclidean distance between two points (x1, y1) and (x2, y2) can be calculated using the Pythagorean theorem:
 
 $$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
 
@@ -94,6 +103,8 @@ text(x=-0.1, y=-0.2, labels="x1")
 points(x = 4, y = 4, type = "p")
 text(x=4.1, y=4.2, labels="x2")
 ```
+
+Euclidean distance is a commonly used measure in multivariate analyses because it provides a straightforward and intuitive way to measure the distance or similarity between observations in a multidimensional space. 
 
 Using `stats::dist()`, we can compute it with:
 
@@ -148,10 +159,11 @@ This issue is known as the **double-zero problem**, _i.e._ double zeroes are tre
 
 Euclidean distances ( $D_1$ ) should thus _not_ be used to compare sites based on species abundances.
 
-
 ### Chord distances
 
-Orlóci (1967) proposed the _Chord distance_ to analyse community composition.
+Orlóci (1967) proposed the _Chord distance_ to analyse community composition. 
+
+Chord distance, also known as angular distance or great-circle distance, is a measure of the distance between two points on a sphere, such as the Earth. 
 
 It consists of:
 
@@ -201,12 +213,14 @@ Y.hmm
 
 So, adding any number of double zeroes to a pair of sites does _not_ change the value of $D_3$. Hence, _Chord distances_ can be used to compare sites described by species abundances!
 
-
 ### Jaccard's coefficient
 
 Another popular association coefficient is the _Jaccard similarity coefficient_ (1900).
 
-It is only appropriate for **binary data**, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.
+The Jaccard similarity coefficient was originally proposed by the French mathematician Paul Jaccard in 1901, in the context of ecology. 
+Jaccard was interested in comparing the species composition of different plant communities, and proposed the Jaccard index as a measure of similarity between two communities based on their species richness.
+
+Jaccard's similarity coefficient is only appropriate for **binary data**, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.
 
 $$D_{7}(x_1,x_2) = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \cup x_2 \vert} = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert} = 1-\frac{a}{a+b+c}$$
   
@@ -246,13 +260,13 @@ spe.D.Jac <- vegdist(spe,
 
 The second group consists of *semimetrics*, and they violate the _triangle inequality_ property:
 
-1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
+1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
 
-2. positiveness: if $a \neq b$, then $D(a,b) > 0$;
+2. positiveness: if $a \neq b$, then $D(a,b) > 0$; ✅
 
-3. symmetry: $D(a,b) = D(b,a)$;
+3. symmetry: $D(a,b) = D(b,a)$; ✅
 
-4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side.
+4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side. ❌
 
 ### Sørensen's coefficient
 
@@ -308,6 +322,7 @@ For example, for sites $x_1$ and $x_2$:
 
 
 So:
+
 - $W = 2 + 1 + 0 + 1 + 1 = 5$
 
 - $A = 2 + 1 + 0 + 5 + 0 = 8$
@@ -327,15 +342,15 @@ spe.db <- as.matrix(spe.db.pa)
 
 ## Nonmetric distances
 
-1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$;
+1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
 
-2. ~~positiveness:~~ if $a \neq b$, then $D(a,b) > or < 0$;
+2. ~~positiveness:~~ if $a \neq b$, then $D(a,b) > or < 0$; ❌
 
-3. symmetry: $D(a,b) = D(b,a)$;
+3. symmetry: $D(a,b) = D(b,a)$; ✅
 
-4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side.
+4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side. ❌
 
-## Representation
+## Representing distance matrices
 
 We can create graphical depictions of association matrices using the `coldiss()` function:
 
@@ -399,6 +414,28 @@ We can create graphical depictions of association matrices using the `coldiss()`
 
 ```{r, fig.height = 8, fig.width = 16}
 coldiss(spe.D.Jac)
+```
+
+You can also use `ggplot2::ggplot()` to represent your matrix using a `geom_tile()` object:
+
+```{r,  fig.height = 8, fig.width = 8}
+# get the order of the rows and columns
+order_spe.D.Jac <- hclust(spe.D.Jac, method = "complete")$order
+
+# reorder the matrix
+order_spe.D.Jac_matrix <- as.matrix(spe.D.Jac)[order_spe.D.Jac, order_spe.D.Jac]
+
+molten_spe.D.Jac <- reshape2::melt(
+  as.matrix(order_spe.D.Jac_matrix)
+  )
+
+# create ggplot object
+ggplot(data = molten_spe.D.Jac, 
+       aes(x = Var1, y = Var2, 
+           fill = value)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "black") +
+  theme_minimal()
 ```
 
 # Transformations

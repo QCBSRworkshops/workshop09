@@ -190,7 +190,7 @@ You must also use these packages:
 
 To install them from CRAN, run:
 
-```{r eval = FALSE}
+```{r package-loading, eval = FALSE}
 install.packages(c("ape", 
                    "ade4",
                    "codep",
@@ -655,7 +655,7 @@ Their data is split in three matrices:
 
 You can download these datasets from [r.qcbs.ca/workshops/r-workshop-09](http://r.qcbs.ca/workshops/r-workshop-09/).
 
-```{r}
+```{r data-loading}
 spe <- read.csv("data/doubsspe.csv", 
                 row.names = 1) 
 
@@ -670,7 +670,7 @@ env <- read.csv("data/doubsenv.csv",
 .pull-right3[
 
 This data can also be retrieved from the `ade4` package:
-```{r eval=FALSE, echo = TRUE}
+```{r ade4-load-data, eval=FALSE, echo = TRUE}
 library(ade4)
 data(doubs)
 
@@ -679,7 +679,7 @@ env <- doubs$env
 ```
 
 Alternatively, from the `codep` package:
-```{r eval=FALSE, echo = TRUE}
+```{r codep-load-data, eval=FALSE, echo = TRUE}
 library(codep)
 data(Doubs)
 
@@ -697,7 +697,7 @@ Let us peek into the `env` data:
 
 
 .pull-left[
-```{r, echo = T}
+```{r str_env, echo = T}
 str(env)
 ```
 
@@ -733,18 +733,18 @@ summary(env) # summary statistics
 Let us peek into the `spe` data:
 
 .pull-left[
-```{r, echo = T}
+```{r head_spe, echo = T}
 head(spe)[, 1:8]
 ```
 
-```{r, echo = T, output.lines=1:8}
+```{r str_spe, echo = T, output.lines=1:8}
 str(spe)
 ```
 ]
 
 .pull-right[
 
-```{r, eval = F}
+```{r glympse_spe, eval = F}
 # Try some of these!
 
 names(spe)   # names of objects
@@ -769,7 +769,7 @@ We can obtain an association matrix $A_{m,m}$ in the form of pairwise distances 
 
 In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`:
 
-```{r, eval = T, results='show'}
+```{r dist_spe, eval = T, results='show'}
 dist(spe)
 ```
 
@@ -781,19 +781,19 @@ For simplicity, we have done this without specifying arguments.
 
 Run `dist(spe)` from your end, note what you observe and see what the commands below show you:
 
-```{r, eval = F}
+```{r class_dist_spe, eval = F}
 class(dist(spe))
 ```
 
-```{r, eval = F}
+```{r str_dist_spe, eval = F}
 str(dist(spe))
 ```
 
-```{r, eval = F}
+```{r as_matrix_dist_spe, eval = F}
 as.matrix(dist(spe))
 ```
 
-```{r, eval = F}
+```{r dim_as_matrix_dist_spe, eval = F}
 dim(as.matrix(dist(spe)))
 ```
 
@@ -822,7 +822,7 @@ The first group consists of *metrics*, and its coefficients satisfy the followin
 
 We can spot all these properties below:
 
-```{r, eval = T}
+```{r glympse_dist_spe, eval = T}
 as.matrix(dist(spe))[1:3, 1:3]
 ```
 
