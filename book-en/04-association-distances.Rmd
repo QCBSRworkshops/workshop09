@@ -418,13 +418,14 @@ coldiss(spe.D.Jac)
 
 You can also use `ggplot2::ggplot()` to represent your matrix using a `geom_tile()` object:
 
-```{r,  fig.height = 8, fig.width = 8}
-# get the order of the rows and columns
+```{r,  fig.height = 8, fig.width = 9}
+# obtain the order of the rows and columns
 order_spe.D.Jac <- hclust(spe.D.Jac, method = "complete")$order
 
-# reorder the matrix
+# reorder the matrix to produce an figure ordered by similarities
 order_spe.D.Jac_matrix <- as.matrix(spe.D.Jac)[order_spe.D.Jac, order_spe.D.Jac]
 
+# converts to data frame
 molten_spe.D.Jac <- reshape2::melt(
   as.matrix(order_spe.D.Jac_matrix)
   )
