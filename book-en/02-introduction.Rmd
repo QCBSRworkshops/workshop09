@@ -24,7 +24,6 @@ These models allowed us to ask questions such as:
 2. _How does the abundance of microbes change between hosts?_
 3. _Do co-occurring fish become more aggressive after being induced to fear?_
 
-
 However, one may be interested in making inferences from ecological data containing _more than one_ outcome or dependent variable.
 
 This interest may be driven by hypothesis testing and modelling, but also be entirely exploratory.
@@ -55,4 +54,4 @@ We will explore certain methods, such as:
 
 4. Constrained (or canonical) ordination (in Workshop 10).
 
-Before everything, we will do a little review on matrix algebra.
+Before everything, we will do a little review on **matrix algebra**.

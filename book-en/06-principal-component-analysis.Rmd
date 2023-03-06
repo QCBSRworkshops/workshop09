@@ -1,22 +1,30 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
 # Principal Component Analysis
 
-Principal component analysis (PCA) was originally described by Pearson
-(1901) although it is more often attributed to Hotelling (1933) who
-proposed it independently. The method and several of its implications
-for data analysis are presented in the seminal paper of Rao (1964). PCA
-is used to generate a few key variables from a larger set of variables
-that still represent as much of the variation in the dataset as
-possible. PCA is a powerful technique to analyze quantitative
+The principal component analysis (PCA) was originally described by
+Pearson (1901) although it is more often attributed to Hotelling (1933)
+who proposed it independently. The method and several of its
+implications for data analysis are presented in the seminal paper of Rao
+(1964).
+
+PCA is used to generate a few key variables from a larger set of
+variables that still represent as much of the variation in the dataset
+as possible. PCA is a powerful technique to analyze quantitative
 descriptors (such as species abundances), but cannot be applied to
 binary data (such as species absence/presence).
 
 Based on a dataset containing normally distributed variables, the first
-axis (or principal-component axis) of a PCA is the line that goes
-through the greatest dimension of the concentration ellipsoid describing
-the multinormal distribution. Similarly, the following axes go through
-the dimensions of the concentration ellipsoid by decreasing length. One
-can thus derive a maximum of p principal axes form a data set containing
-p variables.
+axis (or principal component) of a PCA is the line that goes through the
+greatest dimension of the concentration ellipsoid describing the
+multinormal distribution. Similarly, the following axes go through the
+dimensions of the concentration ellipsoid by decreasing length. One can
+thus derive a maximum of p principal axes form a data set containing p
+variables.
 
 For this, PCA rotates the original system of axes defined by the
 variables in a way that the successive new axes are orthogonal to one
@@ -29,31 +37,35 @@ of the objects in the new system of coordinates. PCA works on an
 association matrix among variables containing the variances and
 covariances of the variables. PCA preserves Euclidean distances and
 detects linear relationships. As a consequence, raw species abundance
-data are subjected to a pre-transformation (i.e. a Hellinger
+data are subjected to a pre-transformation (*i.e.*, a Hellinger
 transformation) before computing a PCA.
 
-*To do a PCA you need:* - A set of variables (with no distinction
-between independent or dependent variables, i.e. a set of species OR a
-set of environmental variables). - Samples that are measured for the
-same set of variables. - Generally a dataset that is longer than it is
-wide is preferred.
+*To do a PCA you need:*
+
+-   A set of variables (with no distinction between independent or
+    dependent variables, *i.e.* a set of species OR a set of
+    environmental variables).
+
+-   Samples that are measured for the same set of variables.
+
+-   Generally, a dataset that is longer than it is wide is preferred.
 
 PCA is most useful with data with more than two variables, but is easier
 to describe using a two dimensional example. In this example (derived
 from Clarke and Warwick 2001) , we have nine sites with abundance data
 for two species:
 
-  Site   Species 1   Species 2
-  ------ ----------- -----------
-  A      6           2
-  B      0           0
-  C      5           8
-  D      7           6
-  E      11          6
-  F      10          10
-  G      15          8
-  H      18          14
-  I      14          14
+| Site | Species 1 | Species 2 |
+|:-----|:----------|:----------|
+| A    | 6         | 2         |
+| B    | 0         | 0         |
+| C    | 5         | 8         |
+| D    | 7         | 6         |
+| E    | 11        | 6         |
+| F    | 10        | 10        |
+| G    | 15        | 8         |
+| H    | 18        | 14        |
+| I    | 14        | 14        |
 
 If you plotted these samples in the two dimensions, the plot would look
 like this: ![](/pcaex_1.png){width="500"}
@@ -115,13 +127,13 @@ The summary looks like this:
 
 **Interpretation of ordination results:**
 
-A new word from this output is \"eigenvalue\". An eigenvalue is the
-value of the change in the length of a vector, and for our purposes is
-the amount of variation explained by each axis in a PCA. As you can see,
-the summary function produces a fair amount of information. From the
-summary we can see how much of the variance in the data is explained by
-the unconstrained variables (i.e. variables where we have made no effort
-to define relationships between the variables). In this case, the total
+A new word from this output is "eigenvalue". An eigenvalue is the value
+of the change in the length of a vector, and for our purposes is the
+amount of variation explained by each axis in a PCA. As you can see, the
+summary function produces a fair amount of information. From the summary
+we can see how much of the variance in the data is explained by the
+unconstrained variables (i.e. variables where we have made no effort to
+define relationships between the variables). In this case, the total
 variance of the sites explained by the species is 0.5. The summary also
 tells you what proportion of the total explained variance is explained
 by each principal component in the PCA: the first axis of the PCA thus
@@ -227,9 +239,9 @@ is often the best way to convey major patterns. PCA biplots can be
 plotted in base R. A PCA biplot includes the x-axis as the first
 Principal Component and the y-axis as the second Principal Component.
 
-For some plotting exercises, let\'s start with the *species PCA*. A
-basic biplot without any customization could be plotted like this, where
-the site positions are shown by black numbers and species' positions are
+For some plotting exercises, let's start with the *species PCA*. A basic
+biplot without any customization could be plotted like this, where the
+site positions are shown by black numbers and species' positions are
 shown by red species codes. Remember, species positions come from
 plotting species along PCs and the site positions are derived from the
 weighted sums of species scores.
@@ -283,8 +295,8 @@ on top, you could see what sites are closer to each other in terms of
 the species found at those sites, but even without the specific labels,
 you can see that there are only a few sites that are farther away from
 the majority. The species names are shown by their names in red and from
-the plot, you can see for example that the species \"ABL\" is not found
-or not found in the same prevalence in the majority of sites as other
+the plot, you can see for example that the species "ABL" is not found or
+not found in the same prevalence in the majority of sites as other
 species closer to the centre of the ordination.
 
 Biplots need to be interpreted in terms of angles from center of plot,
@@ -293,7 +305,7 @@ uncorrelated. Two variables in opposing directions are negatively
 correlated. Two variables very close together are strongly correlated,
 at least in the space described by these axes.
 
-Now let\'s look at a plot of the *environmental PCA*:
+Now let's look at a plot of the *environmental PCA*:
 
 ```{r, echo = TRUE, eval = FALSE}
 #Biplot of the PCA on the environmental variables (scaling 2)
