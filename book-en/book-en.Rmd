@@ -1,3 +1,73 @@
+--- 
+title: "Workshop 9: Multivariate Analyses in `R`"
+subtitle: "QCBS R Workshop Series"
+author:
+- Developed and maintained by the contributors of the QCBS R Workshop Series^[The QCBS R Workshop Series is part of the [Québec Centre for Biodiversity Science](https://www.qcbs.ca), and is maintained by the series coordinators and graduent student, postdoctoral, and research professional members. **The contributors for this workshop can be accessed [here](link)**.]
+date: "`r Sys.time()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: ["references.bib"]
+biblio-style: apalike
+link-citations: yes
+cover-image: assets/images/logo/csbq_logo_accueil.png
+github-repo: "qcbsRworkshops/workshop09"
+description: "Multivariate Analyses in `R`"
+favicon: "assets/images/favicon.ico"
+always_allow_html: yes
+url: 'https\://github.com/qcbsRworkshops/'
+config:
+  edit:
+    link: https://github.com/qcbsRworkshops/workshop09/edit/main/book-en/%s
+    text: "Suggest changes"
+---
+
+# (PART\*) QCBS R Workshop Series {-}
+# Preface {-}
+
+Placeholder
+
+
+## Code of conduct
+### Expected behaviour
+### Unacceptable behaviour
+## Contributors
+## Contributing
+
+<!--chapter:end:index.Rmd-->
+
+
+# (PART\*) Multivariate Analyses in `R` {-}
+# Learning objectives
+
+Placeholder
+
+
+
+<!--chapter:end:01-preparing-for-the-workshop.Rmd-->
+
+
+# (PART\*) PREAMBLE {-}
+# Recap: Univariate analyses
+
+Placeholder
+
+
+
+<!--chapter:end:02-introduction.Rmd-->
+
+
+# Matrix algebra, very briefly
+
+Placeholder
+
+
+## Data sets _are_ matrices
+## Association matrices
+## Doubs river fish communities 
+## Doubs river environmental data
+
+<!--chapter:end:03-data-exploration.Rmd-->
+
 # (PART\*) (Dis)similarity measures {-}
 
 # `dist()` 
@@ -888,3 +958,98 @@ tree), or to compute clustering statistics. Clustering can also be
 combined to ordination in order to distinguish groups of sites. These go
 beyond the scope of this workshop, but see Borcard et al. 2011 for more
 details.
+
+<!--chapter:end:04-association-distances.Rmd-->
+
+# (PART\*) Unconstrained Ordination {-}
+
+# What does "unconstrained" mean?
+
+Unconstrained ordination allows us to organize samples, sites or species
+along continuous gradients (e.g. ecological or environmental). The key
+difference between unconstrained and constrained ordination (discussed
+later in this workshop- see 'Canonical Ordination') is that in the
+unconstrained techniques we are not attempting to define a relationship
+between independent and dependent sets of variables.
+
+Unconstrained ordination can be used to: 
+
+- Assess relationships *within*
+a set of variables (not between sets). 
+- Find key components of
+variation between samples, sites, species etc. 
+- Reduce the number
+dimensions in multivariate data without substantial loss of information.
+- Create new variables for use in subsequent analyses (such as
+regression). These principal components are weighted, linear
+combinations of the original variables in the ordination.
+
+[Source](http://www.umass.edu/landeco/teaching/multivariate/schedule/ordination1.pdf)
+
+<!--chapter:end:05-unconstrained-ordination.Rmd-->
+
+
+# Principal Component Analysis
+
+Placeholder
+
+
+
+<!--chapter:end:06-principal-component-analysis.Rmd-->
+
+
+# Correspondence Analysis
+
+Placeholder
+
+
+
+<!--chapter:end:07-correspondence-analysis.Rmd-->
+
+
+# Principal Coordinates Analysis
+
+Placeholder
+
+
+
+<!--chapter:end:08-principal-coordinate-analysis.Rmd-->
+
+
+# Nonmetric MultiDimensional Scaling
+
+Placeholder
+
+
+
+<!--chapter:end:09-non-metric-multidimensional-scaling.Rmd-->
+
+# (PART\*) Final considerations {-}
+
+# Summary
+
+Ordination is a powerful statistical tecnhique for studying the
+relationships of objects characterized by several descriptors (e.g.
+sites described by biotic communities, or environmental variables), but
+serveral ordination methods exist. These methods mainly differ in the
+type of distance preserved, the type of variables allowed and the
+dimensions of the ordination space. To better guide your choice of the
+ordination method to use, the following table identify the main
+characteristics of the four ordination methods presented :
+
+![](/summary_ordination.jpg){.align-center}
+
+In the next workshop, you will see how to identify the relationships
+between biotic communities and sets of environmental variables
+describing the same sites, using canonical analyses.
+
+# Additional resources
+
+<!--chapter:end:10-final-considerations.Rmd-->
+
+`r if (knitr::is_html_output()) '
+# References
+'`
+
+<!--chapter:end:11-references.Rmd-->
+
