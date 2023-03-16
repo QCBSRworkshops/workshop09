@@ -6,6 +6,79 @@ editor_options:
 
 # Principal Component Analysis
 
+Principal Component Analysis (PCA) is a statistical technique used to
+reduce the dimensionality of a dataset while retaining most of its
+variability. It is a linear transformation method that converts the
+original set of variables into a new set of linearly uncorrelated
+variables, called principal components (PCs), which are sorted in
+decreasing order of variance.
+
+PCA was first introduced by Karl Pearson in 1901, who developed the
+mathematical foundation for the method. Later, Harold Hotelling (1933)
+provided a more detailed and modern interpretation of the PCA method.
+
+PCA has become one of the most commonly used techniques in data analysis
+due to its ability to identify hidden patterns and reduce the complexity
+of high-dimensional data.
+
+In essence, PCA aims to find the linear combinations of the original
+variables that account for the largest possible amount of variation in
+the dataset. The resulting principal components are orthogonal to each
+other, meaning that they are not correlated, and their order reflects
+their importance in explaining the variability of the data.
+
+To become comfortable with PCA, we will follow with detailed examples on
+how to perform it step-by-step, and then we will use functions from R
+packages to do it.
+
+## Principal component analysis *not in a nutshell*
+
+Suppose we have a dataset with n observations and p variables
+represented by an n x p matrix X. The goal of PCA is to transform this
+dataset into a new set of p uncorrelated variables, called principal
+components (PCs), which capture the maximum amount of variance in the
+original data.
+
+To achieve this, we first need to standardize the data to have mean zero
+and unit variance:
+
+$$ Z_{ij} = \frac{X_{ij} - \bar{X_j}}{s_j} $$
+
+where Z is the standardized matrix, X is the original matrix,
+$\bar{X_j}$ is the mean of variable j, and $s_j$ is the standard
+deviation of variable j.
+
+Next, we compute the covariance matrix of Z:
+
+$$ C = \frac{1}{n-1}ZZ^T $$
+
+where $C$ is the covariance matrix and $T$ denotes the transpose
+operation.
+
+Then, we calculate the eigenvalues and eigenvectors of $C$:
+
+$$ Cv = \lambda v $$
+
+where v is the eigenvector and $\lambda$ is the corresponding
+eigenvalue.
+
+The eigenvectors represent the directions in the p-dimensional space
+that capture the maximum amount of variance in the data, and the
+eigenvalues indicate the amount of variance captured by each
+eigenvector.
+
+We sort the eigenvectors in descending order of their corresponding
+eigenvalues and choose the $k$ eigenvectors with the largest eigenvalues
+as the new basis vectors for our transformed data.
+
+Finally, we project the standardized data matrix Z onto the new basis
+vectors to obtain the principal components:
+
+$$ Y = ZV $$
+
+where Y is the transformed data matrix, V is the matrix of eigenvectors,
+and $k$ is the number of principal components.
+
 The principal component analysis (PCA) was originally described by
 Pearson (1901) although it is more often attributed to Hotelling (1933)
 who proposed it independently. The method and several of its

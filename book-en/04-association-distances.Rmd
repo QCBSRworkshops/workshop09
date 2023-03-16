@@ -810,7 +810,7 @@ hc <- hclust(dist(x), method = "average")
 
 # plot the dendrogram
 plot(hc, 
-     main = "Dendrogram of Unweighted Pair Group Method with Arithmetic MeanAgglomerative Clustering",
+     main = "Dendrogram of \nUnweighted Pair Group Method with Arithmetic Mean \nAgglomerative Clustering",
      hang = -1)
 ```
 
@@ -834,7 +834,7 @@ hc <- hclust(dist(x), method = "mcquitty")
 
 # plot the dendrogram
 plot(hc, 
-     main = "Dendrogram of Weighted Pair Group Method with Arithmetic Mean Agglomerative Clustering",
+     main = "Dendrogram of \nWeighted Pair Group Method with Arithmetic Mean \nAgglomerative Clustering",
      hang = -1)
 ```
 
@@ -863,7 +863,7 @@ hc <- hclust(dist(x), method = "ward.D")
 
 # plot the dendrogram
 plot(hc, 
-     main = "Dendrogram of Ward's minimum variance Agglomerative Clustering",
+     main = "Dendrogram of \nWard's minimum variance Agglomerative Clustering",
      hang = -1)
 ```
 
@@ -875,7 +875,7 @@ hc <- hclust(dist(x), method = "ward.D2")
 
 # plot the dendrogram
 plot(hc, 
-     main = "Dendrogram of Ward's D2 minimum variance Agglomerative Clustering",
+     main = "Dendrogram of \nWard's D2 minimum variance Agglomerative Clustering",
      hang = -1)
 ```
 
@@ -895,13 +895,13 @@ Some common methods for determining the cutoff point are:
 3.  Gap statistic: The gap statistic compares the within-cluster sum of squares for the actual data to the expected within-cluster sum of squares for a null reference distribution. The optimal number of clusters is the one with the largest gap statistic.
 4.  Domain-specific knowledge: In some cases, domain-specific knowledge or prior research can provide guidance on the appropriate number of clusters to consider.
 
-## Platying with real data: the Doubs fish species data
+## Playing with real data: the Doubs fish species data
 
 Let us compare the single and complete linkage clustering methods using the Doubs fish species data.
 
 Species data were already Hellinger-transformed. The cluster analysis requiring similarity or dissimilarity indices, the first step will be to generate the Hellinger distance indices.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = TRUE}
 # Generates the distance matrix from Hellinger transformed data
 spe.dhel <- vegdist(spe.hel, method="euclidean") 
 
@@ -912,7 +912,7 @@ head(spe.dhel)# Hellinger distances among sites
 
 Use `hclust()` to compute both single and complete linkage clustering algorithms for this data:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = TRUE}
 spe.dhel.single <- hclust(spe.dhel, method="single")
 
 plot(spe.dhel.single)
@@ -927,7 +927,7 @@ In single linkage clustering, chains of objects occur (e.g. 19, 29, 30, 20, 26, 
 
 Again, it is possible to generate a Ward's minimum variance clustering with hclust(). However, the dendogram shows squared distances by default. In order to compare this dendrogram to the single and complete linkage clustering results, one must calculate the square root of the distances.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = TRUE}
 # Perform Ward minimum variance clustering
 spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 plot(spe.dhel.ward)
