@@ -1,28 +1,25 @@
-# Introduction aux données
+# L'algèbre matricielle, très brièvement
 
-Nous allons utiliser deux principaux ensembles de données dans la
-première partie de cet atelier. \"DoubsSpe.csv\" est une matrice de
-données d'abondance d'espèces de communautés de poissons dans laquelle
-la première colonne contient les noms des sites de 1 à 30 et les
-colonnes subséquentes correspondent aux différentes espèces de poissons.
-\"DoubsEnv.csv\" est une matrice de données environnementales pour les
-mêmes sites. La première colonne contient donc les noms des sites de 1 à
-30 et les colonnes suivantes les mesures de 11 variables abiotiques.
-Notez que les données utilisées pour les analyses d'ordination sont
-généralement en [format long (en
-anglais)](http://en.wikipedia.org/wiki/Wide_and_narrow_data).
+L'algèbre matricielle est bien adaptée à l'écologie, car la plupart (sinon tous) des _ensembles de données_ avec lesquels nous travaillons sont dans un format _matrix_.
 
-```{r, echo = TRUE, eval = FALSE}
-#Matrice d'abondances d'espèces: “DoubsSpe.csv”
-spe<- read.csv(file.choose(), row.names=1)
-spe<- spe[-8,] #Pas d'espèces dans le site 8, supprimer site 8.
-#Exécutez cette ligne une seule fois. 
+## Les ensembles de données _sont_ des matrices
 
-#L'environnement: “DoubsEnv.csv”
-env<- read.csv(file.choose(), row.names=1)
-env<- env[-8,] #Supprimer site 8 puisqu'on l'a retiré de la matrice d'abondances. 
-#Exécutez cette ligne une seule fois.  
-```
+Les tableaux de données écologiques sont obtenus sous forme d'observations d'objets ou d'unités d'échantillonnage, et sont souvent enregistrés sous cette forme : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 1. Exploration des données
 

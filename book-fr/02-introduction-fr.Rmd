@@ -1,28 +1,57 @@
-# Qu'est-ce que l'ordination?
+# (PART\*) PRÉAMBULE {-}
 
-L'ordination est un ensemble de méthodes pour décrire des échantillons
-dans de multiples dimensions (Clarke et Warwick 2011). Les méthodes
-d'ordination sont donc très utiles pour simplifier et interpréter des
-données multivariées. Les écologistes parlent souvent de \"faire une
-PCA\" face à des données multidimensionnelles complexes et désordonnées.
-Programmer des méthodes d'ordination à partir de R est relativement
-simple. L'interprétation des analyses d'ordination peut par contre
-être plus difficile, surtout si vous n'êtes pas sûr des questions
-biologiques que vous souhaitez explorer avec la méthode d'ordination
-que vous utilisez. Un examen attentif des objectifs de ces méthodes et
-de leur cadre d'application est nécessaire pour obtenir de bons
-résultats !
+# Récapitulatif : Analyses univariées
 
-Lorsque vous utilisez une méthode d'ordination, un ensemble de
-variables est utilisé pour ordonner des échantillons (objets, sites,
-etc.) le long d'axes principaux représentant des combinaison de
-variables (Gotelli et Ellison 2004). L'ordination permet donc de
-réduire ou de simplifier les données en créant de nouveaux axes
-intégrant la majeure partie de la variation présentes dans les données.
-A titre d'exemple, un ensemble de données avec 24 variables peut être
-réduit à cinq composantes principales qui représentent les principaux
-gradients de variation entre les échantillons. Les méthodes
-d'ordination sans contrainte ne sont pas adaptées au test d'hypothèses
-biologiques, mais permettent l'analyse exploratoire des données. Voir
-([the Ordination Website](http://ordination.okstate.edu/)) pour un
-aperçu des différents méthodes (en Anglais).
+Nous avons appris une multitude d'analyses qui nous ont permis d'interpréter des données écologiques en décrivant les effets d'une ou de plusieurs variables sur une variable réponse.
+
+Nous pouvons rappeler les :
+
+1. Les modèles linéaires généraux, dont nous avons utilisé les fonctions :
+  1. `lm()` ;
+  2. `anova()` ;
+  3. `t.test()` ;
+  4. `lmer()`.
+
+2. Modèles linéaires généralisés, où nous avons appris à les appliquer à l'aide de `t.test()` ; 4. `lmer()` :
+  1. `glm()` et `glmer()` avec plusieurs fonctions de liaison `family()`.
+
+3. Modèles Additifs Généralisés, avec les fonctions de liaison `family()` et `glm()` : 
+  1. `gam()`.
+
+Ces modèles nous ont permis de poser des questions telles que :
+
+1. Quels sont les effets des précipitations et de la température sur la richesse des espèces ?
+2. Comment l'abondance des microbes change-t-elle d'un hôte à l'autre ?
+3. Les poissons cooccurrents deviennent-ils plus agressifs après avoir été incités à avoir peur ?
+
+Cependant, il peut être intéressant de faire des déductions à partir de données écologiques contenant "plus d'un" résultat ou d'une variable dépendante.
+
+Cet intérêt peut être motivé par la vérification d'hypothèses et la modélisation, mais il peut aussi être entièrement exploratoire.
+
+# Intro : Analyses multivariées
+
+Par exemple, notre question de recherche pourrait être la suivante
+
+1. Comment la _composition bactérienne_ des feuilles d'érable change-t-elle le long du gradient d'altitude ?
+
+2. Quelle est la _dissemblance compositionnelle_ des communautés de chauves-souris ?
+
+3. Quelle est la _proximité_ des communautés locales d'araignées par rapport à leur _composition_ ?
+
+Dans tous ces cas, le résultat est composé de plusieurs variables, _par exemple_ habituellement une matrice échantillon par espèce ou échantillon par environnement.
+
+# Définir nos objectifs
+
+Nous allons maintenant nous plonger dans les **statistiques multivariées**, un ensemble d'outils qui nous permettra d'aborder des questions nécessitant l'observation ou l'analyse simultanée de plus d'une variable de résultat.
+
+Nous explorerons certaines méthodes, telles que:
+
+1. Mesures et matrices d'association (ou de dissemblance) ;
+
+2. L'analyse de classification (ou de regroupement) ;
+
+3. Ordination sans contrainte ;
+
+4. Ordination contrainte (ou canonique) (dans l'atelier 10).
+
+Avant tout, nous allons faire un petit rappel sur l'algèbre des matrices.
