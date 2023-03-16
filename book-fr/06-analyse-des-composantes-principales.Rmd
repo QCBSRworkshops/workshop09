@@ -76,8 +76,8 @@ où $C$ est la matrice de covariance, $v$ est le vecteur propre et $\lambda$ est
 
 ```{r}
 eigen_decomp <- eigen(cov_matrix)
-Valeurs propres <- eigen_decomp$values
-Vecteurs propres <- eigen_decomp$vectors
+Eigenvalues <- eigen_decomp$values
+Eigenvectors <- eigen_decomp$vectors
 ```
 
 Les vecteurs propres représentent les directions dans l'espace à $p$ dimensions qui capturent le maximum de variance dans les données, et les valeurs propres indiquent la quantité de variance capturée par chaque vecteur propre.

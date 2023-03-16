@@ -899,7 +899,7 @@ Comparons les méthodes de clustering à lien unique et à lien complet en utili
 
 Les données sur les espèces ont déjà été transformées par Hellinger. L'analyse de cluster nécessitant des indices de similarité ou de dissimilarité, la première étape consistera à générer les indices de distance de Hellinger.
 
-```{r, echo = VRAI, eval = VRAI}
+```{r, echo = TRUE, eval = TRUE}
 # Génère la matrice de distance à partir des données transformées de Hellinger
 spe.dhel <- vegdist(spe.hel, method="euclidean") 
 
@@ -910,7 +910,7 @@ head(spe.dhel)# distances de Hellinger entre les sites
 
 Utilisez `hclust()` pour calculer les algorithmes de regroupement de liens simples et complets pour ces données :
 
-```{r, echo = VRAI, eval = VRAI}
+```{r, echo = TRUE, eval = TRUE}
 spe.dhel.single <- hclust(spe.dhel, method="single")
 
 plot(spe.dhel.single)
@@ -925,7 +925,7 @@ Dans le clustering à lien unique, des chaînes d'objets apparaissent (par exemp
 
 Là encore, il est possible de générer un regroupement à variance minimale de Ward avec hclust(). Cependant, le dendogramme montre les distances au carré par défaut. Afin de comparer ce dendrogramme aux résultats des regroupements par liens simples et complets, il faut calculer la racine carrée des distances.
 
-```{r, echo = VRAI, eval = VRAI}
+```{r, echo = TRUE, eval = TRUE}
 # Effectuer le clustering de variance minimale de Ward
 spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 plot(spe.dhel.ward)
