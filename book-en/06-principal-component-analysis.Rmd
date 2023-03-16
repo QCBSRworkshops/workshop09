@@ -587,7 +587,7 @@ par(mar = c(4,4,0.05,0.05), cex = 1.2)
 biplot(spe.h.pca, scaling = 1)
 ```
 
-## Challenge #2 ![:cube]()
+## Challenge #2
 
 Using everything you have learned, compute a PCA on the mite species abundance data
 
