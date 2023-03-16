@@ -568,11 +568,9 @@ biplot(spe.h.pca)
 
 The arrows are plotted to show the directionality and angle of the descriptors in the ordination.
 
-Descriptors at 180 degrees of each other are negatively correlated;
-
-Descriptors at 90 degrees of each other have zero correlation;
-
-Descriptors at 0 degrees of each other are positively correlated.
+- Descriptors at 180 degrees of each other are negatively correlated;
+- Descriptors at 90 degrees of each other have zero correlation;
+- Descriptors at 0 degrees of each other are positively correlated.
 
 *Type 2 scaling* (`default`): distances among objects are not approximations of Euclidean distances; angles between descriptor (species) vectors reflect their correlations.
 
@@ -589,49 +587,65 @@ par(mar = c(4,4,0.05,0.05), cex = 1.2)
 biplot(spe.h.pca, scaling = 1)
 ```
 
+## Challenge #2 ![:cube]()
 
+Using everything you have learned, compute a PCA on the mite species abundance data
 
-**Challenge 3** Run a PCA of the "mite" species abundance data. What are
-the significant axes of variation? Which groups of sites can you
-identify? Which species are related to each group of sites? Use:
-
-```{r, echo = TRUE, eval = FALSE}
-mite.spe <- mite #mite data is from the vegan package
+```{r}
+data(mite)
 ```
 
-**Challenge 3 - Solution** <hidden> Your code likely looks something
-like the following.
+Be ready to discuss and answer:
 
-```{r, echo = TRUE, eval = FALSE}
-#Hellinger transformation of mite data and PCA
-mite.spe.hel <- decostand(mite.spe, method="hellinger")
+- What are the *most relevant* principal components, i.e. subset them?
+- Which groups of sites can you identify?
+- Which groups of species are related to these groups of sites?
+
+**Challenge 2 - Solution** <hidden> Your code likely looks like the following.
+
+Compute PCA on the Hellinger-transformed species data
+
+```{r}
+mite.spe.hel <- decostand(mite, 
+                          method = "hellinger")
+
 mite.spe.h.pca <- rda(mite.spe.hel)
- 
-#What are the significant axes?  
-ev <- mite.spe.h.pca$CA$eig 
+```
+
+Apply the Kaiser-Guttman criterion
+
+```{r, eval = F}
+ev <- mite.spe.h.pca$CA$eig
 ev[ev>mean(ev)]
 n <- length(ev)
-barplot(ev, main="Eigenvalues", col="grey", las=2)
-abline(h=mean(ev), col="red") 
-legend("topright", "Average eigenvalue", lwd=1, col=2, bty="n") 
-
-#Output summary/results    
-summary(mite.spe.h.pca, display=NULL) 
-windows()
-
-#Plot the biplot
-plot(mite.spe.h.pca, scaling=1, type="none", 
-     xlab=c("PC1 (%)", round((mite.spe.h.pca$CA$eig[1]/sum(mite.spe.h.pca$CA$eig))*100,2)),
-     ylab=c("PC2 (%)", round((mite.spe.h.pca$CA$eig[2]/sum(mite.spe.h.pca$CA$eig))*100,2))) 
-points(scores(mite.spe.h.pca, display="sites", choices=c(1,2), scaling=1),
-       pch=21, col="black", bg="steelblue", cex=1.2)
-text(scores(mite.spe.h.pca, display="species", choices=c(1), scaling=1),
-     scores(mite.spe.h.pca, display="species", choices=c(2), scaling=1),
-     labels=rownames(scores(mite.spe.h.pca, display="species", scaling=1)),
-     col="red", cex=0.8)  
+barplot(ev, main = "Eigenvalues", 
+        col = "grey", las = 2)
+abline(h = mean(ev),
+       col = "red3", lwd = 2)
+legend("topright", 
+       "Average eigenvalue", 
+       lwd = 2, 
+       col = "red3", bty = "n")
 ```
 
-And your resulting biplot likely looks something like this:
+```{r, echo = F, fig.width=5, fig.height=4}
+par(mar=c(4,4,2,1), cex = 1.2)
+ev <- mite.spe.h.pca$CA$eig
+n <- length(ev)
+barplot(ev, main = "Eigenvalues", 
+        col = "grey", las = 2)
+abline(h = mean(ev),
+       col = "red3", lwd = 2)
+legend("topright", 
+       "Average eigenvalue", 
+       lwd = 2, col = "red3", 
+       bty = "n")
+```
 
-A dense cluster of related species and sites can be seen in the biplot.
+```{r, echo = -1, fig.height=6.5, fig.width=7}
+par(mar = c(4,4,0.05,0.05), cex = 1.5)
+biplot(mite.spe.h.pca, 
+       col = c("red3", "grey15"))
+```
+
 </hidden>
