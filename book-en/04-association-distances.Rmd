@@ -278,7 +278,7 @@ where,
 -   $b$ is the number of occurrences where $x_1$ and $x_2$ are known to be different;
 -   $c$ is the number of common absences between $x_1$ and $x_2$, *i.e.* both $0$.
 
-In `R`, you can also use use the `vegan::vegdist()` function to calculate the Sørensen's coefficient:
+In `R`, you can also use the `vegan::vegdist()` function to calculate the Sørensen's coefficient:
 
 ```{r}
 spe.D.Sor <- vegdist(spe, 
@@ -327,6 +327,7 @@ To calculate the *Bray-Curtis dissimilarity coefficient*, which can account for 
 spe.db.pa <- vegdist(spe, 
                       method = "bray",
                       binary = FALSE)
+
 spe.db <- as.matrix(spe.db.pa)
 ```
 

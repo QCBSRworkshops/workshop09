@@ -1,483 +1,470 @@
 # (PART\*)  Mesures d'association {-}
 
-# La (dis)similarité des données
-
-L'algèbre matricielle est à la base des méthodes d'ordination. Une
-matrice est constituée de données (ex. valeurs mesurées) réparties en
-lignes et colonnes. Les analyses d'ordination sont effectuées sur des
-matrices d'association calculées à partir des matrices de données
-écologiques (telles que DoubsEnv ou DoubsSpe). La création d'une
-matrice d'association permet le calcul de similarité et de distance
-entre les objets ou les descripteurs (Legendre et Legendre 2012). Avant
-de se lancer dans des analyses d'ordination, il est important de passer
-du temps sur vos matrices de données. Explorer les mesures possibles
-d'association qui peuvent être générées à partir de vos données avant
-de faire une ordination peut vous aider à mieux comprendre quelles
-mesures de distance sont appropriées pour les méthodes d'ordination. Il
-peut être difficile de voir l'objectif de chaque indice de
-dissimilarité, mais cette connaissance sera nécessaire pour mieux
-comprendre les méthodes d'ordination canoniques présentées par la
-suite.
-
-EN RÉSUMÉ: Pour l'ordination d'objets, il faut calculer les distances
-entre eux. Ces distances peuvent être calculées de plusieurs façons, en
-prenant en compte l'abondance ou les données de présence / absence.
-Plus important encore, plusieurs propriétés sont de grande importance
-pour les mesures de distances, et elles seront explorées dans les
-exemples ci-dessous. Pour plus d'informations sur les propriétés des
-mesures de distance et certains termes clés, cliquez sur la section
-cachée.
-
- **Termes clés:**
-
-**Association -** «Terme général pour décrire toute mesure ou
-coefficient servant à quantifier la ressemblance ou différence entre les
-objets ou les descripteurs. Dans une analyse entre descripteurs, zéro
-signifie l'absence d'association.» (Legendre et Legendre 2012).
-
-**Similarité -** une mesure dont «le maximum (S = 1) est atteint lorsque
-deux objets sont identiques et le minimum lorsque deux objets sont
-complètement différents.» (Legendre et Legendre 2012).
-
-**Distance (aussi «dissimilarité») -** une mesure dont «le maximum (D=1)
-est atteint lorsque deux objects sont complètement différent.» (Legendre
-et Legendre 2012). Distance ou dissimilarité (D) = 1-S
-
-Le choix d'une mesure d'association dépend de vos données, mais aussi
-de ce que vous en savez d'un point de vue écologique. Par exemple, la
-distance euclidienne est une mesure de distance très commune, facile à
-utiliser et utile pour comprendre comment les différences entre deux
-échantillons sont basées sur la cooccurrence des espèces. Le calcul de
-la distance euclidienne prend en compte les zéros dans les données, ce
-qui signifie que deux échantillons ou sites ne contenant aucune espèce
-en commun (double-absence) peuvent sembler plus similaires que deux
-sites partageant quelques espèces. Dans ce cas, la distance euclidienne
-peut être trompeuse et il est souvent préférable de choisir une mesure
-de distance différente si beaucoup d'espèces ont une abondance nulle
-dans votre matrice. Cette propriété est communément appelée le problème
-des «double zéros» en ordination.
-
-Quelques mesures de distance (d'après Gotelli et Ellison 2004):
-
-  Mesure        Propriété       Description
-  ------------- --------------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Euclidienne   Métrique        Distance entre deux points dans un espace en 2D.
-  Manhattan     Métrique        Distance entre deux points - la distance est la somme des différences entre coordonnées cartésiennes.
-  Corde         Métrique        Généralement utilisée pour déterminer les différences dues à la dérive génétique.
-  Mahalanobis   Métrique        Distance entre un point et une distribution, où la distance est le nombre d'écart-types du point correspondant à la moyenne de la distribution.
-  Chi-carré     Métrique        Similaire à la distance euclidienne.
-  Bray-Curtis   Semi-métrique   Dissimilarité entre deux échantillons (ou sites) où la somme des valeurs minimales des espèces présentes dans les deux sites sont divisées par la somme des espèces répertoriées dans chaque site.
-  Jaccard       Métrique        [Description](http://en.wikipedia.org/wiki/Jaccard_index)
-  Sorensen's   Semi-métrique   Bray-Curtis correspond à 1 - Sorensen
+# `dist()`
 
 
-# Quantifier la (dis)similarité des données
+La ressemblance des communautés est presque toujours évaluée sur la base de données relatives à la composition des espèces, sous la forme d'un tableau de données site par site $Y_{m,n}$.
 
-**Les données quantitatives des espèces** Nous pouvons utiliser la
-fonction vegdist () pour calculer des indices de dissimilarité sur des
-données de composition de la communauté. Ceux-ci peuvent ensuite être
-visualisés sous forme de matrice si désiré.
+Nous pouvons obtenir une matrice d'association $A_{m,m}$ sous la forme de distances ou de dissimilarités par paire $D_{m,m}$ (ou de similitudes $S_{m,m}$), puis analyser ces distances. Les matrices d'association entre objets ou entre descripteurs permettent de calculer la similarité ou les distances entre objets ou descripteurs (Legendre et Legendre 2012).
 
-```{r, echo = TRUE, eval = FALSE}
-spe.db<-vegdist(spe, method="bray") # distance de Bray (avec des données de présence-absence, correspond à Sorensen)  
-spe.dj<-vegdist(spe, method="jac") # distance de Jaccard 
-spe.dg<-vegdist(spe, method="gower") # distance de Gower  
-spe.db<-as.matrix(spe.db) # réarranger en format matrice (pour visualisation, ou pour exporter en .csv)
+Dans `R`, nous pouvons calculer des matrices de distance ou de dissimilarité en utilisant `stats::dist()`. Pour plus de simplicité, nous allons le faire sans spécifier d'arguments :
+
+```{r, eval = T, results='hide'}
+dist(spe)
 ```
 
-Une version condensée de la matrice spe.db représentant la distance
-entre les trois premières espèces de DoubsSpe ressemblerait à ceci:
+Exécutez `dist(spe)` de votre côté, et vous devriez observer que la sortie de `dist(spe) est une *matrice triangulaire inférieure* représentant les associations par paires entre les colonnes de votre matrice originale.
 
-             Espèce 1   Espèce 2   Espèce 3
-  ---------- ---------- ---------- ----------
-  Espèce 1   0.0        0.6        0.68
-  Espèce 2   0.6        0.0        0.14
-  Espèce 3   0.68       0.14       0.0
+Voyons ce que les commandes ci-dessous nous montrent :
 
-Vous pouvez voir que lorsque l'on compare une espèce à elle-même (par
-exemple, Espèce 1 à Espèce 1), la distance est de 0 puisque les espèces
-sont identiques.
-
-Ces mêmes mesures de distance peuvent être calculées à partir des
-données de présence-absence par l'utilisation de l'argument
-binary=TRUE dans la fonction vegdist(). Cela donnera des mesures de
-distance légèrement différentes.
-
-Vous pouvez également créer des représentations graphiques de ces
-matrices d'association en utilisant la fonction coldiss. 
-Cette fonction peut être sourcée à partir du script coldiss.R:
-
-```{r, echo = TRUE, eval = FALSE}
-windows()
-coldiss(spe.db, byrank=FALSE, diag=TRUE) # Carte des points chauds Bray-Curtis 
-windows()
-coldiss(spe.dj, byrank=FALSE, diag=TRUE) # Carte des points chauds Jaccard 
-windows() 
-coldiss(spe.dg, byrank=FALSE, diag=TRUE) # Carte des points chauds Gower 
+```{r, eval = T}
+class(dist(spe))
 ```
 
-![](images//coldiss_Bray.png){width="800"}
+La sortie de `dist()` est un objet de la classe `dist` par défaut. Cet objet est composé d'un vecteur qui contient le triangle inférieur de la matrice de distance, réparti sur les colonnes. Vous pouvez le transformer en matrice avec `as.matrix()`, comme on le voit ci-dessous :
 
-La figure montre une matrice de dissimilarité dont les couleurs
-reflètent la mesure de distance. La couleur violet est associée aux
-zones de fortes dissimilarités. 
-
-**Données environnementales quantitatives** Regardons *les associations*
-entre les variables environnementales (aussi appelée mode Q):
-
-```{r, echo = TRUE, eval = FALSE}
-env.de<-dist(env.z, method = "euclidean") # matrice de distances euclidiennes des données env. standardisées
-windows() # crée une nouvelle fenêtre graphique
-coldiss(env.de, diag=TRUE)
+```{r, eval = F}
+as.matrix(dist(spe))
 ```
 
-Nous pouvons ensuite regarder *la dépendance* entre les variables
-environnementales (aussi appelée mode R):
+Notamment, vous pouvez forcer une matrice qui contient des distances ($D_{m,m}$) en utilisant `as.dist()`.
 
-```{r, echo = TRUE, eval = FALSE}
-(env.pearson<-cor(env)) # coefficient r de corrélation de Pearson
-round(env.pearson, 2)  # arrondit les coefficients à deux décimales
-(env.ken<-cor(env, method="kendall")) # coefficient tau de corrélation de rang de Kendall 
-round(env.ken, 2) 
+Vous pouvez également explorer la structure et les dimensions de notre objet de classe `dist` et de notre matrice de distance :
+
+```{r, eval = F}
+str(dist(spe))
 ```
 
-La corrélation de Pearson mesure la corrélation linéaire entre deux
-variables. La corrélation de Kendall est une corrélation de rang qui
-quantifie la relation entre deux descripteurs ou deux variables lorsque
-les données sont ordonnées au sein de chaque variable.
-
-Dans certains cas, il peut y avoir des types mixtes de variables
-environnementales. Le mode Q peut alors être utilisé pour trouver des
-associations entre variables environnementales. C'est ce que nous
-allons faire avec l'exemple fictif suivant:
-
-```{r, echo = TRUE, eval = FALSE}
-var.g1<-rnorm(30, 0, 1)
-var.g2<-runif(30, 0, 5)
-var.g3<-gl(3, 10)
-var.g4<-gl(2, 5, 30)
-(dat2<-data.frame(var.g1, var.g2, var.g3, var.g4))
-str(dat2)
-summary(dat2)
+```{r, eval = T}
+dim(as.matrix(dist(spe)))
 ```
 
-Une matrice de dissimilarité peut être générée pour ces variables mixtes
-en utilisant la distance de Gower:
+# Types de coefficients de distance
 
-```{r, echo = TRUE, eval = FALSE}
-?daisy #Cette fonction peut gérer la présence de NA dans les données
-(dat2.dg<-daisy(dat2, metric="gower"))
-coldiss(dat2.dg)
+Il existe trois groupes de coefficients de distance : *métriques*, *sémimétriques* et *nonmétriques*.
+
+## Distances métriques
+
+Le premier groupe est constitué des *métriques*, et ses coefficients satisfont aux propriétés suivantes :
+
+1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
+
+2. positivité : si $a \neq b$, alors $D(a,b) > 0$ ; ✅
+
+3. symétrie : $D(a,b) = D(b,a)$ ; ✅
+
+4. inégalité triangulaire : $D(a,b) + D(b,c) \geq D(a,c)$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien est égale ou supérieure au troisième côté. ✅
+
+Nous pouvons repérer toutes ces propriétés ci-dessous :
+
+```{r, eval = T}
+as.matrix(dist(spe))[1:6, 1:6]
 ```
 
-**Défi 1 - Niveau intermédiaire** Discutez avec votre voisin: Comment
-pouvons-nous dire si des objets sont similaires avec un jeu de données
-multivariées? Faites une liste de toutes vos suggestions.
+### Distances euclidiennes
 
-**Défi 1 - Solution**  Discussion avec le groupe. 
+La mesure de distance métrique la plus courante est la *distance euclidienne*.
 
-**Défi 1 - Niveau avancé** Calculer à la mitaine // sans utiliser la
-fonction decostand () // les distances de Bray-Curtis et de Gower pour
-l'abondance des espèces CHA, TRU et VAI dans les sites 1, 2 et 3.
+La distance euclidienne est une mesure de la distance entre deux points dans l'espace euclidien. En deux dimensions, la distance euclidienne entre deux points (x1, y1) et (x2, y2) peut être calculée à l'aide du théorème de Pythagore :
 
-**Défi 1 - Solution** 
+$$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
 
-Formule pour calculer la distance de Bray-Curtis: d\[jk\] = (sum
-abs(x\[ij\]-x\[ik\]))/(sum (x\[ij\]+x\[ik\]))
+```{r echo=FALSE}
+#setting up the plot
+xlim <- c(0,4)
+ylim <- c(-1,5)
+par(mar=c(1,1,1,1)+.1)
+plot(xlim, 
+     ylim, type="n", 
+     xlab="X1", 
+     ylab="X2", 
+     asp=1)
+grid()
+# define some vectors
+a=c(4, 0)
+b=c(0, 4)
+# plot the vectors
+vectors(a, labels="D(y21, y11)", pos.lab=3, frac.lab=.5, col="grey")
+vectors(a + b, labels="D1(x1,x2)", pos.lab=4, frac.lab=.5, col="red")
+# vector a+b starting from a is equal to b.
+vectors(a + b, labels="D(y12, y22)", pos.lab=4, frac.lab=.5, origin=a, col="grey")
 
-Réduisez le jeu de données aux espèces CHA, TRU et VAI et aux sites 1, 2
-et 3
+points(x = 4, y = 0, type = "p")
+text(x=4.1, y=-0.2, labels="")
 
-```{r, echo = TRUE, eval = FALSE}
-spe.challenge<-spe[1:3,1:3] # les 3 premières lignes et 3 premières espèces (colonnes)
+points(x = 0, y = 0, type = "p")
+text(x=-0.1, y=-0.2, labels="x1")
+
+points(x = 4, y = 4, type = "p")
+text(x=4.1, y=4.2, labels="x2")
 ```
 
-Déterminer l'abondance totale des espèces pour chaque site d'intérêt
-(somme des trois lignes) qui correspondra au dénominateur de la distance
-de Bray-Curtis.
+La distance euclidienne est une mesure couramment utilisée dans les analyses multivariées, car elle offre un moyen simple et intuitif de mesurer la distance ou la similarité entre les observations dans un espace multidimensionnel.
 
-```{r, echo = TRUE, eval = FALSE}
-(Abund.s1<-sum(spe.challenge[1,]))
-(Abund.s2<-sum(spe.challenge[2,]))
-(Abund.s3<-sum(spe.challenge[3,]))
+En utilisant `stats::dist()`, nous pouvons la calculer avec :
+
+```{r, eval = T}
+spe.D.Euclid <- dist(x = spe,  
+                     method = "euclidean")
 ```
 
-Maintenant, calculez la différence de l'abondance des espèces pour
-chaque paire de sites. Par exemple, quelle est la différence entre
-l'abondance de CHA et TRU dans le site 1? Vous devez calculer les
-différences suivantes: CHA et TRU site 1 CHA et VAI site 1 TRU et VAI
-site 1 CHA et TRU site 2 CHA et VAI site 2 TRU et VAI site 2 CHA et TRU
-site 3 CHA et VAI site 3 TRU et VAI site 3
+Et nous pouvons tester si une distance est euclidienne en utilisant :
 
-```{r, echo = TRUE, eval = FALSE}
-Spec.s1s2<-0
-Spec.s1s3<-0
-Spec.s2s3<-0
-for (i in 1:3) {
-  Spec.s1s2<-Spec.s1s2+abs(sum(spe.challenge[1,i]-spe.challenge[2,i]))
-  Spec.s1s3<-Spec.s1s3+abs(sum(spe.challenge[1,i]-spe.challenge[3,i]))
-  Spec.s2s3<-Spec.s2s3+abs(sum(spe.challenge[2,i]-spe.challenge[3,i])) }
+```{r, eval = T}
+is.euclid(spe.D.Euclid)
 ```
 
-Maintenant, utilisez les différences calculées comme numérateur et
-l'abondance totale de l'espèce comme dénominateur pour retrouver
-l'équation de la distance de Bray-Curtis.
+### Défi #1
 
-```{r, echo = TRUE, eval = FALSE}
-(db.s1s2<-Spec.s1s2/(Abund.s1+Abund.s2)) #1 comparé à 2
-(db.s1s3<-Spec.s1s3/(Abund.s1+Abund.s3)) #1 comparé à 3
-(db.s2s3<-Spec.s2s3/(Abund.s2+Abund.s3)) #2 comparé à 3 
+**Votre tour!** En utilisant la fonction `dist()`, calculez la matrice de distance euclidienne $D_{hmm}$ pour les abondances d'espèces par matrice de site $Y_{hmm}$ ci-dessous :
+
+| Sites | $y_1$ | $y_2$ | $y_3$ |
+|:-----:|:-----:|:-----:|:-----:|
+| $s_1$ |   0   |   4   |   8   |
+| $s_2$ |   0   |   1   |   1   |
+| $s_3$ |   1   |   0   |   0   |
+
+```{r, eval = T}
+Y.hmm <- data.frame(
+  y1 = c(0, 0, 1),
+  y2 = c(4, 1, 0),
+  y3 = c(8, 1, 0))
 ```
 
-Vérifiez vos résultats en utilisant la fonction vegdist () :
+Après cela, examinez les chiffres, réfléchissez-y de manière critique !
 
-```{r, echo = TRUE, eval = FALSE}
-(spe.db.challenge<-vegdist(spe.challenge, method="bray"))
-```
+**Solution:**
 
-Une matrice comme celle-ci est calculée et devrait être correspondre à
-vos calculs manuels:
+Vous devriez obtenir quelque chose de similaire à ceci :
 
-           Site 1   Site 2
-  -------- -------- --------
-  Site 2   0.5      \--
-  Site 3   0.538    0.0526
+```{r, eval = T}
+Y.hmm.DistEu <- dist(x = Y.hmm,  
+                     method = "euclidean")
 
-Pour la distance de Gower, procédez de la même façon, mais utiliser
-l'équation appropriée: Distance de Gower: d\[jk\] = (1/M)
-sum(abs(x\[ij\]-x\[ik\])/(max(x\[i\])-min(x\[i\])))
-
-```{r, echo = TRUE, eval = FALSE}
-# Calculer le nombre de colonnes
-M<-ncol(spe.challenge)
-
-# Calculer les différences d'abondance de chaque espèce entre paires de sites
-Spe1.s1s2<-abs(spe.challenge[1,1]-spe.challenge[2,1])
-Spe2.s1s2<-abs(spe.challenge[1,2]-spe.challenge[2,2])
-Spe3.s1s2<-abs(spe.challenge[1,3]-spe.challenge[2,3])
-Spe1.s1s3<-abs(spe.challenge[1,1]-spe.challenge[3,1])
-Spe2.s1s3<-abs(spe.challenge[1,2]-spe.challenge[3,2])
-Spe3.s1s3<-abs(spe.challenge[1,3]-spe.challenge[3,3])
-Spe1.s2s3<-abs(spe.challenge[2,1]-spe.challenge[3,1])
-Spe2.s2s3<-abs(spe.challenge[2,2]-spe.challenge[3,2])
-Spe3.s2s3<-abs(spe.challenge[2,3]-spe.challenge[3,3])
-
-# Calculer l'étendue d'abondance de chaque espèces parmi les sites
-Range.spe1<-max(spe.challenge[,1]) - min (spe.challenge[,1])
-Range.spe2<-max(spe.challenge[,2]) - min (spe.challenge[,2])
-Range.spe3<-max(spe.challenge[,3]) - min (spe.challenge[,3])
-
-# Calculer la distance de Gower
-(dg.s1s2<-(1/M)*((Spe2.s1s2/Range.spe2)+(Spe3.s1s2/Range.spe3)))
-(dg.s1s3<-(1/M)*((Spe2.s1s3/Range.spe2)+(Spe3.s1s3/Range.spe3)))
-(dg.s2s3<-(1/M)*((Spe2.s2s3/Range.spe2)+(Spe3.s2s3/Range.spe3)))
-
-# Vérifier vos résultats
-(spe.db.challenge<-vegdist(spe.challenge, method="gower"))
+as.matrix(Y.hmm.DistEu)
 ```
 
 
-## Transformations des données de composition des communautés
+*Maintenant, regardez la composition et les distances entre les sites* $s_2$ et $s_3$ et entre $s_1$ et $s_2$. Que se passe-t-il ?
 
-Les données de composition des communautés peuvent également être
-standardisées ou transformées. La fonction decostand () de vegan fournit
-des options de standardisation et de transformation de ce type de
-données
+La distance euclidienne entre les sites $s_2$ et $s_3$, qui n'ont aucune espèce en commun, est plus petite que la distance entre $s_1$ et $s_2$, qui partagent les espèces $y_2$ et $y_3$ ( !).
 
-Transformer les abondances en données de présence-absence:
+D'un point de vue écologique, il s'agit d'une évaluation problématique de la relation entre les sites.
 
-```{r, echo = TRUE, eval = FALSE}
-spe.pa<-decostand(spe, method="pa") 
+Ce problème est connu sous le nom de **problème du double zéro**, *c'est-à-dire que les doubles zéros sont traités de la même manière que les doubles présences, de sorte que les doubles zéros réduisent la distance entre deux sites.
+
+Les distances euclidiennes ( $D_1$ ) ne doivent donc pas être utilisées pour comparer des sites sur la base de l'abondance des espèces.
+
+
+### Distances d'accord
+
+Orlóci (1967) a proposé la *distance de corde* pour analyser la composition des communautés.
+
+La distance de corde, également connue sous le nom de distance angulaire ou distance de grand cercle, est une mesure de la distance entre deux points sur une sphère, telle que la Terre.
+
+Elle se compose de :
+
+1\. Normaliser les données, *c'est-à-dire* mettre à l'échelle les vecteurs de site à la longueur 1 en divisant les abondances des espèces dans un échantillon donné par la somme à racine carrée des abondances carrées dans tous les échantillons, comme suit
+
+$$y'_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}$$
+
+2\. Calculer les distances euclidiennes sur ces données normalisées :
+
+$$D_{3} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y'_{1j} - y'_{2j})^2}$$
+
+Nous pouvons utiliser `vegan::vegdist()` pour cela :
+
+```{r, eval = T}
+spe.D.Ch <- vegdist(spe,  
+                    method = "chord")
+
+as.matrix(spe.D.Ch)[1:3, 1:3]
 ```
 
-D'autres transformations peuvent être utilisées pour corriger
-l'influence d'espèces rares, par exemple, la transformation de
-Hellinger:
+Lorsque deux sites partagent les mêmes espèces dans les mêmes proportions du nombre d'individus, la valeur de $D_3$ est de 0$, et lorsqu'aucune espèce n'est partagée, sa valeur est de $\sqrt{2}$.
 
-```{r, echo = TRUE, eval = FALSE}
-#La transformation Hellinger
-spe.hel<-decostand(spe, method="hellinger") # vous pouvez aussi simplement écrire "hel"
+*Que se passe-t-il si nous calculons les distances d'accord dans la même matrice site par espèce* $Y_{hmm}$ ?
 
-#Transformation de chi-carré
-spe.chi<-decostand(spe, method="chi.square")
+Essayons de calculer les distances d'accord dans la même matrice que celle utilisée pour le défi n° 1 :
+
+```{r, eval = T}
+Y.hmm.DistCh <- vegdist(Y.hmm,  
+                    method = "chord")
 ```
 
-**Défi option 2 - Niveau avancé** Calculez les distances de Hellinger et
-de Chi-carré sur les données \"spe\" sans utiliser decostand ().
-
-**Défi option 2 - Solution**  La transformation de Hellinger
-est une transformation qui diminue l'importance accordée aux espèces
-rares.
-
-```{r, echo = TRUE, eval = FALSE}
-# Hellinger 
-# Calculer l'abondance des espèces par site 
-(site.totals=apply(spe, 1, sum))
-
-# Réduire les abondances d'espèces en les divisant par les totaux par sites
-(scale.spe<-spe/site.totals)
-
-# Calculer la racine carrée des abondances d'espèces réduites
-(sqrt.scale.spe<-sqrt(scale.spe))
-
-# Comparer les résultats
-sqrt.scale.spe
-spe.hel
-sqrt.scale.spe-spe.hel # ou: sqrt.scale.spe/spe.hel
-
-# Chi-carré
-# Premièrement calculer le total des abondances d'espèces par site
-(site.totals<-apply(spe, 1, sum))
-
-# Ensuite calculer la racine carrée du total des abondances d'espèces
-(sqrt.spe.totals<-sqrt(apply(spe, 2, sum)))
-
-# Réduire les abondances d'espèces en les divisant par les totaux par sites et les totaux par espèces
-scale.spe2<-spe
-for (i in 1:nrow(spe)) {
-  for (j in 1:ncol(spe)) {
-   (scale.spe2[i,j]=scale.spe2[i,j]/(site.totals[i]*sqrt.spe.totals[j]))   }}
-
-#Ajuster les abondances en les multipliant par la racine carrée du total de la matrice des espèces
-(adjust.scale.spe2<-scale.spe2*sqrt(sum(rowSums(spe))))
-
-#Vérifier les résultats
-adjust.scale.spe2
-spe.chi
-adjust.scale.spe2-spe.chi # or: adjust.scale.spe2/spe.chi
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistCh)
 ```
 
-# Groupement
+Comparons maintenant avec ce que nous avons obtenu en utilisant les distances euclidiennes :
 
-Les matrices d'association nécessaires pour utiliser les méthodes de
-groupement. Le groupement n'est pas une méthode statistique en tant que
-telle puisqu'elle ne teste pas d'hypothèse, mais permet de déceler des
-structures dans les données en partitionnant soit les objets, soit les
-descripteurs. Les objets similaires sont agrégés en sous-groupes ce qui
-permet de mettre en relief des cassures (contrastes) entre les données.
-En tant que biologiste, il peut être intéressant de tenter de séparer
-une série de sites en groupes en fonction de leurs caractéristiques
-environnementales ou de leur composition en espèces.
-
-Les résultats d'un groupement sont généralement représentés sous forme
-de dendrogramme (arbre), dans lequel les objets sont agrégés en groupes.
-Il y a plusieurs familles de méthodes de groupements, mais nous
-présenterons uniquement un aperçu de trois méthodes : le groupement
-agglomératif hiérarchique à liens simples, le groupement agglomératif
-hiérarchique à liens complets et la méthode de Ward. Pour plus de
-détails sur les différentes familles de méthodes de groupement,
-consulter Legendre et Legendre 2012 (chapitre 8).
-
-Dans les méthodes hiérarchiques, les éléments des petits ensembles se
-regroupent en groupes plus vastes de rang supérieur, et ainsi de suite
-(par exemple : espèces, genres, familles, ordre). Avant de faire le
-groupement, il faut créer une matrice d'association entre les objets.
-Une matrice de distances est le choix par défaut des fonctions de
-groupement dans R. La matrice d'association est premièrement classée en
-ordre croissant de distances. Ensuite, les groupes sont formés de
-manière hiérarchique selon les critères spécifiques à chaque méthode.
-
-Prenons un exemple tout simple d'une matrice de distances euclidiennes
-entre 5 objets dont on a ordonné les distances en ordre croissant.
-
-![](images//groupement.exemple.png){.align-center}
-
-Pour le groupement agglomératif à liens simples, les deux objets les
-plus proches se regroupent en premier. Ensuite, un deuxième groupe est
-formé à partir des deux objets les plus proches suivant (il se peut que
-ce soit deux objets différents, ou bien un objet et le groupe formé
-précédemment), et ainsi de suite. Cette méthode forme généralement de
-longues chaînes de groupes (dans l'exemple ci-haut, les objets 1 à 5 se
-regroupent successivement). À l'inverse, pour le groupement agglomératif
-à liens complet, un objet se regroupe à un autre objet/groupe seulement
-lorsqu'il est aussi lié à l'élément le plus éloigné de ce groupe. Ainsi,
-quand deux groupes fusionnent, tous les éléments des deux groupes sont
-liés à la distance considérée (ci-haut, le groupe 3-4 ne se lie au
-groupe 1-2 qu'à la distance à laquelle tous les autres éléments sont
-déjà liés). C'est pour cette raison que le groupement à liens complets
-forme généralement plusieurs petits groupes séparés et qu'elle peut être
-plus appropriée pour relever des contrastes ou des discontinuités dans
-les données.
-
-Comparons ces deux méthodes en utilisant les données d'abondances de
-poissons de la rivière Doubs. Les données d'abondances ont été au
-préalable transformées par la méthode Hellinger. Puisque les fonctions
-de groupement requièrent une matrice de distances, la première étape
-sera de générer une matrice de distances Hellinger.
-
-```{r, echo = TRUE, eval = FALSE}
-spe.dhel<-vegdist(spe.hel,method="euclidean") #crée une matrice de distances Hellinger à partir des données d’abondance transformées
-
-#Pour voir la différence entre les deux types d’objets
-head(spe.hel)# données d’abondances transformées Hellingerhead(spe.dhel)# matrice de distances de Hellinger entre les sites
+```{r echo=TRUE}
+as.matrix(Y.hmm.DistEu)
 ```
 
-La plupart des méthodes de groupement sont disponible dans la fonction
-hclust() de la librairie stats
+Voyez à nouveau à quoi ressemble notre matrice :
 
-```{r, echo = TRUE, eval = FALSE}
-#Faire le groupement à liens simples
-spe.dhel.single<-hclust(spe.dhel, method="single")
-plot(spe.dhel.single)
-
-#Faire le groupement à liens complet
-spe.dhel.complete<-hclust(spe.dhel, method="complete")
-plot(spe.dhel.complete)
+```{r, eval = T}
+Y.hmm
 ```
 
-![](images//clust_single.png){.align-center}![](images//clust_complete.png){.align-center}
+Ainsi, l'ajout d'un nombre quelconque de doubles zéros à une paire de sites *ne change pas* la valeur de $D_3$. Par conséquent, les *distances de corde* peuvent être utilisées pour comparer des sites décrits par des abondances d'espèces !
 
-Est-ce que les deux dendrogrammes sont très différents?
+### Coefficient de Jaccard
 
-On remarque que pour le groupement à liens simple, plusieurs objets
-s'enchaînent (par exemple les sites 19, 29, 30, 20, 26, etc.) alors que
-des groupes plus distincts peuvent être observés dans le groupement à
-liens complets.
+Un autre coefficient d'association populaire est le *coefficient de similarité de Jaccard* (1900).
 
-La méthode de Ward diffère légèrement des deux méthodes précédentes. Le
-critère utilisé est la méthode des moindres carrés (comme dans les
-modèles linéaires). Ainsi, des objets/groupes fusionnent de façon à
-minimise la variance intragroupes. Pour débuter, chaque objet est
-considéré comme un groupe. À chaque étape, la paire de groupes à
-fusionner est celle qui résulte à la plus petite augmentation de la
-somme des carrés des écarts intra-groupes.
+Le coefficient de similarité de Jaccard a été proposé à l'origine par le mathématicien français Paul Jaccard en 1901, dans le contexte de l'écologie. Jaccard s'intéressait à la comparaison de la composition en espèces de différentes communautés végétales et a proposé l'indice de Jaccard comme mesure de la similarité entre deux communautés sur la base de leur richesse en espèces.
 
-La méthode de Ward est également disponible sous la fonction hclust().
-Par contre, le dendrogramme produit par défaut montre les distances au
-carré. Afin de comparer ce dendrogramme à celui du groupement à liens
-simples et à liens complets, il faut calculer la racine carrée des
-distances.
+Le coefficient de similarité de Jaccard n'est approprié que pour les **données binaires**, et son coefficient de distance est défini par la taille de l'intersection divisée par la taille de l'union des ensembles d'échantillons.
 
-```{r, echo = TRUE, eval = FALSE}
-#Faire le groupement de Ward 
-spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
-plot(spe.dhel.ward)
+$$D_{7}(x_1,x_2) = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \cup x_2 \vert} = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert} = 1-\frac{a}{a+b+c}$$
 
-#Refaire le dendrogramme en utilisant la racine carrée des distances
-spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
-plot(spe.dhel.ward)
-plot(spe.dhel.ward, hang=-1) # hang=-1 permet d’afficher les objets sur la même ligne
+où,
+
+- $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
+- $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
+- c$ est le nombre d'absences communes entre $x_1$ et $x_2$, *c.-à-d. toutes deux 0$.
+
+Par exemple, pour les sites $x_1$ et $x_2$ :
+
+| $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
+|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|   $x_1$   |   0   |   1   |   0   |   1   |   0   |
+|   $x_2$   |   0   |   1   |   1   |   1   |   1   |
+
+
+On peut donc calculer $a$, $b$ et $c$ : - $a$ = 1 + 1 = 2
+
+- $b$ = 1 + 1 = 2
+
+- $c$ = 1
+
+Et donc notre coefficient de distance :
+
+$$D_{7}(x_1,x_2) = 1-\frac{2}{2+2+1}= 0.6$$
+
+Dans `R`, vous pouvez utiliser la fonction `vegan::vegdist()` pour calculer le coefficient de Jaccard :
+
+```{r}
+spe.D.Jac <- vegdist(spe, 
+                     method = "jaccard",
+                     binary = TRUE)
 ```
 
-![](images//clust_ward.png){.align-center}
-![](images//clust_wardfinal.png){.align-center}
+## Distances semimétriques
 
-Les groupements générés par la méthode de Ward ont tendance à être plus
-sphériques et à contenir des quantités plus similaires d'objets.
+Le deuxième groupe est constitué des *distances sémimétriques*, et elles violent la propriété de l'*inégalité des triangles* :
 
-Quelle méthode choisir?
+1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
 
-Le choix de la bonne mesure d'association et de la bonne méthode de
-groupement dépend de l'objectif. Qu'est-ce qu'il est plus intéressant de
-démontrer : des gradients? des contrastes? Il est également important de
-tenir en compte les propriétés de la méthode utilisée dans
-l'interprétation des résultats. Si plus d'une méthode semble adéquate
-pour répondre à une question biologique, comparer les dendrogrammes
-serait une bonne option. Encore une fois, le groupement n'est pas une
-analyse statistique, mais il est possible de tester les résultats et
-d'identifier des partitions ayant un sens biologique. Il est également
-possible de déterminer le nombre de groupes optimal et de performer des
-tests statistiques sur les résultats. Les méthodes de groupement peuvent
-aussi être combinées à une ordination pour distinguer des groupes de
-sites. Ces avenues ne seront pas explorées dans cet atelier. Pour aller
-plus loin, consulter Borcard et al. 2011.
+2. positivité : si $a \neq b$, alors $D(a,b) > 0$ ; ✅
+
+3. symétrie : $D(a,b) = D(b,a)$ ; ✅
+
+4.  ~~inégalité des triangles~~ : ${D(a,b) + D(b,c) \geq ou < D(a,c)}$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien n'est *pas* égale ou supérieure au troisième côté. ❌
+
+### Coefficient de Sørensen
+
+Tous les paramètres du *coefficient de similarité de Jaccard* ont le même poids.
+
+$$D_{7}(x_1,x_2)=1-\frac{a}{a+b+c}$$
+
+Cependant, vous pouvez considérer que la présence d'une espèce est plus informative que son absence.
+
+La distance correspondant au *coefficient de similarité de Sørensen* (1948) donne du poids aux doubles présences :
+
+$$D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}$$
+
+où,
+
+- $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
+- $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
+- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, *c'est-à-dire les deux 0$.
+
+Dans `R`, vous pouvez également utiliser la fonction `vegan::vegdist()` pour calculer le coefficient de Sørensen :
+
+```{r}
+spe.D.Sor <- vegdist(spe, 
+                     method = "bray",
+                     binary = TRUE)
+```
+
+> Comme les coefficients de Jaccard et de Sørensen ne sont appropriés que pour les données de présence-absence, vous devez effectuer une transformation binaire des données d'abondance en utilisant `binary = TRUE` dans `vegdist()`.
+
+### Coefficient de Bray-Curtis
+
+Le *coefficient de dissimilarité de Bray-Curtis* est une version modifiée de l'indice de Sørensen et tient compte de l'abondance des espèces :
+
+$$D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert}}{\sum{( y_{1j}+y_{2j})}}=$$
+
+$$D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}$$
+
+où,
+
+- $W$ est la somme des abondances les plus faibles de chaque espèce trouvée entre les sites $x_1$ et $x_2$ ;
+- $A$ est la somme de toutes les abondances dans $x_1$ ; et,
+- $B$ est la somme de toutes les abondances dans $x_2$.
+
+Par exemple, pour les sites $x_1$ et $x_2$ :
+
+| $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
+|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|   $x_1$   |  *2*  |  *1*  |  *0*  |   5   |   2   |
+|   $x_2$   |   5   |  *1*  |   3   |  *1*  |   1   |
+
+Alors:
+
+-   $W = 2 + 1 + 0 + 1 + 1 = 5$
+-   $A = 2 + 1 + 0 + 5 + 0 = 8$
+-   $B = 5 + 1 + 3 + 1 + 2 = 12$
+
+$$D_{14}(x_1,x_2) = 1-\frac{2 \times 5}{8+12} = 0.5$$
+
+Pour calculer le *coefficient de dissimilarité de Bray-Curtis*, qui peut prendre en compte les abondances, vous devez définir `binary = FALSE`.
+
+```{r}
+spe.db.pa <- vegdist(spe, 
+                      method = "bray",
+                      binary = FALSE)
+
+spe.db <- as.matrix(spe.db.pa)
+```
+
+## Distances non métriques
+
+Les distances non métriques ne satisfont pas les propriétés métriques de symétrie, d'inégalité des triangles et d'identité des indiscernables :
+
+1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
+
+2.  ~~positivité :~~ si $a \neq b$, alors $D(a,b) > ou < 0$ ; ❌
+
+3. symétrie : $D(a,b) = D(b,a)$ ; ✅
+
+4.  ~~inégalité des triangles~~ : ${D(a,b) + D(b,c) \geq ou < D(a,c)}$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien n'est *pas* égale ou supérieure au troisième côté. ❌
+
+### Distance de Mahalanobis
+
+La distance de Mahalanobis entre un point $x$ et un groupe de points de moyenne $\mu$ et de covariance $\Sigma$ est définie comme suit :
+
+$$
+D_{M}(x, \mu)=\sqrt{(x-\mu)^{T} \Sigma^{-1}(x-\mu)}
+$$
+où $T$ représente la transposition et $\Sigma^{-1}$ est l'inverse (ou l'inverse généralisé) de la matrice de covariance $\Sigma$.
+
+La distance de Mahalanobis est une mesure de la distance entre un point et un groupe de points, qui tient compte de la structure de covariance des données.
+
+L'inverse de la matrice de covariance peut ne pas exister dans certains cas, par exemple lorsque les variables sont linéairement dépendantes ou lorsqu'il y a plus de variables que d'observations. Dans ces cas, nous pouvons utiliser l'inverse généralisé de la matrice de covariance au lieu de l'inverse pour calculer la distance de Mahalanobis.
+
+Cette inverse généralisée peut être calculée à l'aide de différentes méthodes, telles que la pseudo-inverse de Moore-Penrose ou la décomposition en valeurs singulières.
+
+```{r}
+# Créer une matrice
+x <- matrix(rnorm(100*3), ncol = 3)
+
+# Calculer la matrice de covariance et son inverse généralisé
+cov_mat <- cov(x)
+cov_inv <- MASS::ginv(cov_mat)
+
+# Calculer la distance de Mahalanobis en utilisant l'inverse généralisé
+mah_dist <- mahalanobis(x, 
+                        colMeans(x), 
+                        cov_inv)
+
+# Imprimer la distance de Mahalanobis
+mah_dist
+```
+
+## Représentation des matrices de distance
+
+Nous pouvons créer des représentations graphiques des matrices d'association à l'aide de la fonction `coldiss()` :
+
+```{r, echo = TRUE}
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+  require(gclus)
+  
+  if (max(D)>1) D <- D/max(D)
+  
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+  
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+  
+  op <- par(mfrow=c(1,2), pty="s")
+  
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix")
+  }
+  
+  par(op)
+}
+
+# Utilisation :
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+
+# Si D n'est pas une matrice de dissimilarité (max(D) > 1), alors D est divisée par max(D)
+# nc nombre de couleurs (classes)
+# byrank = TRUE classes de taille égale
+# byrank = FALSE intervalles de longueur égale
+# diag = TRUE imprime les étiquettes des objets également sur la diagonale
+
+# Exemple :
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
+```
+
+
+```{r, fig.height = 8, fig.width = 16}
+coldiss(spe.D.Jac)
+```
+
+Vous pouvez également utiliser `ggplot2::ggplot()` pour représenter votre matrice en utilisant `geom_tile()` :
+
+
+```{r,  fig.height = 8, fig.width = 9}
+# obtenir l'ordre des lignes et des colonnes
+order_spe.D.Jac <- hclust(spe.D.Jac, method = "complete")$order
+
+# réorganiser la matrice pour produire une figure ordonnée par similarités
+order_spe.D.Jac_matrix <- as.matrix(spe.D.Jac)[order_spe.D.Jac, order_spe.D.Jac]
+
+# converts to data frame
+molten_spe.D.Jac <- reshape2::melt(
+  as.matrix(order_spe.D.Jac_matrix)
+  )
+
+# créer un objet ggplot
+ggplot(data = molten_spe.D.Jac, 
+       aes(x = Var1, y = Var2, 
+           fill = value)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "black") +
+  theme_minimal()
+```
+
+
+
+
