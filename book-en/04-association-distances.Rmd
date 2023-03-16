@@ -1,21 +1,18 @@
-# (PART\*) (Dis)similarity measures {-}
+# (PART\*) (Dis)similarity measures {.unnumbered}
 
-# `dist()` 
+# `dist()`
 
 Community resemblance is almost always assessed on the basis of species composition data in the form of a site-by-species data table $Y_{m,n}$.
 
-We can obtain an association matrix $A_{m,m}$ in the form of pairwise distances or dissimilarities $D_{m,m}$ (or similarities $S_{m,m}$) and then analyse those distances. Association matrices between objects or among descriptors allow for
-calculations of similarity or distances between objects or descriptors
-(Legendre and Legendre 2012). 
+We can obtain an association matrix $A_{m,m}$ in the form of pairwise distances or dissimilarities $D_{m,m}$ (or similarities $S_{m,m}$) and then analyse those distances. Association matrices between objects or among descriptors allow for calculations of similarity or distances between objects or descriptors (Legendre and Legendre 2012).
 
-In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`. 
-For simplicity, let us do this without specifying arguments:
+In `R`, we can compute distance or dissimilarity matrices using `stats::dist()`. For simplicity, let us do this without specifying arguments:
 
 ```{r, eval = T, results='hide'}
 dist(spe)
 ```
 
-Run `dist(spe)` from your end, and you should observe that the output from `dist(spe) is a _lower triangular matrix_ representing pairwise associations between the columns of your original matrix.
+Run `dist(spe)` from your end, and you should observe that the output from \`dist(spe) is a *lower triangular matrix* representing pairwise associations between the columns of your original matrix.
 
 Let us see what the commands below show us:
 
@@ -23,9 +20,7 @@ Let us see what the commands below show us:
 class(dist(spe))
 ```
 
-The output from `dist()` is a `dist` class object by default. 
-This object is composed of a vector that contains the lower triangle of the distance matrix, distributed across columns.
-You can coerce it into a matrix with `as.matrix()`, as seen below:
+The output from `dist()` is a `dist` class object by default. This object is composed of a vector that contains the lower triangle of the distance matrix, distributed across columns. You can coerce it into a matrix with `as.matrix()`, as seen below:
 
 ```{r, eval = F}
 as.matrix(dist(spe))
@@ -45,19 +40,19 @@ dim(as.matrix(dist(spe)))
 
 # Types of distance coefficients
 
-There are three groups of distance coefficients: _metrics_, _semimetrics_, and _nonmetrics_ .
+There are three groups of distance coefficients: *metrics*, *semimetrics*, and *nonmetrics* .
 
 ## Metric distances
 
 The first group consists of *metrics*, and its coefficients satisfy the following properties:
 
-1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
+1.  minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
 
-2. positiveness: if $a \neq b$, then $D(a,b) > 0$; ✅
+2.  positiveness: if $a \neq b$, then $D(a,b) > 0$; ✅
 
-3. symmetry: $D(a,b) = D(b,a)$; ✅
+3.  symmetry: $D(a,b) = D(b,a)$; ✅
 
-4. triangle inequality: $D(a,b) + D(b,c) \geq D(a,c)$. The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side. ✅
+4.  triangle inequality: $D(a,b) + D(b,c) \geq D(a,c)$. The sum of two sides of a triangle drawn in the Euclidean space is equal or greater than the third side. ✅
 
 We can spot all these properties below:
 
@@ -67,10 +62,9 @@ as.matrix(dist(spe))[1:6, 1:6]
 
 ### Euclidean distances
 
-The most common metric distance measure is the _Euclidean distance_.
+The most common metric distance measure is the *Euclidean distance*.
 
-Euclidean distance is a measure of the distance between two points in Euclidean space. 
-In two dimensions, the Euclidean distance between two points (x1, y1) and (x2, y2) can be calculated using the Pythagorean theorem:
+Euclidean distance is a measure of the distance between two points in Euclidean space. In two dimensions, the Euclidean distance between two points (x1, y1) and (x2, y2) can be calculated using the Pythagorean theorem:
 
 $$D_{1} (x_1,x_2) = \sqrt{\sum_{j=1}^p(y_{1j} - y_{2j})^2}$$
 
@@ -104,7 +98,7 @@ points(x = 4, y = 4, type = "p")
 text(x=4.1, y=4.2, labels="x2")
 ```
 
-Euclidean distance is a commonly used measure in multivariate analyses because it provides a straightforward and intuitive way to measure the distance or similarity between observations in a multidimensional space. 
+Euclidean distance is a commonly used measure in multivariate analyses because it provides a straightforward and intuitive way to measure the distance or similarity between observations in a multidimensional space.
 
 Using `stats::dist()`, we can compute it with:
 
@@ -124,10 +118,10 @@ is.euclid(spe.D.Euclid)
 **Your turn!** Using the `dist()` function, compute the Euclidean distance matrix $D_{hmm}$ for the species abundances by site matrix $Y_{hmm}$ below:
 
 | Sites | $y_1$ | $y_2$ | $y_3$ |
-|:----: | :----:| :---: | :---: |
-| $s_1$ | 0 | 4 | 8 |
-| $s_2$ | 0 | 1 | 1 |
-| $s_3$ | 1 | 0 | 0 |
+|:-----:|:-----:|:-----:|:-----:|
+| $s_1$ |   0   |   4   |   8   |
+| $s_2$ |   0   |   1   |   1   |
+| $s_3$ |   1   |   0   |   0   |
 
 ```{r, eval = T}
 Y.hmm <- data.frame(
@@ -149,25 +143,25 @@ Y.hmm.DistEu <- dist(x = Y.hmm,
 as.matrix(Y.hmm.DistEu)
 ```
 
-_Now, look into the composition and the distances between sites $s_2$ and $s_3$ and between $s_1$ and $s_2$. What is going on?_
+*Now, look into the composition and the distances between sites* $s_2$ and $s_3$ and between $s_1$ and $s_2$. What is going on?
 
 The Euclidean distance between sites $s_2$ and $s_3$, which have no species in common, is smaller than the distance between $s_1$ and $s_2$, which share species $y_2$ and $y_3$ (!).
 
-From an ecological perspective, _this is a problematic_ assessment of the relationship among sites.
+From an ecological perspective, *this is a problematic* assessment of the relationship among sites.
 
-This issue is known as the **double-zero problem**, _i.e._ double zeroes are treated in the same way as double presences, so that the double zeros shrink the distance between two sites.
+This issue is known as the **double-zero problem**, *i.e.* double zeroes are treated in the same way as double presences, so that the double zeros shrink the distance between two sites.
 
-Euclidean distances ( $D_1$ ) should thus _not_ be used to compare sites based on species abundances.
+Euclidean distances ( $D_1$ ) should thus *not* be used to compare sites based on species abundances.
 
 ### Chord distances
 
-Orlóci (1967) proposed the _Chord distance_ to analyse community composition. 
+Orlóci (1967) proposed the *Chord distance* to analyse community composition.
 
-Chord distance, also known as angular distance or great-circle distance, is a measure of the distance between two points on a sphere, such as the Earth. 
+Chord distance, also known as angular distance or great-circle distance, is a measure of the distance between two points on a sphere, such as the Earth.
 
 It consists of:
 
-1\. Normalizing the data, _i.e._ scaling site vectors to length 1 by dividing species abundances in a given sample by the square-rooted sum of square abundances in all samples as
+1\. Normalizing the data, *i.e.* scaling site vectors to length 1 by dividing species abundances in a given sample by the square-rooted sum of square abundances in all samples as
 
 $$y'_{Uj}=y_{Uj}/\sum^s_{j=1}{y^2_{Uj}}$$
 
@@ -184,9 +178,9 @@ spe.D.Ch <- vegdist(spe,
 as.matrix(spe.D.Ch)[1:3, 1:3]
 ```
 
-When two sites share the same species in the same proportions of the number of individuals the value of $D_3$ is $0$, and when no species are shared, its value is $\sqrt{2}$. 
+When two sites share the same species in the same proportions of the number of individuals the value of $D_3$ is $0$, and when no species are shared, its value is $\sqrt{2}$.
 
-_What happens if we compute Chord distances in the same site-by-species matrix $Y_{hmm}$?_
+*What happens if we compute Chord distances in the same site-by-species matrix* $Y_{hmm}$?
 
 Let us try the Chord distances in the same matrix we used for Challenge #1:
 
@@ -211,38 +205,36 @@ See again how our matrix looks:
 Y.hmm
 ```
 
-So, adding any number of double zeroes to a pair of sites does _not_ change the value of $D_3$. Hence, _Chord distances_ can be used to compare sites described by species abundances!
+So, adding any number of double zeroes to a pair of sites does *not* change the value of $D_3$. Hence, *Chord distances* can be used to compare sites described by species abundances!
 
 ### Jaccard's coefficient
 
-Another popular association coefficient is the _Jaccard similarity coefficient_ (1900).
+Another popular association coefficient is the *Jaccard similarity coefficient* (1900).
 
-The Jaccard similarity coefficient was originally proposed by the French mathematician Paul Jaccard in 1901, in the context of ecology. 
-Jaccard was interested in comparing the species composition of different plant communities, and proposed the Jaccard index as a measure of similarity between two communities based on their species richness.
+The Jaccard similarity coefficient was originally proposed by the French mathematician Paul Jaccard in 1901, in the context of ecology. Jaccard was interested in comparing the species composition of different plant communities, and proposed the Jaccard index as a measure of similarity between two communities based on their species richness.
 
 Jaccard's similarity coefficient is only appropriate for **binary data**, and its distance coefficient is defined with the size of the intersection divided by the size of the union of the sample sets.
 
 $$D_{7}(x_1,x_2) = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \cup x_2 \vert} = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \vert + \vert x_2 \vert - \vert x_1 \cap x_2 \vert} = 1-\frac{a}{a+b+c}$$
-  
+
 where,
 
-- $a$ is the number of species shared between $x_1$ and $x_2$ that are coded $1$;
-- $b$ is the number of occurrences where $x_1$ and $x_2$ are known to be different;
-- $c$ is the number of common absences between $x_1$ and $x_2$, _i.e._ both $0$. 
+-   $a$ is the number of species shared between $x_1$ and $x_2$ that are coded $1$;
+-   $b$ is the number of occurrences where $x_1$ and $x_2$ are known to be different;
+-   $c$ is the number of common absences between $x_1$ and $x_2$, *i.e.* both $0$.
 
 For example, for sites $x_1$ and $x_2$:
 
 | $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
-|:----: | :----:| :---: | :---: | :---: | :---: |
-| $x_1$ | 0 | 1 | 0 | 1 | 0 |
-| $x_2$ | 0 | 1 | 1 | 1 | 1 |
+|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|   $x_1$   |   0   |   1   |   0   |   1   |   0   |
+|   $x_2$   |   0   |   1   |   1   |   1   |   1   |
 
-So, we can calculate $a$, $b$, and $c$:
-- $a$ = 1 + 1 = 2
+So, we can calculate $a$, $b$, and $c$: - $a$ = 1 + 1 = 2
 
-- $b$ = 1 + 1 = 2
+-   $b$ = 1 + 1 = 2
 
-- $c$ = 1
+-   $c$ = 1
 
 And, then our distance coefficient:
 
@@ -258,34 +250,33 @@ spe.D.Jac <- vegdist(spe,
 
 ## Semimetric distances
 
-The second group consists of *semimetrics*, and they violate the _triangle inequality_ property:
+The second group consists of *semimetrics*, and they violate the *triangle inequality* property:
 
-1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
+1.  minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
 
-2. positiveness: if $a \neq b$, then $D(a,b) > 0$; ✅
+2.  positiveness: if $a \neq b$, then $D(a,b) > 0$; ✅
 
-3. symmetry: $D(a,b) = D(b,a)$; ✅
+3.  symmetry: $D(a,b) = D(b,a)$; ✅
 
-4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side. ❌
+4.  ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is *not* equal or greater than the third side. ❌
 
 ### Sørensen's coefficient
 
-All parameters in _Jaccard's similarity coefficient_ have equal weights.
+All parameters in *Jaccard's similarity coefficient* have equal weights.
 
 $$D_{7}(x_1,x_2)=1-\frac{a}{a+b+c}$$
 
 However, you may want to consider that a presence of a species is more informative than its absence.
 
-The distance corresponding to _Sørensen's similarity coefficient_ (1948) gives weight to double presences:
+The distance corresponding to *Sørensen's similarity coefficient* (1948) gives weight to double presences:
 
 $$D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}$$
 
 where,
 
-- $a$ is the number of species shared between $x_1$ and $x_2$ that are coded $1$;
-- $b$ is the number of occurrences where $x_1$ and $x_2$ are known to be different;
-- $c$ is the number of common absences between $x_1$ and $x_2$, _i.e._ both $0$. 
-
+-   $a$ is the number of species shared between $x_1$ and $x_2$ that are coded $1$;
+-   $b$ is the number of occurrences where $x_1$ and $x_2$ are known to be different;
+-   $c$ is the number of common absences between $x_1$ and $x_2$, *i.e.* both $0$.
 
 In `R`, you can also use use the `vegan::vegdist()` function to calculate the Sørensen's coefficient:
 
@@ -299,7 +290,7 @@ spe.D.Sor <- vegdist(spe,
 
 ### Bray-Curtis' coefficient
 
-The _Bray-Curtis dissimilarity coefficient_ is a modified version of the Sørensen's index and allows for species abundances:
+The *Bray-Curtis dissimilarity coefficient* is a modified version of the Sørensen's index and allows for species abundances:
 
 $$D_{14}(x_1,x_2)=\frac{\sum{\vert y_{1j}-y_{2j}\vert}}{\sum{( y_{1j}+y_{2j})}}=$$
 
@@ -307,31 +298,30 @@ $$D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}$$
 
 where,
 
-- $W$ is the sum of the lowest abundances in each species found between sites $x_1$ and $x_2$;
+-   $W$ is the sum of the lowest abundances in each species found between sites $x_1$ and $x_2$;
 
-- $A$ is the sum of all abundances in $x_1$; and,
+-   $A$ is the sum of all abundances in $x_1$; and,
 
-- $B$ is the sum of all abundances in $x_2$.
+-   $B$ is the sum of all abundances in $x_2$.
 
 For example, for sites $x_1$ and $x_2$:
 
 | $x_1,x_2$ | $y_1$ | $y_2$ | $y_3$ | $y_4$ | $y_5$ |
-|:----: | :----:| :---: | :---: | :---: | :---: |
-| $x_1$ | _2_ | _1_ | _0_ | 5 | 2 |
-| $x_2$ | 5 | _1_ | 3 | _1_ | 1 |
-
+|:---------:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|   $x_1$   |  *2*  |  *1*  |  *0*  |   5   |   2   |
+|   $x_2$   |   5   |  *1*  |   3   |  *1*  |   1   |
 
 So:
 
-- $W = 2 + 1 + 0 + 1 + 1 = 5$
+-   $W = 2 + 1 + 0 + 1 + 1 = 5$
 
-- $A = 2 + 1 + 0 + 5 + 0 = 8$
+-   $A = 2 + 1 + 0 + 5 + 0 = 8$
 
-- $B = 5 + 1 + 3 + 1 + 2 = 12$
+-   $B = 5 + 1 + 3 + 1 + 2 = 12$
 
 $$D_{14}(x_1,x_2) = 1-\frac{2 \times 5}{8+12} = 0.5$$
 
-To calculate the _Bray-Curtis dissimilarity coefficient_, which can account for abundances, you need to set `binary = FALSE`.
+To calculate the *Bray-Curtis dissimilarity coefficient*, which can account for abundances, you need to set `binary = FALSE`.
 
 ```{r}
 spe.db.pa <- vegdist(spe, 
@@ -342,16 +332,15 @@ spe.db <- as.matrix(spe.db.pa)
 
 ## Nonmetric distances
 
-Non-metric distances do not satisfy the metric properties of symmetry, triangle inequality, and identity of indiscernibles: 
+Non-metric distances do not satisfy the metric properties of symmetry, triangle inequality, and identity of indiscernibles:
 
-1. minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
+1.  minimum 0: if species $a$ is equal to species $b$, then $D(a,b)=0$; ✅
 
-2. ~~positiveness:~~ if $a \neq b$, then $D(a,b) > or < 0$; ❌
+2.  ~~positiveness:~~ if $a \neq b$, then $D(a,b) > or < 0$; ❌
 
-3. symmetry: $D(a,b) = D(b,a)$; ✅
+3.  symmetry: $D(a,b) = D(b,a)$; ✅
 
-4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side. ❌
-
+4.  ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is *not* equal or greater than the third side. ❌
 
 ### Mahalanobis distance
 
@@ -360,10 +349,10 @@ The Mahalanobis distance between a point $x$ and a group of points with mean $\m
 $$
 D_{M}(x, \mu)=\sqrt{(x-\mu)^{T} \Sigma^{-1}(x-\mu)}
 $$
- 
+
 where $T$ denotes the transpose, and $\Sigma^{-1}$ is the inverse (or generalized inverse) of the covariance matrix $\Sigma$.
 
-The Mahalanobis distance is a measure of the distance between a point and a group of points, taking into account the covariance structure of the data. 
+The Mahalanobis distance is a measure of the distance between a point and a group of points, taking into account the covariance structure of the data.
 
 The inverse of the covariance matrix may not exist in some cases, such as when the variables are linearly dependent or when there are more variables than observations. In these cases, we can use the generalized inverse of the covariance matrix instead of the inverse to calculate the Mahalanobis distance.
 
@@ -448,7 +437,6 @@ We can create graphical depictions of association matrices using the `coldiss()`
 
 ```
 
-
 ```{r, fig.height = 8, fig.width = 16}
 coldiss(spe.D.Jac)
 ```
@@ -480,18 +468,17 @@ ggplot(data = molten_spe.D.Jac,
 
 Communities sampled over homogeneous or short environmental conditions can have species compositions with few zeroes, so that Euclidean distances could be enough to characterize them.
 
-Nevertheless, this is rarely the reality. 
+Nevertheless, this is rarely the reality.
 
 Species may be highly frequent when conditions are favourable, or may be absent from many sites. Sometimes, this skewness may introduce spurious problems to our analyses.
 
 We may then have to transform our composition data to appropriately analyze it.
 
-
-In `R`, we can rely on `vegan::decostand()` for many types of transformations. 
+In `R`, we can rely on `vegan::decostand()` for many types of transformations.
 
 Take a look into the help of this function to see the available options:
 
-```
+```         
 ?decostand()
 ```
 
@@ -499,13 +486,13 @@ Take a look into the help of this function to see the available options:
 
 We can change the argument `method` to `"pa"` in `vegdist()` to transform our abundance data into presence-absence data:
 
-<center> If $y_{ij} \geq 1$, then, $y'_{ij} = 1$. </center>
+<center>If $y_{ij} \geq 1$, then, $y'_{ij} = 1$.</center>
 
 Let us recall our `spe` data set:
 
 ```{r}
 spe[1:6, 1:6]
-``` 
+```
 
 Let us transform `spe` abundances to presence-absences:
 
@@ -532,7 +519,7 @@ spe.total[1:5, 1:6]
 
 ## Hellinger transformation
 
-We can take the square-root of the _species profile transformation_ and obtain the _Hellinger transformation_, which has very good mathematical properties and allows us to reduce the effects of $y_{ij}$ values that are extremely large.
+We can take the square-root of the *species profile transformation* and obtain the *Hellinger transformation*, which has very good mathematical properties and allows us to reduce the effects of $y_{ij}$ values that are extremely large.
 
 $$y'_{ij} = \sqrt{\frac{y_{ij}}{y_{i+}}}$$
 
@@ -546,8 +533,7 @@ spe.total[1:5, 1:6]
 
 ## Z-score standardization
 
-Z-score standardization, also known as standard score normalization, is a technique used to transform a distribution of data to a standard normal distribution with a mean of 0 and a standard deviation of 1. 
-It involves subtracting the mean of the data and dividing by the standard deviation.
+Z-score standardization, also known as standard score normalization, is a technique used to transform a distribution of data to a standard normal distribution with a mean of 0 and a standard deviation of 1. It involves subtracting the mean of the data and dividing by the standard deviation.
 
 Standardizing environmental variables is crucial as you cannot compare the effects of variables with different units:
 
@@ -567,81 +553,71 @@ We will see more details about this transformation in the next sections!
 
 #### Little review
 
-:::: explanation 
-**Association -** "general term to describe any measure or coefficient
-to quantify the resemblance or difference between objects or
-descriptors. In an analysis between descriptors, zero means no
-association." (Legendre and Legendre 2012).
+::: explanation
+**Association -** "general term to describe any measure or coefficient to quantify the resemblance or difference between objects or descriptors. In an analysis between descriptors, zero means no association." (Legendre and Legendre 2012).
 
-**Similarity -** a measure that is "maximum (S=1) when two objects are
-identical and minimum when two objects are completely different."
-(Legendre and Legendre 2012).
+**Similarity -** a measure that is "maximum (S=1) when two objects are identical and minimum when two objects are completely different." (Legendre and Legendre 2012).
 
-**Distance (also called dissimilarity) -** a measure that is "maximum
-(D=1) when two objects are completely different". (Legendre and Legendre
-2012). Distance or dissimilarity (D) = 1-S
-::::
+**Distance (also called dissimilarity) -** a measure that is "maximum (D=1) when two objects are completely different". (Legendre and Legendre 2012). Distance or dissimilarity (D) = 1-S
+:::
 
-Choosing an association measure depends on your data, but also on what
-you know, ecologically about your data. 
+Choosing an association measure depends on your data, but also on what you know, ecologically about your data.
 
-Here are some commonly used dissimilarity (distance) measures (recreated
-from Gotelli and Ellison 2004):
+Here are some commonly used dissimilarity (distance) measures (recreated from Gotelli and Ellison 2004):
 
-  Measure name   Property      Description
-  -------------- ------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Euclidean      Metric        Distance between two points in 2D space.
-  Manhattan      Metric        Distance between two points, where the distance is the sum of differences of their Cartesian coordinates, i.e. if you were to make a right able between the points.
-  Chord          Metric        This distance is generally used to assess differences due to genetic drift.
-  Mahalanobis    Metric        Distance between a point and a set distribution, where the distance is the number of standard deviations of the point from the mean of the distribution.
-  Chi-square     Metric        Similar to Euclidean.
-  Bray-Curtis    Semi-metric   Dissimilarity between two samples (or sites) where the sum of lower values for species present in both samples are divided by the sum of the species counted in each sample.
-  Jaccard        Metric        [Description](http://en.wikipedia.org/wiki/Jaccard_index)
-  Sorensen\'s    Semi-metric   Bray-Curtis is 1 - Sorensen
+| Measure name | Property    | Description                                                                                                                                                                  |
+|:-------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Euclidean    | Metric      | Distance between two points in 2D space.                                                                                                                                     |
+| Manhattan    | Metric      | Distance between two points, where the distance is the sum of differences of their Cartesian coordinates, i.e. if you were to make a right able between the points.          |
+| Chord        | Metric      | This distance is generally used to assess differences due to genetic drift.                                                                                                  |
+| Mahalanobis  | Metric      | Distance between a point and a set distribution, where the distance is the number of standard deviations of the point from the mean of the distribution.                     |
+| Chi-square   | Metric      | Similar to Euclidean.                                                                                                                                                        |
+| Bray-Curtis  | Semi-metric | Dissimilarity between two samples (or sites) where the sum of lower values for species present in both samples are divided by the sum of the species counted in each sample. |
+| Jaccard      | Metric      | [Description](http://en.wikipedia.org/wiki/Jaccard_index)                                                                                                                    |
+| Sorensen's   | Semi-metric | Bray-Curtis is 1 - Sorensen                                                                                                                                                  |
 
-#### Extra: environmental data set
+### Other association metrics
 
-**Quantitative environmental data** Let's look at *associations* between
-environmental variables (also known as Q mode):
+**Quantitative environmental data**
+
+Let us look at *associations* between environmental variables (also known as Q mode analysis):
 
 ```{r, echo = TRUE, eval = FALSE}
-?dist # this function also compute dissimilarity matrix
-env.de<-dist(env.z, method = "euclidean") # euclidean distance matrix of the standardized environmental variables 
-windows() #Creates a separate graphical window
+?dist
+
+# euclidean distance matrix of the standardized environmental variables
+env.de <- dist(env.z, method = "euclidean")  
+
+windows() # Creates a separate graphical window
 coldiss(env.de, diag=TRUE)
 ```
 
-We can then look at the *dependence* between environmental variables
-(also known as R mode):
+We can then look at the *dependence* between environmental variables (also known as R mode analysis):
 
 ```{r, echo = TRUE, eval = FALSE}
-(env.pearson<-cor(env)) # Pearson r linear correlation
-round(env.pearson, 2) #Rounds the coefficients to 2 decimal points 
-(env.ken<-cor(env, method="kendall")) # Kendall tau rank correlation
+(env.pearson<-cor(env)) # Computing Pearson's r among variables
+round(env.pearson, 2) # Rounds the coefficients to 2 decimal points 
+(env.ken <- cor(env, method="kendall")) # Kendall's tau rank correlation
 round(env.ken, 2) 
 ```
 
-The Pearson correlation measures the linear correlation between two
-variables. The Kendall tau is a rank correlation which means that it
-quantifies the relationship between two descriptors or variables when
-the data are ordered within each variable.
+The Pearson correlation measures the linear correlation between two variables. The Kendall tau is a rank correlation which means that it quantifies the relationship between two descriptors or variables when the data are ordered within each variable.
 
-In some cases, there may be mixed types of environmental variables. Q
-mode can still be used to find associations between these environmental
-variables. We'll do this by first creating an example dataframe:
+In some cases, there may be mixed types of environmental variables. Q mode can still be used to find associations between these environmental variables. We'll do this by first creating an example dataframe:
 
 ```{r, echo = TRUE, eval = FALSE}
-var.g1<-rnorm(30, 0, 1)
-var.g2<-runif(30, 0, 5)
-var.g3<-gl(3, 10)
-var.g4<-gl(2, 5, 30)
-(dat2<-data.frame(var.g1, var.g2, var.g3, var.g4))
+var.g1 <- rnorm(30, 0, 1)
+var.g2 <- runif(30, 0, 5)
+var.g3 <- gl(3, 10)
+var.g4 <- gl(2, 5, 30)
+
+(dat2 <- data.frame(var.g1, var.g2, var.g3, var.g4))
+
 str(dat2)
 summary(dat2)
 ```
 
-A dissimilarity matrix can be generated for these mixed variables using
-the Gower dissimilarity matrix:
+A dissimilarity matrix can be generated for these mixed variables using the Gower dissimilarity matrix:
 
 ```{r, echo = TRUE, eval = FALSE}
 ?daisy #This function can handle NAs in the data
@@ -649,22 +625,17 @@ the Gower dissimilarity matrix:
 coldiss(dat2.dg)
 ```
 
-**Challenge 1 - Advanced** Calculate the Bray-Curtis and the Gower
-dissimilarity of species abundance CHA, TRU and VAI for sites 1, 2 and 3
-(using the "spe" and "env" dataframes) *without using the decostand()
-function.*
+**Challenge 1 - Advanced** Calculate the Bray-Curtis and the Gower dissimilarity of species abundance CHA, TRU and VAI for sites 1, 2 and 3 (using the "spe" and "env" dataframes) *without using the decostand() function.*
 
 **Challenge 1 - Advanced Solution** \<hidden\>
 
-Subset the species data so that only sites 1, 2 are included and
-only the species CHA, TRU and VAI.
+Subset the species data so that only sites 1, 2 are included and only the species CHA, TRU and VAI.
 
 ```{r, echo = TRUE, eval = FALSE}
 spe.challenge<-spe[1:3,1:3] #”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)
 ```
 
-Determine total species abundance for each site of interest (sum of the
-3 rows). This will be for the denominator in the above equation.
+Determine total species abundance for each site of interest (sum of the 3 rows). This will be for the denominator in the above equation.
 
 ```{r, echo = TRUE, eval = FALSE}
 (Abund.s1<-sum(spe.challenge[1,]))
@@ -673,12 +644,7 @@ Determine total species abundance for each site of interest (sum of the
 #() around code will cause output to print right away in console
 ```
 
-Now calculate the difference in species abundances for each pair of
-sites. For example, what is the difference between the abundance of CHA
-and TRU in site 1? You need to calculate the following differences: CHA
-and TRU site 1 CHA and VAI site 1 TRU and VAI site 1 CHA and TRU site 2
-CHA and VAI site 2 TRU and VAI site 2 CHA and TRU site 3 CHA and VAI
-site 3 TRU and VAI site 3
+Now calculate the difference in species abundances for each pair of sites. For example, what is the difference between the abundance of CHA and TRU in site 1? You need to calculate the following differences: CHA and TRU site 1 CHA and VAI site 1 TRU and VAI site 1 CHA and TRU site 2 CHA and VAI site 2 TRU and VAI site 2 CHA and TRU site 3 CHA and VAI site 3 TRU and VAI site 3
 
 ```{r, echo = TRUE, eval = FALSE}
 Spec.s1s2<-0
@@ -690,9 +656,7 @@ for (i in 1:3) {
   Spec.s2s3<-Spec.s2s3+abs(sum(spe.challenge[2,i]-spe.challenge[3,i])) }
 ```
 
-Now take the differences you have calculated as the numerator in the
-equation for Bray-Curtis dissimilarity and the total species abundance
-that you already calculated as the denominator.
+Now take the differences you have calculated as the numerator in the equation for Bray-Curtis dissimilarity and the total species abundance that you already calculated as the denominator.
 
 ```{r, echo = TRUE, eval = FALSE}
 (db.s1s2<-Spec.s1s2/(Abund.s1+Abund.s2)) #Site 1 compared to site 2
@@ -700,26 +664,22 @@ that you already calculated as the denominator.
 (db.s2s3<-Spec.s2s3/(Abund.s2+Abund.s3)) #Site 2 compared to site 3 
 ```
 
-You should find values of 0.5 for site 1 to site 2, 0.538 for site 1 to
-site 3 and 0.053 for site 2 to 3.
+You should find values of 0.5 for site 1 to site 2, 0.538 for site 1 to site 3 and 0.053 for site 2 to 3.
 
-Check your manual results with what you would find using the function
-vegdist() with the Bray-Curtis method:
+Check your manual results with what you would find using the function vegdist() with the Bray-Curtis method:
 
 ```{r, echo = TRUE, eval = FALSE}
 (spe.db.challenge<-vegdist(spe.challenge, method="bray"))
 ```
 
-A matrix looking like this is produced, which should be the same as your
-manual calculations:
+A matrix looking like this is produced, which should be the same as your manual calculations:
 
-           Site 1   Site 2
-  -------- -------- --------
-  Site 2   0.5      \--
-  Site 3   0.538    0.0526
+|        | Site 1 | Site 2 |
+|--------|:-------|:-------|
+| Site 2 | 0.5    | \--    |
+| Site 3 | 0.538  | 0.0526 |
 
-For the Gower dissimilarity, proceed in the same way but use the
-appropriate equation: 
+For the Gower dissimilarity, proceed in the same way but use the appropriate equation:
 
 ```{r, echo = TRUE, eval = FALSE}
 # Calculate the number of columns in your dataset
@@ -750,30 +710,15 @@ Range.spe3<-max(spe.challenge[,3]) - min (spe.challenge[,3])
 (spe.db.challenge<-vegdist(spe.challenge, method="gower"))
 ```
 
-# (PART\*) Clustering {-}
+# (PART\*) Clustering {.unnumbered}
 
 # Clustering
 
-One application of association matrices is clustering.
-Clustering highlights structures in the data by partitioning either the objects or the descriptors.
-As a result, similar objects are combined into groups, allowing distinctions -- or contrasts -- between groups to be identified. 
-One goal of ecologists could be to divide a set of sitesinto groups with respect to their environmental conditions or their community composition.
+One application of association matrices is clustering. Clustering highlights structures in the data by partitioning either the objects or the descriptors. As a result, similar objects are combined into groups, allowing distinctions -- or contrasts -- between groups to be identified. One goal of ecologists could be to divide a set of sites into groups with respect to their environmental conditions or their community composition.
 
-Clustering results are often represented as _dendrograms_ (trees), where
-objects agglomerate into groups. 
-There are several families of clustering methods, but for the purpose of this workshop, we will
-present an overview of three hierarchical agglomerative clustering
-methods: single linkage, complete linkage, and Ward's minimum variance
-clustering. _See Chapter 8 of Legendre and Legendre 2012 for more details
-on the different families of clustering methods._
+Clustering results are often represented as *dendrograms* (trees), where objects agglomerate into groups. There are several families of clustering methods, but for the purpose of this workshop, we will present an overview of three hierarchical agglomerative clustering methods: single linkage, complete linkage, and Ward's minimum variance clustering. *See Chapter 8 of Legendre and Legendre (2012) for more details on the different families of clustering methods.*
 
-In hierarchical methods, elements of lower clusters (or groups) become
-members of larger, higher ranking clusters, e.g. species, genus, family,
-order. Prior to clustering, one needs to create an association matrix
-among the objects. Distance matrix is the default choice of clustering
-functions in R. The association matrix is first sorted in increasing
-distance order (or decreasing similarities). Then, groups are formed
-hierarchically following rules specific to each method.
+In hierarchical methods, elements of lower clusters (or groups) become members of larger, higher ranking clusters, e.g. species, genus, family, order. Prior to clustering, one needs to create an association matrix among the objects. Distance matrix is the default choice of clustering functions in R. The association matrix is first sorted in increasing distance order (or decreasing similarities). Then, groups are formed hierarchically following rules specific to each method.
 
 ```{r, fig.width=10, echo = FALSE}
 # Demonstration of a cluster dendrogram
@@ -781,111 +726,222 @@ spe.hel<-decostand(spe, method="hellinger")
 spe.dhel <- vegdist(spe.hel,method="euclidean")
 spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
-plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 ```
+
+R has several built-in functions for computing agglomerative clusters and visualizing the results. Some of the most commonly used functions are:
+
+-   `hclust()` function in the `stats` package: This function computes hierarchical clustering using a variety of linkage methods, including single, complete, average, and Ward's minimum variance. The output is a `dendrogram` object that can be plotted using the `plot()` function.
+-   `agnes()` function in the `cluster` package: This function also computes hierarchical clustering using several linkage methods, but it can handle larger datasets than `hclust()`. The output is an object of class "`agnes`" that can be plotted using the `plot()` function.
+-   `dendextend()` package: This package provides several functions for manipulating and visualizing dendrograms, including `color_branches()`, `rotate()` and `cutree()` .
+-   `ggdendro()` function in the `ggdendro` package: This function creates a dendrogram plot using `ggplot2` syntax and provides more customization options than the base `plot()` function.
+
+Below, we will learn several types of clustering algorithms, while applying the simplest function in R to produce them, `hclust()`.
 
 ## Single linkage agglomerative clustering
 
-Let\'s take a simple example of a euclidean distance matrix between 5
-objets which were sorted in ascending order.
+Single linkage agglomerative clustering is a hierarchical clustering algorithm that works by iteratively merging the two closest clusters based on the minimum distance between their closest members. The steps involved in it are:
 
-![](/cluster.example.png){.align-center}
+1.  Start with assigning each observation to its own cluster.
+2.  Compute the distance between all pairs of clusters using a chosen distance metric (e.g., Euclidean distance).
+3.  Merge the two closest clusters into a single cluster.
+4.  Recompute the distance between the new cluster and all remaining clusters.
+5.  Repeat steps 3 and 4 until all observations belong to a single cluster, or until a pre-defined number of clusters has been reached.
 
-In single linkage agglomerative clustering (also called nearest
-neighbour sorting), the objects at the closest distances agglomerate.
-The two closest objects agglomerate first, the next two closest
-objects/clusters are then linked, and so on, which often generates long
-thin clusters or chains of objects (see how objets 1 to 5 cluster
-successively). Conversely, in complete linkage agglomerative clustering,
-an object agglomerates to a group only when linked to the furthest
-element of the group, which in turn links it to all members of that
-group (in the above example, the group formed of objets 3 and 4 only
-clusters with group 1-2 at 0.4, a distance at which objets 1, 2, 3 and 4
-are all linked). As a result, complete linkage clustering will form many
-small separate groups, and is more appropriate to look for contrasts,
-discontinuities in the data.
+In single linkage agglomerative clustering, the distance between two clusters is defined as the minimum distance between any two points in the clusters. This is why it's also called the "nearest neighbor" or "single linkage" clustering.
+
+One disadvantage of single linkage agglomerative clustering is that it can produce long, trailing clusters that do not represent well-defined groups, also known as chaining phenomenon. This can be overcome by using other linkage criteria such as complete linkage, average linkage, or Ward's linkage.
+
+```{r hclust-single, echo=TRUE}
+# generate some sample data
+set.seed(123)
+x <- matrix(rnorm(20), ncol = 2)
+
+# perform single linkage agglomerative clustering
+hc <- hclust(dist(x), method = "single")
+
+# plot the dendrogram
+plot(hc, 
+     main = "Dendrogram of Single Linkage Agglomerative Clustering",
+     hang = -1)
+```
 
 ## Complete linkage agglomerative clustering
 
-Let's compare the single and complete linkage clustering methods using
-the Doubs fish species data.
+Complete linkage agglomerative clustering is another hierarchical clustering algorithm that works by iteratively merging the two closest clusters based on the maximum distance between their furthest members.
 
-Species data were already Hellinger-transformed. The cluster analysis
-requiring similarity or dissimilarity indices, the first step will be to
-generate the Hellinger distance indices.
+The steps involved in the complete linkage agglomerative clustering algorithm are:
+
+1.  Start with assigning each observation to its own cluster.
+2.  Compute the distance between all pairs of clusters using a chosen distance metric (e.g., Euclidean distance).
+3.  Merge the two closest clusters into a single cluster.
+4.  Recompute the distance between the new cluster and all remaining clusters.
+5.  Repeat steps 3 and 4 until all observations belong to a single cluster, or until a pre-defined number of clusters has been reached.
+6.  In complete linkage agglomerative clustering, the distance between two clusters is defined as the maximum distance between any two points in the clusters. This is why it's also called the "furthest neighbor" or "complete linkage" clustering.
+
+Compared to single linkage agglomerative clustering, complete linkage tends to produce more compact, spherical clusters that are less prone to the chaining phenomenon. However, it's more sensitive to outliers and can produce unbalanced clusters if there are extreme values or noise in the data.
+
+```{r hclust-complete, echo=TRUE}
+# perform complete linkage agglomerative clustering
+hc <- hclust(dist(x), method = "complete")
+
+# plot the dendrogram
+plot(hc, 
+     main = "Dendrogram of Complete Linkage Agglomerative Clustering",
+     hang = -1)
+```
+
+## Unweighted Pair Group Method with Arithmetic Mean (UPGMA)
+
+Another hierarchical clustering algorithm that is commonly used in bioinformatics and evolutionary biology is the Unweighted Pair Group Method with Arithmetic Mean (UPGMA).
+
+The steps involved in the UPGMA algorithm:
+
+1.  Begin by assigning each data point to its own cluster.
+2.  Compute the pairwise distances between all clusters based on the distance metric of choice, such as Euclidean distance, Manhattan distance, or Pearson correlation.
+3.  Find the two closest clusters based on the pairwise distances and merge them into a single cluster. The distance between the two clusters is calculated as the average of the pairwise distances between their members.
+4.  Update the pairwise distances between the new cluster and all remaining clusters. The distance between the new cluster and any other cluster is calculated as the average of the pairwise distances between the members of the new cluster and the members of the other cluster.
+5.  Repeat steps 3 and 4 until all data points belong to a single cluster.
+
+```{r hclust-upgma, echo=TRUE}
+# perform Unweighted Pair Group Method with Arithmetic Mean clustering
+hc <- hclust(dist(x), method = "average")
+
+# plot the dendrogram
+plot(hc, 
+     main = "Dendrogram of Unweighted Pair Group Method with Arithmetic MeanAgglomerative Clustering",
+     hang = -1)
+```
+
+The UPGMA algorithm assumes a constant rate of evolution, and therefore it is often used to construct phylogenetic trees from genetic or molecular data. The output of UPGMA is a dendrogram, which shows the hierarchical structure of the clusters.
+
+A limitation of UPGMA is that it can be sensitive to outliers and can produce biased results if there are non-random patterns of missing data or convergent evolution. Additionally, it is an unweighted method, meaning that it assumes all data points are equally important, which may not always be the case.
+
+## Weighted Pair Group Method with Arithmetic Mean (WPGMA)
+
+The Weighted Pair Group Method with Arithmetic Mean (WPGMA) is similar to UPGMA, but but it takes into account the weights of the observations (e.g., when some observations are more important than others). The algorithm works as follows:
+
+1.  Begin by assigning each data point to its own cluster.
+2.  Compute the pairwise distances between all clusters based on the distance metric of choice, such as Euclidean distance, Manhattan distance, or Pearson correlation.
+3.  Find the two closest clusters based on the pairwise distances and merge them into a single cluster. The distance between the two clusters is calculated as the average of the pairwise distances between their members, weighted by their respective weights.
+4.  Update the pairwise distances between the new cluster and all remaining clusters. The distance between the new cluster and any other cluster is calculated as the average of the pairwise distances between the members of the new cluster and the members of the other cluster, weighted by their respective weights.
+5.  Repeat steps 3 and 4 until all data points belong to a single cluster.
+
+```{r hclust-wpgma, echo=TRUE}
+# perform Weighted Pair Group Method with Arithmetic Mean clustering
+hc <- hclust(dist(x), method = "mcquitty")
+
+# plot the dendrogram
+plot(hc, 
+     main = "Dendrogram of Weighted Pair Group Method with Arithmetic Mean Agglomerative Clustering",
+     hang = -1)
+```
+
+## Ward's minimum variance
+
+Ward's minimum variance method is a hierarchical clustering algorithm that aims to minimize the variance within each cluster by merging clusters that minimize the increase in the total sum of squared distances. The algorithm works as follows:
+
+1.  Begin by assigning each data point to its own cluster.
+2.  Compute the distance between each pair of clusters using a chosen distance metric, such as Euclidean distance or Manhattan distance.
+3.  Merge the two clusters that minimize the increase in the total sum of squared distances. The increase in the sum of squared distances is calculated as the sum of squared distances within each cluster plus the squared distance between the centroids of the two clusters multiplied by the number of data points in each cluster.
+4.  Compute the distance between the new cluster and all remaining clusters using the chosen distance metric.
+5.  Repeat steps 3 and 4 until all data points belong to a single cluster.
+
+Ward's method is often preferred when the data contains clusters of different sizes and densities. The output of Ward's method is a dendrogram that shows the hierarchical structure of the clusters.
+
+Ward's method is sensitive to outliers and can produce biased results if there are non-random patterns of missing data or if the underlying assumptions of normality and equal variances are violated.
+
+::: explanation
+Ward's minimum variance method can be formulated in different ways, leading to different variants known as Ward D and Ward D2.
+
+Ward D uses the sum of squared distances as the criterion to minimize when merging clusters, which is equivalent to minimizing the increase in the sum of squared deviations from the mean of the combined cluster.
+
+```{r hclust-ward-d, echo=TRUE}
+# perform Ward's minimum variance clustering
+hc <- hclust(dist(x), method = "ward.D")
+
+# plot the dendrogram
+plot(hc, 
+     main = "Dendrogram of Ward's minimum variance Agglomerative Clustering",
+     hang = -1)
+```
+
+On the other hand, Ward D2 uses the sum of squared differences from the centroid as the criterion to minimize when merging clusters, which is equivalent to minimizing the increase in the sum of squared deviations from the centroid of the combined cluster.
+
+```{r hclust-ward-d2, echo=TRUE}
+# perform Ward's minimum variance clustering
+hc <- hclust(dist(x), method = "ward.D2")
+
+# plot the dendrogram
+plot(hc, 
+     main = "Dendrogram of Ward's D2 minimum variance Agglomerative Clustering",
+     hang = -1)
+```
+
+In other words, Ward D2 considers the distance between the centroids of the clusters being merged, while Ward D considers the distance between the individual data points and the mean of the merged cluster.
+
+Empirically, Ward D2 tends to produce more compact and spherical clusters, while Ward D may be more sensitive to outliers and can produce elongated or irregularly shaped clusters. However, the choice of Ward D or Ward D2 may depend on the specific characteristics of the data and the research question.
+:::
+
+## Deciding on cut-off points
+
+Deciding the cutoff point to consider cluster groups is an important step in hierarchical clustering analysis. The cutoff point determines the number of clusters to consider and can have a significant impact on the interpretation of the results.
+
+Some common methods for determining the cutoff point are:
+
+1.  Dendrogram visual inspection: One approach is to visually inspect the dendrogram and identify a point where the branches start to become long and sparse. This point represents a natural breaking point in the hierarchy and can be used as the cutoff point.
+2.  Elbow method: The elbow method involves plotting a measure of cluster quality, such as the within-cluster sum of squares, against the number of clusters. The point where the plot starts to level off is considered the elbow point and can be used as the cutoff point.
+3.  Gap statistic: The gap statistic compares the within-cluster sum of squares for the actual data to the expected within-cluster sum of squares for a null reference distribution. The optimal number of clusters is the one with the largest gap statistic.
+4.  Domain-specific knowledge: In some cases, domain-specific knowledge or prior research can provide guidance on the appropriate number of clusters to consider.
+
+## Platying with real data: the Doubs fish species data
+
+Let us compare the single and complete linkage clustering methods using the Doubs fish species data.
+
+Species data were already Hellinger-transformed. The cluster analysis requiring similarity or dissimilarity indices, the first step will be to generate the Hellinger distance indices.
 
 ```{r, echo = TRUE, eval = FALSE}
-spe.dhel<-vegdist(spe.hel,method="euclidean") #generates the distance matrix from Hellinger transformed data
+# Generates the distance matrix from Hellinger transformed data
+spe.dhel <- vegdist(spe.hel, method="euclidean") 
 
-#See difference between the two matrices
+# See difference between the two matrices
 head(spe.hel)# Hellinger-transformed species data
 head(spe.dhel)# Hellinger distances among sites
 ```
 
-Most clustering methods can be computed with the function hclust() of
-the stats package.
+Use `hclust()` to compute both single and complete linkage clustering algorithms for this data:
 
 ```{r, echo = TRUE, eval = FALSE}
-#Faire le groupement à liens simples
-#Perform single linkage clustering
-spe.dhel.single<-hclust(spe.dhel, method="single")
+spe.dhel.single <- hclust(spe.dhel, method="single")
+
 plot(spe.dhel.single)
 
-#Perform complete linkage clustering
-spe.dhel.complete<-hclust(spe.dhel, method="complete")
+spe.dhel.complete <- hclust(spe.dhel, method="complete")
 plot(spe.dhel.complete)
 ```
 
-![](/clust_single.png){.align-center}![](/clust_complete.png){.align-center}
+*Are there big differences between the two dendrograms?*
 
-Are there big differences between the two dendrograms?
+In single linkage clustering, chains of objects occur (e.g. 19, 29, 30, 20, 26, etc.), whereas more contrasted groups are formed in the complete linkage clustering.
 
-In single linkage clustering, chains of objets occur (e.g. 19, 29, 30,
-20, 26, etc.), whereas more contrasted groups are formed in the complete
-linkage clustering.
-
-## Ward's minimum variance clustering
-
-Ward's minimum variance clustering differ from these two methods in that
-it clusters objects into groups using the criterion of least squares
-(similar to linear models). At the beginning, each object is considered
-being a cluster of its own. At each step, the pair of clusters merging
-is the one leading to minimum increase in total within-group sum of
-squares.
-
-Again, it is possible to generate a Ward's minimum variance clustering
-with hclust(). However, the dendogram shows squared distances by
-default. In order to compare this dendrogram to the single and complete
-linkage clustering results, one must calculate the square root of the
-distances.
+Again, it is possible to generate a Ward's minimum variance clustering with hclust(). However, the dendogram shows squared distances by default. In order to compare this dendrogram to the single and complete linkage clustering results, one must calculate the square root of the distances.
 
 ```{r, echo = TRUE, eval = FALSE}
-#Perform Ward minimum variance clustering
-spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
+# Perform Ward minimum variance clustering
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 plot(spe.dhel.ward)
 
-#Re-plot the dendrogram by using the square roots of the fusion levels
+# Re-plot the dendrogram by using the square roots of the fusion levels
 spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward)
 plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 ```
 
-![](/clust_ward.png){.align-center}
-![](/clust_wardfinal.png){.align-center}
+One must be careful in the choice of an association measure and clustering method in order to correctly address a problem.
 
-The clusters generated using Ward's method tend to be more spherical and
-to contain similar numbers of objects.
+What are you most interested in: gradients? contrasts between objects?
 
-One must be careful in the choice of an association measure and
-clustering method in order to correctly address a problem. What are you
-most interested in: gradients? Contrasts? In addition, the results
-should be interpreted with respect to the properties of the method used.
-If more than one method seems suitable to an ecological question,
-computing them all and compare the results would be the way to go. As a
-reminder, clustering is not a statistical method, but further steps can
-be taken to identify interpretable clusters (e.g. where to cut the
-tree), or to compute clustering statistics. Clustering can also be
-combined to ordination in order to distinguish groups of sites. These go
-beyond the scope of this workshop, but see Borcard et al. 2011 for more
-details.
+Moreover, the results should be interpreted with respect to the properties of the method used. If more than one method seems suitable to an ecological question, computing them all and compare the results would be the way to go.
+
+As a reminder, clustering is not a statistical method, but further steps can be taken to identify interpretative clusters (e.g. where to cut the tree), or to compute clustering statistics. Clustering can also be combined to ordination in order to distinguish groups of sites. These go beyond the scope of this workshop, but see Borcard et al. 2011 for more details.
