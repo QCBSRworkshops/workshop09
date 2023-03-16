@@ -6,112 +6,245 @@ L'algèbre matricielle est bien adaptée à l'écologie, car la plupart (sinon t
 
 Les tableaux de données écologiques sont obtenus sous forme d'observations d'objets ou d'unités d'échantillonnage, et sont souvent enregistrés sous cette forme : 
 
+| Objets | $y_1$     | $y_2$  | $\dots$           | $y_n$  |
+| :-------------: |:-------------:| :-----:|:-----:|:-----:|
+|  $x_1$        | $y_{1,1}$     | $y_{1,2}$  | $\dots$  | $y_{1,n}$  |
+|  $x_2$        | $y_{2,1}$     | $y_{2,2}$  | $\dots$  | $y_{2,n}$  |
+|  $\vdots$     | $\vdots$     | $\vdots$  | $\ddots$  | $\vdots$  |
+|  $x_m$        | $y_{m,1}$     | $y_{m,2}$  | $\dots$  | $y_{m,n}$  |
 
 
+où $x_m$ est l'unité d'échantillonnage $m$ ; et $y_n$ est le descripteur écologique qui peut être, par exemple, les espèces présentes dans une unité d'échantillonnage, une localité ou une variable chimique.
+
+Le même tableau de données écologiques peut être représenté en _notation matricielle_ de la manière suivante :
+
+$$Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}$$
+
+où les lettres minuscules indiquent les _éléments_, et les lettres en indice indiquent la _position de ces éléments_ dans la matrice (et dans le tableau !).
+
+De plus, tout sous-ensemble d'une matrice peut être reconnu.
+
+Nous pouvons sous-ensembler _une matrice de lignes_, comme ci-dessous :
+
+$$\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}$$
+
+Nous pouvons également sous-ensemble _une matrice de colonnes_, comme ci-dessous :
 
 
+$$\begin{bmatrix}
+y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+\end{bmatrix}$$
 
 
+## Matrices d'association
+
+Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la _**matrice d'association entre les objets**_ et la _**matrice d'association entre les descripteurs**_.
+
+En utilisant les données de notre matrice $Y$,
 
 
+<div class="math">
+\[ Y = 
+\begin{array}{cc}
+\begin{array}{ccc}
+x_1 \rightarrow\\
+x_2 \rightarrow\\
+\vdots \\
+x_m \rightarrow\\
+\end{array}
+&
+\begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+y_{m,1} & y_{m,2} & \cdots & y_{m,n} 
+\end{bmatrix}
+\end{array}
+\]
+</div>
+
+on peut examiner la relation entre les deux premiers objets :
+
+<div class="math">
+\[x_1 \rightarrow \begin{bmatrix}
+y_{1,1} & y_{1,2} & \cdots & y_{1,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<div class="math">
+\[x_2 \rightarrow 
+\begin{bmatrix}
+y_{2,1} & y_{2,2} & \cdots & y_{2,n} \\
+\end{bmatrix}
+\]
+</div>
+
+<p>et obtenir \(a_{1,2}\). </p>
+
+Nous pouvons remplir la matrice d'association $A_{n,n}$ avec les relations entre tous les objets de $Y$ :
+
+<div class="math">
+\[A_{n,n} = 
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,n} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{n,1} & a_{n,2} & \cdots & a_{n,n} 
+\end{bmatrix}\]
+</div>
+
+<p>Parce que \(A_{n,n}\) a le même nombre de lignes et de colonnes, on la désigne comme une <i>matrice carrée</i>.</p> <p>Donc \(A_{n,n}\) a \(n^2\) éléments. 
+
+<p> Par conséquent, \(A_{n,n}\) a \(n^2\) éléments. </p>
+
+Nous pouvons également obtenir la relation entre les deux premiers descripteurs de $Y$, $y_1$ et $y_2$ :
 
 
+$$\begin{bmatrix}
+y_{1,2} \\
+y_{2,2} \\
+\vdots  \\
+y_{m,2} 
+\end{bmatrix}$$
 
+$$\begin{bmatrix}
+y_{1,1} \\
+y_{2,1} \\
+\vdots  \\
+y_{m,1} 
+\end{bmatrix}$$
 
+et le stocker dans $a_{1,2}$.
 
+Nous pouvons remplir la matrice d'association $A_{m,m}$ avec les relations entre tous les descripteurs de $Y$ :
 
+$$A_{m,m} = 
+\begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,m} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,m} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+a_{m,1} & a_{m,2} & \cdots & a_{m,m} 
+\end{bmatrix}$$
 
-# 1. Exploration des données
+<p>Cette \(A_{m,m}\) est une <i>matrice carrée</i>, et elle a \(m^2\) éléments.</p>
 
-## 1.1 Données sur les espèces
+Ces matrices, \N(A_{n,n}\N) et \N(A_{m,m}\N), sont à la base des analyses **_Q-mode_** et **_R-mode_** en écologie.
 
-Nous pouvons utiliser les fonctions de résumé R pour explorer les
-données \"Spe\" (données d'abondances de poissons) et découvrir les
-caractéristiques telles que les dimensions de la matrice, les noms des
-colonnes et les statistiques descriptives de ces colonnes (révision de
-l'atelier 2).
+La **_R-mode_** consiste à analyser l'association entre des descripteurs ou des espèces, tandis que la **_Q-mode_** analyse l'association entre des OTU, des objets ou des sites.
 
-```{r, echo = TRUE, eval = FALSE}
-names(spe) # Les noms des colonnes 
-dim(spe) # Le nombre de lignes et de colonnes. 
-str(spe) # La structure interne de la matrice. 
-head(spe) # Les premières lignes. 
-summary(spe) # Les statistiques descriptives. 
+# Exploration de l'ensemble de données
+
+Nous utiliserons deux jeux de données principaux dans la première partie de cet atelier.
+
+Ils proviennent de la thèse de doctorat de Verneaux (1973), dans laquelle il a proposé d'utiliser les espèces de poissons pour caractériser les zones écologiques le long des rivières et des ruisseaux européens.
+
+Il a recueilli des données dans **30 localités** le long du Doubs, qui coule près de la frontière franco-suisse, dans les montagnes du Jura.
+
+Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d'eau.
+
+Leurs données sont réparties en trois matrices :
+
+1. L'abondance de 27 espèces de poissons dans les communautés (`DoubsSpe.csv` et ci-après, l'objet `spe`) ;
+2. Les variables environnementales enregistrées sur chaque site (`DoubsEnv.csv` et ici, l'objet `env`) ; et,
+3. Les coordonnées géographiques de chaque site.
+
+Verneaux, J. (1973) _Cours d'eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs_. Essai de biotypologie. Thèse d'état, Besançon. 1-257.
+
+## Communautés de poissons du Doubs 
+
+Vous pouvez télécharger ces jeux de données à partir de [r.qcbs.ca/workshops/r-workshop-09] (http://r.qcbs.ca/workshops/r-workshop-09/).
+
+Nous pouvons charger leurs données à partir du répertoire `data/` dans cet atelier :
+
+```{r}
+spe <- read.csv("data/doubsspe.csv", 
+                row.names = 1) 
+
+env <- read.csv("data/doubsenv.csv", 
+                row.names = 1)
 ```
 
-Regardez la distribution des espèces.
+Leurs données peuvent également être récupérées à partir du paquet `ade4` :
 
-```{r, echo = TRUE, eval = FALSE}
-(ab<-table(unlist(spe))) #Les parenthèses signifient que la sortie s'affiche immédiatement
+```{r eval=FALSE, echo = TRUE}
+library (ade4)
+data (doubs)
 
-barplot(ab, las=1, xlab=”Abundance class”, ylab=”Frequency”, col=grey(5:0/5))
+spe <- doubs$fish
+env <- doubs$env
 ```
 
-![](images//spe_barplot.png){width="300"} Pouvez-vous voir qu'il y a une
-grande fréquence de zéros dans les données d'abondance ?
+Alternativement, à partir du paquet `codep` :
 
-Calculez le nombre d'absences.
+```{r eval = FALSE, echo = TRUE}
+library (codep)
+data (Doubs)
 
-```{r, echo = TRUE, eval = FALSE}
-sum(spe==0) 
+spe <- Doubs.fish
+env <- Doubs.env
 ```
 
-Regardez la proportion de zéros dans les données de la communauté de
-poissons.
+Nous pouvons alors explorer les objets contenant nos données nouvellement chargées. 
 
-```{r, echo = TRUE, eval = FALSE}
-sum(spe==0)/(nrow(spe)*ncol(spe))
+Jetons un coup d'œil aux données `spe` :
+
+```{r, echo = T}
+head(spe)[, 1:8]
 ```
 
-La proportion de zéros dans la matrice est de \~0.5
+Nous pouvons également utiliser la fonction `str()`, que nous avons étudiée dans les ateliers 1 et 2 :
 
-Calculez le nombre de sites où chaque espèce est présente.
-
-```{r, echo = TRUE, eval = FALSE}
-spe.pres<- colSums(spe>0) # Somme des sites où chaque espèce est présente. 
-hist(spe.pres, main=”Cooccurrence des espèces”, las=1, xlab=”Fréquence”, breaks=seq(0,30, by=5), col=”grey”)
+```{r, echo = T, output.lines=1:8}
+str(spe)
 ```
 
-Le plus grand nombre d'espèces se retrouvent dans un nombre
-intermédiaire de sites.
-
-Calculez le nombre d'espèces présentes à chaque site. Ici, nous
-utilisons une façon simpliste de calculer la richesse en espèces. Dans
-certains cas, le nombre d'espèces présentes dans un site varie entre
-les sites car il peut y avoir une relation entre le nombre d'individus
-comptés (l'abondance) dans ce site et la richesse en espèces. [richesse
-d'espèces raréfiée (en
-anglais)](http://cc.oulu.fi/~jarioksa/softhelp/vegan/html/diversity.html)
-est souvent une mesure plus appropriée que la richesse totale. La
-fonction rarefy () de vegan peut être utilisée pour calculer la richesse
-raréfiée des espèces.
+Vous pouvez également essayer certains de ces exemples !
 
 ```{r, echo = TRUE, eval = FALSE}
-site.pres<- rowSums(spe>0) # Nombre d'espèces présentes dans chaque site
-hist(site.pres, main=”Richesse en espèces”, las=1, xlab=”Fréquence des sites”, ylab=”Nombre d'espèces”, breaks=seq(0,30, by=5), col=”grey”) 
-```
+# Essayez-en quelques-uns !
 
-## 1.2 Données sur l'environnement
+names(spe) # noms des objets
+dim(spe) # dimensions
 
-Explorez les données environnementales pour détecter les colinéarités :
+str(spe) # structure des objets
+summary(spe) # statistiques sommaires
 
-```{r, echo = TRUE, eval = FALSE}
-names(env)
-dim(env)
+head(spe) # 6 premières lignes
+``` 
+
+## Données environnementales de la rivière Doubs
+
+```{r, echo = T}
 str(env)
-head(env)
-summary(env)
-pairs(env, main="Données environnementales" ) 
 ```
 
-Dans ce cas, les données environnementales sont toutes dans des unités
-différentes et doivent donc être standardisées avant de calculer les
-mesures de distance utilisées pour effectuer la plupart des analyses
-d'ordination. La standardisation des données (11 variables) peut être
-effectuée en utilisant la fonction decostand () de vegan.
+Il contient les variables suivantes:
 
-```{r, echo = TRUE, eval = FALSE}
-env.z<-decostand(env, method="standardize")
-apply(env.z, 2, mean) # Les données sont maintenant centrées (moyennes~0)...
-apply(env.z, 2, sd)   # et réduites (écart-type=1)
+|Variable |Description|
+|:--:|:--|
+|das|Distance from the source [km]  |
+|alt|Altitude [m a.s.l.]  |
+|pen|Slope [per thousand]  |
+|deb|Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]  |
+|pH|pH of water  |
+|dur|Ca conc. (hardness) [mgL<sup>-1</sup>]  |
+|pho|K conc. [mgL<sup>-1</sup>]  |
+|nit|N conc. [mgL<sup>-1</sup>]  |
+|amn|NH₄⁺ conc. [mgL<sup>-1</sup>]  |
+|oxy|Diss. oxygen [mgL<sup>-1</sup>]  |
+|dbo|Biol. oxygen demand [mgL<sup>-1</sup>]  |
+
+Vous pouvez également utiliser `summary()` pour obtenir des statistiques sommaires à partir des variables de `env` :
+
+```{r, eval = F}
+summary(env) # statistiques sommaires
 ```
