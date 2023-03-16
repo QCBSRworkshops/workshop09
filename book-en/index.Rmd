@@ -90,5 +90,6 @@ Under construction.
 ```{r include=FALSE}
 library(knitr)
 opts_chunk$set(tidy.opts = list(width.cutoff = 60),
+               fig.align = 'center',
                tidy = TRUE)
 ```
