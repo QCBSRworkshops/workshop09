@@ -31,16 +31,31 @@ To become comfortable with PCA, we will follow with detailed examples on
 how to perform it step-by-step, and then we will use functions from R
 packages to do it.
 
-## Principal component analysis *not in a nutshell*
+## Principal component analysis *not in a nutshell* 
 
 Suppose we have a dataset with n observations and p variables
-represented by an n x p matrix X. The goal of PCA is to transform this
-dataset into a new set of p uncorrelated variables, called principal
+represented by an n x p matrix $X$. The goal of PCA is to transform this
+dataset into a new set of $p$ uncorrelated variables, called principal
 components (PCs), which capture the maximum amount of variance in the
 original data.
 
-To achieve this, we first need to standardize the data to have mean zero
-and unit variance:
+Let's generate some simulated ecological data with six variables (V1,
+V2, V3, V4, V5, and V6) and eighteen observations:
+
+```{r}
+set.seed(123) # for reproducibility
+
+data <- data.frame(V1 = rnorm(18, mean = 10, sd = 2),
+                   V2 = rnorm(18, mean = 20, sd = 4),
+                   V3 = rnorm(18, mean = 5, sd = 1),
+                   V4 = rnorm(18, mean = 15, sd = 3),
+                   V5 = rnorm(18, mean = 8, sd = 2),
+                   V6 = rnorm(18, mean = 18, sd = 4))
+
+```
+
+We first need to standardize the data to have mean zero and unit
+variance:
 
 $$ Z_{ij} = \frac{X_{ij} - \bar{X_j}}{s_j} $$
 
@@ -48,21 +63,45 @@ where Z is the standardized matrix, X is the original matrix,
 $\bar{X_j}$ is the mean of variable j, and $s_j$ is the standard
 deviation of variable j.
 
-Next, we compute the covariance matrix of Z:
+```{r}
+data_std <- scale(data)
+```
+
+Next, we compute the covariance matrix of $Z$:
 
 $$ C = \frac{1}{n-1}ZZ^T $$
 
 where $C$ is the covariance matrix and $T$ denotes the transpose
 operation.
 
+The covariance matrix is a symmetric matrix that represents the pairwise
+covariances between the variables. The formula for the covariance
+between two variables $X$ and $Y$ is:
+
+$$\text{Cov}(X,Y) = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X})(Y_i - \bar{Y})$$
+
+where \$n\$ is the sample size, $X_i$ and $Y_i$ are the values of the
+variables for observation \$i\$, and $\bar{X}$ and $\bar{Y}$ are the
+sample means of the variables.
+
+```{r}
+cov_matrix <- cov(data_std)
+```
+
 Then, we calculate the eigenvalues and eigenvectors of $C$:
 
 $$ Cv = \lambda v $$
 
-where v is the eigenvector and $\lambda$ is the corresponding
-eigenvalue.
+where $C$ is the covariance matrix, $v$ is the eigenvector and $\lambda$
+is the corresponding eigenvalue.
 
-The eigenvectors represent the directions in the p-dimensional space
+```{r}
+eigen_decomp <- eigen(cov_matrix)
+eigen_values <- eigen_decomp$values
+eigen_vectors <- eigen_decomp$vectors
+```
+
+The eigenvectors represent the directions in the $p$-dimensional space
 that capture the maximum amount of variance in the data, and the
 eigenvalues indicate the amount of variance captured by each
 eigenvector.
@@ -71,13 +110,29 @@ We sort the eigenvectors in descending order of their corresponding
 eigenvalues and choose the $k$ eigenvectors with the largest eigenvalues
 as the new basis vectors for our transformed data.
 
-Finally, we project the standardized data matrix Z onto the new basis
-vectors to obtain the principal components:
+We will then use a scree plot to determine the number of principal
+components to retain. A scree plot shows the eigenvalues of the
+principal components in decreasing order. The number of principal
+components to retain is typically determined by where the eigenvalues
+"level off" and become small:
+
+```{r}
+plot(eigen_values, 
+     type = "b", 
+     main = "Scree Plot",
+     xlab = "Principal Component",
+     ylab = "Eigenvalue")
+```
+
+Finally, we project the standardized data matrix $Z$ onto the new basis
+vectors to obtain the principal components. Here, we will calculate the
+principal component scores by multiplying the standardized data by the
+eigenvectors of the first principal component:
 
 $$ Y = ZV $$
 
-where Y is the transformed data matrix, V is the matrix of eigenvectors,
-and $k$ is the number of principal components.
+where $Y$ is the transformed data matrix, $V$ is the matrix of
+eigenvectors, and $k$ is the number of principal components.
 
 The principal component analysis (PCA) was originally described by
 Pearson (1901) although it is more often attributed to Hotelling (1933)
