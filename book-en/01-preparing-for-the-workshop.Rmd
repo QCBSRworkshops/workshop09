@@ -77,12 +77,14 @@ You must also use these packages:
 - [GGally](https://cran.r-project.org/package=GGally)
 - [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
 - [remotes](https://cran.r-project.org/package=remotes)
+- [MASS](https://cran.r-project.org/package=MASS)
 
 ```{r preparing, eval=T, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
 list.of.packages <- c("ape", "ade4", "codep", 
                       "gclus", "vegan", "GGally", 
                       "PlaneGeometry", "remotes", 
-                      "matlib")
+                      "matlib",
+                      "MASS")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 

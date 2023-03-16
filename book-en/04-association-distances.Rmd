@@ -352,11 +352,46 @@ Non-metric distances do not satisfy the metric properties of symmetry, triangle 
 
 4. ~~triangle inequality~~: ${D(a,b) + D(b,c) \geq or < D(a,c)}$. The sum of two sides of a triangle drawn in the Euclidean space is _not_ equal or greater than the third side. ❌
 
+
+### Mahalanobis distance
+
+The Mahalanobis distance between a point $x$ and a group of points with mean $\mu$ and covariance $\Sigma$ is defined as:
+
+$$
+D_{M}(x, \mu)=\sqrt{(x-\mu)^{T} \Sigma^{-1}(x-\mu)}
+$$
+ 
+where $T$ denotes the transpose, and $\Sigma^{-1}$ is the inverse (or generalized inverse) of the covariance matrix $\Sigma$.
+
+The Mahalanobis distance is a measure of the distance between a point and a group of points, taking into account the covariance structure of the data. 
+
+The inverse of the covariance matrix may not exist in some cases, such as when the variables are linearly dependent or when there are more variables than observations. In these cases, we can use the generalized inverse of the covariance matrix instead of the inverse to calculate the Mahalanobis distance.
+
+This generalized inverse can be calculated using various methods, such as the Moore-Penrose pseudoinverse or the singular value decomposition.
+
+```{r}
+# Create a matrix
+x <- matrix(rnorm(100*3), ncol = 3)
+
+# Compute the covariance matrix and its generalized inverse
+cov_mat <- cov(x)
+cov_inv <- MASS::ginv(cov_mat)
+
+# Compute the Mahalanobis distance using the generalized inverse
+mah_dist <- mahalanobis(x, 
+                        colMeans(x), 
+                        cov_inv)
+
+# Print the Mahalanobis distance
+mah_dist
+
+```
+
 ## Representing distance matrices
 
 We can create graphical depictions of association matrices using the `coldiss()` function:
 
-```{r, echo = FALSE}
+```{r, echo = TRUE}
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
 #
@@ -412,40 +447,6 @@ We can create graphical depictions of association matrices using the `coldiss()`
 # coldiss(spe.dj, nc=9, byrank=F, diag=T)
 
 ```
-
-# Mahalanobis distance
-
-The Mahalanobis distance between a point $x$ and a group of points with mean $\mu$ and covariance $\Sigma$ is defined as:
-
-$$
-D_{M}(x, \mu)=\sqrt{(x-\mu)^{T} \Sigma^{-1}(x-\mu)}
-$$
- 
-where $T$ denotes the transpose, and $\Sigma^{-1}$ is the inverse (or generalized inverse) of the covariance matrix $\Sigma$.
-
-The Mahalanobis distance is a measure of the distance between a point and a group of points, taking into account the covariance structure of the data. 
-
-The inverse of the covariance matrix may not exist in some cases, such as when the variables are linearly dependent or when there are more variables than observations. In these cases, we can use the generalized inverse of the covariance matrix instead of the inverse to calculate the Mahalanobis distance.
-This generalized inverse can be calculated using various methods, such as the Moore-Penrose pseudoinverse or the singular value decomposition.
-
-```{r}
-# Create a matrix
-x <- matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), ncol = 3)
-
-# Compute the covariance matrix and its generalized inverse
-cov_mat <- cov(x)
-cov_inv <- ginv(cov_mat)
-
-# Compute the Mahalanobis distance using the generalized inverse
-mah_dist <- mahalanobis(x, 
-                        colMeans(x), 
-                        cov_inv)
-
-# Print the Mahalanobis distance
-mah_dist
-
-```
-
 
 
 ```{r, fig.height = 8, fig.width = 16}
