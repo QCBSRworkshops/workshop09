@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 ```{r include=FALSE}
 library(knitr)
 opts_chunk$set(fig.align = 'center')
@@ -11,44 +5,23 @@ opts_chunk$set(fig.align = 'center')
 
 # Principal Component Analysis
 
-Principal Component Analysis (PCA) is a statistical technique used to
-reduce the dimensionality of a dataset while retaining most of its
-variability. It is a linear transformation method that converts the
-original set of variables into a new set of linearly uncorrelated
-variables, called principal components (PCs), which are sorted in
-decreasing order of variance.
+Principal Component Analysis (PCA) is a statistical technique used to reduce the dimensionality of a dataset while retaining most of its variability. It is a linear transformation method that converts the original set of variables into a new set of linearly uncorrelated variables, called principal components (PCs), which are sorted in decreasing order of variance.
 
-PCA was first introduced by Karl Pearson in 1901, who developed the
-mathematical foundation for the method. Later, Harold Hotelling (1933)
-provided a more detailed and modern interpretation of the PCA method.
+PCA was first introduced by Karl Pearson in 1901, who developed the mathematical foundation for the method. Later, Harold Hotelling (1933) provided a more detailed and modern interpretation of the PCA method.
 
-PCA has become one of the most commonly used techniques in data analysis
-due to its ability to identify hidden patterns and reduce the complexity
-of high-dimensional data.
+PCA has become one of the most commonly used techniques in data analysis due to its ability to identify hidden patterns and reduce the complexity of high-dimensional data.
 
-In essence, PCA aims to find the linear combinations of the original
-variables that account for the largest possible amount of variation in
-the dataset. The resulting principal components are orthogonal to each
-other, meaning that they are not correlated, and their order reflects
-their importance in explaining the variability of the data.
+In essence, PCA aims to find the linear combinations of the original variables that account for the largest possible amount of variation in the dataset. The resulting principal components are orthogonal to each other, meaning that they are not correlated, and their order reflects their importance in explaining the variability of the data.
 
-To become comfortable with PCA, we will follow with detailed examples on
-how to perform it step-by-step, and then we will use functions from R
-packages to do it.
+To become comfortable with PCA, we will follow with detailed examples on how to perform it step-by-step, and then we will use functions from R packages to do it.
 
 ## Principal component analysis *not* in a nutshell
 
-Suppose we have a dataset with $n$ observations and $p$ variables
-represented by an n x p matrix $X$. The goal of PCA is to transform this
-dataset into a new set of $p$ uncorrelated variables, called principal
-components (PCs), which capture the maximum amount of variance in the
-original data.
+Suppose we have a dataset with $n$ observations and $p$ variables represented by an n x p matrix $X$. The goal of PCA is to transform this dataset into a new set of $p$ uncorrelated variables, called principal components (PCs), which capture the maximum amount of variance in the original data.
 
 #### Load data
 
-In this workshop, we use the `data(varechem)` dataset, which contains
-measurements of chemical properties of 18 soil samples from a field
-experiment. We will select the first two variables:
+In this workshop, we use the `data(varechem)` dataset, which contains measurements of chemical properties of 18 soil samples from a field experiment. We will select the first two variables:
 
 ```{r}
 # Load the datasets package
@@ -64,14 +37,11 @@ data(varechem)
 
 #### Standardize data
 
-We first need to standardize the data to have mean zero and unit
-variance:
+We first need to standardize the data to have mean zero and unit variance:
 
 $$ Z_{ij} = \frac{X_{ij} - \bar{X_j}}{s_j} $$
 
-where Z is the standardized matrix, X is the original matrix,
-$\bar{X_j}$ is the mean of variable j, and $s_j$ is the standard
-deviation of variable j.
+where Z is the standardized matrix, X is the original matrix, $\bar{X_j}$ is the mean of variable j, and $s_j$ is the standard deviation of variable j.
 
 ```{r}
 data_std <- scale(data)
@@ -83,18 +53,13 @@ Next, we compute the covariance matrix of $Z$:
 
 $$ C = \frac{1}{n-1}ZZ^T $$
 
-where $C$ is the covariance matrix and $T$ denotes the transpose
-operation.
+where $C$ is the covariance matrix and $T$ denotes the transpose operation.
 
-The covariance matrix is a symmetric matrix that represents the pairwise
-covariances between the variables. The formula for the covariance
-between two variables $X$ and $Y$ is:
+The covariance matrix is a symmetric matrix that represents the pairwise covariances between the variables. The formula for the covariance between two variables $X$ and $Y$ is:
 
 $$\text{Cov}(X,Y) = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X})(Y_i - \bar{Y})$$
 
-where $n$ is the sample size, $X_i$ and $Y_i$ are the values of the
-variables for observation \$i\$, and $\bar{X}$ and $\bar{Y}$ are the
-sample means of the variables.
+where $n$ is the sample size, $X_i$ and $Y_i$ are the values of the variables for observation \$i\$, and $\bar{X}$ and $\bar{Y}$ are the sample means of the variables.
 
 ```{r}
 cov_matrix <- cov(data_std)
@@ -106,8 +71,7 @@ Then, we calculate the eigenvalues and eigenvectors of $C$:
 
 $$ Cv = \lambda v $$
 
-where $C$ is the covariance matrix, $v$ is the eigenvector and $\lambda$
-is the corresponding eigenvalue.
+where $C$ is the covariance matrix, $v$ is the eigenvector and $\lambda$ is the corresponding eigenvalue.
 
 ```{r}
 eigen_decomp <- eigen(cov_matrix)
@@ -115,22 +79,15 @@ Eigenvalues <- eigen_decomp$values
 Eigenvectors <- eigen_decomp$vectors
 ```
 
-The eigenvectors represent the directions in the $p$-dimensional space
-that capture the maximum amount of variance in the data, and the
-eigenvalues indicate the amount of variance captured by each
-eigenvector.
+The eigenvectors represent the directions in the $p$-dimensional space that capture the maximum amount of variance in the data, and the eigenvalues indicate the amount of variance captured by each eigenvector.
 
-#### Select principal components that will be retained
+#### Project the standardized data onto the Eigenspace  
 
-Finally, we project the standardized data matrix $Z$ onto the new basis
-vectors to obtain the principal components. Here, we'll calculate the
-principal component scores by multiplying the standardized data by the
-eigenvectors of all principal components:
+Finally, we project the standardized data matrix $Z$ onto the new basis vectors to obtain the principal components. Here, we'll calculate the principal component scores by multiplying the standardized data by the eigenvectors of all principal components:
 
 $$ Y = ZV $$
 
-where $Y$ is the transformed data matrix, and $V$ is the matrix of
-eigenvectors.
+where $Y$ is the transformed data matrix, and $V$ is the matrix of eigenvectors.
 
 ```{r}
 F_PrComps <- data_std %*% Eigenvectors
@@ -138,9 +95,7 @@ F_PrComps <- data_std %*% Eigenvectors
 head(F_PrComps)
 ```
 
-The score matrix, $F$, (object `F_PrComps`) allows one to *rotate* the
-new data space, so it is represented in relation to the principal
-components. For instance, see the figure below:
+The score matrix, $F$, (object `F_PrComps`) allows one to *rotate* the new data space, so it is represented in relation to the principal components. For instance, see the figure below:
 
 ```{r echo=FALSE, fig.height = 6.5, fig.width = 3.5, fig.align='center', fig.cap = "Relationship between N and P from the `varechem` dataset. The purple and orange diagonal lines represent the first and second principal components, respectively. Purple lines denote the residuals between the data point and the first principal component, while orange segmented lines denote the distance between points and the second principal componenet. Arrows indicate the Eigenvalues (direction) from the principal component analysis done on these two variables."}
 Eigenvectors. <- as.data.frame(Eigenvectors)
@@ -390,6 +345,7 @@ head(F_PrComps)
 ```
 
 How, how does it compare to `stats::prcomp()`?
+
 ```{r}
 PCA_prcomp <- prcomp(Y, 
                      center = TRUE, 
@@ -401,6 +357,7 @@ head(PCA_prcomp$x)
 ```
 
 And, how does it compare to `stats::princomp()`?
+
 ```{r}
 PCA_princomp <- princomp(Y_std)
 
@@ -408,6 +365,7 @@ head(PCA_princomp$scores)
 ```
 
 And to `vegan::rda()`?
+
 ```{r}
 PCA_vegan_rda <- rda(Y_std)
 
@@ -487,9 +445,9 @@ Here, we have 27 principal components. However, we can apply algorithms to selec
 
 We can select the principal components that capture more variance than the average explanation of all principal components. We do this by:
 
-1. Extracting the *Eigenvalues* associated to the principal components;
+1.  Extracting the *Eigenvalues* associated to the principal components;
 
-2. Subsetting the *Eigenvalues* above the mean *Eigenvalue*:
+2.  Subsetting the *Eigenvalues* above the mean *Eigenvalue*:
 
 ```{r}
 ev <- spe.h.pca$CA$eig
@@ -520,7 +478,6 @@ screeplot(spe.h.pca,
 
 ## Scaling
 
-
 All that is left is to discuss *scaling* and to *visualize* our results.
 
 Let us practice and compute a PCA on the standardized environmental variables for the same dataset.
@@ -549,7 +506,6 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-
 The information computed by the PCA can be represented with *biplots*.
 
 We can produce a *quick and dirty* biplot of the PCA using the function `plot()` in base `R`.
@@ -568,9 +524,9 @@ biplot(spe.h.pca)
 
 The arrows are plotted to show the directionality and angle of the descriptors in the ordination.
 
-- Descriptors at 180 degrees of each other are negatively correlated;
-- Descriptors at 90 degrees of each other have zero correlation;
-- Descriptors at 0 degrees of each other are positively correlated.
+-   Descriptors at 180 degrees of each other are negatively correlated;
+-   Descriptors at 90 degrees of each other have zero correlation;
+-   Descriptors at 0 degrees of each other are positively correlated.
 
 *Type 2 scaling* (`default`): distances among objects are not approximations of Euclidean distances; angles between descriptor (species) vectors reflect their correlations.
 
@@ -579,8 +535,7 @@ par(mar = c(4,4,0.05,0.05), cex = 1.2)
 biplot(spe.h.pca, scaling = 2)
 ```
 
-*Type 1 scaling*: attempts to preserve the Euclidean distance (in multidimensional space)
-among objects (sites): the angles among descriptor (species) vector are not meaningful.
+*Type 1 scaling*: attempts to preserve the Euclidean distance (in multidimensional space) among objects (sites): the angles among descriptor (species) vector are not meaningful.
 
 ```{r, echo = -1, fig.height=4, fig.width=4.5}
 par(mar = c(4,4,0.05,0.05), cex = 1.2)
@@ -597,9 +552,9 @@ data(mite)
 
 Be ready to discuss and answer:
 
-- What are the *most relevant* principal components, i.e. subset them?
-- Which groups of sites can you identify?
-- Which groups of species are related to these groups of sites?
+-   What are the *most relevant* principal components, i.e. subset them?
+-   Which groups of sites can you identify?
+-   Which groups of species are related to these groups of sites?
 
 **Challenge 2 - Solution** <hidden> Your code likely looks like the following.
 

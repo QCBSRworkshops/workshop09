@@ -1,447 +1,624 @@
-# Analyses en Composantes Principales
 
-L'Analyse en Composantes Principales (ou PCA) fur originellement
-décrite par Pearson (1901) bien qu'elle soit le plus souvent attribué à
-Hotelling (1933) qui l'a proposé indépendamment. Cette méthode ainsi
-que nombre de ces implications sont pour l'analyse de données sont
-présentées dans l'article fondateur de Rao (1964). La PCA est utilisée
-pour générer, à partir d'un large jeu de données, un nombre restreint
-de variables clefs qui permettent de représenter au maximum la variation
-présente dans le jeu de données. En d'autres termes, la PCA est
-utilisée pour générer des combinaisons de variables à partir d'un
-ensemble plus grand de variables tout en conservant la majorité de
-variation de l'ensemble des données. La PCA est une technique
-d'analyse puissante pour l'analyse dans descripteurs quantitatifs
-(tels que les abondances d'espèces), mais ne peut pas être appliquée
-aux données binaires (telles que l'absence/présence des espèces).
-
-À partir d'un jeu de données contenant des variables à distribution
-normale, le premier axe de PCA (ou axe de composante principale)
-correspond à la droite qui traverse la plus grande dimension de
-l'ellipsoïde décrivant la distribution multi-normale des données. Les
-axes suivants traversent de façon similaire cet ellipsoïde selon
-l'ordre décroissant de ces dimensions. Ainsi, il est possible
-d'obtenir un maximum de p axes principaux à partir d'un jeu de données
-contenant p variables.
-
-Pour cela, la PCA effectue un rotation du système d'axes originels
-défini par les variables de façon à ce que les axes d'ordination
-successifs soient orthogonaux entre eux et correspondent aux dimensions
-successives du maximum de variance observée dans le nuage de points
-(voir ci-dessus). Les nouvelles variables produites par la PCA sont
-non-corrélées entre elles (les axes d'ordination étant orthogonaux) et
-peuvent alors être utilisés dans d'autres types d'analyse telles que
-des régressions multiples (Gotelli et Ellison, 2004). Les composantes
-principales situent la position des objets dans le nouveau système de
-coordonnées calculé par la PCA. La PCA s'effectue sur une matrice
-d'association entre variables, et a pour caractéristique de préserver
-les distances euclidiennes et de détecter des relations linéaires,
-uniquement. En conséquence, les abondances brutes des espèces doivent
-être soumises à une pré-transformation (comme une transformation
-d'Hellinger) avant de réaliser une PCA.
-
-*Pour faire une PCA, vous avez besoin :* - Un ensemble de variables
-(sans distinction entre les variables indépendantes ou dépendantes,
-c-est-à-dire un ensemble d'espèces OU un ensemble de variables
-environnementales). - De sites (objets, échantillons) dans lesquels sont
-mesurés les mêmes variables. - En général, il est préférable d'avoir un
-plus grand nombre de sites que de variables dans le jeu de données (plus
-de lignes que de colonnes).
-
-La PCA est particulièrement utile pour des matrices de données contenant
-plus de deux variables, mais il est plus facile de décrire son
-fonctionnement avec un exemple bidimensionnel. Dans l'exemple suivant
-(d'après Clarke et Warwick 2001), la matrice contient les données
-d'abondance de deux espèces dans neuf sites:
-
-  Site   Espèce 1   Espèce 2
-  ------ ---------- ----------
-  A      6          2
-  B      0          0
-  C      5          8
-  D      7          6
-  E      11         6
-  F      10         10
-  G      15         8
-  H      18         14
-  I      14         14
-
-La représentation des sites en deux dimensions devrait ressembler à
-ceci: ![](images//pcaex_1.png){width="500"}
-
-Ce nuage de points est une ordination. Il présente la distribution des
-espèces entre les sites, mais vous pouvez imaginer qu'il est plus
-difficile de visualiser un tel graphique en présence de plus de deux
-espèces. Dans ce cas, l'objectif est de réduire le nombre de variables
-en composantes principales. Pour réduire les données bidimensionnelles
-précédentes à une dimension, une PCA peut être effectuée :
-
-![](images//pcaex_2.png){width="500"}
-
-Dans ce cas, la première composante principale est orientée dans le sens
-de la plus grande variation dans les points, ces points étant
-perpendiculaires à la ligne.
-
-Une seconde composante principale est alors ajoutée perpendiculairement
-à la première:
-
-![](images//pcaex_3.png){width="500"}
-
-Dans le diagramme final, les deux axes de PCA sont pivotés et les axes
-sont maintenant les composantes principales (et non plus les espèces):
-
-![](images//pcaex_4.png){width="500"}
-
-Pour les PCA avec plus de deux variables, les composantes principales
-sont ajoutées de la façon suivante (Clarke et Warwick 2001):
-
-PC1 = axe qui maximise la variance des points qui sont projetées
-perpendiculairement à l'axe. PC2 = axe perpendiculaire à PC1, mais dont
-la direction est à nouveau celle maximisant la variance lorsque les
-points y sont projetés perpendiculairement. PC3 et ainsi de suite:
-perpendiculaire aux deux premiers axes dont la direction est à nouveau
-celle maximisant la variance lorsque les points y sont projetés
-perpendiculairement.
-
-Lorsqu'il y a plus de deux dimensions, la PCA produit un nouvel espace
-dans lequel tous les axes de PCA sont orthogonaux (ce qui signifie que
-la corrélation entre chaque combinaison de deux axes est nulle), et où
-les axes de PCA sont ordonnés selon la proportion de variance des
-données d'origine qu'ils expliquent.
-
-Les données \"spe\" comprennent 27 espèces de poissons. Pour simplifier
-cette diversité à un petit nombre de variables ou pour identifier
-différents groupes de sites associés à des espèces particulières, une
-PCA peut être effectuée.
-
-Exécuter une PCA sur les données d'abondance d'espèces soumises à la
-transformation d'Hellinger :
-
-```{r, echo = TRUE, eval = FALSE}
-#Exécuter la PCA avec la fonction rda()- cette fonction calcule à la fois des PCA et des RDA
-spe.h.pca<-rda(spe.hel)
-
-#Extraire les résultats
-summary(spe.h.pca) 
+```{r include=FALSE}
+library(knitr)
+opts_chunk$set(fig.align = 'center')
 ```
 
-Résultats:
+# Analyse en composantes principales
 
-![](images//pca_outputfr_1.png){width="800"}
-![](images//pca_outputfr_2.png){width="800"}
-![](images//pca_outputfr_3.png){width="800"}
+L'analyse en composantes principales (ACP) est une technique statistique utilisée pour réduire la dimensionnalité d'un ensemble de données tout en conservant la majeure partie de sa variabilité. variabilité. Il s'agit d'une méthode de transformation linéaire qui convertit l'ensemble de variables d'origine en un nouvel ensemble de variables linéairement non corrélées. l'ensemble original de variables en un nouvel ensemble de variables linéairement non corrélées, appelées linéairement non corrélées, appelées composantes principales (CP), qui sont classées par ordre décroissant de variance. par ordre décroissant de variance.
 
-**Interprétation des résultats de PCA** Cette sortie R contient les
-valeurs propres ou «eigenvalue» de la PCA. La valeur propre est la
-valeur de la variation ramenée à la longueur d'un vecteur, et
-correspond à la quantité de variation expliquée par chaque axe
-d'ordination de la PCA. Comme vous pouvez le voir, la fonction summary
-fournit de nombreuses informations. Parmi les résultats, la proportion
-de variance des données expliquée par les variables sans contraintes est
-une information importante. Dans cet exemple, la variance totale des
-sites expliquée par les espèces est de 0,5 (50%). Le résumé vous indique
-également quelle proportion de la variance totale expliquée est répartie
-entre chaque composantes principales de la PCA: le premier axe de PCA
-explique 51.33% de la variation tandis que le second axe explique
-12.78%. Vous pouvez également extraire certaines parties des résultats:
+L'ACP a été introduite pour la première fois par Karl Pearson en 1901, qui a développé les fondements mathématiques de la méthode. les fondements mathématiques de la méthode. Plus tard, Harold Hotelling (1933) a fourni une interprétation plus détaillée et plus moderne de la méthode ACP.
 
-```{r, echo = TRUE, eval = FALSE}
-summary(spe.h.pca, display=NULL) # seulement les valeurs propres
-eigen(cov(spe.hel)) # vous pouvez aussi trouver les valeurs propres par cette ligne de code
+L'ACP est devenue l'une des techniques les plus utilisées dans l'analyse des données données en raison de sa capacité à identifier des modèles cachés et à réduire la complexité des données à haute dimension.
+
+En substance, l'ACP vise à trouver les combinaisons linéaires des variables qui représentent la plus grande quantité possible de variation dans l'ensemble l'ensemble des données. Les composantes principales qui en résultent sont orthogonales les unes par rapport aux autres, ce qui signifie qu'elles ne sont pas corrélées entre elles. orthogonales, ce qui signifie qu'elles ne sont pas corrélées. leur importance dans l'explication de la variabilité des données.
+
+Pour vous familiariser avec l'ACP, nous allons suivre des exemples détaillés sur la façon de l'exécuter étape par étape. comment l'effectuer étape par étape, puis nous utiliserons les fonctions des paquets R pour la réaliser.
+
+## L'analyse en composantes principales *pas* en bref
+
+Supposons que nous ayons un ensemble de données avec $n$ observations et $p$ variables représentées par une matrice n x p $X$. L'objectif de l'ACP est de transformer cet ensemble de en un nouvel ensemble de $p$ variables non corrélées, appelées composantes principales composantes principales (CP), qui capturent le maximum de variance dans les données originales. données originales.
+
+#### Charger les données
+
+Dans cet atelier, nous utilisons le jeu de données `data(varechem)`, qui contient des des mesures des propriétés chimiques de 18 échantillons de sol provenant d'une d'une expérience sur le terrain. Nous sélectionnerons les deux premières variables :
+
+```{r}
+# Chargement du paquet datasets
+library(datasets)
+
+# Charger le jeu de données varechem
+data(varechem)
+
+# Sélectionner les données
+(data <- varechem[, 1:2])
+
 ```
 
-Les scores (c'est-à-dire les coordonnées) des sites ou des espèces
-peuvent également être extraits d'une PCA. Ces scores permettent, par
-exemple, d'utiliser une composante principale comme une variable dans
-une autre analyse, ou de faire des graphiques supplémentaires. Par
-exemple, vous pouvez obtenir par PCA une variable unique issue du jeu de
-données \"spe\" puis l'utiliser pour la corréler par régression à une
-autre variable, ou déterminer un gradient spatial. Pour extraire les
-scores d'une PCA, utiliser la fonction scores ():
+#### Normaliser les données
 
-```{r, echo = TRUE, eval = FALSE}
-spe.scores<-scores(spe.h.pca, display="species", choices=c(1,2)) # scores des espèces selon les premier et deuxième axes 
-site.scores<-scores(spe.h.pca, display="sites", choices=c(1,2)) # scores des sites selon les premier et deuxième axes 
-#Remarque: si vous ne spécifiez pas le nombre de composantes principales à l'aide de choices = c (1,2) 
-#(ou choices = c (1: 2)), les scores selon toutes les composantes principales seront extraits.
+Nous devons d'abord normaliser les données pour qu'elles aient une moyenne nulle et une variance unitaire :
+
+$$ Z_{ij} = \frac{X_{ij} - \bar{X_j}}{s_j} $$
+
+où Z est la matrice standardisée, X est la matrice originale, $\bar{X_j}$ est la moyenne de la variable j, et $s_j$ est l'écart-type de la variable j.
+
+```{r}
+data_std <- scale(data)
 ```
 
-La PCA des données d'abondances de poissons produit autant de
-composantes principales qu'il y d'espèces (i.e. de colonnes dans le
-jeu de données), soit 27 composantes principales. Le nombre de variables
-à traiter n'est donc pas directement réduit par la PCA. Pour réduire le
-nombre de variables, il est alors nécessaire de déterminer quelles
-composantes principales sont significatives et doivent être conservées,
-par exemple à l'aide du critère de Kaiser-Guttman. Ce critère compare
-la variance expliquée par chaque composante principale à la moyenne de
-la variance expliquée par l'ensemble des composantes principales. Un
-histogramme illustrant la significativité des différentes composantes
-principale peut ensuite être tracé à l'aide du code ci-dessous :
+#### Calculer la matrice de covariance
 
-```{r, echo = TRUE, eval = FALSE}
-# Identification des axes significatifs de la PCA à l'aide du critère de Kaiser-Guttman
-ev<-spe.h.pca$CA$eig
+Ensuite, nous calculons la matrice de covariance de $Z$ :
+
+$$ C = \frac{1}{n-1}ZZ^T $$
+
+où $C$ est la matrice de covariance et $T$ représente l'opération de transposition.
+
+La matrice de covariance est une matrice symétrique qui représente les covariances par paire entre les variables. La formule de la covariance entre deux variables $X$ et $Y$ est la suivante :
+
+$$\text{Cov}(X,Y) = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X})(Y_i - \bar{Y})$$
+
+où $n$ est la taille de l'échantillon, $X_i$ et $Y_i$ sont les valeurs des variables pour l'observation \$i\$, et $\bar{X}$ et $\bar{Y}$ sont les moyennes de l'échantillon des variables.
+
+```{r}
+cov_matrix <- cov(data_std)
+```
+
+#### Effectuer la décomposition en valeurs propres de la matrice de covariance
+
+Ensuite, nous calculons les valeurs propres et les vecteurs propres de $C$ :
+
+$$ Cv = \lambda v $$
+
+où $C$ est la matrice de covariance, $v$ est le vecteur propre et $\lambda$ est la valeur propre correspondante.
+
+```{r}
+eigen_decomp <- eigen(cov_matrix)
+Valeurs propres <- eigen_decomp$values
+Vecteurs propres <- eigen_decomp$vectors
+```
+
+Les vecteurs propres représentent les directions dans l'espace à $p$ dimensions qui capturent le maximum de variance dans les données, et les valeurs propres indiquent la quantité de variance capturée par chaque vecteur propre.
+
+
+#### Projeter les données normalisées sur l'espace des valeurs propres
+
+Enfin, nous projetons la matrice de données normalisées $Z$ sur les nouveaux vecteurs de base pour obtenir les composantes principales. Ici, nous calculons les scores des composantes principales en multipliant les données normalisées par les vecteurs propres de toutes les composantes principales :
+
+$$ Y = ZV $$
+
+où $Y$ est la matrice des données transformées et $V$ est la matrice des vecteurs propres.
+
+```{r}
+F_PrComps <- data_std %*% Eigenvectors
+
+head(F_PrComps)
+```
+
+La matrice de score, $F$, (objet `F_PrComps`) permet de *rotationner* le nouvel espace de données, de sorte qu'il soit représenté par rapport aux composantes principales. Par exemple, voir la figure ci-dessous :
+
+
+
+```{r echo=FALSE, fig.height = 6.5, fig.width = 3.5, fig.align='center', fig.cap = "Relation entre N et P à partir de l'ensemble de données `varechem`. Les lignes diagonales violette et orange représentent respectivement la première et la deuxième composante principale. Les lignes violettes indiquent les résidus entre le point de données et la première composante principale, tandis que les lignes orange segmentées indiquent la distance entre les points et la deuxième composante principale. Les flèches indiquent les valeurs propres (direction) de l'analyse en composantes principales effectuée sur ces deux variables."}
+Eigenvectors. <- as.data.frame(Eigenvectors)
+row.names(Eigenvectors.) <- c("P", "N")
+colnames(Eigenvectors.) <- c("PC1", "PC2")
+Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
+Y_std <- as.data.frame(data_std)
+
+op <- par(mfrow = c(2, 1),     # 2x2 layout
+          oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
+          mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
+          mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
+)       
+
+plot(N ~ P, 
+     col = as.factor(rownames(Y_std)),
+     pch = 19, 
+     xlim=c(-2.2, 2.2), 
+     ylim = c(-2.2,2.2), 
+     data = as.data.frame(Y_std))
+
+abline(v=0 , h=0, 
+       col = "dark gray")
+
+#Overlap pertinent evectors
+
+abline(0, 
+       Eigenvectors[2, 1]/Eigenvectors[1, 1],
+       col='purple')
+# abline(0, 
+#        Eigenvectors[1, 2]/Eigenvectors[2, 2],
+#        col='orange')
+
+arrows(x0 = 0, 
+       y0 = 0, 
+       x1 = Eigenvalues[1]*Eigenvectors[1, 1],
+       y1 = Eigenvalues[1]*Eigenvectors[2, 1],
+       col = "purple",
+       lwd = 2)
+
+# arrows(x0 = 0, 
+#        y0 = 0, 
+#        x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+#        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
+#        col = "orange", 
+#        lwd = 2)
+
+# Plot the lines from first evector to points
+
+line1 <- c(0, 
+           Eigenvectors[2, 1]/Eigenvectors[1, 1])
+
+perp.segment.coord <- function(x0, y0, line1){
+  a <- line1[1]  #intercept
+  b <- line1[2]  #slope
+  x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
+  y1 <- a + b * x1
+  list(x0 = x0, y0 = y0, 
+       x1 = x1, y1 = y1)
+}
+
+ss <- perp.segment.coord(Y_std$P, 
+                         Y_std$N, 
+                         line1)
+# do.call(segments, ss)
+# which is the same as:
+
+segments(x0 = ss$x0, 
+         x1 = ss$x1, 
+         y0 = ss$y0, 
+         y1 = ss$y1, 
+         col = 'purple')
+
+points(N ~ P, 
+       col = as.factor(rownames(Y_std)), 
+       pch = 19,
+       data = Y_std)
+with(Y_std,
+     text(N ~ P, 
+          labels = as.factor(rownames(Y_std)),
+          pos = 1, 
+          cex=1.4))
+
+
+plot(N ~ P, 
+     col = as.factor(rownames(Y_std)),
+     pch = 19, 
+     xlim=c(-2.2, 2.2), 
+     ylim = c(-2.2,2.2), 
+     data = as.data.frame(Y_std))
+
+abline(v=0 , h=0, 
+       col = "dark gray")
+
+#Overlap pertinent evectors
+
+abline(0, 
+       Eigenvectors[2, 1]/Eigenvectors[1, 1],
+       col='purple')
+abline(0, 
+       Eigenvectors[1, 2]/Eigenvectors[2, 2],
+       col='orange')
+
+arrows(x0 = 0, 
+       y0 = 0, 
+       x1 = Eigenvalues[1]*Eigenvectors[1, 1],
+       y1 = Eigenvalues[1]*Eigenvectors[2, 1],
+       col = "purple",
+       lwd = 2)
+
+arrows(x0 = 0, 
+       y0 = 0, 
+       x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+       y1 = Eigenvalues[2]*Eigenvectors[2, 2],
+       col = "orange", 
+       lwd = 2)
+
+
+line2 <- c(0, 
+           Eigenvectors[1, 2]/Eigenvectors[1, 1])
+
+perp.segment.coord <- function(x0, y0, line2){
+  a <- line2[1]  #intercept
+  b <- line2[2]  #slope
+  x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
+  y1 <- a + b * x1
+  list(x0 = x0, y0 = y0, 
+       x1 = x1, y1 = y1)
+}
+
+ss <- perp.segment.coord(Y_std$P, 
+                         Y_std$N, 
+                         line2)
+
+segments(x0 = ss$x0, 
+         x1 = ss$x1, 
+         y0 = ss$y0, 
+         y1 = ss$y1, 
+         col = 'orange')
+
+points(N ~ P, 
+       col = as.factor(rownames(Y_std)), 
+       pch = 19,
+       data = Y_std)
+
+with(Y_std,
+     text(N ~ P, 
+          labels = as.factor(rownames(Y_std)),
+          pos = 1, 
+          cex=1.4)
+)
+
+title(xlab = "N",
+      ylab = "P",
+      outer = TRUE, line = 3)
+
+par(op)
+```
+
+
+```{r echo=FALSE, fig.height = 6.5, fig.width = 3.5, fig.align = 'center', fig.cap = "Relation entre PC1 et PC2 de l'analyse en composantes principales effectuée sur les variables P et N de l'ensemble de données `varechem`. Les lignes violettes et orange représentent respectivement la première et la deuxième composante principale. Les lignes violettes indiquent les résidus entre le point de données et la première composante principale, tandis que les lignes orange segmentées indiquent la distance entre les points et la deuxième composante principale."}
+
+score <- as.data.frame(F_PrComps)
+
+colnames(score) <- c("PC1", "PC2")
+
+op <- par(mfrow = c(2, 1),     # 2x2 layout
+          oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
+          mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
+          mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
+)
+
+
+plot(PC2 ~ PC1, 
+     col = as.factor(rownames(score)), 
+     pch = 19, 
+     xlim = c(-2.2, 2.2), ylim = c(-2.2,2.2), xlab='PC1', ylab='PC2',data = score)
+
+abline(h = 0, col = 'purple')
+abline(v = 0, col='orange')
+
+
+perp.segment.horiz <- function(x0, y0){
+  x1 <- x0
+  y1 <- 0
+  list(x0 = x0, y0 = y0, x1 = x1, y1 = y1)
+}
+
+ss1 <- perp.segment.horiz(score[,1], score[,2])
+
+segments(x0 = ss1$x0, x1 = ss1$x1, y0 = ss1$y0, y1 = ss1$y1, col='purple')
+
+
+points(PC2 ~ PC1, col=as.factor(rownames(score)), pch = 19, xlab='V1', ylab='V2',data=score)
+with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
+
+
+plot(PC2 ~ PC1, col=as.factor(rownames(score)), 
+     pch = 19, xlim=c(-2.2, 2.2), ylim = c(-2.2,2.2),
+     xlab='PC1', ylab='PC2',data=score)
+
+abline(h = 0, col = 'purple')
+abline(v = 0, col ='orange')
+
+
+perp.segment.vert <- function(x0, y0){
+  x1 <- 0
+  y1 <- y0
+  
+  list(x0 = x0, y0 = y0, x1 = x1, y1 = y1)
+}
+
+ss1a <- perp.segment.vert(score[,1], score[,2])
+segments(x0 = ss1a$x0, x1 = ss1a$x1, y0 = ss1a$y0, y1 = ss1a$y1, col='orange')
+
+
+points(PC2 ~ PC1, col=as.factor(rownames(score)), pch = 19, xlab='V1', ylab='V2',data=score)
+
+with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
+
+title(xlab = "PC1",
+      ylab = "PC2",
+      outer = TRUE, 
+      line = 3)
+
+par(op)
+```
+
+## Analyse en composantes principales à l'aide des fonctions du paquet
+
+L'ACP peut également être calculée en utilisant les fonctions `stats::prcomp()`, `stats::princomp()`, `vegan::rda()`, et `ade4::dudi.pca()`.
+
+En résumé, voici ce que nous avons fait :
+
+
+```{r}
+data(varechem)
+
+Y <- varechem[, 1:2] 
+Y_std <- as.matrix(scale(Y))
+Y_R <- cov(Y_std)
+
+Eigenvalues <- eigen(Y_R)$values
+Eigenvectors <- eigen(Y_R)$vectors
+
+F_PrComps <- Y_std %*% Eigenvectors
+
+head(F_PrComps)
+```
+
+Comment cela se compare-t-il à `stats::prcomp()` ?
+
+
+```{r}
+PCA_prcomp <- prcomp(Y, 
+                     center = TRUE, 
+                     scale = TRUE)
+
+# or PCA_prcomp <- prcomp(Y_std)
+
+head(PCA_prcomp$x)
+```
+
+Et quelle est la comparaison avec `stats::princomp()` ?
+
+```{r}
+PCA_princomp <- princomp(Y_std)
+
+head(PCA_princomp$scores)
+```
+
+
+Et avec `vegan::rda()`?
+
+```{r}
+PCA_vegan_rda <- rda(Y_std)
+
+scores(PCA_vegan_rda, 
+       display = "sites", 
+       scaling = 1,
+       choices = seq_len(PCA_vegan_rda$CA$rank),
+       const = sqrt(PCA_vegan_rda$tot.chi * (nrow(PCA_vegan_rda$CA$u) - 1)))[1:5, ]
+```
+
+`vegan::rda()` est un peu spéciale. Elle utilise des échelles alternatives. Nous ne les aborderons pas ici, mais vous pouvez étudier la `vignette("decision-vegan")`.
+
+## Analyse en composantes principales sur des données écologiques
+
+Nous avons mis en œuvre l'ACP sur un ensemble de données à deux variables, pour des raisons de simplicité.
+
+Avançons et appliquons-la à notre jeu de données sur les espèces de poissons.
+
+Pour cela, nous allons utiliser la fonction `vegan::rda()` sur les données de poissons *transformées par Hellinger* et résumer les résultats :
+
+```{r}
+spe.h.pca <- rda(spe.hel)
+
+# summary(spe.h.pca)
+```
+
+Les premières lignes de `summary.rda()` nous renseignent sur la *variance totale* et la *variance non contrainte* de notre modèle.
+
+``{r echo=FALSE}
+paste(capture.output(summary(spe.h.pca))[5:8])
+```
+
+``{r echo=FALSE}
+paste(capture.output(summary(spe.h.pca))[c(12:16, 21:24)])
+```
+
+Viennent ensuite les *valeurs propres* et leur contribution à la variance.
+
+En fait, si nous additionnons toutes nos *valeurs propres*, nous obtiendrons la quantité de variance non contrainte expliquée par l'analyse !
+
+```{r}
+sum(spe.h.pca$CA$eig)
+```
+
+Les informations suivantes sont liées à l'*échelle*, aux *scores d'espèces* et aux *scores de sites*.
+
+```{r echo=FALSE}
+paste(capture.output(summary(spe.h.pca))[c(26:29, 31:32, 34:40, 63:64, 66:72)])
+```
+
+Les *espèces* font référence à vos descripteurs (c'est-à-dire les colonnes de votre jeu de données), qui sont ici les espèces de poissons.
+
+Les *scores* font référence à la position de chaque espèce le long des composantes principales.
+
+```{r echo=FALSE}
+paste(capture.output(summary(spe.h.pca))[c(32, 34:40)])
+```
+
+```{r echo=FALSE}
+paste(capture.output(summary(spe.h.pca))[c(64, 66:72)])
+```
+
+*Sites* représente les lignes de votre jeu de données, qui sont ici les différents sites le long de la rivière *Doubs*.
+
+Cette information peut être obtenue avec la fonction `score()` que nous avons utilisée précédemment :
+
+```{r, eval = FALSE, echo = TRUE}
+scores(spe.h.pca,
+       display = "species" or "sites")
+```
+
+
+## Condenser les données avec l'analyse en composantes principales
+
+Ici, nous avons 27 composantes principales. Cependant, nous pouvons appliquer des algorithmes pour sélectionner le plus petit nombre de composantes principales qui rendent encore compte d'une grande variance dans les données.
+
+#### Critère de Kaiser-Guttman
+
+Nous pouvons sélectionner les composantes principales qui capturent plus de variance que l'explication moyenne de toutes les composantes principales. Pour ce faire, nous procédons comme suit
+
+1.  Extraire les *valeurs propres* associées aux composantes principales ;
+
+2.  Sous-ensemble des *valeurs propres* supérieures à la *valeur propre* moyenne :
+
+
+```{r}
+ev <- spe.h.pca$CA$eig
+# ev[ev > mean(ev)]
+```
+
+```{r, echo = -1, fig.width=10, fig.height = 5.5}
+par(mar=c(1,4,2.5,.5), cex = 1.5)
+n <- length(ev)
+barplot(ev, main = "", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue",
+       lwd = 2, col = "red3" , bty = "n")
+```
+
+#### Modèle à bâtons rompus
+
+Le modèle à bâtons (ou branches) rompus retient les composantes qui expliquent plus de variance que ce que l'on pourrait attendre en divisant aléatoirement la variance en $p$ parties.
+
+```{r}
+head(bstick(spe.h.pca))
+```
+
+```{r, echo = TRUE, fig.width=4.5, fig.height = 4.5}
+screeplot(spe.h.pca, 
+          bstick = TRUE, type = "lines")
+```
+
+## Échelonnement
+
+Il ne nous reste plus qu'à discuter de la *mise à l'échelle* et à *visualiser* nos résultats.
+
+Pratiquons et calculons une ACP sur les variables environnementales standardisées pour le même ensemble de données.
+
+```{r}
+env.pca <- rda(env.z)
+# summary(env.pca, scaling  = 2)
+```
+
+Déterminer notre sous-ensemble de *valeurs propres* et leurs *vecteurs propres* correspondants :
+
+
+```{r}
+ev <- env.pca$CA$eig
+```
+
+```{r}
 ev[ev>mean(ev)]
-n<-length(ev)
-bsm<-data.frame(j=seq(1:n), p=0)
-bsm$p[1]=1/n
-for (i in 2:n) {
-  bsm$p[i]=bsm$p[i-1]+(1/(n=1-i))}
-bsm$p=100*bsm$p/n
-bsm
-barplot(ev, main="valeurs propres", col="grey", las=2)
-abline(h=mean(ev), col="red") 
-legend("topright", "moyenne des valeurs propres", lwd=1, col=2, bty="n")
 ```
 
-![](images//pca_sigaxes_sp.png){width="500"}
-
-Cet histogramme montre que la proportion de la variance expliquée par
-chaque composante chute en-dessous de la proportion moyenne expliquée
-par l'ensemble des composantes après le sixième axe d\"ordination PC6.
-En consultant le résumé de nouveau, on peut constater que la proportion
-cumulée de la variance expliquée par les cinq premières composantes
-principales est de 85%.
-
-La PCA n'est pas seulement appropriée pour les données de composition
-d'espèces, mais peut également être exécutée sur des variables
-environnementales standardisées:
-
-```{r, echo = TRUE, eval = FALSE}
-#Exécuter la PCA
-env.pca<-rda(env.z) # ou rda(env, scale=TRUE)
-
-#Extraction des résultats
-summary(env.pca)
-summary(env.pca, scaling=2) 
+```{r, echo = FALSE, fig.width=8, fig.height = 5}
+par(mar=c(4,4,2.5,.5), cex = 1.5)
+n <- length(ev)
+barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue",
+       lwd = 2, col = "red3" , bty = "n")
 ```
 
-«Scaling» réfère à quelle portion de la PCA est redimensionnée aux
-valeurs propres. Scaling = 2 signifie que les scores des espèces sont
-mises à l'échelle des valeurs propres, alors que scaling = 1 signifie
-que les scores des sites sont mises à l'échelle des valeurs propres.
-Scaling = 3 signifie qu'à la fois les scores des espèces et des sites
-sont mis symétriquement à l'échelle de la racine carrée des valeurs
-propres. En scaling = 1,les distances euclidiennes entre les sites
-(lignes de la matrice de données) sont conservées tandis qu'en scaling
-= 2 les corrélations entre espèces (les colonnes de la matrice de
-données) sont conservées. Cela implique que lorsque vous regardez un
-biplot de PCA en Scaling = 2, l'angle entre les descripteurs représente
-leur corrélation.
+Les informations calculées par l'ACP peuvent être représentées par des *biplots*.
 
-```{r, echo = TRUE, eval = FALSE}
-ev<-env.pca$CA$eig
-ev[ev>mean(ev)]
-n<-length(ev)
-bsm<-data.frame(j=seq(1:n), p=0)
-bsm$p[1]=1/n
-for (i in 2:n) {
-  bsm$p[i]=bsm$p[i-1]+(1/(n=1-i))}
-bsm$p=100*bsm$p/n
-bsm
-barplot(ev, main="valeurs propres", col="grey", las=2)
-abline(h=mean(ev), col="red") 
-legend("topright", "moyenne des valeurs propres", lwd=1, col=2, bty="n")
-```
+Nous pouvons produire un *biplot simple et rapide* de l'ACP en utilisant la fonction `plot()` dans la base `R`.
 
-Comparer cet histogramme de valeurs propres avec celui que vous avez
-créé pour la PCA sur les abondances d'espèces.
 
-Bien que beaucoup d'informations puissent être extraites d'une PCA par
-la fonction summary de la PCA, l'interpétation et la communication des
-résultats est souvent facilitée en traçant un biplot. Sur un biplot de
-PCA, l'axe des x correspond à la première composante principale et
-l'axe des y à la deuxième composante principale.
-
-La fonction plot () permet de tracer des biplot sur lequels les sites
-figurent en chiffres noirs et les espèces sont représentées en rouge. Le
-biplot de la *PCA des abondances d'espèces* peut être appelé comme
-suit:
-
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = -1}
+par(mar=c(4,4, 0.1,0.1), cex = 1.5)
 plot(spe.h.pca)
 ```
 
-![](images//spe_PCA1.png){width="800"}
+`biplot()` de `base` `R` permet une meilleure interprétation.
 
-La construction de biplots de PCA s'articule en trois étapes:
-
-```{r, echo = TRUE, eval = FALSE}
-plot(spe.h.pca, type=”n”) # Produit une figure vierge
-points(spe.h.pca, dis=”sp”, col=”blue”) # ajoute les points correspondant aux espèces
-#utilizer text() plutôt que points() si vous préférez que les codes des espèces s'affichent (nom des colonnes)
-points(spe.h.pca, dis=”sites”, col=”red”) # ajoute les points correspondant aux sites 
-```
-
-![](images//spe_PCA2.png){width="800"}
-
-Pour créer de plus beaux biplots, essayez ce code:
-
-```{r, echo = TRUE, eval = FALSE}
-#Scaling 1
-windows()
-plot(spe.h.pca)
-windows()
+```{r, echo = -1, fig.height=6, fig.width=6.5}
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
 biplot(spe.h.pca)
-windows()
-# scaling 1 = distance biplot : 
-# distances entre les objets est une approximation de leur distance euclidienne
-# les angles entre les descripteurs ne réflètent PAS leur corrélation
-plot(spe.h.pca, scaling=1, type="none", 
-     xlab<-c("PC1 (%)", round((spe.h.pca$CA$eig[1]/sum(spe.h.pca$CA$eig))*100,2)), 
-     ylab<-c("PC2 (%)", round((spe.h.pca$CA$eig[2]/sum(spe.h.pca$CA$eig))*100,2)))
-points(scores(spe.h.pca, display="sites", choices=c(1,2), scaling=1),
-       pch=21, col="black", bg="steelblue", cex=1.2)
-text(scores(spe.h.pca, display="species", choices=c(1), scaling=1),
-     scores(spe.h.pca, display="species", choices=c(2), scaling=1),
-     labels=rownames(scores(spe.h.pca, display="species", scaling=1)),
-     col="red", cex=0.8)  
 ```
 
-Le code ci-dessus a produit trois biplots mais le dernier est le plus
-attrayant : ![](images//spe_PCA3.png){width="800"}
+Les flèches sont tracées pour montrer la directionnalité et l'angle des descripteurs dans l'ordination.
 
-Sur ce graphique, les sites scores sont indiqués par des points bleus et
-les noms d'espèces sont en rouge. Il est également possible de
-représenter les sites par leurs noms.
+- Les descripteurs situés à 180 degrés les uns des autres sont négativement corrélés ;
+- Les descripteurs situés à 90 degrés les uns des autres ont une corrélation nulle ;
+- Les descripteurs situés à 0 degré les uns des autres sont positivement corrélés.
 
-Comment interpréter ce type de graphique ? Ce biplot permet d'observer
-qu'il existe certains groupes de sites homogènes du point de vue de la
-composition de leur communautés de poissons. On y voit également que
-l'espèce «ABL» n'a pas la même prévalence dans la majorité des sites
-que les autres espèces plus proches du centre du graphique.
+*Échelle de type 2* (par défaut) : les distances entre les objets ne sont pas des approximations des distances euclidiennes ; les angles entre les vecteurs des descripteurs (espèces) reflètent leurs corrélations.
 
-Les biplots ne doivent pas seulement être interprétés en termes de
-proximité, mais également d'angles. Deux variables séparées d'un angle
-de 90 degrés ne sont pas corrélées. Deux variables très rapprochés sont
-fortement corrélées. Deux variables aux directions opposées sont
-corrélées négativement.
-
-Maintenant regardons le biplot de la *PCA environnement*:
-
-```{r, echo = TRUE, eval = FALSE}
-#Scaling 2
-windows()
-plot(env.pca)
-windows()
-# scaling 2 = graphique de corrélations :
-# les distances entre les objets ne sont PAS des approximations de leur distance euclidienne
-# les angles entres les descripteurs reflètent leur corrélation
-plot(env.pca, scaling=2, type="none", 
-     xlab<-c("PC1 (%)", round((env.pca$CA$eig[1]/sum(env.pca$CA$eig))*100,2)),
-     ylab<-c("PC2 (%)", round((env.pca$CA$eig[2]/sum(env.pca$CA$eig))*100,2)),
-     xlim<-c(-1,1), ylim=c(-1,1))
-points(scores(env.pca, display="sites", choices=c(1,2), scaling=2), 
-       pch=21, col="black", bg="darkgreen", cex=1.2) 
-text(scores(env.pca, display="species", choices=c(1), scaling=2),
-     scores(env.pca, display="species", choices=c(2), scaling=2),
-     labels<-rownames(scores(env.pca, display="species", scaling=2)),
-     col="red", cex=0.8)
+```{r, echo = -1, fig.height=4, fig.width=4.5}
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
+biplot(spe.h.pca, scaling = 2)
 ```
 
-![](images//env_PCA1.png){width="800"}
+*Échelle de type 1* : tente de préserver la distance euclidienne (dans l'espace multidimensionnel) entre les objets (sites) : les angles entre les vecteurs des descripteurs (espèces) ne sont pas significatifs.
 
-Rappelez-vous qu'un biplot de PCA est en fait un nuage de points dans
-lequel les axes sont des combinaisons linéaires des variables
-d'origine. Il existe donc beaucoup de façons différentes de tracer un
-biplot. Par exemple, vous pouvez utiliser la fonction ggplot () et les
-compétences acquises de l'atelier 3 pour tracer votre graphique
-d'ordination dans ggplot.
-
-**Utilisation des axes de PCA comme variable explicative composite**
-
-Dans certains cas, l'utilisateur cherche à réduire un grand nombre de
-variables environnementales en un plus faible nombre de variables
-composites. Lorsque les axes de PCA représentent des gradients
-écologiques (i.e. lorsue les variables environnementales sont corrélées
-de façon cohérente avec les axes de PCA), l'utlisateur peut utiliser
-les scores des sites le long axes de PCA dans de nouvelles analyses (au
-lieu d'utiliser les variables environnementales brutes). En d'autres
-termes, étant donné que les scores des sites le long des axes de PCA
-représentent des combinaisons linéaires des descripteurs, ils peuvent
-être utilisés comme proxy des conditions écologiques dans de nouvelles
-analyses.
-
-Dans l'exemple ci-dessus, le premier axe de PCA peut être identifié
-comme un gradient écologique allant des sites oligotrophes riches en
-oxygène aux sites eutrophes pauvres en oxygène: de gauche à droite, le
-premier groupe de sites montrent les plus hautes altitudes (alt) et
-pente (slope), et les plus faibles débit (deb) et distance à la source
-(das). Le second groupe de sites possède les plus hautes valeurs de
-concentration en oxygène (oxy) et les plus faibles concentrations en
-nitrates (nit). Un troisième groupe de sites montrent des valeurs
-intermédiaire pour l'ensemble de ces variables.
-
-Dans ce cas, si l'objectif est d'identifier si une espèce particulière
-est associée au gradient oligotrophe-eutrophe, il est possible de
-corréler l'abondance de cette espèce aux scores des sites le long du
-premier axe de PCA. Par exemple, si l'utilisateur veut identifier si
-l'espèce TRU est associée à des eaux oligotrophes ou eutrophes, il lui
-est possible d'utiliser le modèle linéaire suivant:
-
-```{r, echo = TRUE, eval = FALSE}
-Sites_scores_Env_Axis1<- scores(env.pca, display="sites", choices=c(1), scaling=2)
-spe$ANG
-plot( Sites_scores_Env_Axis1, spe$TRU)
-summary(lm(spe$TRU~Sites_scores_Env_Axis1))
-abline(lm(spe$TRU~Sites_scores_Env_Axis1))
+```{r, echo = -1, fig.height=4, fig.width=4.5}
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
+biplot(spe.h.pca, scaling = 1)
 ```
 
-Ce modèle simple montre que l'abondance de l'espèce TRU est
-significativement liée aux scores des sites le long du premier axe de
-PCA (t = -5.30, p = 1.35e-05, adj-R2 = 49.22%), c'est-à-dire qu'elle
-dépend d'un gradient oligotrophe-eutrophe. dans ce cas l'espèce TRU
-préfère donc les eaux oligotrophes.
 
-**Défi 3** Exécuter une PCA sur l'abondance des espèces de mites. Quels
-sont les axes significatifs ? Quels sont groupes de sites pouvez-vous
-identifier? Quelles espèces sont liées à chaque groupe de sites?
+## Défi #2
 
-```{r, echo = TRUE, eval = FALSE}
-mite.spe<-data(mite) # données disponibles dans vegan
+En utilisant tout ce que vous avez appris, calculez une ACP sur les données d'abondance des espèces d'acariens
+
+```{r}
+data(mite)
 ```
 
-**Défi - Solution**  Votre code ressemble certainement à
-celui-ci:
+Préparez-vous à discuter et à répondre :
 
-```{r, echo = TRUE, eval = FALSE}
-# Transformation de Hellinger 
-mite.spe.hel<-decostand(mite.spe, method="hellinger")
-mite.spe.h.pca<-rda(mite.spe.hel)
- 
-# Quels sont les axes significatifs? 
-ev<-mite.spe.h.pca$CA$eig 
+- Quelles sont les composantes principales les plus pertinentes, c'est-à-dire les sous-ensembles ?
+- Quels groupes de sites pouvez-vous identifier ?
+- Quels groupes d'espèces sont liés à ces groupes de sites ?
+
+**Défi 2 - Solution** <hidden> Votre code ressemble probablement à ce qui suit.
+
+Calculer l'ACP sur les données d'espèces transformées par Hellinger
+
+```{r}
+mite.spe.hel <- decostand(mite, 
+                          method = "hellinger")
+
+mite.spe.h.pca <- rda(mite.spe.hel)
+```
+
+Appliquer le critère de Kaiser-Guttman
+
+```{r, eval = F}
+ev <- mite.spe.h.pca$CA$eig
 ev[ev>mean(ev)]
-n<-length(ev)
-bsm<-data.frame(j=seq(1:n), p=0)
-bsm$p[1]=1/n
-for (i in 2:n) {
-  bsm$p[i]=bsm$p[i-1]+(1/(n=1-i))}
-bsm$p=100*bsm$p/n
-bsm
-barplot(ev, main="Valeurs propres", col="grey", las=2)
-abline(h=mean(ev), col="red") 
-legend("topright", "Moyenne des valeurs propres", lwd=1, col=2, bty="n") 
-
-# Résultats    
-summary(mite.spe.h.pca, display=NULL) 
-windows()
-
-# Représentation graphique de la PCA
-plot(mite.spe.h.pca, scaling=1, type="none", 
-     xlab=c("PC1 (%)", round((mite.spe.h.pca$CA$eig[1]/sum(mite.spe.h.pca$CA$eig))*100,2)),
-     ylab=c("PC2 (%)", round((mite.spe.h.pca$CA$eig[2]/sum(mite.spe.h.pca$CA$eig))*100,2))) 
-points(scores(mite.spe.h.pca, display="sites", choices=c(1,2), scaling=1),
-       pch=21, col="black", bg="steelblue", cex=1.2)
-text(scores(mite.spe.h.pca, display="species", choices=c(1), scaling=1),
-     scores(mite.spe.h.pca, display="species", choices=c(2), scaling=1),
-     labels=rownames(scores(mite.spe.h.pca, display="species", scaling=1)),
-     col="red", cex=0.8)  
+n <- length(ev)
+barplot(ev, main = "Valeurs propres", 
+        col = "grey", las = 2)
+abline(h = mean(ev),
+       col = "red3", lwd = 2)
+legend("topright", 
+       "Valeur propre moyenne", 
+       lwd = 2, 
+       col = "red3", bty = "n")
 ```
 
-Votre graphique ressemblera à ceci. ![](images//mite_pca.png){width="800"}
 
-Bien que les sites soient tous de composition semblable (aucun groupe
-distinct de sites n'apparait sur le biplot), certaines espèces semblent
-souvent être présentes ensemble, par exemple Spec 01, Spec 10, Spec 14
-et Spec 15. 
+```{r, echo = F, fig.width=5, fig.height=4}
+par(mar=c(4,4,2,1), cex = 1.2)
+ev <- mite.spe.h.pca$CA$eig
+n <- length(ev)
+barplot(ev, main = "Eigenvalues", 
+        col = "grey", las = 2)
+abline(h = mean(ev),
+       col = "red3", lwd = 2)
+legend("topright", 
+       "Valeur propre moyenne", 
+       lwd = 2, col = "red3", 
+       bty = "n")
+```
+
+```{r, echo = -1, fig.height=6.5, fig.width=7}
+par(mar = c(4,4,0.05,0.05), cex = 1.5)
+biplot(mite.spe.h.pca, 
+       col = c("red3", "grey15"))
+```
+
+</hidden>
+
+
+
+

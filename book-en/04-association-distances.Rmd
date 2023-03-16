@@ -442,7 +442,7 @@ We can create graphical depictions of association matrices using the `coldiss()`
 coldiss(spe.D.Jac)
 ```
 
-You can also use `ggplot2::ggplot()` to represent your matrix using a `geom_tile()` object:
+You can also use `ggplot2::ggplot()` to represent your matrix using `geom_tile()`:
 
 ```{r,  fig.height = 8, fig.width = 9}
 # obtain the order of the rows and columns
@@ -622,7 +622,8 @@ A dissimilarity matrix can be generated for these mixed variables using the Gowe
 
 ```{r, echo = TRUE, eval = FALSE}
 ?daisy #This function can handle NAs in the data
-(dat2.dg<-daisy(dat2, metric="gower"))
+(dat2.dg <- daisy(dat2, metric="gower"))
+
 coldiss(dat2.dg)
 ```
 

@@ -1,28 +1,19 @@
 # (PART\*) L'Ordination sans contrainte {-}
 
-# Le significat de l'ordination "sans contrainte"
+Nous venons de voir que le clustering est une méthode utilisée pour regrouper des objets ou des observations similaires en fonction de leurs attributs.
 
-Les analyses d'ordination sans contrainte permettent d'organiser des
-échantillons, des sites ou des espèces le long de gradients continus
-(ex. écologiques ou environnementaux). Les ordinations sans contrainte
-se différencient des analyses canoniques (voir plus loin dans cet
-atelier \"analyses canoniques\") par le fait que ces techniques ne
-tentent pas de définir une relation entre des variables dépendantes et
-indépendantes.
+Nous allons maintenant nous intéresser aux **méthodes d'ordination**.
 
-L'ordination sans contrainte peut être utilisée pour: 
+L'ordination est une méthode utilisée pour visualiser et explorer les relations entre les variables ou les observations dans un ensemble de données multivariées. L'objectif de l'ordination est de représenter les données dans un espace de dimension inférieure, tel qu'un graphique bidimensionnel ou tridimensionnel, tout en préservant la structure globale des données. L'ordination peut être utilisée pour explorer les modèles et les relations entre les variables ou les observations, pour identifier les variables ou les modèles importants dans les données, ou pour visualiser les résultats d'autres analyses.
 
-- Évaluer les
-relations *au sein* d'un ensemble de variables (et non pas entre séries
-de variables). 
+Le premier groupe de méthodes d'ordination que nous allons étudier est celui des **ordinations sans contrainte**.
 
-- Trouver les éléments clés de variation au sein d'échantillons, de sites, d'espèces, etc. 
+# Que signifie "sans contrainte" ?
 
-- Réduire les dimensions
-d'un jeu de données multivariées sans perte importante d'informations.
+Les méthodes d'ordination sans contrainte sont des techniques multivariées utilisées pour visualiser et explorer les relations entre les variables ou les observations d'un ensemble de données sans imposer de contraintes spécifiques sur ces relations. Ces méthodes sont appelées "sans contrainte" parce qu'elles ne nécessitent pas de connaissances préalables ou d'hypothèses sur la structure des données ou les relations entre les variables.
 
-- Créer de nouvelles variables pour une utilisation dans des analyses
-ultérieures (comme la régression). Les composantes principales des axes
-d'ordination sont en effet des combinaisons linéaires des variables
-d'origine.
-[Source](http://www.umass.edu/landeco/teaching/multivariate/schedule/ordination1.pdf)
+Les méthodes d'ordination sans contrainte consistent à représenter les variables ou les observations dans un espace de dimension inférieure, tel qu'un graphique bidimensionnel ou tridimensionnel, tout en préservant la structure globale des données.
+
+Parmi les méthodes d'ordination sans contrainte les plus courantes figurent l'analyse en composantes principales (ACP), l'analyse des correspondances (AC) et la mise à l'échelle multidimensionnelle (MDS). Ces méthodes peuvent être appliquées à un large éventail de données écologiques, y compris les données sur l'abondance des espèces, les données environnementales et les matrices de similarité des communautés.
+
+Dans l'ensemble, les méthodes d'ordination sans contrainte sont largement utilisées en écologie pour explorer les modèles et les relations entre les communautés biologiques et les variables environnementales. Ces méthodes sont des outils précieux pour identifier les facteurs clés qui influencent la composition et la structure des communautés, et pour élaborer des hypothèses sur les processus écologiques sous-jacents qui déterminent ces schémas.

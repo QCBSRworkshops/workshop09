@@ -1,7 +1,6 @@
-# (PART\*)  Mesures d'association {-}
+# (PART\*) Mesures d'association {.unnumbered}
 
 # `dist()`
-
 
 La ressemblance des communautés est presque toujours évaluée sur la base de données relatives à la composition des espèces, sous la forme d'un tableau de données site par site $Y_{m,n}$.
 
@@ -13,7 +12,7 @@ Dans `R`, nous pouvons calculer des matrices de distance ou de dissimilarité en
 dist(spe)
 ```
 
-Exécutez `dist(spe)` de votre côté, et vous devriez observer que la sortie de `dist(spe) est une *matrice triangulaire inférieure* représentant les associations par paires entre les colonnes de votre matrice originale.
+Exécutez `dist(spe)` de votre côté, et vous devriez observer que la sortie de \`dist(spe) est une *matrice triangulaire inférieure* représentant les associations par paires entre les colonnes de votre matrice originale.
 
 Voyons ce que les commandes ci-dessous nous montrent :
 
@@ -47,13 +46,13 @@ Il existe trois groupes de coefficients de distance : *métriques*, *sémimétri
 
 Le premier groupe est constitué des *métriques*, et ses coefficients satisfont aux propriétés suivantes :
 
-1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
+1.  minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
 
-2. positivité : si $a \neq b$, alors $D(a,b) > 0$ ; ✅
+2.  positivité : si $a \neq b$, alors $D(a,b) > 0$ ; ✅
 
-3. symétrie : $D(a,b) = D(b,a)$ ; ✅
+3.  symétrie : $D(a,b) = D(b,a)$ ; ✅
 
-4. inégalité triangulaire : $D(a,b) + D(b,c) \geq D(a,c)$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien est égale ou supérieure au troisième côté. ✅
+4.  inégalité triangulaire : $D(a,b) + D(b,c) \geq D(a,c)$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien est égale ou supérieure au troisième côté. ✅
 
 Nous pouvons repérer toutes ces propriétés ci-dessous :
 
@@ -144,17 +143,15 @@ Y.hmm.DistEu <- dist(x = Y.hmm,
 as.matrix(Y.hmm.DistEu)
 ```
 
-
 *Maintenant, regardez la composition et les distances entre les sites* $s_2$ et $s_3$ et entre $s_1$ et $s_2$. Que se passe-t-il ?
 
 La distance euclidienne entre les sites $s_2$ et $s_3$, qui n'ont aucune espèce en commun, est plus petite que la distance entre $s_1$ et $s_2$, qui partagent les espèces $y_2$ et $y_3$ ( !).
 
 D'un point de vue écologique, il s'agit d'une évaluation problématique de la relation entre les sites.
 
-Ce problème est connu sous le nom de **problème du double zéro**, *c'est-à-dire que les doubles zéros sont traités de la même manière que les doubles présences, de sorte que les doubles zéros réduisent la distance entre deux sites.
+Ce problème est connu sous le nom de **problème du double zéro**, \*c'est-à-dire que les doubles zéros sont traités de la même manière que les doubles présences, de sorte que les doubles zéros réduisent la distance entre deux sites.
 
 Les distances euclidiennes ( $D_1$ ) ne doivent donc pas être utilisées pour comparer des sites sur la base de l'abondance des espèces.
-
 
 ### Distances d'accord
 
@@ -181,7 +178,7 @@ spe.D.Ch <- vegdist(spe,
 as.matrix(spe.D.Ch)[1:3, 1:3]
 ```
 
-Lorsque deux sites partagent les mêmes espèces dans les mêmes proportions du nombre d'individus, la valeur de $D_3$ est de 0$, et lorsqu'aucune espèce n'est partagée, sa valeur est de $\sqrt{2}$.
+Lorsque deux sites partagent les mêmes espèces dans les mêmes proportions du nombre d'individus, la valeur de $D_3$ est de 0\$, et lorsqu'aucune espèce n'est partagée, sa valeur est de $\sqrt{2}$.
 
 *Que se passe-t-il si nous calculons les distances d'accord dans la même matrice site par espèce* $Y_{hmm}$ ?
 
@@ -222,9 +219,9 @@ $$D_{7}(x_1,x_2) = 1 - \frac{\vert x_1 \cap x_2 \vert}{\vert x_1 \cup x_2 \vert}
 
 où,
 
-- $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
-- $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
-- c$ est le nombre d'absences communes entre $x_1$ et $x_2$, *c.-à-d. toutes deux 0$.
+-   $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
+-   $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
+-   c\$ est le nombre d'absences communes entre $x_1$ et $x_2$, \*c.-à-d. toutes deux 0\$.
 
 Par exemple, pour les sites $x_1$ et $x_2$ :
 
@@ -233,12 +230,11 @@ Par exemple, pour les sites $x_1$ et $x_2$ :
 |   $x_1$   |   0   |   1   |   0   |   1   |   0   |
 |   $x_2$   |   0   |   1   |   1   |   1   |   1   |
 
-
 On peut donc calculer $a$, $b$ et $c$ : - $a$ = 1 + 1 = 2
 
-- $b$ = 1 + 1 = 2
+-   $b$ = 1 + 1 = 2
 
-- $c$ = 1
+-   $c$ = 1
 
 Et donc notre coefficient de distance :
 
@@ -256,11 +252,11 @@ spe.D.Jac <- vegdist(spe,
 
 Le deuxième groupe est constitué des *distances sémimétriques*, et elles violent la propriété de l'*inégalité des triangles* :
 
-1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
+1.  minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
 
-2. positivité : si $a \neq b$, alors $D(a,b) > 0$ ; ✅
+2.  positivité : si $a \neq b$, alors $D(a,b) > 0$ ; ✅
 
-3. symétrie : $D(a,b) = D(b,a)$ ; ✅
+3.  symétrie : $D(a,b) = D(b,a)$ ; ✅
 
 4.  ~~inégalité des triangles~~ : ${D(a,b) + D(b,c) \geq ou < D(a,c)}$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien n'est *pas* égale ou supérieure au troisième côté. ❌
 
@@ -278,9 +274,9 @@ $$D_{13}(x_1,x_2)=1-\frac{2a}{2a+b+c}=\frac{b+c}{2a+b+c}$$
 
 où,
 
-- $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
-- $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
-- $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, *c'est-à-dire les deux 0$.
+-   $a$ est le nombre d'espèces partagées entre $x_1$ et $x_2$ qui sont codées $1$ ;
+-   $b$ est le nombre d'occurrences où l'on sait que $x_1$ et $x_2$ sont différents ;
+-   $c$ est le nombre d'absences communes entre $x_1$ et $x_2$, \*c'est-à-dire les deux 0\$.
 
 Dans `R`, vous pouvez également utiliser la fonction `vegan::vegdist()` pour calculer le coefficient de Sørensen :
 
@@ -302,9 +298,9 @@ $$D_{14}(x_1,x_2)=1 - \frac{2W}{A+B}$$
 
 où,
 
-- $W$ est la somme des abondances les plus faibles de chaque espèce trouvée entre les sites $x_1$ et $x_2$ ;
-- $A$ est la somme de toutes les abondances dans $x_1$ ; et,
-- $B$ est la somme de toutes les abondances dans $x_2$.
+-   $W$ est la somme des abondances les plus faibles de chaque espèce trouvée entre les sites $x_1$ et $x_2$ ;
+-   $A$ est la somme de toutes les abondances dans $x_1$ ; et,
+-   $B$ est la somme de toutes les abondances dans $x_2$.
 
 Par exemple, pour les sites $x_1$ et $x_2$ :
 
@@ -335,11 +331,11 @@ spe.db <- as.matrix(spe.db.pa)
 
 Les distances non métriques ne satisfont pas les propriétés métriques de symétrie, d'inégalité des triangles et d'identité des indiscernables :
 
-1. minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
+1.  minimum 0 : si l'espèce $a$ est égale à l'espèce $b$, alors $D(a,b)=0$ ; ✅
 
 2.  ~~positivité :~~ si $a \neq b$, alors $D(a,b) > ou < 0$ ; ❌
 
-3. symétrie : $D(a,b) = D(b,a)$ ; ✅
+3.  symétrie : $D(a,b) = D(b,a)$ ; ✅
 
 4.  ~~inégalité des triangles~~ : ${D(a,b) + D(b,c) \geq ou < D(a,c)}$. La somme de deux côtés d'un triangle tracé dans l'espace euclidien n'est *pas* égale ou supérieure au troisième côté. ❌
 
@@ -349,8 +345,7 @@ La distance de Mahalanobis entre un point $x$ et un groupe de points de moyenne 
 
 $$
 D_{M}(x, \mu)=\sqrt{(x-\mu)^{T} \Sigma^{-1}(x-\mu)}
-$$
-où $T$ représente la transposition et $\Sigma^{-1}$ est l'inverse (ou l'inverse généralisé) de la matrice de covariance $\Sigma$.
+$$ où $T$ représente la transposition et $\Sigma^{-1}$ est l'inverse (ou l'inverse généralisé) de la matrice de covariance $\Sigma$.
 
 La distance de Mahalanobis est une mesure de la distance entre un point et un groupe de points, qui tient compte de la structure de covariance des données.
 
@@ -436,13 +431,11 @@ Nous pouvons créer des représentations graphiques des matrices d'association �
 # coldiss(spe.dj, nc=9, byrank=F, diag=T)
 ```
 
-
 ```{r, fig.height = 8, fig.width = 16}
 coldiss(spe.D.Jac)
 ```
 
 Vous pouvez également utiliser `ggplot2::ggplot()` pour représenter votre matrice en utilisant `geom_tile()` :
-
 
 ```{r,  fig.height = 8, fig.width = 9}
 # obtenir l'ordre des lignes et des colonnes
@@ -465,6 +458,488 @@ ggplot(data = molten_spe.D.Jac,
   theme_minimal()
 ```
 
+# Transformations
 
+Les communautés échantillonnées dans des conditions environnementales homogènes ou courtes peuvent avoir des compositions d'espèces avec peu de zéros, de sorte que les distances euclidiennes pourraient suffire à les caractériser.
 
+Néanmoins, c'est rarement la réalité.
 
+Les espèces peuvent être très fréquentes lorsque les conditions sont favorables, ou absentes de nombreux sites. Parfois, cette asymétrie peut introduire des problèmes parasites dans nos analyses.
+
+Nous devons alors transformer nos données de composition pour les analyser de manière appropriée.
+
+Dans `R`, nous pouvons compter sur `vegan::decostand()` pour de nombreux types de transformations.
+
+Jetez un coup d'oeil à l'aide de cette fonction pour voir les options disponibles :
+
+```         
+?decostand()
+```
+
+## Transformation présence-absence
+
+Nous pouvons changer l'argument `method` en `"pa"` dans `vegdist()` pour transformer nos données d'abondance en données de présence-absence :
+
+<center>Si $y_{ij} \geq 1$, alors, $y'_{ij} = 1$.</center>
+
+Rappelons notre jeu de données `spe` :
+
+```{r}
+spe[1:6, 1:6]
+```
+
+Transformons les abondances `spe` en présences-absences :
+
+```{r}
+spe.pa <- decostand(spe, method = "pa")
+spe.pa[1:6, 1:6]
+```
+
+## Transformation des profils d'espèces
+
+Il arrive que l'on veuille supprimer les effets des unités très abondantes. Nous pouvons transformer les données en profils d'abondance relative des espèces à l'aide de l'équation suivante :
+
+$$y'_{ij} = \frac{y_{ij}}{y_{i+}}$$
+
+où $yi+$ indique le nombre total de l'échantillon sur toutes les espèces $j=1,...,m$, pour le $i$-ième échantillon.
+
+Dans `decostand()`, nous pouvons utiliser la `méthode` avec `"total"` :
+
+```{r}
+spe.total <- decostand(spe, 
+                       method = "total")
+spe.total[1:5, 1:6]
+```
+
+## Transformation de Hellinger
+
+Nous pouvons prendre la racine carrée de la *transformation du profil d'espèce* et obtenir la *transformation de Hellinger*, qui possède de très bonnes propriétés mathématiques et nous permet de réduire les effets des valeurs de $y_{ij}$ qui sont extrêmement grandes.
+
+$$y'_{ij} = \sqrt{\frac{y_{ij}}{y_{i+}}}$$
+
+Dans `decostand()`, nous pouvons changer l'argument `method` avec `"hellinger"` :
+
+```{r}
+spe.total <- decostand(spe, 
+                       method = "hellinger")
+spe.total[1:5, 1:6]
+```
+
+## Normalisation par le score Z
+
+La normalisation par le score Z, également connue sous le nom de normalisation par le score standard, est une technique utilisée pour transformer une distribution de données en une distribution normale standard avec une moyenne de 0 et un écart-type de 1. Elle consiste à soustraire la moyenne des données et à la diviser par l'écart-type.
+
+La normalisation des variables environnementales est cruciale, car il est impossible de comparer les effets de variables ayant des unités différentes :
+
+```{r, eval = -1}
+?decostand
+env.z <- decostand(env, method = "standardize")
+```
+
+Cela permet de centrer et d'échelonner les variables afin de rendre votre analyse en cours plus appropriée :
+
+```{r}
+apply(env.z, 2, mean)
+apply(env.z, 2, sd)
+```
+
+Nous verrons plus de détails sur cette transformation dans les prochaines sections !
+
+#### Petite révision
+
+::: explanation
+**Association -** "terme général décrivant toute mesure ou tout coefficient permettant de quantifier la ressemblance ou la différence entre des objets ou des descripteurs. Dans une analyse entre descripteurs, zéro signifie qu'il n'y a pas d'association." (Legendre et Legendre 2012).
+
+**Similarité -** une mesure qui est "maximale (S=1) lorsque deux objets sont identiques et minimale lorsque deux objets sont complètement différents." (Legendre et Legendre 2012).
+
+**La distance (également appelée dissimilarité) -** est une mesure qui est "maximale (D=1) lorsque deux objets sont complètement différents". (Legendre et Legendre 2012). Distance ou dissimilarité (D) = 1-S
+:::
+
+Le choix d'une mesure d'association dépend de vos données, mais aussi de ce que vous savez, d'un point de vue écologique, à propos de vos données.
+
+Voici quelques mesures de dissimilarité (distance) couramment utilisées (d'après Gotelli et Ellison 2004) :
+
+| Nom de la mesure | Propriété   | Description                                                                                                                                                                  |
+|:---------|:---------|:---------------------------------------------------|
+| Euclidean        | Metric      | Distance between two points in 2D space.                                                                                                                                     |
+| Manhattan        | Metric      | Distance between two points, where the distance is the sum of differences of their Cartesian coordinates, i.e. if you were to make a right able between the points.          |
+| Chord            | Metric      | This distance is generally used to assess differences due to genetic drift.                                                                                                  |
+| Mahalanobis      | Metric      | Distance between a point and a set distribution, where the distance is the number of standard deviations of the point from the mean of the distribution.                     |
+| Chi-square       | Metric      | Similar to Euclidean.                                                                                                                                                        |
+| Bray-Curtis      | Semi-metric | Dissimilarity between two samples (or sites) where the sum of lower values for species present in both samples are divided by the sum of the species counted in each sample. |
+| Jaccard          | Metric      | [Description](http://en.wikipedia.org/wiki/Jaccard_index)                                                                                                                    |
+| Sorensen's       | Semi-metric | Bray-Curtis is 1 - Sorensen                                                                                                                                                  |
+
+### Autres métriques d'association
+
+**Données environnementales quantitatives**
+
+Examinons les *associations* entre les variables environnementales (également connues sous le nom d'analyse des modes Q) :
+
+```{r, echo = TRUE, eval = FALSE}
+?dist
+
+# matrice de distance euclidienne des variables environnementales standardisées
+env.de <- dist(env.z, method = "euclidean")  
+
+windows() # Créer une fenêtre graphique séparée
+coldiss(env.de, diag=TRUE)
+```
+
+Nous pouvons alors examiner la *dépendance* entre les variables environnementales (également connue sous le nom d'analyse de mode R) :
+
+```{r, echo = TRUE, eval = FALSE}
+(env.pearson<-cor(env)) # Calcul du r de Pearson entre les variables
+round(env.pearson, 2) # Arrondit les coefficients à 2 points décimaux 
+(env.ken <- cor(env, method="kendall")) # Corrélation de rang du tau de Kendall
+round(env.ken, 2) 
+```
+
+La corrélation de Pearson mesure la corrélation linéaire entre deux variables. Le tau de Kendall est une corrélation de rang, ce qui signifie qu'il quantifie la relation entre deux descripteurs ou variables lorsque les données sont ordonnées au sein de chaque variable.
+
+Dans certains cas, il peut y avoir des types mixtes de variables environnementales. Le mode Q peut toujours être utilisé pour trouver des associations entre ces variables environnementales. Pour ce faire, nous commencerons par créer un exemple de cadre de données :
+
+```{r, echo = TRUE, eval = FALSE}
+var.g1 <- rnorm(30, 0, 1)
+var.g2 <- runif(30, 0, 5)
+var.g3 <- gl(3, 10)
+var.g4 <- gl(2, 5, 30)
+
+(dat2 <- data.frame(var.g1, var.g2, var.g3, var.g4))
+
+str(dat2)
+summary(dat2)
+```
+
+Une matrice de dissimilarité peut être générée pour ces variables mixtes à l'aide de la matrice de dissimilarité de Gower :
+
+```{r, echo = TRUE, eval = FALSE}
+
+`?daisy #Cette fonction peut gérer les NA dans les données 
+(dat2.dg <- daisy(dat2, metric="gower")) 
+coldiss(dat2.dg)`
+```
+
+**Défi 1 - Avancé** Calculez la dissimilarité de Bray-Curtis et la dissimilarité de Gower de l'abondance des espèces CHA, TRU et VAI pour les sites 1, 2 et 3 (en utilisant les cadres de données "spe" et "env") *sans utiliser la fonction decostand().*
+
+**Défi 1 - Solution avancée** <hidden>
+
+Sous-ensembler des données sur les espèces de sorte que seuls les sites 1 et 2 soient inclus et que seules les espèces CHA, TRU et VAI soient prises en compte.
+
+```{r, echo = TRUE, eval = FALSE}
+spe.challenge <- spe[1:3,1:3] #”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)
+```
+
+Déterminer l'abondance totale des espèces pour chaque site d'intérêt (somme des trois lignes). Ce chiffre servira de dénominateur dans l'équation ci-dessus.
+
+```{r, echo = TRUE, eval = FALSE}
+(Abund.s1<-sum(spe.challenge[1,]))
+(Abund.s2<-sum(spe.challenge[2,]))
+(Abund.s3<-sum(spe.challenge[3,]))
+#() around code will cause output to print right away in console
+```
+
+Calculez maintenant la différence d'abondance des espèces pour chaque paire de sites. Par exemple, quelle est la différence entre l'abondance de CHA et de TRU dans le site 1 ? Vous devez calculer les différences suivantes : CHA et TRU site 1 CHA et VAI site 1 TRU et VAI site 1 CHA et TRU site 2 CHA et VAI site 2 TRU et VAI site 2 CHA et TRU site 3 CHA et VAI site 3 TRU et VAI site 3
+
+```{r, echo = TRUE, eval = FALSE}
+Spec.s1s2<-0
+Spec.s1s3<-0
+Spec.s2s3<-0
+for (i in 1:3) {
+  Spec.s1s2<-Spec.s1s2+abs(sum(spe.challenge[1,i]-spe.challenge[2,i]))
+  Spec.s1s3<-Spec.s1s3+abs(sum(spe.challenge[1,i]-spe.challenge[3,i]))
+  Spec.s2s3<-Spec.s2s3+abs(sum(spe.challenge[2,i]-spe.challenge[3,i])) }
+```
+
+Prenez maintenant les différences que vous avez calculées comme numérateur dans l'équation de la dissimilarité de Bray-Curtis et l'abondance totale des espèces que vous avez déjà calculée comme dénominateur.
+
+```{r, echo = TRUE, eval = FALSE}
+(db.s1s2<-Spec.s1s2/(Abund.s1+Abund.s2)) #Site 1 comparé au site 2
+(db.s1s3<-Spec.s1s3/(Abund.s1+Abund.s3)) #Site 1 comparé au site 3
+(db.s2s3<-Spec.s2s3/(Abund.s2+Abund.s3)) #Site 2 comparé au site 3 
+```
+
+Vous devriez trouver des valeurs de 0,5 pour le site 1 vers le site 2, 0,538 pour le site 1 vers le site 3 et 0,053 pour le site 2 vers le site 3.
+
+Vérifiez vos résultats manuels avec ceux que vous obtiendriez en utilisant la fonction vegdist() avec la méthode de Bray-Curtis :
+
+```{r, echo = TRUE, eval = FALSE}
+(spe.db.challenge<-vegdist(spe.challenge, method="bray"))
+```
+
+Une matrice ressemblant à celle-ci est produite, qui devrait être identique à vos calculs manuels :
+
+|        | Site 1 | Site 2 |
+|--------|:-------|:-------|
+| Site 2 | 0.5    | \--    |
+| Site 3 | 0.538  | 0.0526 |
+
+Pour la dissimilarité de Gower, procédez de la même manière mais utilisez l'équation appropriée :
+
+```{r, echo = TRUE, eval = FALSE}
+# Calculez le nombre de colonnes dans votre jeu de données
+M<-ncol(spe.challenge)
+
+# Calculez les différences d'abondance entre les paires de sites pour chaque espèce
+Spe1.s1s2<-abs(spe.challenge[1,1]-spe.challenge[2,1])
+Spe2.s1s2<-abs(spe.challenge[1,2]-spe.challenge[2,2])
+Spe3.s1s2<-abs(spe.challenge[1,3]-spe.challenge[2,3])
+Spe1.s1s3<-abs(spe.challenge[1,1]-spe.challenge[3,1])
+Spe2.s1s3<-abs(spe.challenge[1,2]-spe.challenge[3,2])
+Spe3.s1s3<-abs(spe.challenge[1,3]-spe.challenge[3,3])
+Spe1.s2s3<-abs(spe.challenge[2,1]-spe.challenge[3,1])
+Spe2.s2s3<-abs(spe.challenge[2,2]-spe.challenge[3,2])
+Spe3.s2s3<-abs(spe.challenge[2,3]-spe.challenge[3,3])
+
+# Calculer l'étendue de l'abondance de chaque espèce entre les sites  
+Range.spe1<-max(spe.challenge[,1]) - min (spe.challenge[,1])
+Range.spe2<-max(spe.challenge[,2]) - min (spe.challenge[,2])
+Range.spe3<-max(spe.challenge[,3]) - min (spe.challenge[,3])
+
+# Calculer la dissimilarité de Gower  
+(dg.s1s2<-(1/M)*((Spe2.s1s2/Range.spe2)+(Spe3.s1s2/Range.spe3)))
+(dg.s1s3<-(1/M)*((Spe2.s1s3/Range.spe2)+(Spe3.s1s3/Range.spe3)))
+(dg.s2s3<-(1/M)*((Spe2.s2s3/Range.spe2)+(Spe3.s2s3/Range.spe3)))
+
+# Comparez vos résultats
+(spe.db.challenge<-vegdist(spe.challenge, method="gower"))
+```
+
+</hidden>
+
+# (PART\*) Clustering {.unnumbered}
+
+# Regroupement
+
+L'une des applications des matrices d'association est le regroupement. Le regroupement met en évidence les structures des données en partitionnant soit les objets, soit les descripteurs. Les objets similaires sont ainsi combinés en groupes, ce qui permet d'identifier les distinctions - ou les contrastes - entre les groupes. L'un des objectifs des écologistes pourrait être de diviser un ensemble de sites en groupes en fonction de leurs conditions environnementales ou de la composition de leur communauté.
+
+Les résultats des regroupements sont souvent représentés sous forme de *dendrogrammes* (arbres), où les objets s'agglomèrent en groupes. Il existe plusieurs familles de méthodes de regroupement, mais pour les besoins de cet atelier, nous présenterons une vue d'ensemble de trois méthodes de regroupement agglomératif hiérarchique : le lien simple, le lien complet et le regroupement à variance minimale de Ward. \*Voir le chapitre 8 de Legendre et Legendre (2012) pour plus de détails sur les différentes familles de méthodes de clustering.
+
+Dans les méthodes hiérarchiques, les éléments des clusters (ou groupes) inférieurs deviennent membres de clusters plus importants, de rang supérieur, par exemple espèce, genre, famille, ordre. Avant de procéder au regroupement, il faut créer une matrice d'association entre les objets. La matrice de distance est le choix par défaut des fonctions de regroupement dans R. La matrice d'association est d'abord triée par ordre de distance croissante (ou de similarités décroissantes). Ensuite, les groupes sont formés hiérarchiquement en suivant des règles spécifiques à chaque méthode.
+
+```{r, fig.width=10, echo = FALSE}
+# Demonstration of a cluster dendrogram
+
+spe.hel<-decostand(spe, method="hellinger")
+spe.dhel <- vegdist(spe.hel,method="euclidean")
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
+spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
+
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
+```
+
+R dispose de plusieurs fonctions intégrées pour le calcul des clusters agglomérés et la visualisation des résultats. Voici quelques-unes des fonctions les plus couramment utilisées :
+
+-   La fonction `hclust()` du package `stats` : Cette fonction calcule le regroupement hiérarchique à l'aide d'une variété de méthodes de liaison, y compris la méthode unique, la méthode complète, la méthode moyenne et la méthode de la variance minimale de Ward. La sortie est un objet `dendrogramme` qui peut être tracé à l'aide de la fonction `plot()`.
+-   La fonction `agnes()` du paquet `cluster` : Cette fonction calcule également le clustering hiérarchique en utilisant plusieurs méthodes de liaison, mais elle peut traiter des ensembles de données plus importants que `hclust()`. La sortie est un objet de la classe "`agnes`" qui peut être tracé en utilisant la fonction `plot()`.
+-   Le paquet `dendextend()` : Ce paquet fournit plusieurs fonctions pour manipuler et visualiser les dendrogrammes, y compris `color_branches()`, `rotate()` et `cutree()`.
+-   Fonction `ggdendro()` du paquet `ggdendro` : Cette fonction crée un dendrogramme en utilisant la syntaxe `ggplot2` et offre plus d'options de personnalisation que la fonction de base `plot()`.
+
+Ci-dessous, nous allons apprendre plusieurs types d'algorithmes de clustering, tout en appliquant la fonction la plus simple de R pour les produire, `hclust()`.
+
+## Regroupement agglomératif à lien unique
+
+Le regroupement agglomératif à lien unique est un algorithme de regroupement hiérarchique qui fusionne itérativement les deux groupes les plus proches en fonction de la distance minimale entre leurs membres les plus proches. Les étapes de cet algorithme sont les suivantes
+
+1.  Commencez par assigner chaque observation à sa propre grappe.
+2.  Calculer la distance entre toutes les paires de grappes à l'aide d'une mesure de distance choisie (par exemple, la distance euclidienne).
+3.  Fusionner les deux grappes les plus proches en une seule grappe.
+4.  Recalculer la distance entre la nouvelle grappe et toutes les grappes restantes.
+5.  Répéter les étapes 3 et 4 jusqu'à ce que toutes les observations appartiennent à une seule grappe ou jusqu'à ce qu'un nombre prédéfini de grappes soit atteint.
+
+Dans la classification agglomérative à lien unique, la distance entre deux grappes est définie comme la distance minimale entre deux points quelconques des grappes. C'est la raison pour laquelle on l'appelle aussi le "plus proche voisin" ou le "single linkage".
+
+L'un des inconvénients du regroupement agglomératif à lien unique est qu'il peut produire des grappes longues et traînantes qui ne représentent pas des groupes bien définis, également connues sous le nom de phénomène de chaînage. Ce phénomène peut être surmonté en utilisant d'autres critères de liaison tels que la liaison complète, la liaison moyenne ou la liaison de Ward.
+
+```{r hclust-single, echo=TRUE}
+# générer des échantillons de données
+set.seed(123)
+x <- matrix(rnorm(20), ncol = 2)
+
+# effectuer un clustering agglomératif à lien unique
+hc <- hclust(dist(x), method = "single")
+
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme du regroupement agglomératif à lien unique",
+     hang = -1)
+```
+
+## Regroupement agglomératif à liens complets
+
+Le regroupement agglomératif à liens complets est un autre algorithme de regroupement hiérarchique qui fusionne itérativement les deux groupes les plus proches sur la base de la distance maximale entre leurs membres les plus éloignés.
+
+Les étapes de l'algorithme de regroupement agglomératif à liaison complète sont les suivantes :
+
+1.  Commencer par assigner chaque observation à sa propre classe.
+2.  Calculer la distance entre toutes les paires de groupes à l'aide d'une mesure de distance choisie (par exemple, la distance euclidienne).
+3.  Fusionner les deux groupes les plus proches en un seul groupe.
+4.  Recalculer la distance entre la nouvelle grappe et toutes les grappes restantes.
+5.  Répéter les étapes 3 et 4 jusqu'à ce que toutes les observations appartiennent à une seule grappe ou jusqu'à ce qu'un nombre prédéfini de grappes soit atteint.
+6.  Dans le cas de la classification agglomérative par liens complets, la distance entre deux grappes est définie comme la distance maximale entre deux points quelconques des grappes. C'est la raison pour laquelle on l'appelle aussi le "plus lointain voisin" ou le "lien complet".
+
+Par rapport au regroupement agglomératif à lien unique, le regroupement à lien complet tend à produire des grappes plus compactes et sphériques, moins sujettes au phénomène de chaînage. Toutefois, il est plus sensible aux valeurs aberrantes et peut produire des grappes déséquilibrées en cas de valeurs extrêmes ou de bruit dans les données.
+
+```{r hclust-complete, echo=TRUE}
+# effectuer un clustering agglomératif à liens complets
+hc <- hclust(dist(x), method = "complete")
+
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de l'agglomération de liens complète",
+     hang = -1)
+```
+
+## Méthode des groupes de paires non pondérés avec moyenne arithmétique (UPGMA)
+
+Un autre algorithme de regroupement hiérarchique couramment utilisé en bioinformatique et en biologie évolutive est la méthode des groupes de paires non pondérées avec moyenne arithmétique (UPGMA).
+
+Les étapes de l'algorithme UPGMA sont les suivantes
+
+1.  Commencez par assigner chaque point de données à son propre groupe.
+2.  Calculer les distances par paire entre tous les groupes sur la base de la métrique de distance choisie, telle que la distance euclidienne, la distance de Manhattan ou la corrélation de Pearson.
+3.  Trouver les deux grappes les plus proches sur la base des distances par paire et les fusionner en une seule grappe. La distance entre les deux groupes est calculée comme la moyenne des distances par paire entre leurs membres.
+4.  Mettre à jour les distances par paire entre la nouvelle grappe et toutes les grappes restantes. La distance entre la nouvelle grappe et toute autre grappe est calculée comme la moyenne des distances par paire entre les membres de la nouvelle grappe et les membres de l'autre grappe.
+5.  Répétez les étapes 3 et 4 jusqu'à ce que tous les points de données appartiennent à un seul groupe.
+
+```{r hclust-upgma, echo=TRUE}
+# effectuer un clustering par la méthode des groupes de paires non pondérés avec moyenne arithmétique
+hc <- hclust(dist(x), method = "average")
+
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de la méthode du groupe de paires non pondéré avec la moyenne arithmétique \nAgglomerative Clustering",
+     hang = -1)
+```
+
+L'algorithme UPGMA suppose un taux d'évolution constant et est donc souvent utilisé pour construire des arbres phylogénétiques à partir de données génétiques ou moléculaires. Le résultat de l'algorithme UPGMA est un dendrogramme, qui montre la structure hiérarchique des groupes.
+
+Une des limites de l'UPGMA est qu'elle peut être sensible aux valeurs aberrantes et qu'elle peut produire des résultats biaisés s'il existe des modèles non aléatoires de données manquantes ou d'évolution convergente. En outre, il s'agit d'une méthode non pondérée, ce qui signifie qu'elle suppose que tous les points de données ont la même importance, ce qui n'est pas toujours le cas.
+
+## Méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA)
+
+La méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA) est similaire à la méthode UPGMA, mais elle prend en compte le poids des observations (par exemple, lorsque certaines observations sont plus importantes que d'autres). L'algorithme fonctionne comme suit
+
+1.  Commencez par assigner chaque point de données à sa propre grappe.
+2.  Calculer les distances par paire entre tous les groupes sur la base de la métrique de distance choisie, telle que la distance euclidienne, la distance de Manhattan ou la corrélation de Pearson.
+3.  Trouver les deux grappes les plus proches sur la base des distances par paire et les fusionner en une seule grappe. La distance entre les deux grappes est calculée comme la moyenne des distances par paire entre leurs membres, pondérées par leurs poids respectifs.
+4.  Mettre à jour les distances par paire entre la nouvelle grappe et toutes les grappes restantes. La distance entre la nouvelle grappe et toute autre grappe est calculée comme la moyenne des distances par paire entre les membres de la nouvelle grappe et les membres de l'autre grappe, pondérées par leurs poids respectifs.
+5.  Répétez les étapes 3 et 4 jusqu'à ce que tous les points de données appartiennent à un seul groupe.
+
+```{r hclust-wpgma, echo=TRUE}
+# exécuter la méthode des groupes de paires pondérés avec la moyenne arithmétique du clustering
+hc <- hclust(dist(x), method = "mcquitty")
+
+# trace le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de la méthode des groupes de paires pondérées avec le clustering agglomératif à moyenne arithmétique",
+     hang = -1)
+```
+
+## Variance minimale de Ward
+
+La méthode de variance minimale de Ward est un algorithme de regroupement hiérarchique qui vise à minimiser la variance au sein de chaque groupe en fusionnant les groupes qui minimisent l'augmentation de la somme totale des distances au carré. L'algorithme fonctionne comme suit
+
+1.  Commencez par assigner chaque point de données à sa propre grappe.
+2.  Calculer la distance entre chaque paire de grappes à l'aide d'une mesure de distance choisie, telle que la distance euclidienne ou la distance de Manhattan.
+3.  Fusionnez les deux grappes qui minimisent l'augmentation de la somme totale des distances au carré. L'augmentation de la somme des distances quadratiques est calculée comme la somme des distances quadratiques à l'intérieur de chaque grappe plus la distance quadratique entre les centroïdes des deux grappes multipliée par le nombre de points de données dans chaque grappe.
+4.  Calculer la distance entre la nouvelle grappe et toutes les grappes restantes à l'aide de la métrique de distance choisie.
+5.  Répétez les étapes 3 et 4 jusqu'à ce que tous les points de données appartiennent à une seule grappe.
+
+La méthode de Ward est souvent préférée lorsque les données contiennent des grappes de tailles et de densités différentes. Le résultat de la méthode de Ward est un dendrogramme qui montre la structure hiérarchique des grappes.
+
+La méthode de Ward est sensible aux valeurs aberrantes et peut produire des résultats biaisés si les données manquantes ne sont pas aléatoires ou si les hypothèses sous-jacentes de normalité et d'égalité des variances ne sont pas respectées.
+
+::: explanation
+La méthode de la variance minimale de Ward peut être formulée de différentes manières, ce qui donne lieu à des variantes connues sous les noms de Ward D et Ward D2.
+
+Ward D utilise la somme des distances au carré comme critère à minimiser lors de la fusion des grappes, ce qui équivaut à minimiser l'augmentation de la somme des écarts au carré par rapport à la moyenne de la grappe combinée.
+
+```{r hclust-ward-d, echo=TRUE}
+# effectuer le regroupement à variance minimale de Ward
+hc <- hclust(dist(x), method = "ward.D")
+
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de \nWard's minimum variance Agglomerative Clustering",
+     hang = -1)
+```
+
+D'autre part, Ward D2 utilise la somme des écarts quadratiques par rapport au centroïde comme critère à minimiser lors de la fusion des grappes, ce qui équivaut à minimiser l'augmentation de la somme des écarts quadratiques par rapport au centroïde de la grappe combinée.
+
+```{r hclust-ward-d2, echo=TRUE}
+# effectuer le regroupement à variance minimale de Ward
+hc <- hclust(dist(x), method = "ward.D2")
+
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de \nWard's D2 minimum variance Agglomerative Clustering",
+     hang = -1)
+```
+
+En d'autres termes, Ward D2 prend en compte la distance entre les centroïdes des grappes fusionnées, tandis que Ward D prend en compte la distance entre les points de données individuels et la moyenne de la grappe fusionnée.
+
+Empiriquement, Ward D2 tend à produire des grappes plus compactes et sphériques, tandis que Ward D peut être plus sensible aux valeurs aberrantes et peut produire des grappes allongées ou de forme irrégulière. Toutefois, le choix de Ward D ou Ward D2 peut dépendre des caractéristiques spécifiques des données et de la question de recherche.
+:::
+
+## Décider des points de coupure
+
+Le choix du point de coupure pour la prise en compte des groupes de grappes est une étape importante de l'analyse hiérarchique par grappes. Le point de coupure détermine le nombre de grappes à prendre en compte et peut avoir un impact significatif sur l'interprétation des résultats.
+
+Voici quelques méthodes courantes pour déterminer le point de coupure :
+
+1.  Inspection visuelle du dendrogramme : Une approche consiste à inspecter visuellement le dendrogramme et à identifier un point où les branches commencent à devenir longues et clairsemées. Ce point représente un point de rupture naturel dans la hiérarchie et peut être utilisé comme point de coupure.
+2.  La méthode du coude : La méthode du coude consiste à tracer une mesure de la qualité des grappes, telle que la somme des carrés à l'intérieur d'une grappe, en fonction du nombre de grappes. Le point où le tracé commence à se stabiliser est considéré comme le point d'inflexion et peut être utilisé comme point de coupure.
+3.  Statistique de l'écart : la statistique de l'écart compare la somme des carrés à l'intérieur des grappes pour les données réelles à la somme des carrés à l'intérieur des grappes attendue pour une distribution de référence nulle. Le nombre optimal de grappes est celui qui présente la statistique d'écart la plus élevée.
+4.  Connaissances spécifiques au domaine : Dans certains cas, des connaissances spécifiques au domaine ou des recherches antérieures peuvent fournir des indications sur le nombre approprié de grappes à considérer.
+
+## Jouer avec des données réelles : les données sur les espèces de poissons du Doubs
+
+Comparons les méthodes de clustering à lien unique et à lien complet en utilisant les données sur les espèces de poissons du Doubs.
+
+Les données sur les espèces ont déjà été transformées par Hellinger. L'analyse de cluster nécessitant des indices de similarité ou de dissimilarité, la première étape consistera à générer les indices de distance de Hellinger.
+
+```{r, echo = VRAI, eval = VRAI}
+# Génère la matrice de distance à partir des données transformées de Hellinger
+spe.dhel <- vegdist(spe.hel, method="euclidean") 
+
+# Voir la différence entre les deux matrices
+head(spe.hel)# Données d'espèces transformées par Hellinger
+head(spe.dhel)# distances de Hellinger entre les sites
+```
+
+Utilisez `hclust()` pour calculer les algorithmes de regroupement de liens simples et complets pour ces données :
+
+```{r, echo = VRAI, eval = VRAI}
+spe.dhel.single <- hclust(spe.dhel, method="single")
+
+plot(spe.dhel.single)
+
+spe.dhel.complete <- hclust(spe.dhel, method="complete")
+plot(spe.dhel.complete)
+```
+
+*Y a-t-il de grandes différences entre les deux dendrogrammes* ?
+
+Dans le clustering à lien unique, des chaînes d'objets apparaissent (par exemple 19, 29, 30, 20, 26, etc.), alors que des groupes plus contrastés sont formés dans le clustering à lien complet.
+
+Là encore, il est possible de générer un regroupement à variance minimale de Ward avec hclust(). Cependant, le dendogramme montre les distances au carré par défaut. Afin de comparer ce dendrogramme aux résultats des regroupements par liens simples et complets, il faut calculer la racine carrée des distances.
+
+```{r, echo = VRAI, eval = VRAI}
+# Effectuer le clustering de variance minimale de Ward
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
+plot(spe.dhel.ward)
+
+# Reprendre le dendrogramme en utilisant les racines carrées des niveaux de fusion
+spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
+plot(spe.dhel.ward)
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligne tous les objets sur la même ligne
+```
+
+Il faut être prudent dans le choix d'une mesure d'association et d'une méthode de regroupement afin de traiter correctement un problème.
+
+Qu'est-ce qui vous intéresse le plus : les gradients ? les contrastes entre les objets ?
+
+En outre, les résultats doivent être interprétés en fonction des propriétés de la méthode utilisée. Si plusieurs méthodes semblent adaptées à une question écologique, il convient de les calculer toutes et de comparer les résultats.
+
+Pour rappel, le clustering n'est pas une méthode statistique, mais d'autres mesures peuvent être prises pour identifier des clusters interprétatifs (par exemple, où couper l'arbre), ou pour calculer des statistiques de clustering. Le regroupement peut également être combiné à l'ordination afin de distinguer des groupes de sites. Cela dépasse le cadre de cet atelier, mais voir Borcard et al. 2011 pour plus de détails.
