@@ -28,39 +28,30 @@ Bray-Curtis (voir ci-dessous) peut être plus adaptée.
 
 PCoA avec DoubsSpe (transformé Hellinger):
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 # En utilisant la fonction cmdscale()
-?cmdscale
-cmdscale(dist(spe.hel), k=(nrow(spe)-1), eig=TRUE)
+# ?cmdscale
+# cmdscale(dist(spe.hel), k=(nrow(spe)-1), eig=TRUE)
 
 # En utilisant la fonction pcoa()
-?pcoa
+# ?pcoa
 spe.h.pcoa<-pcoa(dist(spe.hel))
 
 # Extraction des résultats
 spe.h.pcoa 
 
 # Représentation graphique
-biplot.pcoa(spe .h.pcoa, spe.hel, dir.axis2=-1)
+biplot.pcoa(spe.h.pcoa, spe.hel, dir.axis2 = -1)
 ```
-
-Les résultats de cette PCoA sont:
-
-![](images//pcoa_outputfr_1.png){width="800"}
-
-![](images//pcoa_outputfr_2.png){width="800"}
-
-Et le graphique:
-
-![](images//pcoa_spe.png){width="500"}
 
 Vous pouvez aussi exécuter cette PCoA avec une autre mesure de distance
 (ex. Bray-Curtis):
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 spe.bray.pcoa<-pcoa(spe.db) # il s'agit de la matrice de distances de Bray-Curtis qu'on a générée plus tôt 
 spe.bray.pcoa
-biplot.pcoa(spe.bray.pcoa, spe.hel, dir.axis2=-1)
+
+biplot.pcoa(spe.bray.pcoa, spe.hel, dir.axis2 = -1)
 # Le choix d'une mesure de distance est très important car ça influence les résultats! 
 ```
 
@@ -72,16 +63,12 @@ cette PCoA se comparent-ils avec ceux de la PCA?
 
 **Défi 5 - Solution** 
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 mite.spe.h.pcoa<-pcoa(dist(mite.spe.hel))
 mite.spe.h.pcoa
-windows()
+
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel, dir.axis2=-1)
 ```
-
-Représentation graphique:
-
-![](images//pcoa_mite.png){width="500"}
 
 Les espèces 16 et 31 sont plus éloignées des autres espèces en termes de
 distance, et donc leur distribution entre les sites est très différente

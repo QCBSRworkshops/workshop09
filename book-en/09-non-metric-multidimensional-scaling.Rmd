@@ -103,7 +103,7 @@ text(scores(mite.spe.nmds, display="species", choices=c(1)),
 
 
 The correlation between observed dissimilarity and ordination distance
-(R2 \> 0.91) and the stress value relatively low, showing together a
+(R2 > 0.91) and the stress value relatively low, showing together a
 good accuracy of the NMDS ordination.
 
 

@@ -42,9 +42,9 @@ les distances entre objets sur le biplot d'ordination en fonction de
 leurs distances réelles. Le R2 obtenu à partir de la régression entre
 ces deux types de distance mesure la qualité de l'ajustement du NMDS.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 # NMDS
-spe.nmds<-metaMDS(spe, distance='bray', k=2)
+spe.nmds<-metaMDS(spe[ -8, ], distance='bray', k=2)
  
 ### Extraction des résultats
 spe.nmds
@@ -54,7 +54,7 @@ spe.nmds$stress
 stressplot(spe.nmds, main='Shepard plot')
 
 # Construction du biplot
-windows()
+
 plot(spe.nmds, type="none", main=paste('NMDS/Bray - Stress=', round(spe.nmds$stress, 3)),
      xlab=c("NMDS1"),
      ylab=c("NMDS2"))
@@ -66,13 +66,9 @@ text(scores(spe.nmds, display="species", choices=c(1)),
      col="red", cex=0.8)
 ```
 
-![](images//shepard_plot.png){.align-center}
-
 Le diagramme de Shepard identifie une forte corrélation entre les
 distances observées et les distances de l'ordination (R2 \> 0.95), et
 donc une bonne qualité de l'ajustement du NMDS.
-
-![](images//nmds_biplot.png){.align-center}
 
 Le biplot du NMDS identifie un groupe de sites caractérisés par les
 espèces BLA, TRU, VAI, LOC, CHA et OMB, tandis que les autres espèces
@@ -87,7 +83,7 @@ biplot.
 
 **Défi 5 - Solution** 
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 ### NMDS
 mite.spe.nmds<-metaMDS(mite.spe, distance='bray', k=2)
 
@@ -99,7 +95,7 @@ mite.spe.nmds$stress
 stressplot(mite.spe.nmds, main='Shepard plot')
 
 ### Construction du biplot
-windows()
+
 plot(mite.spe.nmds, type="none", main=paste('NMDS/Bray - Stress=', round(mite.spe.nmds$stress, 3)),
      xlab=c("NMDS1"),
      ylab=c("NMDS2"))
@@ -111,13 +107,10 @@ text(scores(mite.spe.nmds, display="species", choices=c(1)),
      col="red", cex=0.8)
 ```
 
-![](images//nmds_mite_shepard.png){.align-center}
 
 La corrélation entre distance observée et distance d'ordination (R2 \>
 0.91) et la valeur de stress relativement faible identifient une bonne
 qualité de l'ajustement du NMDS.
-
-![](images//nmds_mite_biplot.png){.align-center}
 
 Aucun groupe de sites ne peut être précisément identifié à partir du
 biplot, ce qui montre que la plupart des espèces sont présentes dans la

@@ -1228,6 +1228,34 @@ spe.D.Bray <- vegdist(spe,
 ---
 ### Mesures de (dis)similarité : Distance de Mahalanobis
 
+Les variables sont souvent corrélées et l'utilisation d'une mesure de distance qui n'en tient pas compte peut conduire à des résultats erronés.
+
+La distance de Mahalanobis tient compte de la corrélation entre les variables dans les données.
+
+$$D_{Mahal}^2 = (x - \mu)^T \Sigma^{-1} (x - \mu)$$
+
+$D$ représente la distance de Mahalanobis, $x$ est le point à partir duquel vous mesurez la distance, $\mu$ est le vecteur moyen de la distribution que vous mesurez, et $\Sigma$ est la matrice de covariance de la distribution.
+
+La distance de Mahalanobis est également robuste aux changements dans la distribution des données (elle ne présuppose pas la normalité).
+
+--
+
+Dans `R`, nous pouvons la calculer comme suit :
+
+```{r}
+# Pour la reproductibilité
+set.seed(123)
+
+# Générer des données aléatoires à partir d'une distribution normale multivariée
+data <- data.frame(x = rnorm(100, mean = 10, sd = 2),
+                   y = rnorm(100, mean = 5, sd = 1),
+                   z = rnorm(100, mean = 20, sd = 4))
+
+# Calculer la distance de Mahalanobis
+mahalanobis_dist <- mahalanobis(data, 
+                                center = colMeans(data), 
+                                cov = cov(data))
+```
 
 
 
