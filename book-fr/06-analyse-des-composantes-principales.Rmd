@@ -82,7 +82,6 @@ Eigenvectors <- eigen_decomp$vectors
 
 Les vecteurs propres représentent les directions dans l'espace à $p$ dimensions qui capturent le maximum de variance dans les données, et les valeurs propres indiquent la quantité de variance capturée par chaque vecteur propre.
 
-
 #### Projeter les données normalisées sur l'espace des valeurs propres
 
 Enfin, nous projetons la matrice de données normalisées $Z$ sur les nouveaux vecteurs de base pour obtenir les composantes principales. Ici, nous calculons les scores des composantes principales en multipliant les données normalisées par les vecteurs propres de toutes les composantes principales :

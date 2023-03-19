@@ -1263,6 +1263,37 @@ spe.db <- as.matrix(spe.db.pa)
 ```
 
 ---
+# (Dis)similarity measures: Mahalanobis distance
+
+In many datasets, variables are correlated, and using a distance metric that ignores this can lead to misleading results.
+
+The Mahalanobis distance takes into account the correlation between variables in the data.
+
+$$D_{Mahal}^2 = (x - \mu)^T \Sigma^{-1} (x - \mu)$$
+$D$ represents the Mahalanobis distance, $x$ is the point you're measuring the distance from, $\mu$ is the mean vector of the distribution you're measuring against, and $\Sigma$ is the covariance matrix of the distribution.
+
+It is also robust to changes in the distribution of the data (it does not assume normality).
+
+--
+
+In `R`, we can compute it as follows:
+
+```{r}
+# Set the seed for reproducibility
+set.seed(123)
+
+# Generate random data from a multivariate normal distribution
+data <- data.frame(x = rnorm(100, mean = 10, sd = 2),
+                   y = rnorm(100, mean = 5, sd = 1),
+                   z = rnorm(100, mean = 20, sd = 4))
+
+# Calculate the Mahalanobis distance
+mahalanobis_dist <- mahalanobis(data, 
+                                center = colMeans(data), 
+                                cov = cov(data))
+```
+
+---
 # (Dis)similarity measures: representation
 
 We can create graphical depictions of association matrices using the `coldiss()` function:

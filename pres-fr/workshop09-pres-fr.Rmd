@@ -1189,7 +1189,7 @@ $$D_{14}(x_1,x_2) = 0.5$$
 ]
 
 ---
-##### Mesures de (dés)similarité : Coefficients de Jaccard et de Sørensen
+##### Mesures de (dis)similarité : Coefficients de Jaccard et de Sørensen
 
 Dans `R`, vous pouvez utiliser la fonction `vegan::vegdist()` pour calculer les indices de Jaccard et de Sørensen :
 
@@ -1224,6 +1224,12 @@ spe.D.Bray <- vegdist(spe,
                       method = "bray",
                       binary = FALSE)
 ```
+
+---
+### Mesures de (dis)similarité : Distance de Mahalanobis
+
+
+
 
 ---
 # Mesures de (dis)similarité : représentation
