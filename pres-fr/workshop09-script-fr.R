@@ -189,6 +189,19 @@ spe.D.Bray <- vegdist(spe,
                       method = "bray",
                       binary = FALSE)
 
+# Pour la reproductibilité
+set.seed(123)
+
+# Générer des données aléatoires à partir d'une distribution normale multivariée
+data <- data.frame(x = rnorm(100, mean = 10, sd = 2),
+                   y = rnorm(100, mean = 5, sd = 1),
+                   z = rnorm(100, mean = 20, sd = 4))
+
+# Calculer la distance de Mahalanobis
+mahalanobis_dist <- mahalanobis(data, 
+                                center = colMeans(data), 
+                                cov = cov(data))
+
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
 #
