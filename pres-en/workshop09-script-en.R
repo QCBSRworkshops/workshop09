@@ -1,5 +1,6 @@
 # sometimes cache needs to be set to true in the knitr setup chunk for this to take effect
 # in xaringan::infinite_moon_reader()
+
 library(knitr)
 hook_output <- knit_hooks$get("output")
 knit_hooks$set(output = function(x, options) {
@@ -36,7 +37,9 @@ if(length(new.packages) > 0) {
 }
 
 # Load all required libraries at once
-lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
+lapply(list.of.packages, 
+       require,
+       character.only = TRUE, quietly = TRUE)
 
 install.packages(c("ape",
                    "ade4",
@@ -173,6 +176,19 @@ spe.db.pa <- vegdist(spe,
                       method = "bray",
                       binary = FALSE)
 spe.db <- as.matrix(spe.db.pa)
+
+# Set the seed for reproducibility
+set.seed(123)
+
+# Generate random data from a multivariate normal distribution
+data <- data.frame(x = rnorm(100, mean = 10, sd = 2),
+                   y = rnorm(100, mean = 5, sd = 1),
+                   z = rnorm(100, mean = 20, sd = 4))
+
+# Calculate the Mahalanobis distance
+mahalanobis_dist <- mahalanobis(data, 
+                                center = colMeans(data), 
+                                cov = cov(data))
 
 # coldiss() function
 # Color plots of a dissimilarity matrix, without and with ordering
