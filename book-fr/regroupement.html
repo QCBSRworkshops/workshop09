@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapitre 11 Regroupement | Atelier 9 : Analyses multivariées en R</title>
+  <meta name="description" content="Analyses multivariées en R" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapitre 11 Regroupement | Atelier 9 : Analyses multivariées en R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+  <meta property="og:description" content="Analyses multivariées en R" />
+  <meta name="github-repo" content="qcbsRworkshops/workshop09" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapitre 11 Regroupement | Atelier 9 : Analyses multivariées en R" />
+  
+  <meta name="twitter:description" content="Analyses multivariées en R" />
+  <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
+
+<meta name="author" content="Développé et entretenu par les contributeurs et les contributrices de la Série d’ateliers R du CSBQ." />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="transformations.html"/>
+<link rel="next" href="que-signifie-sans-contrainte.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="assets/qcbs-style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="./"><img src="assets/images/csbq_logo_gray_accueil.png"></a></li>
+<link rel="icon" type="image/png" href="assets/images/favicon.ico"/>
+
+<li class="divider"></li>
+<li class="part"><span><b>Série d’ateliers R du CSBQ</b></span></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Préface</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#code-de-conduite"><i class="fa fa-check"></i><b>0.1</b> Code de conduite</a>
+<ul>
+<li class="chapter" data-level="0.1.1" data-path="index.html"><a href="index.html#comportement-attendu"><i class="fa fa-check"></i><b>0.1.1</b> Comportement attendu</a></li>
+<li class="chapter" data-level="0.1.2" data-path="index.html"><a href="index.html#comportements-inacceptables"><i class="fa fa-check"></i><b>0.1.2</b> Comportements inacceptables</a></li>
+</ul></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#contributeurs-et-contributrices"><i class="fa fa-check"></i><b>0.2</b> Contributeurs et contributrices</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#contribuez-à-la-série"><i class="fa fa-check"></i><b>0.3</b> Contribuez à la série!</a></li>
+</ul></li>
+<li class="part"><span><b>Analyses multivariées en <code>R</code></b></span></li>
+<li class="chapter" data-level="1" data-path="objectifs-dapprentissage.html"><a href="objectifs-dapprentissage.html"><i class="fa fa-check"></i><b>1</b> Objectifs d’apprentissage</a></li>
+<li class="chapter" data-level="2" data-path="préparez-vous-pour-cet-atelier.html"><a href="préparez-vous-pour-cet-atelier.html"><i class="fa fa-check"></i><b>2</b> Préparez-vous pour cet atelier</a></li>
+<li class="part"><span><b>PRÉAMBULE</b></span></li>
+<li class="chapter" data-level="3" data-path="récapitulatif-analyses-univariées.html"><a href="récapitulatif-analyses-univariées.html"><i class="fa fa-check"></i><b>3</b> Récapitulatif : Analyses univariées</a></li>
+<li class="chapter" data-level="4" data-path="intro-analyses-multivariées.html"><a href="intro-analyses-multivariées.html"><i class="fa fa-check"></i><b>4</b> Intro : Analyses multivariées</a></li>
+<li class="chapter" data-level="5" data-path="définir-nos-objectifs.html"><a href="définir-nos-objectifs.html"><i class="fa fa-check"></i><b>5</b> Définir nos objectifs</a></li>
+<li class="chapter" data-level="6" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html"><i class="fa fa-check"></i><b>6</b> L’algèbre matricielle, très brièvement</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#les-ensembles-de-données-sont-des-matrices"><i class="fa fa-check"></i><b>6.1</b> Les ensembles de données <em>sont</em> des matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#matrices-dassociation"><i class="fa fa-check"></i><b>6.2</b> Matrices d’association</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html"><i class="fa fa-check"></i><b>7</b> Exploration de l’ensemble de données</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#communautés-de-poissons-du-doubs"><i class="fa fa-check"></i><b>7.1</b> Communautés de poissons du Doubs</a></li>
+<li class="chapter" data-level="7.2" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#données-environnementales-de-la-rivière-doubs"><i class="fa fa-check"></i><b>7.2</b> Données environnementales de la rivière Doubs</a></li>
+</ul></li>
+<li class="part"><span><b>Mesures d’association</b></span></li>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html"><i class="fa fa-check"></i><b>9</b> Types de coefficients de distance</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-métriques"><i class="fa fa-check"></i><b>9.1</b> Distances métriques</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-euclidiennes"><i class="fa fa-check"></i><b>9.1.1</b> Distances euclidiennes</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#défi-1"><i class="fa fa-check"></i><b>9.1.2</b> Défi #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-daccord"><i class="fa fa-check"></i><b>9.1.3</b> Distances d’accord</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-jaccard"><i class="fa fa-check"></i><b>9.1.4</b> Coefficient de Jaccard</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-semimétriques"><i class="fa fa-check"></i><b>9.2</b> Distances semimétriques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-sørensen"><i class="fa fa-check"></i><b>9.2.1</b> Coefficient de Sørensen</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-bray-curtis"><i class="fa fa-check"></i><b>9.2.2</b> Coefficient de Bray-Curtis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-non-métriques"><i class="fa fa-check"></i><b>9.3</b> Distances non métriques</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distance-de-mahalanobis"><i class="fa fa-check"></i><b>9.3.1</b> Distance de Mahalanobis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#représentation-des-matrices-de-distance"><i class="fa fa-check"></i><b>9.4</b> Représentation des matrices de distance</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#transformation-présence-absence"><i class="fa fa-check"></i><b>10.1</b> Transformation présence-absence</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#transformation-des-profils-despèces"><i class="fa fa-check"></i><b>10.2</b> Transformation des profils d’espèces</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#transformation-de-hellinger"><i class="fa fa-check"></i><b>10.3</b> Transformation de Hellinger</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#normalisation-par-le-score-z"><i class="fa fa-check"></i><b>10.4</b> Normalisation par le score Z</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="transformations.html"><a href="transformations.html#autres-métriques-dassociation"><i class="fa fa-check"></i><b>10.4.1</b> Autres métriques d’association</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="regroupement.html"><a href="regroupement.html"><i class="fa fa-check"></i><b>11</b> Regroupement</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-lien-unique"><i class="fa fa-check"></i><b>11.1</b> Regroupement agglomératif à lien unique</a></li>
+<li class="chapter" data-level="11.2" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-liens-complets"><i class="fa fa-check"></i><b>11.2</b> Regroupement agglomératif à liens complets</a></li>
+<li class="chapter" data-level="11.3" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-non-pondérés-avec-moyenne-arithmétique-upgma"><i class="fa fa-check"></i><b>11.3</b> Méthode des groupes de paires non pondérés avec moyenne arithmétique (UPGMA)</a></li>
+<li class="chapter" data-level="11.4" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-pondérés-avec-moyenne-arithmétique-wpgma"><i class="fa fa-check"></i><b>11.4</b> Méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA)</a></li>
+<li class="chapter" data-level="11.5" data-path="regroupement.html"><a href="regroupement.html#variance-minimale-de-ward"><i class="fa fa-check"></i><b>11.5</b> Variance minimale de Ward</a></li>
+<li class="chapter" data-level="11.6" data-path="regroupement.html"><a href="regroupement.html#décider-des-points-de-coupure"><i class="fa fa-check"></i><b>11.6</b> Décider des points de coupure</a></li>
+<li class="chapter" data-level="11.7" data-path="regroupement.html"><a href="regroupement.html#jouer-avec-des-données-réelles-les-données-sur-les-espèces-de-poissons-du-doubs"><i class="fa fa-check"></i><b>11.7</b> Jouer avec des données réelles : les données sur les espèces de poissons du Doubs</a></li>
+</ul></li>
+<li class="part"><span><b>L’Ordination sans contrainte</b></span></li>
+<li class="chapter" data-level="12" data-path="que-signifie-sans-contrainte.html"><a href="que-signifie-sans-contrainte.html"><i class="fa fa-check"></i><b>12</b> Que signifie “sans contrainte” ?</a></li>
+<li class="chapter" data-level="13" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html"><i class="fa fa-check"></i><b>13</b> Analyse en composantes principales</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#lanalyse-en-composantes-principales-pas-en-bref"><i class="fa fa-check"></i><b>13.1</b> L’analyse en composantes principales <em>pas</em> en bref</a></li>
+<li class="chapter" data-level="13.2" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-à-laide-des-fonctions-du-paquet"><i class="fa fa-check"></i><b>13.2</b> Analyse en composantes principales à l’aide des fonctions du paquet</a></li>
+<li class="chapter" data-level="13.3" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-sur-des-données-écologiques"><i class="fa fa-check"></i><b>13.3</b> Analyse en composantes principales sur des données écologiques</a></li>
+<li class="chapter" data-level="13.4" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#condenser-les-données-avec-lanalyse-en-composantes-principales"><i class="fa fa-check"></i><b>13.4</b> Condenser les données avec l’analyse en composantes principales</a></li>
+<li class="chapter" data-level="13.5" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#échelonnement"><i class="fa fa-check"></i><b>13.5</b> Échelonnement</a></li>
+<li class="chapter" data-level="13.6" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#défi-2"><i class="fa fa-check"></i><b>13.6</b> Défi #2</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>14</b> Analyse des Correpondances</a></li>
+<li class="chapter" data-level="15" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>15</b> Analyse en coordonnées principales</a></li>
+<li class="chapter" data-level="16" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>16</b> Positionnement multidimensionnel non-métrique</a></li>
+<li class="part"><span><b>Considérations finales</b></span></li>
+<li class="chapter" data-level="17" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>17</b> Sommaire</a></li>
+<li class="chapter" data-level="18" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>18</b> Resources additionnels</a></li>
+<li class="chapter" data-level="19" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>19</b> Réferences</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Atelier 9 : Analyses multivariées en <code>R</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!------------------------ Hero Image Container --------------------------> 
+
+<head>
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=10.0,initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/6a26f47516.js"></script>
+  <script src="assets/qcbs-hideOutput.js"></script>
+  <link href="assets/qcbs-style.css" rel="stylesheet">
+</head>
+
+
+<!-- 
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
+</div>
+--!>
+<div id="regroupement" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Chapitre 11</span> Regroupement<a href="regroupement.html#regroupement" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>L’une des applications des matrices d’association est le regroupement. Le regroupement met en évidence les structures des données en partitionnant soit les objets, soit les descripteurs. Les objets similaires sont ainsi combinés en groupes, ce qui permet d’identifier les distinctions - ou les contrastes - entre les groupes. L’un des objectifs des écologistes pourrait être de diviser un ensemble de sites en groupes en fonction de leurs conditions environnementales ou de la composition de leur communauté.</p>
+<p>Les résultats des regroupements sont souvent représentés sous forme de <em>dendrogrammes</em> (arbres), où les objets s’agglomèrent en groupes. Il existe plusieurs familles de méthodes de regroupement, mais pour les besoins de cet atelier, nous présenterons une vue d’ensemble de trois méthodes de regroupement agglomératif hiérarchique : le lien simple, le lien complet et le regroupement à variance minimale de Ward. *Voir le chapitre 8 de Legendre et Legendre (2012) pour plus de détails sur les différentes familles de méthodes de clustering.</p>
+<p>Dans les méthodes hiérarchiques, les éléments des clusters (ou groupes) inférieurs deviennent membres de clusters plus importants, de rang supérieur, par exemple espèce, genre, famille, ordre. Avant de procéder au regroupement, il faut créer une matrice d’association entre les objets. La matrice de distance est le choix par défaut des fonctions de regroupement dans R. La matrice d’association est d’abord triée par ordre de distance croissante (ou de similarités décroissantes). Ensuite, les groupes sont formés hiérarchiquement en suivant des règles spécifiques à chaque méthode.</p>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-53-1.png" width="960" /></p>
+<p>R dispose de plusieurs fonctions intégrées pour le calcul des clusters agglomérés et la visualisation des résultats. Voici quelques-unes des fonctions les plus couramment utilisées :</p>
+<ul>
+<li>La fonction <code>hclust()</code> du package <code>stats</code> : Cette fonction calcule le regroupement hiérarchique à l’aide d’une variété de méthodes de liaison, y compris la méthode unique, la méthode complète, la méthode moyenne et la méthode de la variance minimale de Ward. La sortie est un objet <code>dendrogramme</code> qui peut être tracé à l’aide de la fonction <code>plot()</code>.</li>
+<li>La fonction <code>agnes()</code> du paquet <code>cluster</code> : Cette fonction calcule également le clustering hiérarchique en utilisant plusieurs méthodes de liaison, mais elle peut traiter des ensembles de données plus importants que <code>hclust()</code>. La sortie est un objet de la classe “<code>agnes</code>” qui peut être tracé en utilisant la fonction <code>plot()</code>.</li>
+<li>Le paquet <code>dendextend()</code> : Ce paquet fournit plusieurs fonctions pour manipuler et visualiser les dendrogrammes, y compris <code>color_branches()</code>, <code>rotate()</code> et <code>cutree()</code>.</li>
+<li>Fonction <code>ggdendro()</code> du paquet <code>ggdendro</code> : Cette fonction crée un dendrogramme en utilisant la syntaxe <code>ggplot2</code> et offre plus d’options de personnalisation que la fonction de base <code>plot()</code>.</li>
+</ul>
+<p>Ci-dessous, nous allons apprendre plusieurs types d’algorithmes de clustering, tout en appliquant la fonction la plus simple de R pour les produire, <code>hclust()</code>.</p>
+<div id="regroupement-agglomératif-à-lien-unique" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Regroupement agglomératif à lien unique<a href="regroupement.html#regroupement-agglomératif-à-lien-unique" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Le regroupement agglomératif à lien unique est un algorithme de regroupement hiérarchique qui fusionne itérativement les deux groupes les plus proches en fonction de la distance minimale entre leurs membres les plus proches. Les étapes de cet algorithme sont les suivantes</p>
+<ol style="list-style-type: decimal">
+<li>Commencez par assigner chaque observation à sa propre grappe.</li>
+<li>Calculer la distance entre toutes les paires de grappes à l’aide d’une mesure de distance choisie (par exemple, la distance euclidienne).</li>
+<li>Fusionner les deux grappes les plus proches en une seule grappe.</li>
+<li>Recalculer la distance entre la nouvelle grappe et toutes les grappes restantes.</li>
+<li>Répéter les étapes 3 et 4 jusqu’à ce que toutes les observations appartiennent à une seule grappe ou jusqu’à ce qu’un nombre prédéfini de grappes soit atteint.</li>
+</ol>
+<p>Dans la classification agglomérative à lien unique, la distance entre deux grappes est définie comme la distance minimale entre deux points quelconques des grappes. C’est la raison pour laquelle on l’appelle aussi le “plus proche voisin” ou le “single linkage”.</p>
+<p>L’un des inconvénients du regroupement agglomératif à lien unique est qu’il peut produire des grappes longues et traînantes qui ne représentent pas des groupes bien définis, également connues sous le nom de phénomène de chaînage. Ce phénomène peut être surmonté en utilisant d’autres critères de liaison tels que la liaison complète, la liaison moyenne ou la liaison de Ward.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="regroupement.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># générer des échantillons de données</span></span>
+<span id="cb80-2"><a href="regroupement.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb80-3"><a href="regroupement.html#cb80-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb80-4"><a href="regroupement.html#cb80-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-5"><a href="regroupement.html#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="co"># effectuer un clustering agglomératif à lien unique</span></span>
+<span id="cb80-6"><a href="regroupement.html#cb80-6" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;single&quot;</span>)</span>
+<span id="cb80-7"><a href="regroupement.html#cb80-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-8"><a href="regroupement.html#cb80-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tracer le dendrogramme</span></span>
+<span id="cb80-9"><a href="regroupement.html#cb80-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">&quot;Dendrogramme du regroupement agglomératif à lien unique&quot;</span>,</span>
+<span id="cb80-10"><a href="regroupement.html#cb80-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/hclust-single-1.png" width="672" /></p>
+</div>
+<div id="regroupement-agglomératif-à-liens-complets" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Regroupement agglomératif à liens complets<a href="regroupement.html#regroupement-agglomératif-à-liens-complets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Le regroupement agglomératif à liens complets est un autre algorithme de regroupement hiérarchique qui fusionne itérativement les deux groupes les plus proches sur la base de la distance maximale entre leurs membres les plus éloignés.</p>
+<p>Les étapes de l’algorithme de regroupement agglomératif à liaison complète sont les suivantes :</p>
+<ol style="list-style-type: decimal">
+<li>Commencer par assigner chaque observation à sa propre classe.</li>
+<li>Calculer la distance entre toutes les paires de groupes à l’aide d’une mesure de distance choisie (par exemple, la distance euclidienne).</li>
+<li>Fusionner les deux groupes les plus proches en un seul groupe.</li>
+<li>Recalculer la distance entre la nouvelle grappe et toutes les grappes restantes.</li>
+<li>Répéter les étapes 3 et 4 jusqu’à ce que toutes les observations appartiennent à une seule grappe ou jusqu’à ce qu’un nombre prédéfini de grappes soit atteint.</li>
+<li>Dans le cas de la classification agglomérative par liens complets, la distance entre deux grappes est définie comme la distance maximale entre deux points quelconques des grappes. C’est la raison pour laquelle on l’appelle aussi le “plus lointain voisin” ou le “lien complet”.</li>
+</ol>
+<p>Par rapport au regroupement agglomératif à lien unique, le regroupement à lien complet tend à produire des grappes plus compactes et sphériques, moins sujettes au phénomène de chaînage. Toutefois, il est plus sensible aux valeurs aberrantes et peut produire des grappes déséquilibrées en cas de valeurs extrêmes ou de bruit dans les données.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="regroupement.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># effectuer un clustering agglomératif à liens complets</span></span>
+<span id="cb81-2"><a href="regroupement.html#cb81-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb81-3"><a href="regroupement.html#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="regroupement.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tracer le dendrogramme</span></span>
+<span id="cb81-5"><a href="regroupement.html#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">&quot;Dendrogramme de l&#39;agglomération de liens complète&quot;</span>,</span>
+<span id="cb81-6"><a href="regroupement.html#cb81-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/hclust-complete-1.png" width="672" /></p>
+</div>
+<div id="méthode-des-groupes-de-paires-non-pondérés-avec-moyenne-arithmétique-upgma" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Méthode des groupes de paires non pondérés avec moyenne arithmétique (UPGMA)<a href="regroupement.html#méthode-des-groupes-de-paires-non-pondérés-avec-moyenne-arithmétique-upgma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Un autre algorithme de regroupement hiérarchique couramment utilisé en bioinformatique et en biologie évolutive est la méthode des groupes de paires non pondérées avec moyenne arithmétique (UPGMA).</p>
+<p>Les étapes de l’algorithme UPGMA sont les suivantes</p>
+<ol style="list-style-type: decimal">
+<li>Commencez par assigner chaque point de données à son propre groupe.</li>
+<li>Calculer les distances par paire entre tous les groupes sur la base de la métrique de distance choisie, telle que la distance euclidienne, la distance de Manhattan ou la corrélation de Pearson.</li>
+<li>Trouver les deux grappes les plus proches sur la base des distances par paire et les fusionner en une seule grappe. La distance entre les deux groupes est calculée comme la moyenne des distances par paire entre leurs membres.</li>
+<li>Mettre à jour les distances par paire entre la nouvelle grappe et toutes les grappes restantes. La distance entre la nouvelle grappe et toute autre grappe est calculée comme la moyenne des distances par paire entre les membres de la nouvelle grappe et les membres de l’autre grappe.</li>
+<li>Répétez les étapes 3 et 4 jusqu’à ce que tous les points de données appartiennent à un seul groupe.</li>
+</ol>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="regroupement.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># effectuer un clustering par la méthode des groupes de</span></span>
+<span id="cb82-2"><a href="regroupement.html#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="co"># paires non pondérés avec moyenne arithmétique</span></span>
+<span id="cb82-3"><a href="regroupement.html#cb82-3" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb82-4"><a href="regroupement.html#cb82-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-5"><a href="regroupement.html#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tracer le dendrogramme</span></span>
+<span id="cb82-6"><a href="regroupement.html#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">&quot;Dendrogramme de la méthode du groupe de paires non pondéré avec la moyenne arithmétique </span><span class="sc">\n</span><span class="st">Agglomerative Clustering&quot;</span>,</span>
+<span id="cb82-7"><a href="regroupement.html#cb82-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/hclust-upgma-1.png" width="672" /></p>
+<p>L’algorithme UPGMA suppose un taux d’évolution constant et est donc souvent utilisé pour construire des arbres phylogénétiques à partir de données génétiques ou moléculaires. Le résultat de l’algorithme UPGMA est un dendrogramme, qui montre la structure hiérarchique des groupes.</p>
+<p>Une des limites de l’UPGMA est qu’elle peut être sensible aux valeurs aberrantes et qu’elle peut produire des résultats biaisés s’il existe des modèles non aléatoires de données manquantes ou d’évolution convergente. En outre, il s’agit d’une méthode non pondérée, ce qui signifie qu’elle suppose que tous les points de données ont la même importance, ce qui n’est pas toujours le cas.</p>
+</div>
+<div id="méthode-des-groupes-de-paires-pondérés-avec-moyenne-arithmétique-wpgma" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> Méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA)<a href="regroupement.html#méthode-des-groupes-de-paires-pondérés-avec-moyenne-arithmétique-wpgma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA) est similaire à la méthode UPGMA, mais elle prend en compte le poids des observations (par exemple, lorsque certaines observations sont plus importantes que d’autres). L’algorithme fonctionne comme suit</p>
+<ol style="list-style-type: decimal">
+<li>Commencez par assigner chaque point de données à sa propre grappe.</li>
+<li>Calculer les distances par paire entre tous les groupes sur la base de la métrique de distance choisie, telle que la distance euclidienne, la distance de Manhattan ou la corrélation de Pearson.</li>
+<li>Trouver les deux grappes les plus proches sur la base des distances par paire et les fusionner en une seule grappe. La distance entre les deux grappes est calculée comme la moyenne des distances par paire entre leurs membres, pondérées par leurs poids respectifs.</li>
+<li>Mettre à jour les distances par paire entre la nouvelle grappe et toutes les grappes restantes. La distance entre la nouvelle grappe et toute autre grappe est calculée comme la moyenne des distances par paire entre les membres de la nouvelle grappe et les membres de l’autre grappe, pondérées par leurs poids respectifs.</li>
+<li>Répétez les étapes 3 et 4 jusqu’à ce que tous les points de données appartiennent à un seul groupe.</li>
+</ol>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="regroupement.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># exécuter la méthode des groupes de paires pondérés avec</span></span>
+<span id="cb83-2"><a href="regroupement.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="co"># la moyenne arithmétique du clustering</span></span>
+<span id="cb83-3"><a href="regroupement.html#cb83-3" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;mcquitty&quot;</span>)</span>
+<span id="cb83-4"><a href="regroupement.html#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-5"><a href="regroupement.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="co"># trace le dendrogramme</span></span>
+<span id="cb83-6"><a href="regroupement.html#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">&quot;Dendrogramme de la méthode des groupes de paires pondérées avec le clustering agglomératif à moyenne arithmétique&quot;</span>,</span>
+<span id="cb83-7"><a href="regroupement.html#cb83-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/hclust-wpgma-1.png" width="672" /></p>
+</div>
+<div id="variance-minimale-de-ward" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> Variance minimale de Ward<a href="regroupement.html#variance-minimale-de-ward" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La méthode de variance minimale de Ward est un algorithme de regroupement hiérarchique qui vise à minimiser la variance au sein de chaque groupe en fusionnant les groupes qui minimisent l’augmentation de la somme totale des distances au carré. L’algorithme fonctionne comme suit</p>
+<ol style="list-style-type: decimal">
+<li>Commencez par assigner chaque point de données à sa propre grappe.</li>
+<li>Calculer la distance entre chaque paire de grappes à l’aide d’une mesure de distance choisie, telle que la distance euclidienne ou la distance de Manhattan.</li>
+<li>Fusionnez les deux grappes qui minimisent l’augmentation de la somme totale des distances au carré. L’augmentation de la somme des distances quadratiques est calculée comme la somme des distances quadratiques à l’intérieur de chaque grappe plus la distance quadratique entre les centroïdes des deux grappes multipliée par le nombre de points de données dans chaque grappe.</li>
+<li>Calculer la distance entre la nouvelle grappe et toutes les grappes restantes à l’aide de la métrique de distance choisie.</li>
+<li>Répétez les étapes 3 et 4 jusqu’à ce que tous les points de données appartiennent à une seule grappe.</li>
+</ol>
+<p>La méthode de Ward est souvent préférée lorsque les données contiennent des grappes de tailles et de densités différentes. Le résultat de la méthode de Ward est un dendrogramme qui montre la structure hiérarchique des grappes.</p>
+<p>La méthode de Ward est sensible aux valeurs aberrantes et peut produire des résultats biaisés si les données manquantes ne sont pas aléatoires ou si les hypothèses sous-jacentes de normalité et d’égalité des variances ne sont pas respectées.</p>
+<div class="explanation">
+<p>La méthode de la variance minimale de Ward peut être formulée de différentes manières, ce qui donne lieu à des variantes connues sous les noms de Ward D et Ward D2.</p>
+<p>Ward D utilise la somme des distances au carré comme critère à minimiser lors de la fusion des grappes, ce qui équivaut à minimiser l’augmentation de la somme des écarts au carré par rapport à la moyenne de la grappe combinée.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="regroupement.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># effectuer le regroupement à variance minimale de Ward</span></span>
+<span id="cb84-2"><a href="regroupement.html#cb84-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;ward.D&quot;</span>)</span>
+<span id="cb84-3"><a href="regroupement.html#cb84-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-4"><a href="regroupement.html#cb84-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tracer le dendrogramme</span></span>
+<span id="cb84-5"><a href="regroupement.html#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">&quot;Dendrogramme de </span><span class="sc">\n</span><span class="st">Ward&#39;s minimum variance Agglomerative Clustering&quot;</span>,</span>
+<span id="cb84-6"><a href="regroupement.html#cb84-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/hclust-ward-d-1.png" width="672" /></p>
+<p>D’autre part, Ward D2 utilise la somme des écarts quadratiques par rapport au centroïde comme critère à minimiser lors de la fusion des grappes, ce qui équivaut à minimiser l’augmentation de la somme des écarts quadratiques par rapport au centroïde de la grappe combinée.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="regroupement.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># effectuer le regroupement à variance minimale de Ward</span></span>
+<span id="cb85-2"><a href="regroupement.html#cb85-2" aria-hidden="true" tabindex="-1"></a>hc <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">dist</span>(x), <span class="at">method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
+<span id="cb85-3"><a href="regroupement.html#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="regroupement.html#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tracer le dendrogramme</span></span>
+<span id="cb85-5"><a href="regroupement.html#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hc, <span class="at">main =</span> <span class="st">&quot;Dendrogramme de </span><span class="sc">\n</span><span class="st">Ward&#39;s D2 minimum variance Agglomerative Clustering&quot;</span>,</span>
+<span id="cb85-6"><a href="regroupement.html#cb85-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/hclust-ward-d2-1.png" width="672" /></p>
+<p>En d’autres termes, Ward D2 prend en compte la distance entre les centroïdes des grappes fusionnées, tandis que Ward D prend en compte la distance entre les points de données individuels et la moyenne de la grappe fusionnée.</p>
+<p>Empiriquement, Ward D2 tend à produire des grappes plus compactes et sphériques, tandis que Ward D peut être plus sensible aux valeurs aberrantes et peut produire des grappes allongées ou de forme irrégulière. Toutefois, le choix de Ward D ou Ward D2 peut dépendre des caractéristiques spécifiques des données et de la question de recherche.</p>
+</div>
+</div>
+<div id="décider-des-points-de-coupure" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> Décider des points de coupure<a href="regroupement.html#décider-des-points-de-coupure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Le choix du point de coupure pour la prise en compte des groupes de grappes est une étape importante de l’analyse hiérarchique par grappes. Le point de coupure détermine le nombre de grappes à prendre en compte et peut avoir un impact significatif sur l’interprétation des résultats.</p>
+<p>Voici quelques méthodes courantes pour déterminer le point de coupure :</p>
+<ol style="list-style-type: decimal">
+<li>Inspection visuelle du dendrogramme : Une approche consiste à inspecter visuellement le dendrogramme et à identifier un point où les branches commencent à devenir longues et clairsemées. Ce point représente un point de rupture naturel dans la hiérarchie et peut être utilisé comme point de coupure.</li>
+<li>La méthode du coude : La méthode du coude consiste à tracer une mesure de la qualité des grappes, telle que la somme des carrés à l’intérieur d’une grappe, en fonction du nombre de grappes. Le point où le tracé commence à se stabiliser est considéré comme le point d’inflexion et peut être utilisé comme point de coupure.</li>
+<li>Statistique de l’écart : la statistique de l’écart compare la somme des carrés à l’intérieur des grappes pour les données réelles à la somme des carrés à l’intérieur des grappes attendue pour une distribution de référence nulle. Le nombre optimal de grappes est celui qui présente la statistique d’écart la plus élevée.</li>
+<li>Connaissances spécifiques au domaine : Dans certains cas, des connaissances spécifiques au domaine ou des recherches antérieures peuvent fournir des indications sur le nombre approprié de grappes à considérer.</li>
+</ol>
+</div>
+<div id="jouer-avec-des-données-réelles-les-données-sur-les-espèces-de-poissons-du-doubs" class="section level2 hasAnchor" number="11.7">
+<h2><span class="header-section-number">11.7</span> Jouer avec des données réelles : les données sur les espèces de poissons du Doubs<a href="regroupement.html#jouer-avec-des-données-réelles-les-données-sur-les-espèces-de-poissons-du-doubs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Comparons les méthodes de clustering à lien unique et à lien complet en utilisant les données sur les espèces de poissons du Doubs.</p>
+<p>Les données sur les espèces ont déjà été transformées par Hellinger. L’analyse de cluster nécessitant des indices de similarité ou de dissimilarité, la première étape consistera à générer les indices de distance de Hellinger.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="regroupement.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Génère la matrice de distance à partir des données</span></span>
+<span id="cb86-2"><a href="regroupement.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="co"># transformées de Hellinger</span></span>
+<span id="cb86-3"><a href="regroupement.html#cb86-3" aria-hidden="true" tabindex="-1"></a>spe.dhel <span class="ot">&lt;-</span> <span class="fu">vegdist</span>(spe.hel, <span class="at">method =</span> <span class="st">&quot;euclidean&quot;</span>)</span>
+<span id="cb86-4"><a href="regroupement.html#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="regroupement.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Voir la différence entre les deux matrices</span></span>
+<span id="cb86-6"><a href="regroupement.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe.hel)  <span class="co"># Données d&#39;espèces transformées par Hellinger</span></span></code></pre></div>
+<pre><code>##   CHA       TRU       VAI       LOC OMB BLA HOT TOX       VAN       CHE BAR SPI
+## 1   0 1.0000000 0.0000000 0.0000000   0   0   0   0 0.0000000 0.0000000   0   0
+## 2   0 0.6454972 0.5773503 0.5000000   0   0   0   0 0.0000000 0.0000000   0   0
+## 3   0 0.5590170 0.5590170 0.5590170   0   0   0   0 0.0000000 0.0000000   0   0
+## 4   0 0.4364358 0.4879500 0.4879500   0   0   0   0 0.0000000 0.2182179   0   0
+## 5   0 0.2425356 0.2970443 0.2425356   0   0   0   0 0.3834825 0.2425356   0   0
+## 6   0 0.3779645 0.4364358 0.4879500   0   0   0   0 0.2182179 0.3086067   0   0
+##         GOU       BRO       PER BOU PSO       ROT CAR       TAN BCO PCH GRE
+## 1 0.0000000 0.0000000 0.0000000   0   0 0.0000000   0 0.0000000   0   0   0
+## 2 0.0000000 0.0000000 0.0000000   0   0 0.0000000   0 0.0000000   0   0   0
+## 3 0.0000000 0.2500000 0.0000000   0   0 0.0000000   0 0.0000000   0   0   0
+## 4 0.2182179 0.3086067 0.3086067   0   0 0.0000000   0 0.2182179   0   0   0
+## 5 0.2425356 0.3429972 0.3429972   0   0 0.2425356   0 0.2970443   0   0   0
+## 6 0.2182179 0.2182179 0.2182179   0   0 0.0000000   0 0.3086067   0   0   0
+##         GAR BBO ABL ANG
+## 1 0.0000000   0   0   0
+## 2 0.0000000   0   0   0
+## 3 0.0000000   0   0   0
+## 4 0.0000000   0   0   0
+## 5 0.3834825   0   0   0
+## 6 0.2182179   0   0   0</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="regroupement.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe.dhel)  <span class="co"># distances de Hellinger entre les sites</span></span></code></pre></div>
+<pre><code>## [1] 0.8420247 0.9391305 1.0616631 1.2308244 1.1153793 0.9391305</code></pre>
+<p>Utilisez <code>hclust()</code> pour calculer les algorithmes de regroupement de liens simples et complets pour ces données :</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="regroupement.html#cb90-1" aria-hidden="true" tabindex="-1"></a>spe.dhel.single <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.dhel, <span class="at">method =</span> <span class="st">&quot;single&quot;</span>)</span>
+<span id="cb90-2"><a href="regroupement.html#cb90-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-3"><a href="regroupement.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.single)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="regroupement.html#cb91-1" aria-hidden="true" tabindex="-1"></a>spe.dhel.complete <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.dhel, <span class="at">method =</span> <span class="st">&quot;complete&quot;</span>)</span>
+<span id="cb91-2"><a href="regroupement.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.complete)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-55-2.png" width="672" /></p>
+<p><em>Y a-t-il de grandes différences entre les deux dendrogrammes</em> ?</p>
+<p>Dans le clustering à lien unique, des chaînes d’objets apparaissent (par exemple 19, 29, 30, 20, 26, etc.), alors que des groupes plus contrastés sont formés dans le clustering à lien complet.</p>
+<p>Là encore, il est possible de générer un regroupement à variance minimale de Ward avec hclust(). Cependant, le dendogramme montre les distances au carré par défaut. Afin de comparer ce dendrogramme aux résultats des regroupements par liens simples et complets, il faut calculer la racine carrée des distances.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="regroupement.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectuer le clustering de variance minimale de Ward</span></span>
+<span id="cb92-2"><a href="regroupement.html#cb92-2" aria-hidden="true" tabindex="-1"></a>spe.dhel.ward <span class="ot">&lt;-</span> <span class="fu">hclust</span>(spe.dhel, <span class="at">method =</span> <span class="st">&quot;ward.D2&quot;</span>)</span>
+<span id="cb92-3"><a href="regroupement.html#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.ward)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="regroupement.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reprendre le dendrogramme en utilisant les racines</span></span>
+<span id="cb93-2"><a href="regroupement.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="co"># carrées des niveaux de fusion</span></span>
+<span id="cb93-3"><a href="regroupement.html#cb93-3" aria-hidden="true" tabindex="-1"></a>spe.dhel.ward<span class="sc">$</span>height <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(spe.dhel.ward<span class="sc">$</span>height)</span>
+<span id="cb93-4"><a href="regroupement.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.ward)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-56-2.png" width="672" /></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="regroupement.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.dhel.ward, <span class="at">hang =</span> <span class="sc">-</span><span class="dv">1</span>)  <span class="co"># hang=-1 aligne tous les objets sur la même ligne</span></span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-56-3.png" width="672" /></p>
+<p>Il faut être prudent dans le choix d’une mesure d’association et d’une méthode de regroupement afin de traiter correctement un problème.</p>
+<p>Qu’est-ce qui vous intéresse le plus : les gradients ? les contrastes entre les objets ?</p>
+<p>En outre, les résultats doivent être interprétés en fonction des propriétés de la méthode utilisée. Si plusieurs méthodes semblent adaptées à une question écologique, il convient de les calculer toutes et de comparer les résultats.</p>
+<p>Pour rappel, le clustering n’est pas une méthode statistique, mais d’autres mesures peuvent être prises pour identifier des clusters interprétatifs (par exemple, où couper l’arbre), ou pour calculer des statistiques de clustering. Le regroupement peut également être combiné à l’ordination afin de distinguer des groupes de sites. Cela dépasse le cadre de cet atelier, mais voir Borcard et al. 2011 pour plus de détails.</p>
+
+</div>
+</div>
+
+
+
+<p>Nous allons maintenant nous intéresser aux <strong>méthodes d’ordination</strong>.</p>
+<p>L’ordination est une méthode utilisée pour visualiser et explorer les relations entre les variables ou les observations dans un ensemble de données multivariées. L’objectif de l’ordination est de représenter les données dans un espace de dimension inférieure, tel qu’un graphique bidimensionnel ou tridimensionnel, tout en préservant la structure globale des données. L’ordination peut être utilisée pour explorer les modèles et les relations entre les variables ou les observations, pour identifier les variables ou les modèles importants dans les données, ou pour visualiser les résultats d’autres analyses.</p>
+<p>Le premier groupe de méthodes d’ordination que nous allons étudier est celui des <strong>ordinations sans contrainte</strong>.</p>
+</div>
+<hr>
+<center> 
+  <div class="footer">
+      All the content of the workshop series is under a <a href="https://creativecommons.org/licenses/by-nc/2.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+  </div>
+</center>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="transformations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="que-signifie-sans-contrainte.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

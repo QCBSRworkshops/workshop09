@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapitre 11 Analyse des Correpondances | Atelier 9 : Analyses multivariées en R</title>
+  <title>Chapitre 14 Analyse des Correpondances | Atelier 9 : Analyses multivariées en R</title>
   <meta name="description" content="Analyses multivariées en R" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapitre 11 Analyse des Correpondances | Atelier 9 : Analyses multivariées en R" />
+  <meta property="og:title" content="Chapitre 14 Analyse des Correpondances | Atelier 9 : Analyses multivariées en R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Analyses multivariées en R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 11 Analyse des Correpondances | Atelier 9 : Analyses multivariées en R" />
+  <meta name="twitter:title" content="Chapitre 14 Analyse des Correpondances | Atelier 9 : Analyses multivariées en R" />
   
   <meta name="twitter:description" content="Analyses multivariées en R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -29,7 +29,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-<link rel="prev" href="analyses-en-composantes-principales.html"/>
+<link rel="prev" href="analyse-en-composantes-principales.html"/>
 <link rel="next" href="analyse-en-coordonnées-principales.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -149,30 +149,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>Analyses multivariées en <code>R</code></b></span></li>
 <li class="chapter" data-level="1" data-path="objectifs-dapprentissage.html"><a href="objectifs-dapprentissage.html"><i class="fa fa-check"></i><b>1</b> Objectifs d’apprentissage</a></li>
 <li class="chapter" data-level="2" data-path="préparez-vous-pour-cet-atelier.html"><a href="préparez-vous-pour-cet-atelier.html"><i class="fa fa-check"></i><b>2</b> Préparez-vous pour cet atelier</a></li>
-<li class="chapter" data-level="3" data-path="quest-ce-que-lordination.html"><a href="quest-ce-que-lordination.html"><i class="fa fa-check"></i><b>3</b> Qu’est-ce que l’ordination?</a></li>
-<li class="chapter" data-level="4" data-path="introduction-aux-données.html"><a href="introduction-aux-données.html"><i class="fa fa-check"></i><b>4</b> Introduction aux données</a></li>
-<li class="chapter" data-level="5" data-path="exploration-des-données.html"><a href="exploration-des-données.html"><i class="fa fa-check"></i><b>5</b> 1. Exploration des données</a>
+<li class="part"><span><b>PRÉAMBULE</b></span></li>
+<li class="chapter" data-level="3" data-path="récapitulatif-analyses-univariées.html"><a href="récapitulatif-analyses-univariées.html"><i class="fa fa-check"></i><b>3</b> Récapitulatif : Analyses univariées</a></li>
+<li class="chapter" data-level="4" data-path="intro-analyses-multivariées.html"><a href="intro-analyses-multivariées.html"><i class="fa fa-check"></i><b>4</b> Intro : Analyses multivariées</a></li>
+<li class="chapter" data-level="5" data-path="définir-nos-objectifs.html"><a href="définir-nos-objectifs.html"><i class="fa fa-check"></i><b>5</b> Définir nos objectifs</a></li>
+<li class="chapter" data-level="6" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html"><i class="fa fa-check"></i><b>6</b> L’algèbre matricielle, très brièvement</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-les-espèces"><i class="fa fa-check"></i><b>5.1</b> 1.1 Données sur les espèces</a></li>
-<li class="chapter" data-level="5.2" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-lenvironnement"><i class="fa fa-check"></i><b>5.2</b> 1.2 Données sur l’environnement</a></li>
+<li class="chapter" data-level="6.1" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#les-ensembles-de-données-sont-des-matrices"><i class="fa fa-check"></i><b>6.1</b> Les ensembles de données <em>sont</em> des matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#matrices-dassociation"><i class="fa fa-check"></i><b>6.2</b> Matrices d’association</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html"><i class="fa fa-check"></i><b>7</b> Exploration de l’ensemble de données</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#communautés-de-poissons-du-doubs"><i class="fa fa-check"></i><b>7.1</b> Communautés de poissons du Doubs</a></li>
+<li class="chapter" data-level="7.2" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#données-environnementales-de-la-rivière-doubs"><i class="fa fa-check"></i><b>7.2</b> Données environnementales de la rivière Doubs</a></li>
 </ul></li>
 <li class="part"><span><b>Mesures d’association</b></span></li>
-<li class="chapter" data-level="6" data-path="la-dissimilarité-des-données.html"><a href="la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>6</b> La (dis)similarité des données</a></li>
-<li class="chapter" data-level="7" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>7</b> Quantifier la (dis)similarité des données</a>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html"><i class="fa fa-check"></i><b>9</b> Types de coefficients de distance</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html#transformations-des-données-de-composition-des-communautés"><i class="fa fa-check"></i><b>7.1</b> Transformations des données de composition des communautés</a></li>
+<li class="chapter" data-level="9.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-métriques"><i class="fa fa-check"></i><b>9.1</b> Distances métriques</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-euclidiennes"><i class="fa fa-check"></i><b>9.1.1</b> Distances euclidiennes</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#défi-1"><i class="fa fa-check"></i><b>9.1.2</b> Défi #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-daccord"><i class="fa fa-check"></i><b>9.1.3</b> Distances d’accord</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-jaccard"><i class="fa fa-check"></i><b>9.1.4</b> Coefficient de Jaccard</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="groupement.html"><a href="groupement.html"><i class="fa fa-check"></i><b>8</b> Groupement</a></li>
+<li class="chapter" data-level="9.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-semimétriques"><i class="fa fa-check"></i><b>9.2</b> Distances semimétriques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-sørensen"><i class="fa fa-check"></i><b>9.2.1</b> Coefficient de Sørensen</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-bray-curtis"><i class="fa fa-check"></i><b>9.2.2</b> Coefficient de Bray-Curtis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-non-métriques"><i class="fa fa-check"></i><b>9.3</b> Distances non métriques</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distance-de-mahalanobis"><i class="fa fa-check"></i><b>9.3.1</b> Distance de Mahalanobis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#représentation-des-matrices-de-distance"><i class="fa fa-check"></i><b>9.4</b> Représentation des matrices de distance</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#transformation-présence-absence"><i class="fa fa-check"></i><b>10.1</b> Transformation présence-absence</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#transformation-des-profils-despèces"><i class="fa fa-check"></i><b>10.2</b> Transformation des profils d’espèces</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#transformation-de-hellinger"><i class="fa fa-check"></i><b>10.3</b> Transformation de Hellinger</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#normalisation-par-le-score-z"><i class="fa fa-check"></i><b>10.4</b> Normalisation par le score Z</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="transformations.html"><a href="transformations.html#autres-métriques-dassociation"><i class="fa fa-check"></i><b>10.4.1</b> Autres métriques d’association</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="regroupement.html"><a href="regroupement.html"><i class="fa fa-check"></i><b>11</b> Regroupement</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-lien-unique"><i class="fa fa-check"></i><b>11.1</b> Regroupement agglomératif à lien unique</a></li>
+<li class="chapter" data-level="11.2" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-liens-complets"><i class="fa fa-check"></i><b>11.2</b> Regroupement agglomératif à liens complets</a></li>
+<li class="chapter" data-level="11.3" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-non-pondérés-avec-moyenne-arithmétique-upgma"><i class="fa fa-check"></i><b>11.3</b> Méthode des groupes de paires non pondérés avec moyenne arithmétique (UPGMA)</a></li>
+<li class="chapter" data-level="11.4" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-pondérés-avec-moyenne-arithmétique-wpgma"><i class="fa fa-check"></i><b>11.4</b> Méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA)</a></li>
+<li class="chapter" data-level="11.5" data-path="regroupement.html"><a href="regroupement.html#variance-minimale-de-ward"><i class="fa fa-check"></i><b>11.5</b> Variance minimale de Ward</a></li>
+<li class="chapter" data-level="11.6" data-path="regroupement.html"><a href="regroupement.html#décider-des-points-de-coupure"><i class="fa fa-check"></i><b>11.6</b> Décider des points de coupure</a></li>
+<li class="chapter" data-level="11.7" data-path="regroupement.html"><a href="regroupement.html#jouer-avec-des-données-réelles-les-données-sur-les-espèces-de-poissons-du-doubs"><i class="fa fa-check"></i><b>11.7</b> Jouer avec des données réelles : les données sur les espèces de poissons du Doubs</a></li>
+</ul></li>
 <li class="part"><span><b>L’Ordination sans contrainte</b></span></li>
-<li class="chapter" data-level="9" data-path="le-significat-de-lordination-sans-contrainte.html"><a href="le-significat-de-lordination-sans-contrainte.html"><i class="fa fa-check"></i><b>9</b> Le significat de l’ordination “sans contrainte”</a></li>
-<li class="chapter" data-level="10" data-path="analyses-en-composantes-principales.html"><a href="analyses-en-composantes-principales.html"><i class="fa fa-check"></i><b>10</b> Analyses en Composantes Principales</a></li>
-<li class="chapter" data-level="11" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>11</b> Analyse des Correpondances</a></li>
-<li class="chapter" data-level="12" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>12</b> Analyse en coordonnées principales</a></li>
-<li class="chapter" data-level="13" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>13</b> Positionnement multidimensionnel non-métrique</a></li>
+<li class="chapter" data-level="12" data-path="que-signifie-sans-contrainte.html"><a href="que-signifie-sans-contrainte.html"><i class="fa fa-check"></i><b>12</b> Que signifie “sans contrainte” ?</a></li>
+<li class="chapter" data-level="13" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html"><i class="fa fa-check"></i><b>13</b> Analyse en composantes principales</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#lanalyse-en-composantes-principales-pas-en-bref"><i class="fa fa-check"></i><b>13.1</b> L’analyse en composantes principales <em>pas</em> en bref</a></li>
+<li class="chapter" data-level="13.2" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-à-laide-des-fonctions-du-paquet"><i class="fa fa-check"></i><b>13.2</b> Analyse en composantes principales à l’aide des fonctions du paquet</a></li>
+<li class="chapter" data-level="13.3" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-sur-des-données-écologiques"><i class="fa fa-check"></i><b>13.3</b> Analyse en composantes principales sur des données écologiques</a></li>
+<li class="chapter" data-level="13.4" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#condenser-les-données-avec-lanalyse-en-composantes-principales"><i class="fa fa-check"></i><b>13.4</b> Condenser les données avec l’analyse en composantes principales</a></li>
+<li class="chapter" data-level="13.5" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#échelonnement"><i class="fa fa-check"></i><b>13.5</b> Échelonnement</a></li>
+<li class="chapter" data-level="13.6" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#défi-2"><i class="fa fa-check"></i><b>13.6</b> Défi #2</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>14</b> Analyse des Correpondances</a></li>
+<li class="chapter" data-level="15" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>15</b> Analyse en coordonnées principales</a></li>
+<li class="chapter" data-level="16" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>16</b> Positionnement multidimensionnel non-métrique</a></li>
 <li class="part"><span><b>Considérations finales</b></span></li>
-<li class="chapter" data-level="14" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>14</b> Sommaire</a></li>
-<li class="chapter" data-level="15" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>15</b> Resources additionnels</a></li>
-<li class="chapter" data-level="16" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>16</b> Réferences</a></li>
+<li class="chapter" data-level="17" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>17</b> Sommaire</a></li>
+<li class="chapter" data-level="18" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>18</b> Resources additionnels</a></li>
+<li class="chapter" data-level="19" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>19</b> Réferences</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
 
@@ -208,8 +259,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="analyse-des-correpondances" class="section level1 hasAnchor" number="11">
-<h1><span class="header-section-number">Chapitre 11</span> Analyse des Correpondances<a href="analyse-des-correpondances.html#analyse-des-correpondances" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="analyse-des-correpondances" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapitre 14</span> Analyse des Correpondances<a href="analyse-des-correpondances.html#analyse-des-correpondances" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>L’une des hypothèses clefs de la PCA postule que les espèces sont liées
 les unes aux autres de façon linéaire, et qu’elles répondent de façon
 linéaire aux gradients écologiques. Ce n’est cependant pas
@@ -245,58 +296,60 @@ significatifs d’une CA, et les scores des objets le long des axes
 d’ordination peuvent être extraits pour être utlisés dans des
 régressions multiples par exemple.</p>
 <p>Exécuter une CA sur les données d’abondance d’espèces:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="analyse-des-correpondances.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectuer une CA à l&#39;aide de la fonction cca() (NB: cca()</span></span>
-<span id="cb42-2"><a href="analyse-des-correpondances.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co"># est utilisée à la fois pour les CA et CCA)</span></span>
-<span id="cb42-3"><a href="analyse-des-correpondances.html#cb42-3" aria-hidden="true" tabindex="-1"></a>spe.ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(spe)</span>
-<span id="cb42-4"><a href="analyse-des-correpondances.html#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-5"><a href="analyse-des-correpondances.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifier les axes significatifs</span></span>
-<span id="cb42-6"><a href="analyse-des-correpondances.html#cb42-6" aria-hidden="true" tabindex="-1"></a>ev <span class="ot">&lt;-</span> spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig</span>
-<span id="cb42-7"><a href="analyse-des-correpondances.html#cb42-7" aria-hidden="true" tabindex="-1"></a>ev[ev <span class="sc">&gt;</span> <span class="fu">mean</span>(ev)]</span>
-<span id="cb42-8"><a href="analyse-des-correpondances.html#cb42-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(ev)</span>
-<span id="cb42-9"><a href="analyse-des-correpondances.html#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(ev, <span class="at">main =</span> <span class="st">&quot;Eigenvalues&quot;</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">las =</span> <span class="dv">2</span>)</span>
-<span id="cb42-10"><a href="analyse-des-correpondances.html#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(ev), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb42-11"><a href="analyse-des-correpondances.html#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Average eigenvalue&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
-<p><img src="images//ca_guttmankaiser.png" class="align-center" /></p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="analyse-des-correpondances.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Effectuer une CA à l&#39;aide de la fonction cca() (NB: cca()</span></span>
+<span id="cb135-2"><a href="analyse-des-correpondances.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="co"># est utilisée à la fois pour les CA et CCA)</span></span>
+<span id="cb135-3"><a href="analyse-des-correpondances.html#cb135-3" aria-hidden="true" tabindex="-1"></a>spe.ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(spe[<span class="sc">-</span><span class="dv">8</span>, ])</span>
+<span id="cb135-4"><a href="analyse-des-correpondances.html#cb135-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-5"><a href="analyse-des-correpondances.html#cb135-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Identifier les axes significatifs</span></span>
+<span id="cb135-6"><a href="analyse-des-correpondances.html#cb135-6" aria-hidden="true" tabindex="-1"></a>ev <span class="ot">&lt;-</span> spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig</span>
+<span id="cb135-7"><a href="analyse-des-correpondances.html#cb135-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-8"><a href="analyse-des-correpondances.html#cb135-8" aria-hidden="true" tabindex="-1"></a>ev[ev <span class="sc">&gt;</span> <span class="fu">mean</span>(ev)]</span></code></pre></div>
+<pre><code>##        CA1        CA2        CA3        CA4        CA5 
+## 0.60099264 0.14437089 0.10729384 0.08337321 0.05157826</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="analyse-des-correpondances.html#cb137-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(ev)</span>
+<span id="cb137-2"><a href="analyse-des-correpondances.html#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(ev, <span class="at">main =</span> <span class="st">&quot;Eigenvalues&quot;</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb137-3"><a href="analyse-des-correpondances.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(ev), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb137-4"><a href="analyse-des-correpondances.html#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Average eigenvalue&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-92-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>D’après cet histogramme, à partir du sixième axe d’ordination CA6, la
 proportion de variance expliquée diminue sous la proportion moyenne
 expliquée par l’ensemble des axes. La sortie R de la CA ci-dessous
 montre également que les cinq premiers axes d’ordination explique une
 proportion cumulée de variance expliquée de 84.63%.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="analyse-des-correpondances.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe.h.pca)</span>
-<span id="cb43-2"><a href="analyse-des-correpondances.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe.h.pca, <span class="at">diplay =</span> <span class="cn">NULL</span>)</span></code></pre></div>
-<p><img src="images//ca_summary.png" class="align-center" /></p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="analyse-des-correpondances.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(spe.h.pca) summary(spe.h.pca, diplay=NULL)</span></span></code></pre></div>
 <p>Les résultats d’une CA sont présentés sous R de la même façon que ceux
 d’une PCA. On y observe que le premier axe CA1 explique 51.50% de la
 variation de l’abondance des espèces tandis que le second axe CA2
 explique 12.37% de la variation.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="analyse-des-correpondances.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb44-2"><a href="analyse-des-correpondances.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="do">#### scaling 1</span></span>
-<span id="cb44-3"><a href="analyse-des-correpondances.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ca, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="st">&quot;CA - biplot scaling 1&quot;</span>,</span>
-<span id="cb44-4"><a href="analyse-des-correpondances.html#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;CA1 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
-<span id="cb44-5"><a href="analyse-des-correpondances.html#cb44-5" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;CA2 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
-<span id="cb44-6"><a href="analyse-des-correpondances.html#cb44-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)))</span>
-<span id="cb44-7"><a href="analyse-des-correpondances.html#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="analyse-des-correpondances.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">1</span>),</span>
-<span id="cb44-9"><a href="analyse-des-correpondances.html#cb44-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb44-10"><a href="analyse-des-correpondances.html#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-11"><a href="analyse-des-correpondances.html#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">scaling =</span> <span class="dv">1</span>),</span>
-<span id="cb44-12"><a href="analyse-des-correpondances.html#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">1</span>),</span>
-<span id="cb44-13"><a href="analyse-des-correpondances.html#cb44-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">scaling =</span> <span class="dv">1</span>)),</span>
-<span id="cb44-14"><a href="analyse-des-correpondances.html#cb44-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb44-15"><a href="analyse-des-correpondances.html#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-16"><a href="analyse-des-correpondances.html#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="do">#### scaling 2</span></span>
-<span id="cb44-17"><a href="analyse-des-correpondances.html#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ca, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="st">&quot;CA - biplot scaling 2&quot;</span>,</span>
-<span id="cb44-18"><a href="analyse-des-correpondances.html#cb44-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;CA1 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
-<span id="cb44-19"><a href="analyse-des-correpondances.html#cb44-19" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;CA2 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
-<span id="cb44-20"><a href="analyse-des-correpondances.html#cb44-20" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb44-21"><a href="analyse-des-correpondances.html#cb44-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-22"><a href="analyse-des-correpondances.html#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">2</span>),</span>
-<span id="cb44-23"><a href="analyse-des-correpondances.html#cb44-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb44-24"><a href="analyse-des-correpondances.html#cb44-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">scaling =</span> <span class="dv">2</span>),</span>
-<span id="cb44-25"><a href="analyse-des-correpondances.html#cb44-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">2</span>),</span>
-<span id="cb44-26"><a href="analyse-des-correpondances.html#cb44-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">scaling =</span> <span class="dv">2</span>)),</span>
-<span id="cb44-27"><a href="analyse-des-correpondances.html#cb44-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
-<p><img src="images//ca_biplot.png" class="align-center" /></p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="analyse-des-correpondances.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb139-2"><a href="analyse-des-correpondances.html#cb139-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-3"><a href="analyse-des-correpondances.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="do">#### scaling 1</span></span>
+<span id="cb139-4"><a href="analyse-des-correpondances.html#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ca, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="st">&quot;CA - biplot scaling 1&quot;</span>,</span>
+<span id="cb139-5"><a href="analyse-des-correpondances.html#cb139-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;CA1 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
+<span id="cb139-6"><a href="analyse-des-correpondances.html#cb139-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;CA2 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
+<span id="cb139-7"><a href="analyse-des-correpondances.html#cb139-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)))</span>
+<span id="cb139-8"><a href="analyse-des-correpondances.html#cb139-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-9"><a href="analyse-des-correpondances.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">1</span>),</span>
+<span id="cb139-10"><a href="analyse-des-correpondances.html#cb139-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb139-11"><a href="analyse-des-correpondances.html#cb139-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-12"><a href="analyse-des-correpondances.html#cb139-12" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">scaling =</span> <span class="dv">1</span>),</span>
+<span id="cb139-13"><a href="analyse-des-correpondances.html#cb139-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">1</span>),</span>
+<span id="cb139-14"><a href="analyse-des-correpondances.html#cb139-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">scaling =</span> <span class="dv">1</span>)),</span>
+<span id="cb139-15"><a href="analyse-des-correpondances.html#cb139-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb139-16"><a href="analyse-des-correpondances.html#cb139-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-17"><a href="analyse-des-correpondances.html#cb139-17" aria-hidden="true" tabindex="-1"></a><span class="do">#### scaling 2</span></span>
+<span id="cb139-18"><a href="analyse-des-correpondances.html#cb139-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.ca, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="st">&quot;CA - biplot scaling 2&quot;</span>,</span>
+<span id="cb139-19"><a href="analyse-des-correpondances.html#cb139-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;CA1 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
+<span id="cb139-20"><a href="analyse-des-correpondances.html#cb139-20" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;CA2 (%)&quot;</span>, <span class="fu">round</span>((spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
+<span id="cb139-21"><a href="analyse-des-correpondances.html#cb139-21" aria-hidden="true" tabindex="-1"></a>        <span class="dv">100</span>, <span class="dv">2</span>)), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb139-22"><a href="analyse-des-correpondances.html#cb139-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-23"><a href="analyse-des-correpondances.html#cb139-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">2</span>),</span>
+<span id="cb139-24"><a href="analyse-des-correpondances.html#cb139-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb139-25"><a href="analyse-des-correpondances.html#cb139-25" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>), <span class="at">scaling =</span> <span class="dv">2</span>),</span>
+<span id="cb139-26"><a href="analyse-des-correpondances.html#cb139-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">2</span>),</span>
+<span id="cb139-27"><a href="analyse-des-correpondances.html#cb139-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">scaling =</span> <span class="dv">2</span>)),</span>
+<span id="cb139-28"><a href="analyse-des-correpondances.html#cb139-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Ces biplots montrent qu’un groupe de sites (à gauche) possède des
 communautés similaires de poissons caractérisées par de nombreuses
 espèces dont GAR, TAN, PER, ROT, PSO et CAR; dans le coin supérieur
@@ -309,35 +362,37 @@ groupes de sites pouvez-vous identifier? Quelles espèces sont liées à
 chaque groupe de sites?</p>
 <p><strong>Défi 4 - Solution</strong> Votre code devrait s’apparenter à
 celui-ci:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="analyse-des-correpondances.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CA</span></span>
-<span id="cb45-2"><a href="analyse-des-correpondances.html#cb45-2" aria-hidden="true" tabindex="-1"></a>mite.spe.ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(mite.spe)</span>
-<span id="cb45-3"><a href="analyse-des-correpondances.html#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="analyse-des-correpondances.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Quels sont les axes importants?</span></span>
-<span id="cb45-5"><a href="analyse-des-correpondances.html#cb45-5" aria-hidden="true" tabindex="-1"></a>ev <span class="ot">&lt;-</span> mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig</span>
-<span id="cb45-6"><a href="analyse-des-correpondances.html#cb45-6" aria-hidden="true" tabindex="-1"></a>ev[ev <span class="sc">&gt;</span> <span class="fu">mean</span>(ev)]</span>
-<span id="cb45-7"><a href="analyse-des-correpondances.html#cb45-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(ev)</span>
-<span id="cb45-8"><a href="analyse-des-correpondances.html#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(ev, <span class="at">main =</span> <span class="st">&quot;Eigenvalues&quot;</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">las =</span> <span class="dv">2</span>)</span>
-<span id="cb45-9"><a href="analyse-des-correpondances.html#cb45-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(ev), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb45-10"><a href="analyse-des-correpondances.html#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Average eigenvalue&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb45-11"><a href="analyse-des-correpondances.html#cb45-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-12"><a href="analyse-des-correpondances.html#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Résultats</span></span>
-<span id="cb45-13"><a href="analyse-des-correpondances.html#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mite.spe.ca, <span class="at">display =</span> <span class="cn">NULL</span>)</span>
-<span id="cb45-14"><a href="analyse-des-correpondances.html#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-15"><a href="analyse-des-correpondances.html#cb45-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Biplot</span></span>
-<span id="cb45-16"><a href="analyse-des-correpondances.html#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()</span>
-<span id="cb45-17"><a href="analyse-des-correpondances.html#cb45-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mite.spe.ca, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;PC1 (%)&quot;</span>,</span>
-<span id="cb45-18"><a href="analyse-des-correpondances.html#cb45-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>((mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span>]<span class="sc">/</span><span class="fu">sum</span>(mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb45-19"><a href="analyse-des-correpondances.html#cb45-19" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>)), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;PC2 (%)&quot;</span>, <span class="fu">round</span>((mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
-<span id="cb45-20"><a href="analyse-des-correpondances.html#cb45-20" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span>, <span class="dv">2</span>)))</span>
-<span id="cb45-21"><a href="analyse-des-correpondances.html#cb45-21" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,</span>
-<span id="cb45-22"><a href="analyse-des-correpondances.html#cb45-22" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">1</span>), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
-<span id="cb45-23"><a href="analyse-des-correpondances.html#cb45-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb45-24"><a href="analyse-des-correpondances.html#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>),</span>
-<span id="cb45-25"><a href="analyse-des-correpondances.html#cb45-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="dv">1</span>), <span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>),</span>
-<span id="cb45-26"><a href="analyse-des-correpondances.html#cb45-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>,</span>
-<span id="cb45-27"><a href="analyse-des-correpondances.html#cb45-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="dv">1</span>)), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
-<p>Et votre biplot devrait ressembler à celui-ci:</p>
-<p><img src="images//ca_mite_biplot.png" class="align-center" /></p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="analyse-des-correpondances.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CA</span></span>
+<span id="cb140-2"><a href="analyse-des-correpondances.html#cb140-2" aria-hidden="true" tabindex="-1"></a>mite.spe <span class="ot">&lt;-</span> mite</span>
+<span id="cb140-3"><a href="analyse-des-correpondances.html#cb140-3" aria-hidden="true" tabindex="-1"></a>mite.spe.ca <span class="ot">&lt;-</span> <span class="fu">cca</span>(mite.spe)</span>
+<span id="cb140-4"><a href="analyse-des-correpondances.html#cb140-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-5"><a href="analyse-des-correpondances.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Quels sont les axes importants?</span></span>
+<span id="cb140-6"><a href="analyse-des-correpondances.html#cb140-6" aria-hidden="true" tabindex="-1"></a>ev <span class="ot">&lt;-</span> mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig</span>
+<span id="cb140-7"><a href="analyse-des-correpondances.html#cb140-7" aria-hidden="true" tabindex="-1"></a>ev[ev <span class="sc">&gt;</span> <span class="fu">mean</span>(ev)]</span></code></pre></div>
+<pre><code>##        CA1        CA2        CA3        CA4        CA5        CA6        CA7 
+## 0.52511362 0.22727580 0.17401743 0.12661241 0.08621687 0.07484890 0.06694738 
+##        CA8 
+## 0.05061316</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="analyse-des-correpondances.html#cb142-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(ev)</span>
+<span id="cb142-2"><a href="analyse-des-correpondances.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(ev, <span class="at">main =</span> <span class="st">&quot;Eigenvalues&quot;</span>, <span class="at">col =</span> <span class="st">&quot;grey&quot;</span>, <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="cb142-3"><a href="analyse-des-correpondances.html#cb142-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">mean</span>(ev), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb142-4"><a href="analyse-des-correpondances.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="st">&quot;Average eigenvalue&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="dv">2</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="analyse-des-correpondances.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Résultats summary(mite.spe.ca, display=NULL)</span></span>
+<span id="cb143-2"><a href="analyse-des-correpondances.html#cb143-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb143-3"><a href="analyse-des-correpondances.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Biplot</span></span>
+<span id="cb143-4"><a href="analyse-des-correpondances.html#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mite.spe.ca, <span class="at">scaling =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;PC1 (%)&quot;</span>,</span>
+<span id="cb143-5"><a href="analyse-des-correpondances.html#cb143-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>((mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">1</span>]<span class="sc">/</span><span class="fu">sum</span>(mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb143-6"><a href="analyse-des-correpondances.html#cb143-6" aria-hidden="true" tabindex="-1"></a>        <span class="dv">2</span>)), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;PC2 (%)&quot;</span>, <span class="fu">round</span>((mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig[<span class="dv">2</span>]<span class="sc">/</span><span class="fu">sum</span>(mite.spe.ca<span class="sc">$</span>CA<span class="sc">$</span>eig)) <span class="sc">*</span></span>
+<span id="cb143-7"><a href="analyse-des-correpondances.html#cb143-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span>, <span class="dv">2</span>)))</span>
+<span id="cb143-8"><a href="analyse-des-correpondances.html#cb143-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,</span>
+<span id="cb143-9"><a href="analyse-des-correpondances.html#cb143-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>), <span class="at">scaling =</span> <span class="dv">1</span>), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb143-10"><a href="analyse-des-correpondances.html#cb143-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb143-11"><a href="analyse-des-correpondances.html#cb143-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>),</span>
+<span id="cb143-12"><a href="analyse-des-correpondances.html#cb143-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="dv">1</span>), <span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>),</span>
+<span id="cb143-13"><a href="analyse-des-correpondances.html#cb143-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(mite.spe.ca, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>,</span>
+<span id="cb143-14"><a href="analyse-des-correpondances.html#cb143-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">scaling =</span> <span class="dv">1</span>)), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-95-2.png" width="672" style="display: block; margin: auto;" /></p>
 
 </div>
 <hr>
@@ -351,7 +406,7 @@ celui-ci:</p>
           </div>
         </div>
       </div>
-<a href="analyses-en-composantes-principales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analyse-en-composantes-principales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="analyse-en-coordonnées-principales.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

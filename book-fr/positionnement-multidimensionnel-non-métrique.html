@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapitre 13 Positionnement multidimensionnel non-métrique | Atelier 9 : Analyses multivariées en R</title>
+  <title>Chapitre 16 Positionnement multidimensionnel non-métrique | Atelier 9 : Analyses multivariées en R</title>
   <meta name="description" content="Analyses multivariées en R" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapitre 13 Positionnement multidimensionnel non-métrique | Atelier 9 : Analyses multivariées en R" />
+  <meta property="og:title" content="Chapitre 16 Positionnement multidimensionnel non-métrique | Atelier 9 : Analyses multivariées en R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Analyses multivariées en R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 13 Positionnement multidimensionnel non-métrique | Atelier 9 : Analyses multivariées en R" />
+  <meta name="twitter:title" content="Chapitre 16 Positionnement multidimensionnel non-métrique | Atelier 9 : Analyses multivariées en R" />
   
   <meta name="twitter:description" content="Analyses multivariées en R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -149,30 +149,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>Analyses multivariées en <code>R</code></b></span></li>
 <li class="chapter" data-level="1" data-path="objectifs-dapprentissage.html"><a href="objectifs-dapprentissage.html"><i class="fa fa-check"></i><b>1</b> Objectifs d’apprentissage</a></li>
 <li class="chapter" data-level="2" data-path="préparez-vous-pour-cet-atelier.html"><a href="préparez-vous-pour-cet-atelier.html"><i class="fa fa-check"></i><b>2</b> Préparez-vous pour cet atelier</a></li>
-<li class="chapter" data-level="3" data-path="quest-ce-que-lordination.html"><a href="quest-ce-que-lordination.html"><i class="fa fa-check"></i><b>3</b> Qu’est-ce que l’ordination?</a></li>
-<li class="chapter" data-level="4" data-path="introduction-aux-données.html"><a href="introduction-aux-données.html"><i class="fa fa-check"></i><b>4</b> Introduction aux données</a></li>
-<li class="chapter" data-level="5" data-path="exploration-des-données.html"><a href="exploration-des-données.html"><i class="fa fa-check"></i><b>5</b> 1. Exploration des données</a>
+<li class="part"><span><b>PRÉAMBULE</b></span></li>
+<li class="chapter" data-level="3" data-path="récapitulatif-analyses-univariées.html"><a href="récapitulatif-analyses-univariées.html"><i class="fa fa-check"></i><b>3</b> Récapitulatif : Analyses univariées</a></li>
+<li class="chapter" data-level="4" data-path="intro-analyses-multivariées.html"><a href="intro-analyses-multivariées.html"><i class="fa fa-check"></i><b>4</b> Intro : Analyses multivariées</a></li>
+<li class="chapter" data-level="5" data-path="définir-nos-objectifs.html"><a href="définir-nos-objectifs.html"><i class="fa fa-check"></i><b>5</b> Définir nos objectifs</a></li>
+<li class="chapter" data-level="6" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html"><i class="fa fa-check"></i><b>6</b> L’algèbre matricielle, très brièvement</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-les-espèces"><i class="fa fa-check"></i><b>5.1</b> 1.1 Données sur les espèces</a></li>
-<li class="chapter" data-level="5.2" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-lenvironnement"><i class="fa fa-check"></i><b>5.2</b> 1.2 Données sur l’environnement</a></li>
+<li class="chapter" data-level="6.1" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#les-ensembles-de-données-sont-des-matrices"><i class="fa fa-check"></i><b>6.1</b> Les ensembles de données <em>sont</em> des matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#matrices-dassociation"><i class="fa fa-check"></i><b>6.2</b> Matrices d’association</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html"><i class="fa fa-check"></i><b>7</b> Exploration de l’ensemble de données</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#communautés-de-poissons-du-doubs"><i class="fa fa-check"></i><b>7.1</b> Communautés de poissons du Doubs</a></li>
+<li class="chapter" data-level="7.2" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#données-environnementales-de-la-rivière-doubs"><i class="fa fa-check"></i><b>7.2</b> Données environnementales de la rivière Doubs</a></li>
 </ul></li>
 <li class="part"><span><b>Mesures d’association</b></span></li>
-<li class="chapter" data-level="6" data-path="la-dissimilarité-des-données.html"><a href="la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>6</b> La (dis)similarité des données</a></li>
-<li class="chapter" data-level="7" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>7</b> Quantifier la (dis)similarité des données</a>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html"><i class="fa fa-check"></i><b>9</b> Types de coefficients de distance</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html#transformations-des-données-de-composition-des-communautés"><i class="fa fa-check"></i><b>7.1</b> Transformations des données de composition des communautés</a></li>
+<li class="chapter" data-level="9.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-métriques"><i class="fa fa-check"></i><b>9.1</b> Distances métriques</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-euclidiennes"><i class="fa fa-check"></i><b>9.1.1</b> Distances euclidiennes</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#défi-1"><i class="fa fa-check"></i><b>9.1.2</b> Défi #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-daccord"><i class="fa fa-check"></i><b>9.1.3</b> Distances d’accord</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-jaccard"><i class="fa fa-check"></i><b>9.1.4</b> Coefficient de Jaccard</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="groupement.html"><a href="groupement.html"><i class="fa fa-check"></i><b>8</b> Groupement</a></li>
+<li class="chapter" data-level="9.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-semimétriques"><i class="fa fa-check"></i><b>9.2</b> Distances semimétriques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-sørensen"><i class="fa fa-check"></i><b>9.2.1</b> Coefficient de Sørensen</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-bray-curtis"><i class="fa fa-check"></i><b>9.2.2</b> Coefficient de Bray-Curtis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-non-métriques"><i class="fa fa-check"></i><b>9.3</b> Distances non métriques</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distance-de-mahalanobis"><i class="fa fa-check"></i><b>9.3.1</b> Distance de Mahalanobis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#représentation-des-matrices-de-distance"><i class="fa fa-check"></i><b>9.4</b> Représentation des matrices de distance</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#transformation-présence-absence"><i class="fa fa-check"></i><b>10.1</b> Transformation présence-absence</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#transformation-des-profils-despèces"><i class="fa fa-check"></i><b>10.2</b> Transformation des profils d’espèces</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#transformation-de-hellinger"><i class="fa fa-check"></i><b>10.3</b> Transformation de Hellinger</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#normalisation-par-le-score-z"><i class="fa fa-check"></i><b>10.4</b> Normalisation par le score Z</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="transformations.html"><a href="transformations.html#autres-métriques-dassociation"><i class="fa fa-check"></i><b>10.4.1</b> Autres métriques d’association</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="regroupement.html"><a href="regroupement.html"><i class="fa fa-check"></i><b>11</b> Regroupement</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-lien-unique"><i class="fa fa-check"></i><b>11.1</b> Regroupement agglomératif à lien unique</a></li>
+<li class="chapter" data-level="11.2" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-liens-complets"><i class="fa fa-check"></i><b>11.2</b> Regroupement agglomératif à liens complets</a></li>
+<li class="chapter" data-level="11.3" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-non-pondérés-avec-moyenne-arithmétique-upgma"><i class="fa fa-check"></i><b>11.3</b> Méthode des groupes de paires non pondérés avec moyenne arithmétique (UPGMA)</a></li>
+<li class="chapter" data-level="11.4" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-pondérés-avec-moyenne-arithmétique-wpgma"><i class="fa fa-check"></i><b>11.4</b> Méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA)</a></li>
+<li class="chapter" data-level="11.5" data-path="regroupement.html"><a href="regroupement.html#variance-minimale-de-ward"><i class="fa fa-check"></i><b>11.5</b> Variance minimale de Ward</a></li>
+<li class="chapter" data-level="11.6" data-path="regroupement.html"><a href="regroupement.html#décider-des-points-de-coupure"><i class="fa fa-check"></i><b>11.6</b> Décider des points de coupure</a></li>
+<li class="chapter" data-level="11.7" data-path="regroupement.html"><a href="regroupement.html#jouer-avec-des-données-réelles-les-données-sur-les-espèces-de-poissons-du-doubs"><i class="fa fa-check"></i><b>11.7</b> Jouer avec des données réelles : les données sur les espèces de poissons du Doubs</a></li>
+</ul></li>
 <li class="part"><span><b>L’Ordination sans contrainte</b></span></li>
-<li class="chapter" data-level="9" data-path="le-significat-de-lordination-sans-contrainte.html"><a href="le-significat-de-lordination-sans-contrainte.html"><i class="fa fa-check"></i><b>9</b> Le significat de l’ordination “sans contrainte”</a></li>
-<li class="chapter" data-level="10" data-path="analyses-en-composantes-principales.html"><a href="analyses-en-composantes-principales.html"><i class="fa fa-check"></i><b>10</b> Analyses en Composantes Principales</a></li>
-<li class="chapter" data-level="11" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>11</b> Analyse des Correpondances</a></li>
-<li class="chapter" data-level="12" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>12</b> Analyse en coordonnées principales</a></li>
-<li class="chapter" data-level="13" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>13</b> Positionnement multidimensionnel non-métrique</a></li>
+<li class="chapter" data-level="12" data-path="que-signifie-sans-contrainte.html"><a href="que-signifie-sans-contrainte.html"><i class="fa fa-check"></i><b>12</b> Que signifie “sans contrainte” ?</a></li>
+<li class="chapter" data-level="13" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html"><i class="fa fa-check"></i><b>13</b> Analyse en composantes principales</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#lanalyse-en-composantes-principales-pas-en-bref"><i class="fa fa-check"></i><b>13.1</b> L’analyse en composantes principales <em>pas</em> en bref</a></li>
+<li class="chapter" data-level="13.2" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-à-laide-des-fonctions-du-paquet"><i class="fa fa-check"></i><b>13.2</b> Analyse en composantes principales à l’aide des fonctions du paquet</a></li>
+<li class="chapter" data-level="13.3" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-sur-des-données-écologiques"><i class="fa fa-check"></i><b>13.3</b> Analyse en composantes principales sur des données écologiques</a></li>
+<li class="chapter" data-level="13.4" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#condenser-les-données-avec-lanalyse-en-composantes-principales"><i class="fa fa-check"></i><b>13.4</b> Condenser les données avec l’analyse en composantes principales</a></li>
+<li class="chapter" data-level="13.5" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#échelonnement"><i class="fa fa-check"></i><b>13.5</b> Échelonnement</a></li>
+<li class="chapter" data-level="13.6" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#défi-2"><i class="fa fa-check"></i><b>13.6</b> Défi #2</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>14</b> Analyse des Correpondances</a></li>
+<li class="chapter" data-level="15" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>15</b> Analyse en coordonnées principales</a></li>
+<li class="chapter" data-level="16" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>16</b> Positionnement multidimensionnel non-métrique</a></li>
 <li class="part"><span><b>Considérations finales</b></span></li>
-<li class="chapter" data-level="14" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>14</b> Sommaire</a></li>
-<li class="chapter" data-level="15" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>15</b> Resources additionnels</a></li>
-<li class="chapter" data-level="16" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>16</b> Réferences</a></li>
+<li class="chapter" data-level="17" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>17</b> Sommaire</a></li>
+<li class="chapter" data-level="18" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>18</b> Resources additionnels</a></li>
+<li class="chapter" data-level="19" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>19</b> Réferences</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
 
@@ -208,8 +259,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="positionnement-multidimensionnel-non-métrique" class="section level1 hasAnchor" number="13">
-<h1><span class="header-section-number">Chapitre 13</span> Positionnement multidimensionnel non-métrique<a href="positionnement-multidimensionnel-non-métrique.html#positionnement-multidimensionnel-non-métrique" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="positionnement-multidimensionnel-non-métrique" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapitre 16</span> Positionnement multidimensionnel non-métrique<a href="positionnement-multidimensionnel-non-métrique.html#positionnement-multidimensionnel-non-métrique" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Les méthodes d’ordination non contrainte présentées ci-dessus
 permettent d’organiser les objets (ex. les sites) caractérisés par des
 descripteurs (ex. les espèces) dans un espace comprenant l’ensemble des
@@ -249,31 +300,70 @@ d’un NMDS consiste à construire un diagramme de Shepard qui représente
 les distances entre objets sur le biplot d’ordination en fonction de
 leurs distances réelles. Le R2 obtenu à partir de la régression entre
 ces deux types de distance mesure la qualité de l’ajustement du NMDS.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NMDS</span></span>
-<span id="cb49-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-2" aria-hidden="true" tabindex="-1"></a>spe.nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(spe, <span class="at">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>)</span>
-<span id="cb49-3"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Extraction des résultats</span></span>
-<span id="cb49-5"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-5" aria-hidden="true" tabindex="-1"></a>spe.nmds</span>
-<span id="cb49-6"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-7"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="do">### Évaluation de la qualité de l&#39;ajustement et</span></span>
-<span id="cb49-8"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="do">### construction du diagramme de Shepard</span></span>
-<span id="cb49-9"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-9" aria-hidden="true" tabindex="-1"></a>spe.nmds<span class="sc">$</span>stress</span>
-<span id="cb49-10"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(spe.nmds, <span class="at">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span>
-<span id="cb49-11"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-12"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Construction du biplot</span></span>
-<span id="cb49-13"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()</span>
-<span id="cb49-14"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.nmds, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
-<span id="cb49-15"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(spe.nmds<span class="sc">$</span>stress, <span class="dv">3</span>)), <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
-<span id="cb49-16"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(spe.nmds, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)),</span>
-<span id="cb49-17"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb49-18"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>)), <span class="fu">scores</span>(spe.nmds,</span>
-<span id="cb49-19"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>)), <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(spe.nmds,</span>
-<span id="cb49-20"><a href="positionnement-multidimensionnel-non-métrique.html#cb49-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">display =</span> <span class="st">&quot;species&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
-<p><img src="images//shepard_plot.png" class="align-center" /></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NMDS</span></span>
+<span id="cb154-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb154-2" aria-hidden="true" tabindex="-1"></a>spe.nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(spe[<span class="sc">-</span><span class="dv">8</span>, ], <span class="at">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Run 0 stress 0.07477802 
+## Run 1 stress 0.111719 
+## Run 2 stress 0.08930117 
+## Run 3 stress 0.08695583 
+## Run 4 stress 0.1111013 
+## Run 5 stress 0.07376231 
+## ... New best solution
+## ... Procrustes: rmse 0.0193857  max resid 0.09468128 
+## Run 6 stress 0.1208397 
+## Run 7 stress 0.08801545 
+## Run 8 stress 0.08886177 
+## Run 9 stress 0.1254006 
+## Run 10 stress 0.09301033 
+## Run 11 stress 0.07429352 
+## Run 12 stress 0.11418 
+## Run 13 stress 0.124022 
+## Run 14 stress 0.07478404 
+## Run 15 stress 0.07506665 
+## Run 16 stress 0.07478439 
+## Run 17 stress 0.08843925 
+## Run 18 stress 0.1215491 
+## Run 19 stress 0.1119525 
+## Run 20 stress 0.0747782 
+## *** Best solution was not repeated -- monoMDS stopping criteria:
+##     20: stress ratio &gt; sratmax</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Extraction des résultats</span></span>
+<span id="cb156-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb156-2" aria-hidden="true" tabindex="-1"></a>spe.nmds</span></code></pre></div>
+<pre><code>## 
+## Call:
+## metaMDS(comm = spe[-8, ], distance = &quot;bray&quot;, k = 2) 
+## 
+## global Multidimensional Scaling using monoMDS
+## 
+## Data:     spe[-8, ] 
+## Distance: bray 
+## 
+## Dimensions: 2 
+## Stress:     0.07376231 
+## Stress type 1, weak ties
+## Best solution was not repeated after 20 tries
+## The best solution was from try 5 (random start)
+## Scaling: centring, PC rotation, halfchange scaling 
+## Species: expanded scores based on &#39;spe[-8, ]&#39;</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Évaluation de la qualité de l&#39;ajustement et</span></span>
+<span id="cb158-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="do">### construction du diagramme de Shepard</span></span>
+<span id="cb158-3"><a href="positionnement-multidimensionnel-non-métrique.html#cb158-3" aria-hidden="true" tabindex="-1"></a>spe.nmds<span class="sc">$</span>stress</span></code></pre></div>
+<pre><code>## [1] 0.07376231</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(spe.nmds, <span class="at">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-99-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construction du biplot</span></span>
+<span id="cb161-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-3"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.nmds, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
+<span id="cb161-4"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(spe.nmds<span class="sc">$</span>stress, <span class="dv">3</span>)), <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
+<span id="cb161-5"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(spe.nmds, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)),</span>
+<span id="cb161-6"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb161-7"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>)), <span class="fu">scores</span>(spe.nmds,</span>
+<span id="cb161-8"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>)), <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(spe.nmds,</span>
+<span id="cb161-9"><a href="positionnement-multidimensionnel-non-métrique.html#cb161-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">display =</span> <span class="st">&quot;species&quot;</span>)), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-99-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Le diagramme de Shepard identifie une forte corrélation entre les
 distances observées et les distances de l’ordination (R2 &gt; 0.95), et
 donc une bonne qualité de l’ajustement du NMDS.</p>
-<p><img src="images//nmds_biplot.png" class="align-center" /></p>
 <p>Le biplot du NMDS identifie un groupe de sites caractérisés par les
 espèces BLA, TRU, VAI, LOC, CHA et OMB, tandis que les autres espèces
 caractérisent un groupe de sites situés dans le coin supérieur droit du
@@ -284,31 +374,70 @@ d’acariens</em> (données mite) en deux dimensions à partir de distances de
 Bray-Curtis. Évaluer la qualité de l’ajustement et interpréter le
 biplot.</p>
 <p><strong>Défi 5 - Solution</strong></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="do">### NMDS</span></span>
-<span id="cb50-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-2" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mite.spe, <span class="at">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>)</span>
-<span id="cb50-3"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="do">### Extraction des résultats</span></span>
-<span id="cb50-5"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-5" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds</span>
-<span id="cb50-6"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-7"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="do">### Évaluation de la qualité de l&#39;ajustement</span></span>
-<span id="cb50-8"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-8" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds<span class="sc">$</span>stress</span>
-<span id="cb50-9"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(mite.spe.nmds, <span class="at">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span>
-<span id="cb50-10"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-11"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-11" aria-hidden="true" tabindex="-1"></a><span class="do">### Construction du biplot</span></span>
-<span id="cb50-12"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-12" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()</span>
-<span id="cb50-13"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mite.spe.nmds, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
-<span id="cb50-14"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(mite.spe.nmds<span class="sc">$</span>stress, <span class="dv">3</span>)), <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
-<span id="cb50-15"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,</span>
-<span id="cb50-16"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>)), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
-<span id="cb50-17"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>)),</span>
-<span id="cb50-18"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>)),</span>
-<span id="cb50-19"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>)),</span>
-<span id="cb50-20"><a href="positionnement-multidimensionnel-non-métrique.html#cb50-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
-<p><img src="images//nmds_mite_shepard.png" class="align-center" /></p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="do">### NMDS</span></span>
+<span id="cb162-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb162-2" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds <span class="ot">&lt;-</span> <span class="fu">metaMDS</span>(mite.spe, <span class="at">distance =</span> <span class="st">&quot;bray&quot;</span>, <span class="at">k =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## Square root transformation
+## Wisconsin double standardization
+## Run 0 stress 0.1491318 
+## Run 1 stress 0.151487 
+## Run 2 stress 0.1679176 
+## Run 3 stress 0.1515057 
+## Run 4 stress 0.1520772 
+## Run 5 stress 0.1551167 
+## Run 6 stress 0.1510129 
+## Run 7 stress 0.1620419 
+## Run 8 stress 0.1562872 
+## Run 9 stress 0.1509079 
+## Run 10 stress 0.1520875 
+## Run 11 stress 0.1549726 
+## Run 12 stress 0.1567007 
+## Run 13 stress 0.1520777 
+## Run 14 stress 0.1654614 
+## Run 15 stress 0.1547785 
+## Run 16 stress 0.1561961 
+## Run 17 stress 0.1588164 
+## Run 18 stress 0.1613784 
+## Run 19 stress 0.1660381 
+## Run 20 stress 0.1629153 
+## *** Best solution was not repeated -- monoMDS stopping criteria:
+##     20: stress ratio &gt; sratmax</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Extraction des résultats</span></span>
+<span id="cb164-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb164-2" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds</span></code></pre></div>
+<pre><code>## 
+## Call:
+## metaMDS(comm = mite.spe, distance = &quot;bray&quot;, k = 2) 
+## 
+## global Multidimensional Scaling using monoMDS
+## 
+## Data:     wisconsin(sqrt(mite.spe)) 
+## Distance: bray 
+## 
+## Dimensions: 2 
+## Stress:     0.1491318 
+## Stress type 1, weak ties
+## Best solution was not repeated after 20 tries
+## The best solution was from try 0 (metric scaling or null solution)
+## Scaling: centring, PC rotation, halfchange scaling 
+## Species: expanded scores based on &#39;wisconsin(sqrt(mite.spe))&#39;</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Évaluation de la qualité de l&#39;ajustement</span></span>
+<span id="cb166-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb166-2" aria-hidden="true" tabindex="-1"></a>mite.spe.nmds<span class="sc">$</span>stress</span></code></pre></div>
+<pre><code>## [1] 0.1491318</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stressplot</span>(mite.spe.nmds, <span class="at">main =</span> <span class="st">&quot;Shepard plot&quot;</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-100-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="do">### Construction du biplot</span></span>
+<span id="cb169-2"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-3"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mite.spe.nmds, <span class="at">type =</span> <span class="st">&quot;none&quot;</span>, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;NMDS/Bray - Stress=&quot;</span>,</span>
+<span id="cb169-4"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(mite.spe.nmds<span class="sc">$</span>stress, <span class="dv">3</span>)), <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS1&quot;</span>), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;NMDS2&quot;</span>))</span>
+<span id="cb169-5"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;sites&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>,</span>
+<span id="cb169-6"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>)), <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col =</span> <span class="st">&quot;black&quot;</span>, <span class="at">bg =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">cex =</span> <span class="fl">1.2</span>)</span>
+<span id="cb169-7"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>)),</span>
+<span id="cb169-8"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">2</span>)),</span>
+<span id="cb169-9"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">rownames</span>(<span class="fu">scores</span>(mite.spe.nmds, <span class="at">display =</span> <span class="st">&quot;species&quot;</span>)),</span>
+<span id="cb169-10"><a href="positionnement-multidimensionnel-non-métrique.html#cb169-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-100-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>La corrélation entre distance observée et distance d’ordination (R2 &gt;
 0.91) et la valeur de stress relativement faible identifient une bonne
 qualité de l’ajustement du NMDS.</p>
-<p><img src="images//nmds_mite_biplot.png" class="align-center" /></p>
 <p>Aucun groupe de sites ne peut être précisément identifié à partir du
 biplot, ce qui montre que la plupart des espèces sont présentes dans la
 plupart des sites, i.e. peu de sites présentent des communautés

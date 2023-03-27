@@ -15,15 +15,37 @@
 #Bon codage !                                                               #
 
 
-install.packages("vegan")
-install.packages("gclus")
-install.packages("ape")
+library (ade4)
+data (doubs)
 
-library(vegan)
-library(gclus)
-library(ape)
+spe <- doubs$fish
+env <- doubs$env
 
-source(file.choose()) #coldiss.R
+library (codep)
+data (Doubs)
+
+spe <- Doubs.fish
+env <- Doubs.env
+
+list.of.packages <- c("ape", "ade4", "codep", 
+                      "gclus", "vegan", "GGally", 
+                      "PlaneGeometry", "remotes", 
+                      "matlib",
+                      "MASS")
+
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+if(length(new.packages) > 0) {
+  install.packages(new.packages, dependencies = TRUE) 
+  print(paste0("The following package was installed:", new.packages)) 
+} else if(length(new.packages) == 0) {
+  print("All packages were already installed previously")
+}
+
+# Chargement de toutes les bibliothèques nécessaires en une seule fois
+invisible(lapply(list.of.packages, library, character.only = TRUE, quietly = TRUE))
+
+# source(file.choose()) #  utilisez coldiss.R que vous avez téléchargé dans votre propre répertoire
 
 
 ##Section: 02-introduction-fr.R 
@@ -33,88 +55,272 @@ source(file.choose()) #coldiss.R
 
 ##Section: 03-exploration-des-donnees.R 
 
-#Matrice d'abondances d'espèces: “DoubsSpe.csv”
-spe<- read.csv(file.choose(), row.names=1)
-spe<- spe[-8,] #Pas d'espèces dans le site 8, supprimer site 8.
-#Exécutez cette ligne une seule fois.
+spe <- read.csv("data/doubsspe.csv", 
+                row.names = 1) 
 
-#L'environnement: “DoubsEnv.csv”
-env<- read.csv(file.choose(), row.names=1)
-env<- env[-8,] #Supprimer site 8 puisqu'on l'a retiré de la matrice d'abondances.
-#Exécutez cette ligne une seule fois.
+env <- read.csv("data/doubsenv.csv", 
+                row.names = 1)
 
-names(spe) # Les noms des colonnes
-dim(spe) # Le nombre de lignes et de colonnes.
-str(spe) # La structure interne de la matrice.
-head(spe) # Les premières lignes.
-summary(spe) # Les statistiques descriptives.
+library (ade4)
+data (doubs)
 
-(ab<-table(unlist(spe))) #Les parenthèses signifient que la sortie s'affiche immédiatement
+spe <- doubs$fish
+env <- doubs$env
 
-barplot(ab, las=1, xlab=”Abundance class”, ylab=”Frequency”, col=grey(5:0/5))
+library (codep)
+data (Doubs)
 
-sum(spe==0)
+spe <- Doubs.fish
+env <- Doubs.env
 
-sum(spe==0)/(nrow(spe)*ncol(spe))
+head(spe)[, 1:8]
 
-spe.pres<- colSums(spe>0) # Somme des sites où chaque espèce est présente.
-hist(spe.pres, main=”Cooccurrence des espèces”, las=1, xlab=”Fréquence”, breaks=seq(0,30, by=5), col=”grey”)
+str(spe)
 
-site.pres<- rowSums(spe>0) # Nombre d'espèces présentes dans chaque site
-hist(site.pres, main=”Richesse en espèces”, las=1, xlab=”Fréquence des sites”, ylab=”Nombre d'espèces”, breaks=seq(0,30, by=5), col=”grey”)
+# Essayez-en quelques-uns !
 
-names(env)
-dim(env)
+names(spe) # noms des objets
+dim(spe) # dimensions
+
+str(spe) # structure des objets
+summary(spe) # statistiques sommaires
+
+head(spe) # 6 premières lignes
+
 str(env)
-head(env)
-summary(env)
-pairs(env, main="Données environnementales" )
 
-env.z<-decostand(env, method="standardize")
-apply(env.z, 2, mean) # Les données sont maintenant centrées (moyennes~0)...
-apply(env.z, 2, sd)   # et réduites (écart-type=1)
+summary(env) # statistiques sommaires
 
 
 ##Section: 04-association-distances.R 
 
-spe.db<-vegdist(spe, method="bray") # distance de Bray (avec des données de présence-absence, correspond à Sorensen)
-spe.dj<-vegdist(spe, method="jac") # distance de Jaccard
-spe.dg<-vegdist(spe, method="gower") # distance de Gower
-spe.db<-as.matrix(spe.db) # réarranger en format matrice (pour visualisation, ou pour exporter en .csv)
+dist(spe)
 
-windows()
-coldiss(spe.db, byrank=FALSE, diag=TRUE) # Carte des points chauds Bray-Curtis
-windows()
-coldiss(spe.dj, byrank=FALSE, diag=TRUE) # Carte des points chauds Jaccard
-windows()
-coldiss(spe.dg, byrank=FALSE, diag=TRUE) # Carte des points chauds Gower
+class(dist(spe))
 
-env.de<-dist(env.z, method = "euclidean") # matrice de distances euclidiennes des données env. standardisées
-windows() # crée une nouvelle fenêtre graphique
+as.matrix(dist(spe))
+
+str(dist(spe))
+
+dim(as.matrix(dist(spe)))
+
+as.matrix(dist(spe))[1:6, 1:6]
+
+#setting up the plot
+xlim <- c(0,4)
+ylim <- c(-1,5)
+par(mar=c(1,1,1,1)+.1)
+plot(xlim, 
+     ylim, type="n", 
+     xlab="X1", 
+     ylab="X2", 
+     asp=1)
+grid()
+# define some vectors
+a=c(4, 0)
+b=c(0, 4)
+# plot the vectors
+vectors(a, labels="D(y21, y11)", pos.lab=3, frac.lab=.5, col="grey")
+vectors(a + b, labels="D1(x1,x2)", pos.lab=4, frac.lab=.5, col="red")
+# vector a+b starting from a is equal to b.
+vectors(a + b, labels="D(y12, y22)", pos.lab=4, frac.lab=.5, origin=a, col="grey")
+
+points(x = 4, y = 0, type = "p")
+text(x=4.1, y=-0.2, labels="")
+
+points(x = 0, y = 0, type = "p")
+text(x=-0.1, y=-0.2, labels="x1")
+
+points(x = 4, y = 4, type = "p")
+text(x=4.1, y=4.2, labels="x2")
+
+spe.D.Euclid <- dist(x = spe,  
+                     method = "euclidean")
+
+is.euclid(spe.D.Euclid)
+
+Y.hmm <- data.frame(
+  y1 = c(0, 0, 1),
+  y2 = c(4, 1, 0),
+  y3 = c(8, 1, 0))
+
+Y.hmm.DistEu <- dist(x = Y.hmm,  
+                     method = "euclidean")
+
+as.matrix(Y.hmm.DistEu)
+
+spe.D.Ch <- vegdist(spe,  
+                    method = "chord")
+
+as.matrix(spe.D.Ch)[1:3, 1:3]
+
+Y.hmm.DistCh <- vegdist(Y.hmm,  
+                    method = "chord")
+
+as.matrix(Y.hmm.DistCh)
+
+as.matrix(Y.hmm.DistEu)
+
+Y.hmm
+
+spe.D.Jac <- vegdist(spe, 
+                     method = "jaccard",
+                     binary = TRUE)
+
+spe.D.Sor <- vegdist(spe, 
+                     method = "bray",
+                     binary = TRUE)
+
+spe.db.pa <- vegdist(spe, 
+                      method = "bray",
+                      binary = FALSE)
+
+spe.db <- as.matrix(spe.db.pa)
+
+# Créer une matrice
+x <- matrix(rnorm(100*3), ncol = 3)
+
+# Calculer la matrice de covariance et son inverse généralisé
+cov_mat <- cov(x)
+cov_inv <- MASS::ginv(cov_mat)
+
+# Calculer la distance de Mahalanobis en utilisant l'inverse généralisé
+mah_dist <- mahalanobis(x, 
+                        colMeans(x), 
+                        cov_inv)
+
+# Imprimer la distance de Mahalanobis
+mah_dist
+
+# coldiss() function
+# Color plots of a dissimilarity matrix, without and with ordering
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+
+"coldiss" <- function(D, nc = 4, byrank = TRUE, diag = FALSE)
+{
+  require(gclus)
+  
+  if (max(D)>1) D <- D/max(D)
+  
+  if (byrank) {
+    spe.color <- dmat.color(1-D, cm.colors(nc))
+  }
+  else {
+    spe.color <- dmat.color(1-D, byrank=FALSE, cm.colors(nc))
+  }
+  
+  spe.o <- order.single(1-D)
+  speo.color <- spe.color[spe.o, spe.o]
+  
+  op <- par(mfrow=c(1,2), pty="s")
+  
+  if (diag) {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels)
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix", 
+               dlabels=attributes(D)$Labels[spe.o])
+  }
+  else {
+    plotcolors(spe.color, rlabels=attributes(D)$Labels, 
+               main="Dissimilarity Matrix")
+    plotcolors(speo.color, rlabels=attributes(D)$Labels[spe.o], 
+               main="Ordered Dissimilarity Matrix")
+  }
+  
+  par(op)
+}
+
+# Utilisation :
+# coldiss(D = dissimilarity.matrix, nc = 4, byrank = TRUE, diag = FALSE)
+
+# Si D n'est pas une matrice de dissimilarité (max(D) > 1), alors D est divisée par max(D)
+# nc nombre de couleurs (classes)
+# byrank = TRUE classes de taille égale
+# byrank = FALSE intervalles de longueur égale
+# diag = TRUE imprime les étiquettes des objets également sur la diagonale
+
+# Exemple :
+# coldiss(spe.dj, nc=9, byrank=F, diag=T)
+
+coldiss(spe.D.Jac)
+
+# obtenir l'ordre des lignes et des colonnes
+order_spe.D.Jac <- hclust(spe.D.Jac, method = "complete")$order
+
+# réorganiser la matrice pour produire une figure ordonnée par similarités
+order_spe.D.Jac_matrix <- as.matrix(spe.D.Jac)[order_spe.D.Jac, order_spe.D.Jac]
+
+# converts to data frame
+molten_spe.D.Jac <- reshape2::melt(
+  as.matrix(order_spe.D.Jac_matrix)
+  )
+
+# créer un objet ggplot
+ggplot(data = molten_spe.D.Jac, 
+       aes(x = Var1, y = Var2, 
+           fill = value)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "black") +
+  theme_minimal()
+
+spe[1:6, 1:6]
+
+spe.pa <- decostand(spe, method = "pa")
+spe.pa[1:6, 1:6]
+
+spe.total <- decostand(spe, 
+                       method = "total")
+spe.total[1:5, 1:6]
+
+spe.total <- decostand(spe, 
+                       method = "hellinger")
+spe.total[1:5, 1:6]
+
+?decostand
+env.z <- decostand(env, method = "standardize")
+
+apply(env.z, 2, mean)
+apply(env.z, 2, sd)
+
+?dist
+
+# matrice de distance euclidienne des variables environnementales standardisées
+env.de <- dist(env.z, method = "euclidean")
+
+windows() # Créer une fenêtre graphique séparée
 coldiss(env.de, diag=TRUE)
 
-(env.pearson<-cor(env)) # coefficient r de corrélation de Pearson
-round(env.pearson, 2)  # arrondit les coefficients à deux décimales
-(env.ken<-cor(env, method="kendall")) # coefficient tau de corrélation de rang de Kendall
+(env.pearson<-cor(env)) # Calcul du r de Pearson entre les variables
+round(env.pearson, 2) # Arrondit les coefficients à 2 points décimaux
+(env.ken <- cor(env, method="kendall")) # Corrélation de rang du tau de Kendall
 round(env.ken, 2)
 
-var.g1<-rnorm(30, 0, 1)
-var.g2<-runif(30, 0, 5)
-var.g3<-gl(3, 10)
-var.g4<-gl(2, 5, 30)
-(dat2<-data.frame(var.g1, var.g2, var.g3, var.g4))
+var.g1 <- rnorm(30, 0, 1)
+var.g2 <- runif(30, 0, 5)
+var.g3 <- gl(3, 10)
+var.g4 <- gl(2, 5, 30)
+
+(dat2 <- data.frame(var.g1, var.g2, var.g3, var.g4))
+
 str(dat2)
 summary(dat2)
 
-?daisy #Cette fonction peut gérer la présence de NA dans les données
-(dat2.dg<-daisy(dat2, metric="gower"))
-coldiss(dat2.dg)
 
-spe.challenge<-spe[1:3,1:3] # les 3 premières lignes et 3 premières espèces (colonnes)
+`?daisy #Cette fonction peut gérer les NA dans les données
+(dat2.dg <- daisy(dat2, metric="gower"))
+coldiss(dat2.dg)`
+
+spe.challenge <- spe[1:3,1:3] #”[1:3,” refers to rows 1 to 3 while “,1:3]” refers to the first 3 species columns (in #this case the three variables of interest)
 
 (Abund.s1<-sum(spe.challenge[1,]))
 (Abund.s2<-sum(spe.challenge[2,]))
 (Abund.s3<-sum(spe.challenge[3,]))
+#() around code will cause output to print right away in console
 
 Spec.s1s2<-0
 Spec.s1s3<-0
@@ -124,16 +330,16 @@ for (i in 1:3) {
   Spec.s1s3<-Spec.s1s3+abs(sum(spe.challenge[1,i]-spe.challenge[3,i]))
   Spec.s2s3<-Spec.s2s3+abs(sum(spe.challenge[2,i]-spe.challenge[3,i])) }
 
-(db.s1s2<-Spec.s1s2/(Abund.s1+Abund.s2)) #1 comparé à 2
-(db.s1s3<-Spec.s1s3/(Abund.s1+Abund.s3)) #1 comparé à 3
-(db.s2s3<-Spec.s2s3/(Abund.s2+Abund.s3)) #2 comparé à 3
+(db.s1s2<-Spec.s1s2/(Abund.s1+Abund.s2)) #Site 1 comparé au site 2
+(db.s1s3<-Spec.s1s3/(Abund.s1+Abund.s3)) #Site 1 comparé au site 3
+(db.s2s3<-Spec.s2s3/(Abund.s2+Abund.s3)) #Site 2 comparé au site 3
 
 (spe.db.challenge<-vegdist(spe.challenge, method="bray"))
 
-# Calculer le nombre de colonnes
+# Calculez le nombre de colonnes dans votre jeu de données
 M<-ncol(spe.challenge)
 
-# Calculer les différences d'abondance de chaque espèce entre paires de sites
+# Calculez les différences d'abondance entre les paires de sites pour chaque espèce
 Spe1.s1s2<-abs(spe.challenge[1,1]-spe.challenge[2,1])
 Spe2.s1s2<-abs(spe.challenge[1,2]-spe.challenge[2,2])
 Spe3.s1s2<-abs(spe.challenge[1,3]-spe.challenge[2,3])
@@ -144,84 +350,102 @@ Spe1.s2s3<-abs(spe.challenge[2,1]-spe.challenge[3,1])
 Spe2.s2s3<-abs(spe.challenge[2,2]-spe.challenge[3,2])
 Spe3.s2s3<-abs(spe.challenge[2,3]-spe.challenge[3,3])
 
-# Calculer l'étendue d'abondance de chaque espèces parmi les sites
+# Calculer l'étendue de l'abondance de chaque espèce entre les sites
 Range.spe1<-max(spe.challenge[,1]) - min (spe.challenge[,1])
 Range.spe2<-max(spe.challenge[,2]) - min (spe.challenge[,2])
 Range.spe3<-max(spe.challenge[,3]) - min (spe.challenge[,3])
 
-# Calculer la distance de Gower
+# Calculer la dissimilarité de Gower
 (dg.s1s2<-(1/M)*((Spe2.s1s2/Range.spe2)+(Spe3.s1s2/Range.spe3)))
 (dg.s1s3<-(1/M)*((Spe2.s1s3/Range.spe2)+(Spe3.s1s3/Range.spe3)))
 (dg.s2s3<-(1/M)*((Spe2.s2s3/Range.spe2)+(Spe3.s2s3/Range.spe3)))
 
-# Vérifier vos résultats
+# Comparez vos résultats
 (spe.db.challenge<-vegdist(spe.challenge, method="gower"))
 
-spe.pa<-decostand(spe, method="pa")
+# Demonstration of a cluster dendrogram
 
-#La transformation Hellinger
-spe.hel<-decostand(spe, method="hellinger") # vous pouvez aussi simplement écrire "hel"
+spe.hel<-decostand(spe, method="hellinger")
+spe.dhel <- vegdist(spe.hel,method="euclidean")
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
+spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
 
-#Transformation de chi-carré
-spe.chi<-decostand(spe, method="chi.square")
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligns all objets on the same line
 
-# Hellinger
-# Calculer l'abondance des espèces par site
-(site.totals=apply(spe, 1, sum))
+# générer des échantillons de données
+set.seed(123)
+x <- matrix(rnorm(20), ncol = 2)
 
-# Réduire les abondances d'espèces en les divisant par les totaux par sites
-(scale.spe<-spe/site.totals)
+# effectuer un clustering agglomératif à lien unique
+hc <- hclust(dist(x), method = "single")
 
-# Calculer la racine carrée des abondances d'espèces réduites
-(sqrt.scale.spe<-sqrt(scale.spe))
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme du regroupement agglomératif à lien unique",
+     hang = -1)
 
-# Comparer les résultats
-sqrt.scale.spe
-spe.hel
-sqrt.scale.spe-spe.hel # ou: sqrt.scale.spe/spe.hel
+# effectuer un clustering agglomératif à liens complets
+hc <- hclust(dist(x), method = "complete")
 
-# Chi-carré
-# Premièrement calculer le total des abondances d'espèces par site
-(site.totals<-apply(spe, 1, sum))
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de l'agglomération de liens complète",
+     hang = -1)
 
-# Ensuite calculer la racine carrée du total des abondances d'espèces
-(sqrt.spe.totals<-sqrt(apply(spe, 2, sum)))
+# effectuer un clustering par la méthode des groupes de paires non pondérés avec moyenne arithmétique
+hc <- hclust(dist(x), method = "average")
 
-# Réduire les abondances d'espèces en les divisant par les totaux par sites et les totaux par espèces
-scale.spe2<-spe
-for (i in 1:nrow(spe)) {
-  for (j in 1:ncol(spe)) {
-   (scale.spe2[i,j]=scale.spe2[i,j]/(site.totals[i]*sqrt.spe.totals[j]))   }}
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de la méthode du groupe de paires non pondéré avec la moyenne arithmétique \nAgglomerative Clustering",
+     hang = -1)
 
-#Ajuster les abondances en les multipliant par la racine carrée du total de la matrice des espèces
-(adjust.scale.spe2<-scale.spe2*sqrt(sum(rowSums(spe))))
+# exécuter la méthode des groupes de paires pondérés avec la moyenne arithmétique du clustering
+hc <- hclust(dist(x), method = "mcquitty")
 
-#Vérifier les résultats
-adjust.scale.spe2
-spe.chi
-adjust.scale.spe2-spe.chi # or: adjust.scale.spe2/spe.chi
+# trace le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de la méthode des groupes de paires pondérées avec le clustering agglomératif à moyenne arithmétique",
+     hang = -1)
 
-spe.dhel<-vegdist(spe.hel,method="euclidean") #crée une matrice de distances Hellinger à partir des données d’abondance transformées
+# effectuer le regroupement à variance minimale de Ward
+hc <- hclust(dist(x), method = "ward.D")
 
-#Pour voir la différence entre les deux types d’objets
-head(spe.hel)# données d’abondances transformées Hellingerhead(spe.dhel)# matrice de distances de Hellinger entre les sites
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de \nWard's minimum variance Agglomerative Clustering",
+     hang = -1)
 
-#Faire le groupement à liens simples
-spe.dhel.single<-hclust(spe.dhel, method="single")
+# effectuer le regroupement à variance minimale de Ward
+hc <- hclust(dist(x), method = "ward.D2")
+
+# tracer le dendrogramme
+plot(hc, 
+     main = "Dendrogramme de \nWard's D2 minimum variance Agglomerative Clustering",
+     hang = -1)
+
+# Génère la matrice de distance à partir des données transformées de Hellinger
+spe.dhel <- vegdist(spe.hel, method="euclidean") 
+
+# Voir la différence entre les deux matrices
+head(spe.hel)# Données d'espèces transformées par Hellinger
+head(spe.dhel)# distances de Hellinger entre les sites
+
+spe.dhel.single <- hclust(spe.dhel, method="single")
+
 plot(spe.dhel.single)
 
-#Faire le groupement à liens complet
-spe.dhel.complete<-hclust(spe.dhel, method="complete")
+spe.dhel.complete <- hclust(spe.dhel, method="complete")
 plot(spe.dhel.complete)
 
-#Faire le groupement de Ward
-spe.dhel.ward<-hclust(spe.dhel, method="ward.D2")
+# Effectuer le clustering de variance minimale de Ward
+spe.dhel.ward <- hclust(spe.dhel, method="ward.D2")
 plot(spe.dhel.ward)
 
-#Refaire le dendrogramme en utilisant la racine carrée des distances
+# Reprendre le dendrogramme en utilisant les racines carrées des niveaux de fusion
 spe.dhel.ward$height<-sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward)
-plot(spe.dhel.ward, hang=-1) # hang=-1 permet d’afficher les objets sur la même ligne
+plot(spe.dhel.ward, hang=-1) # hang=-1 aligne tous les objets sur la même ligne
 
 
 ##Section: 05-ordination-non-contrainte.R 
@@ -231,157 +455,397 @@ plot(spe.dhel.ward, hang=-1) # hang=-1 permet d’afficher les objets sur la mê
 
 ##Section: 06-analyse-des-composantes-principales.R 
 
-#Exécuter la PCA avec la fonction rda()- cette fonction calcule à la fois des PCA et des RDA
-spe.h.pca<-rda(spe.hel)
+library(knitr)
+opts_chunk$set(fig.align = 'center')
 
-#Extraire les résultats
-summary(spe.h.pca)
+# Chargement du paquet datasets
+library(datasets)
 
-summary(spe.h.pca, display=NULL) # seulement les valeurs propres
-eigen(cov(spe.hel)) # vous pouvez aussi trouver les valeurs propres par cette ligne de code
+# Charger le jeu de données varechem
+data(varechem)
 
-spe.scores<-scores(spe.h.pca, display="species", choices=c(1,2)) # scores des espèces selon les premier et deuxième axes
-site.scores<-scores(spe.h.pca, display="sites", choices=c(1,2)) # scores des sites selon les premier et deuxième axes
-#Remarque: si vous ne spécifiez pas le nombre de composantes principales à l'aide de choices = c (1,2)
-#(ou choices = c (1: 2)), les scores selon toutes les composantes principales seront extraits.
+# Sélectionner les données
+(data <- varechem[, 1:2])
 
-# Identification des axes significatifs de la PCA à l'aide du critère de Kaiser-Guttman
-ev<-spe.h.pca$CA$eig
+
+data_std <- scale(data)
+
+cov_matrix <- cov(data_std)
+
+eigen_decomp <- eigen(cov_matrix)
+Eigenvalues <- eigen_decomp$values
+Eigenvectors <- eigen_decomp$vectors
+
+F_PrComps <- data_std %*% Eigenvectors
+
+head(F_PrComps)
+
+Eigenvectors. <- as.data.frame(Eigenvectors)
+row.names(Eigenvectors.) <- c("P", "N")
+colnames(Eigenvectors.) <- c("PC1", "PC2")
+Eigenvectors.[, 1] <- Eigenvectors.[, 1]*-1
+Y_std <- as.data.frame(data_std)
+
+op <- par(mfrow = c(2, 1),     # 2x2 layout
+          oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
+          mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
+          mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
+)       
+
+plot(N ~ P, 
+     col = as.factor(rownames(Y_std)),
+     pch = 19, 
+     xlim=c(-2.2, 2.2), 
+     ylim = c(-2.2,2.2), 
+     data = as.data.frame(Y_std))
+
+abline(v=0 , h=0, 
+       col = "dark gray")
+
+#Overlap pertinent evectors
+
+abline(0, 
+       Eigenvectors[2, 1]/Eigenvectors[1, 1],
+       col='purple')
+# abline(0, 
+#        Eigenvectors[1, 2]/Eigenvectors[2, 2],
+#        col='orange')
+
+arrows(x0 = 0, 
+       y0 = 0, 
+       x1 = Eigenvalues[1]*Eigenvectors[1, 1],
+       y1 = Eigenvalues[1]*Eigenvectors[2, 1],
+       col = "purple",
+       lwd = 2)
+
+# arrows(x0 = 0, 
+#        y0 = 0, 
+#        x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+#        y1 = Eigenvalues[2]*Eigenvectors[2, 2],
+#        col = "orange", 
+#        lwd = 2)
+
+# Plot the lines from first evector to points
+
+line1 <- c(0, 
+           Eigenvectors[2, 1]/Eigenvectors[1, 1])
+
+perp.segment.coord <- function(x0, y0, line1){
+  a <- line1[1]  #intercept
+  b <- line1[2]  #slope
+  x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
+  y1 <- a + b * x1
+  list(x0 = x0, y0 = y0, 
+       x1 = x1, y1 = y1)
+}
+
+ss <- perp.segment.coord(Y_std$P, 
+                         Y_std$N, 
+                         line1)
+# do.call(segments, ss)
+# which is the same as:
+
+segments(x0 = ss$x0, 
+         x1 = ss$x1, 
+         y0 = ss$y0, 
+         y1 = ss$y1, 
+         col = 'purple')
+
+points(N ~ P, 
+       col = as.factor(rownames(Y_std)), 
+       pch = 19,
+       data = Y_std)
+with(Y_std,
+     text(N ~ P, 
+          labels = as.factor(rownames(Y_std)),
+          pos = 1, 
+          cex=1.4))
+
+
+plot(N ~ P, 
+     col = as.factor(rownames(Y_std)),
+     pch = 19, 
+     xlim=c(-2.2, 2.2), 
+     ylim = c(-2.2,2.2), 
+     data = as.data.frame(Y_std))
+
+abline(v=0 , h=0, 
+       col = "dark gray")
+
+#Overlap pertinent evectors
+
+abline(0, 
+       Eigenvectors[2, 1]/Eigenvectors[1, 1],
+       col='purple')
+abline(0, 
+       Eigenvectors[1, 2]/Eigenvectors[2, 2],
+       col='orange')
+
+arrows(x0 = 0, 
+       y0 = 0, 
+       x1 = Eigenvalues[1]*Eigenvectors[1, 1],
+       y1 = Eigenvalues[1]*Eigenvectors[2, 1],
+       col = "purple",
+       lwd = 2)
+
+arrows(x0 = 0, 
+       y0 = 0, 
+       x1 = Eigenvalues[2]*Eigenvectors[1,2], 
+       y1 = Eigenvalues[2]*Eigenvectors[2, 2],
+       col = "orange", 
+       lwd = 2)
+
+
+line2 <- c(0, 
+           Eigenvectors[1, 2]/Eigenvectors[1, 1])
+
+perp.segment.coord <- function(x0, y0, line2){
+  a <- line2[1]  #intercept
+  b <- line2[2]  #slope
+  x1 <- (x0 + b * y0 - a * b)/(1 + b^2)
+  y1 <- a + b * x1
+  list(x0 = x0, y0 = y0, 
+       x1 = x1, y1 = y1)
+}
+
+ss <- perp.segment.coord(Y_std$P, 
+                         Y_std$N, 
+                         line2)
+
+segments(x0 = ss$x0, 
+         x1 = ss$x1, 
+         y0 = ss$y0, 
+         y1 = ss$y1, 
+         col = 'orange')
+
+points(N ~ P, 
+       col = as.factor(rownames(Y_std)), 
+       pch = 19,
+       data = Y_std)
+
+with(Y_std,
+     text(N ~ P, 
+          labels = as.factor(rownames(Y_std)),
+          pos = 1, 
+          cex=1.4)
+)
+
+title(xlab = "N",
+      ylab = "P",
+      outer = TRUE, line = 3)
+
+par(op)
+
+
+score <- as.data.frame(F_PrComps)
+
+colnames(score) <- c("PC1", "PC2")
+
+op <- par(mfrow = c(2, 1),     # 2x2 layout
+          oma = c(2, 2, 0, 0), # two rows of text at the outer left and bottom margin
+          mar = c(1, 1, 0, 0), # space for one row of text at ticks and to separate plots
+          mgp = c(2, 1, 0)    # axis label at 2 rows distance, tick labels at 1 row
+)
+
+
+plot(PC2 ~ PC1, 
+     col = as.factor(rownames(score)), 
+     pch = 19, 
+     xlim = c(-2.2, 2.2), ylim = c(-2.2,2.2), xlab='PC1', ylab='PC2',data = score)
+
+abline(h = 0, col = 'purple')
+abline(v = 0, col='orange')
+
+
+perp.segment.horiz <- function(x0, y0){
+  x1 <- x0
+  y1 <- 0
+  list(x0 = x0, y0 = y0, x1 = x1, y1 = y1)
+}
+
+ss1 <- perp.segment.horiz(score[,1], score[,2])
+
+segments(x0 = ss1$x0, x1 = ss1$x1, y0 = ss1$y0, y1 = ss1$y1, col='purple')
+
+
+points(PC2 ~ PC1, col=as.factor(rownames(score)), pch = 19, xlab='V1', ylab='V2',data=score)
+with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
+
+
+plot(PC2 ~ PC1, col=as.factor(rownames(score)), 
+     pch = 19, xlim=c(-2.2, 2.2), ylim = c(-2.2,2.2),
+     xlab='PC1', ylab='PC2',data=score)
+
+abline(h = 0, col = 'purple')
+abline(v = 0, col ='orange')
+
+
+perp.segment.vert <- function(x0, y0){
+  x1 <- 0
+  y1 <- y0
+  
+  list(x0 = x0, y0 = y0, x1 = x1, y1 = y1)
+}
+
+ss1a <- perp.segment.vert(score[,1], score[,2])
+segments(x0 = ss1a$x0, x1 = ss1a$x1, y0 = ss1a$y0, y1 = ss1a$y1, col='orange')
+
+
+points(PC2 ~ PC1, col=as.factor(rownames(score)), pch = 19, xlab='V1', ylab='V2',data=score)
+
+with(score,text(PC2 ~ PC1, labels=as.factor(rownames(score)), pos = 3, cex=1.4))
+
+title(xlab = "PC1",
+      ylab = "PC2",
+      outer = TRUE, 
+      line = 3)
+
+par(op)
+
+data(varechem)
+
+Y <- varechem[, 1:2] 
+Y_std <- as.matrix(scale(Y))
+Y_R <- cov(Y_std)
+
+Eigenvalues <- eigen(Y_R)$values
+Eigenvectors <- eigen(Y_R)$vectors
+
+F_PrComps <- Y_std %*% Eigenvectors
+
+head(F_PrComps)
+
+PCA_prcomp <- prcomp(Y, 
+                     center = TRUE, 
+                     scale = TRUE)
+
+# or PCA_prcomp <- prcomp(Y_std)
+
+head(PCA_prcomp$x)
+
+PCA_princomp <- princomp(Y_std)
+
+head(PCA_princomp$scores)
+
+PCA_vegan_rda <- rda(Y_std)
+
+scores(PCA_vegan_rda, 
+       display = "sites", 
+       scaling = 1,
+       choices = seq_len(PCA_vegan_rda$CA$rank),
+       const = sqrt(PCA_vegan_rda$tot.chi * (nrow(PCA_vegan_rda$CA$u) - 1)))[1:5, ]
+
+spe.h.pca <- rda(spe.hel)
+
+# summary(spe.h.pca)
+
+sum(spe.h.pca$CA$eig)
+
+paste(capture.output(summary(spe.h.pca))[c(26:29, 31:32, 34:40, 63:64, 66:72)])
+
+paste(capture.output(summary(spe.h.pca))[c(32, 34:40)])
+
+paste(capture.output(summary(spe.h.pca))[c(64, 66:72)])
+
+scores(spe.h.pca,
+       display = "species" or "sites")
+
+ev <- spe.h.pca$CA$eig
+# ev[ev > mean(ev)]
+
+par(mar=c(1,4,2.5,.5), cex = 1.5)
+n <- length(ev)
+barplot(ev, main = "", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue",
+       lwd = 2, col = "red3" , bty = "n")
+
+head(bstick(spe.h.pca))
+
+screeplot(spe.h.pca, 
+          bstick = TRUE, type = "lines")
+
+env.pca <- rda(env.z)
+# summary(env.pca, scaling  = 2)
+
+ev <- env.pca$CA$eig
+
 ev[ev>mean(ev)]
-n<-length(ev)
-bsm<-data.frame(j=seq(1:n), p=0)
-bsm$p[1]=1/n
-for (i in 2:n) {
-  bsm$p[i]=bsm$p[i-1]+(1/(n=1-i))}
-bsm$p=100*bsm$p/n
-bsm
-barplot(ev, main="valeurs propres", col="grey", las=2)
-abline(h=mean(ev), col="red")
-legend("topright", "moyenne des valeurs propres", lwd=1, col=2, bty="n")
 
-#Exécuter la PCA
-env.pca<-rda(env.z) # ou rda(env, scale=TRUE)
+par(mar=c(4,4,2.5,.5), cex = 1.5)
+n <- length(ev)
+barplot(ev, main = "Eigenvalues", col = "grey", las = 2)
+abline(h = mean(ev), col = "red3", lwd = 2)
+legend("topright", "Average eigenvalue",
+       lwd = 2, col = "red3" , bty = "n")
 
-#Extraction des résultats
-summary(env.pca)
-summary(env.pca, scaling=2)
-
-ev<-env.pca$CA$eig
-ev[ev>mean(ev)]
-n<-length(ev)
-bsm<-data.frame(j=seq(1:n), p=0)
-bsm$p[1]=1/n
-for (i in 2:n) {
-  bsm$p[i]=bsm$p[i-1]+(1/(n=1-i))}
-bsm$p=100*bsm$p/n
-bsm
-barplot(ev, main="valeurs propres", col="grey", las=2)
-abline(h=mean(ev), col="red")
-legend("topright", "moyenne des valeurs propres", lwd=1, col=2, bty="n")
-
+par(mar=c(4,4, 0.1,0.1), cex = 1.5)
 plot(spe.h.pca)
 
-plot(spe.h.pca, type=”n”) # Produit une figure vierge
-points(spe.h.pca, dis=”sp”, col=”blue”) # ajoute les points correspondant aux espèces
-#utilizer text() plutôt que points() si vous préférez que les codes des espèces s'affichent (nom des colonnes)
-points(spe.h.pca, dis=”sites”, col=”red”) # ajoute les points correspondant aux sites
-
-#Scaling 1
-windows()
-plot(spe.h.pca)
-windows()
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
 biplot(spe.h.pca)
-windows()
-# scaling 1 = distance biplot :
-# distances entre les objets est une approximation de leur distance euclidienne
-# les angles entre les descripteurs ne réflètent PAS leur corrélation
-plot(spe.h.pca, scaling=1, type="none",
-     xlab<-c("PC1 (%)", round((spe.h.pca$CA$eig[1]/sum(spe.h.pca$CA$eig))*100,2)),
-     ylab<-c("PC2 (%)", round((spe.h.pca$CA$eig[2]/sum(spe.h.pca$CA$eig))*100,2)))
-points(scores(spe.h.pca, display="sites", choices=c(1,2), scaling=1),
-       pch=21, col="black", bg="steelblue", cex=1.2)
-text(scores(spe.h.pca, display="species", choices=c(1), scaling=1),
-     scores(spe.h.pca, display="species", choices=c(2), scaling=1),
-     labels=rownames(scores(spe.h.pca, display="species", scaling=1)),
-     col="red", cex=0.8)
 
-#Scaling 2
-windows()
-plot(env.pca)
-windows()
-# scaling 2 = graphique de corrélations :
-# les distances entre les objets ne sont PAS des approximations de leur distance euclidienne
-# les angles entres les descripteurs reflètent leur corrélation
-plot(env.pca, scaling=2, type="none",
-     xlab<-c("PC1 (%)", round((env.pca$CA$eig[1]/sum(env.pca$CA$eig))*100,2)),
-     ylab<-c("PC2 (%)", round((env.pca$CA$eig[2]/sum(env.pca$CA$eig))*100,2)),
-     xlim<-c(-1,1), ylim=c(-1,1))
-points(scores(env.pca, display="sites", choices=c(1,2), scaling=2),
-       pch=21, col="black", bg="darkgreen", cex=1.2)
-text(scores(env.pca, display="species", choices=c(1), scaling=2),
-     scores(env.pca, display="species", choices=c(2), scaling=2),
-     labels<-rownames(scores(env.pca, display="species", scaling=2)),
-     col="red", cex=0.8)
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
+biplot(spe.h.pca, scaling = 2)
 
-Sites_scores_Env_Axis1<- scores(env.pca, display="sites", choices=c(1), scaling=2)
-spe$ANG
-plot( Sites_scores_Env_Axis1, spe$TRU)
-summary(lm(spe$TRU~Sites_scores_Env_Axis1))
-abline(lm(spe$TRU~Sites_scores_Env_Axis1))
+par(mar = c(4,4,0.05,0.05), cex = 1.2)
+biplot(spe.h.pca, scaling = 1)
 
-mite.spe<-data(mite) # données disponibles dans vegan
+data(mite)
 
-# Transformation de Hellinger
-mite.spe.hel<-decostand(mite.spe, method="hellinger")
-mite.spe.h.pca<-rda(mite.spe.hel)
+mite.spe.hel <- decostand(mite, 
+                          method = "hellinger")
 
-# Quels sont les axes significatifs?
-ev<-mite.spe.h.pca$CA$eig
+mite.spe.h.pca <- rda(mite.spe.hel)
+
+ev <- mite.spe.h.pca$CA$eig
 ev[ev>mean(ev)]
-n<-length(ev)
-bsm<-data.frame(j=seq(1:n), p=0)
-bsm$p[1]=1/n
-for (i in 2:n) {
-  bsm$p[i]=bsm$p[i-1]+(1/(n=1-i))}
-bsm$p=100*bsm$p/n
-bsm
-barplot(ev, main="Valeurs propres", col="grey", las=2)
-abline(h=mean(ev), col="red")
-legend("topright", "Moyenne des valeurs propres", lwd=1, col=2, bty="n")
+n <- length(ev)
+barplot(ev, main = "Valeurs propres",
+        col = "grey", las = 2)
+abline(h = mean(ev),
+       col = "red3", lwd = 2)
+legend("topright",
+       "Valeur propre moyenne",
+       lwd = 2,
+       col = "red3", bty = "n")
 
-# Résultats
-summary(mite.spe.h.pca, display=NULL)
-windows()
+par(mar=c(4,4,2,1), cex = 1.2)
+ev <- mite.spe.h.pca$CA$eig
+n <- length(ev)
+barplot(ev, main = "Eigenvalues", 
+        col = "grey", las = 2)
+abline(h = mean(ev),
+       col = "red3", lwd = 2)
+legend("topright", 
+       "Valeur propre moyenne", 
+       lwd = 2, col = "red3", 
+       bty = "n")
 
-# Représentation graphique de la PCA
-plot(mite.spe.h.pca, scaling=1, type="none",
-     xlab=c("PC1 (%)", round((mite.spe.h.pca$CA$eig[1]/sum(mite.spe.h.pca$CA$eig))*100,2)),
-     ylab=c("PC2 (%)", round((mite.spe.h.pca$CA$eig[2]/sum(mite.spe.h.pca$CA$eig))*100,2)))
-points(scores(mite.spe.h.pca, display="sites", choices=c(1,2), scaling=1),
-       pch=21, col="black", bg="steelblue", cex=1.2)
-text(scores(mite.spe.h.pca, display="species", choices=c(1), scaling=1),
-     scores(mite.spe.h.pca, display="species", choices=c(2), scaling=1),
-     labels=rownames(scores(mite.spe.h.pca, display="species", scaling=1)),
-     col="red", cex=0.8)
+par(mar = c(4,4,0.05,0.05), cex = 1.5)
+biplot(mite.spe.h.pca, 
+       col = c("red3", "grey15"))
 
 
 ##Section: 07-analyse-de-correspondence.R 
 
 #Effectuer une CA à l'aide de la fonction cca() (NB: cca() est utilisée à la fois pour les CA et CCA)
-spe.ca <- cca(spe)
-
+spe.ca <- cca(spe[ -8, ])
+ 
 # Identifier les axes significatifs
 ev<-spe.ca$CA$eig
+
 ev[ev>mean(ev)]
 n=length(ev)
 barplot(ev, main="Eigenvalues", col="grey", las=2)
 abline(h=mean(ev), col="red")
 legend("topright", "Average eigenvalue", lwd=1, col=2, bty="n")
 
-summary(spe.h.pca)
-summary(spe.h.pca, diplay=NULL)
+# summary(spe.h.pca) 
+# summary(spe.h.pca, diplay=NULL)
 
 par(mfrow=c(1,2))
+
 ##scaling 1
 plot(spe.ca, scaling=1, type="none", main='CA - biplot scaling 1', xlab=c("CA1 (%)", round((spe.ca$CA$eig[1]/sum(spe.ca$CA$eig))*100,2)),
 ylab=c("CA2 (%)", round((spe.ca$CA$eig[2]/sum(spe.ca$CA$eig))*100,2)))
@@ -401,10 +865,11 @@ text(scores(spe.ca, display="species", choices=c(1), scaling=2),
      scores(spe.ca, display="species", choices=c(2), scaling=2),
      labels=rownames(scores(spe.ca, display="species", scaling=2)),col="red", cex=0.8)
 
-# CA
+# CA 
+mite.spe <- mite
 mite.spe.ca<-cca(mite.spe)
 
-# Quels sont les axes importants?
+# Quels sont les axes importants? 
 ev<-mite.spe.ca$CA$eig
 ev[ev>mean(ev)]
 n=length(ev)
@@ -412,11 +877,10 @@ barplot(ev, main="Eigenvalues", col="grey", las=2)
 abline(h=mean(ev), col="red")
 legend("topright", "Average eigenvalue", lwd=1, col=2, bty="n")
 
-# Résultats
-summary(mite.spe.ca, display=NULL)
+# Résultats  
+# summary(mite.spe.ca, display=NULL)
 
 # Biplot
-windows()
 plot(mite.spe.ca, scaling=1, type="none",
      xlab=c("PC1 (%)", round((mite.spe.ca$CA$eig[1]/sum(mite.spe.ca$CA$eig))*100,2)),
      ylab=c("PC2 (%)", round((mite.spe.ca$CA$eig[2]/sum(mite.spe.ca$CA$eig))*100,2)))
@@ -431,35 +895,36 @@ text(scores(mite.spe.ca, display="species", choices=c(1), scaling=1),
 ##Section: 08-analyse-des-coordonnees-principales.R 
 
 # En utilisant la fonction cmdscale()
-?cmdscale
-cmdscale(dist(spe.hel), k=(nrow(spe)-1), eig=TRUE)
+# ?cmdscale
+# cmdscale(dist(spe.hel), k=(nrow(spe)-1), eig=TRUE)
 
 # En utilisant la fonction pcoa()
-?pcoa
+# ?pcoa
 spe.h.pcoa<-pcoa(dist(spe.hel))
 
 # Extraction des résultats
-spe.h.pcoa
+spe.h.pcoa 
 
 # Représentation graphique
-biplot.pcoa(spe .h.pcoa, spe.hel, dir.axis2=-1)
+biplot.pcoa(spe.h.pcoa, spe.hel, dir.axis2 = -1)
 
-spe.bray.pcoa<-pcoa(spe.db) # il s'agit de la matrice de distances de Bray-Curtis qu'on a générée plus tôt
+spe.bray.pcoa<-pcoa(spe.db) # il s'agit de la matrice de distances de Bray-Curtis qu'on a générée plus tôt 
 spe.bray.pcoa
-biplot.pcoa(spe.bray.pcoa, spe.hel, dir.axis2=-1)
-# Le choix d'une mesure de distance est très important car ça influence les résultats!
+
+biplot.pcoa(spe.bray.pcoa, spe.hel, dir.axis2 = -1)
+# Le choix d'une mesure de distance est très important car ça influence les résultats! 
 
 mite.spe.h.pcoa<-pcoa(dist(mite.spe.hel))
 mite.spe.h.pcoa
-windows()
+
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel, dir.axis2=-1)
 
 
 ##Section: 09-echelle-multidimensionnelle-non-metrique.R 
 
 # NMDS
-spe.nmds<-metaMDS(spe, distance='bray', k=2)
-
+spe.nmds<-metaMDS(spe[ -8, ], distance='bray', k=2)
+ 
 #Extraction des résultats
 spe.nmds
 
@@ -468,7 +933,7 @@ spe.nmds$stress
 stressplot(spe.nmds, main='Shepard plot')
 
 # Construction du biplot
-windows()
+
 plot(spe.nmds, type="none", main=paste('NMDS/Bray - Stress=', round(spe.nmds$stress, 3)),
      xlab=c("NMDS1"),
      ylab=c("NMDS2"))
@@ -490,7 +955,7 @@ mite.spe.nmds$stress
 stressplot(mite.spe.nmds, main='Shepard plot')
 
 #Construction du biplot
-windows()
+
 plot(mite.spe.nmds, type="none", main=paste('NMDS/Bray - Stress=', round(mite.spe.nmds$stress, 3)),
      xlab=c("NMDS1"),
      ylab=c("NMDS2"))

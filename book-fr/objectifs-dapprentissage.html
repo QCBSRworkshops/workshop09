@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapitre 1 Objectifs d’apprentissage | Atelier 9 : Analyses multivariées en R</title>
   <meta name="description" content="Analyses multivariées en R" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapitre 1 Objectifs d’apprentissage | Atelier 9 : Analyses multivariées en R" />
   <meta property="og:type" content="book" />
@@ -149,30 +149,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>Analyses multivariées en <code>R</code></b></span></li>
 <li class="chapter" data-level="1" data-path="objectifs-dapprentissage.html"><a href="objectifs-dapprentissage.html"><i class="fa fa-check"></i><b>1</b> Objectifs d’apprentissage</a></li>
 <li class="chapter" data-level="2" data-path="préparez-vous-pour-cet-atelier.html"><a href="préparez-vous-pour-cet-atelier.html"><i class="fa fa-check"></i><b>2</b> Préparez-vous pour cet atelier</a></li>
-<li class="chapter" data-level="3" data-path="quest-ce-que-lordination.html"><a href="quest-ce-que-lordination.html"><i class="fa fa-check"></i><b>3</b> Qu’est-ce que l’ordination?</a></li>
-<li class="chapter" data-level="4" data-path="introduction-aux-données.html"><a href="introduction-aux-données.html"><i class="fa fa-check"></i><b>4</b> Introduction aux données</a></li>
-<li class="chapter" data-level="5" data-path="exploration-des-données.html"><a href="exploration-des-données.html"><i class="fa fa-check"></i><b>5</b> 1. Exploration des données</a>
+<li class="part"><span><b>PRÉAMBULE</b></span></li>
+<li class="chapter" data-level="3" data-path="récapitulatif-analyses-univariées.html"><a href="récapitulatif-analyses-univariées.html"><i class="fa fa-check"></i><b>3</b> Récapitulatif : Analyses univariées</a></li>
+<li class="chapter" data-level="4" data-path="intro-analyses-multivariées.html"><a href="intro-analyses-multivariées.html"><i class="fa fa-check"></i><b>4</b> Intro : Analyses multivariées</a></li>
+<li class="chapter" data-level="5" data-path="définir-nos-objectifs.html"><a href="définir-nos-objectifs.html"><i class="fa fa-check"></i><b>5</b> Définir nos objectifs</a></li>
+<li class="chapter" data-level="6" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html"><i class="fa fa-check"></i><b>6</b> L’algèbre matricielle, très brièvement</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-les-espèces"><i class="fa fa-check"></i><b>5.1</b> 1.1 Données sur les espèces</a></li>
-<li class="chapter" data-level="5.2" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-lenvironnement"><i class="fa fa-check"></i><b>5.2</b> 1.2 Données sur l’environnement</a></li>
+<li class="chapter" data-level="6.1" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#les-ensembles-de-données-sont-des-matrices"><i class="fa fa-check"></i><b>6.1</b> Les ensembles de données <em>sont</em> des matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#matrices-dassociation"><i class="fa fa-check"></i><b>6.2</b> Matrices d’association</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html"><i class="fa fa-check"></i><b>7</b> Exploration de l’ensemble de données</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#communautés-de-poissons-du-doubs"><i class="fa fa-check"></i><b>7.1</b> Communautés de poissons du Doubs</a></li>
+<li class="chapter" data-level="7.2" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#données-environnementales-de-la-rivière-doubs"><i class="fa fa-check"></i><b>7.2</b> Données environnementales de la rivière Doubs</a></li>
 </ul></li>
 <li class="part"><span><b>Mesures d’association</b></span></li>
-<li class="chapter" data-level="6" data-path="la-dissimilarité-des-données.html"><a href="la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>6</b> La (dis)similarité des données</a></li>
-<li class="chapter" data-level="7" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>7</b> Quantifier la (dis)similarité des données</a>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html"><i class="fa fa-check"></i><b>9</b> Types de coefficients de distance</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html#transformations-des-données-de-composition-des-communautés"><i class="fa fa-check"></i><b>7.1</b> Transformations des données de composition des communautés</a></li>
+<li class="chapter" data-level="9.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-métriques"><i class="fa fa-check"></i><b>9.1</b> Distances métriques</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-euclidiennes"><i class="fa fa-check"></i><b>9.1.1</b> Distances euclidiennes</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#défi-1"><i class="fa fa-check"></i><b>9.1.2</b> Défi #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-daccord"><i class="fa fa-check"></i><b>9.1.3</b> Distances d’accord</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-jaccard"><i class="fa fa-check"></i><b>9.1.4</b> Coefficient de Jaccard</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="groupement.html"><a href="groupement.html"><i class="fa fa-check"></i><b>8</b> Groupement</a></li>
+<li class="chapter" data-level="9.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-semimétriques"><i class="fa fa-check"></i><b>9.2</b> Distances semimétriques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-sørensen"><i class="fa fa-check"></i><b>9.2.1</b> Coefficient de Sørensen</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-bray-curtis"><i class="fa fa-check"></i><b>9.2.2</b> Coefficient de Bray-Curtis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-non-métriques"><i class="fa fa-check"></i><b>9.3</b> Distances non métriques</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distance-de-mahalanobis"><i class="fa fa-check"></i><b>9.3.1</b> Distance de Mahalanobis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#représentation-des-matrices-de-distance"><i class="fa fa-check"></i><b>9.4</b> Représentation des matrices de distance</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#transformation-présence-absence"><i class="fa fa-check"></i><b>10.1</b> Transformation présence-absence</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#transformation-des-profils-despèces"><i class="fa fa-check"></i><b>10.2</b> Transformation des profils d’espèces</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#transformation-de-hellinger"><i class="fa fa-check"></i><b>10.3</b> Transformation de Hellinger</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#normalisation-par-le-score-z"><i class="fa fa-check"></i><b>10.4</b> Normalisation par le score Z</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="transformations.html"><a href="transformations.html#autres-métriques-dassociation"><i class="fa fa-check"></i><b>10.4.1</b> Autres métriques d’association</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="regroupement.html"><a href="regroupement.html"><i class="fa fa-check"></i><b>11</b> Regroupement</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-lien-unique"><i class="fa fa-check"></i><b>11.1</b> Regroupement agglomératif à lien unique</a></li>
+<li class="chapter" data-level="11.2" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-liens-complets"><i class="fa fa-check"></i><b>11.2</b> Regroupement agglomératif à liens complets</a></li>
+<li class="chapter" data-level="11.3" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-non-pondérés-avec-moyenne-arithmétique-upgma"><i class="fa fa-check"></i><b>11.3</b> Méthode des groupes de paires non pondérés avec moyenne arithmétique (UPGMA)</a></li>
+<li class="chapter" data-level="11.4" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-pondérés-avec-moyenne-arithmétique-wpgma"><i class="fa fa-check"></i><b>11.4</b> Méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA)</a></li>
+<li class="chapter" data-level="11.5" data-path="regroupement.html"><a href="regroupement.html#variance-minimale-de-ward"><i class="fa fa-check"></i><b>11.5</b> Variance minimale de Ward</a></li>
+<li class="chapter" data-level="11.6" data-path="regroupement.html"><a href="regroupement.html#décider-des-points-de-coupure"><i class="fa fa-check"></i><b>11.6</b> Décider des points de coupure</a></li>
+<li class="chapter" data-level="11.7" data-path="regroupement.html"><a href="regroupement.html#jouer-avec-des-données-réelles-les-données-sur-les-espèces-de-poissons-du-doubs"><i class="fa fa-check"></i><b>11.7</b> Jouer avec des données réelles : les données sur les espèces de poissons du Doubs</a></li>
+</ul></li>
 <li class="part"><span><b>L’Ordination sans contrainte</b></span></li>
-<li class="chapter" data-level="9" data-path="le-significat-de-lordination-sans-contrainte.html"><a href="le-significat-de-lordination-sans-contrainte.html"><i class="fa fa-check"></i><b>9</b> Le significat de l’ordination “sans contrainte”</a></li>
-<li class="chapter" data-level="10" data-path="analyses-en-composantes-principales.html"><a href="analyses-en-composantes-principales.html"><i class="fa fa-check"></i><b>10</b> Analyses en Composantes Principales</a></li>
-<li class="chapter" data-level="11" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>11</b> Analyse des Correpondances</a></li>
-<li class="chapter" data-level="12" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>12</b> Analyse en coordonnées principales</a></li>
-<li class="chapter" data-level="13" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>13</b> Positionnement multidimensionnel non-métrique</a></li>
+<li class="chapter" data-level="12" data-path="que-signifie-sans-contrainte.html"><a href="que-signifie-sans-contrainte.html"><i class="fa fa-check"></i><b>12</b> Que signifie “sans contrainte” ?</a></li>
+<li class="chapter" data-level="13" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html"><i class="fa fa-check"></i><b>13</b> Analyse en composantes principales</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#lanalyse-en-composantes-principales-pas-en-bref"><i class="fa fa-check"></i><b>13.1</b> L’analyse en composantes principales <em>pas</em> en bref</a></li>
+<li class="chapter" data-level="13.2" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-à-laide-des-fonctions-du-paquet"><i class="fa fa-check"></i><b>13.2</b> Analyse en composantes principales à l’aide des fonctions du paquet</a></li>
+<li class="chapter" data-level="13.3" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-sur-des-données-écologiques"><i class="fa fa-check"></i><b>13.3</b> Analyse en composantes principales sur des données écologiques</a></li>
+<li class="chapter" data-level="13.4" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#condenser-les-données-avec-lanalyse-en-composantes-principales"><i class="fa fa-check"></i><b>13.4</b> Condenser les données avec l’analyse en composantes principales</a></li>
+<li class="chapter" data-level="13.5" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#échelonnement"><i class="fa fa-check"></i><b>13.5</b> Échelonnement</a></li>
+<li class="chapter" data-level="13.6" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#défi-2"><i class="fa fa-check"></i><b>13.6</b> Défi #2</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>14</b> Analyse des Correpondances</a></li>
+<li class="chapter" data-level="15" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>15</b> Analyse en coordonnées principales</a></li>
+<li class="chapter" data-level="16" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>16</b> Positionnement multidimensionnel non-métrique</a></li>
 <li class="part"><span><b>Considérations finales</b></span></li>
-<li class="chapter" data-level="14" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>14</b> Sommaire</a></li>
-<li class="chapter" data-level="15" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>15</b> Resources additionnels</a></li>
-<li class="chapter" data-level="16" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>16</b> Réferences</a></li>
+<li class="chapter" data-level="17" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>17</b> Sommaire</a></li>
+<li class="chapter" data-level="18" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>18</b> Resources additionnels</a></li>
+<li class="chapter" data-level="19" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>19</b> Réferences</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
 
@@ -210,14 +261,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 --!>
 <div id="objectifs-dapprentissage" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapitre 1</span> Objectifs d’apprentissage<a href="objectifs-dapprentissage.html#objectifs-dapprentissage" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><strong>Résumé:</strong> Dans cet atelier, vous apprendrez les bases des analyses
-multivariées qui vous permettront de révéler les patrons de diversité
-dans vos données de communautés. Vous apprendrez d’abord comment
-choisir les mesures de distance et les transformations appropriées pour
-ensuite réaliser plusieurs types d’analyses multivariées: des
-groupements, des Analyses en Composantes Principales (PCA), des Analyses
-de Correspondance (CA), des Analyses en Coordonnées Principales (PCoA)
-et des Positionnements Multidimensionnels Non-Métriques (NMDS).</p>
+<ol style="list-style-type: decimal">
+<li><p>Apprendre les bases de l’analyse multivariée pour révéler des modèles dans les données sur la composition des communautés.</p></li>
+<li><p>Utiliser <code>R</code> pour effectuer une ordination sans contrainte</p></li>
+<li><p>Apprendre à connaître les coefficients de similarité et de dissimilarité et les transformations pour effectuer une analyse multivariée</p></li>
+<li><p>Utiliser <code>R</code> pour créer des dendrogrammes</p></li>
+<li><p>Apprenez les méthodes suivantes :</p></li>
+</ol>
+<ul>
+<li>Analyse de regroupement</li>
+<li>Analyse en composantes principales (ACP)</li>
+<li>Analyse des coordonnées principales (PCoA)</li>
+<li>Échelle multidimensionnelle non métrique (NMDS)</li>
+</ul>
 </div>
 <hr>
 <center> 

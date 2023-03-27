@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapitre 12 Analyse en coordonnées principales | Atelier 9 : Analyses multivariées en R</title>
+  <title>Chapitre 15 Analyse en coordonnées principales | Atelier 9 : Analyses multivariées en R</title>
   <meta name="description" content="Analyses multivariées en R" />
-  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapitre 12 Analyse en coordonnées principales | Atelier 9 : Analyses multivariées en R" />
+  <meta property="og:title" content="Chapitre 15 Analyse en coordonnées principales | Atelier 9 : Analyses multivariées en R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Analyses multivariées en R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapitre 12 Analyse en coordonnées principales | Atelier 9 : Analyses multivariées en R" />
+  <meta name="twitter:title" content="Chapitre 15 Analyse en coordonnées principales | Atelier 9 : Analyses multivariées en R" />
   
   <meta name="twitter:description" content="Analyses multivariées en R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -149,30 +149,81 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>Analyses multivariées en <code>R</code></b></span></li>
 <li class="chapter" data-level="1" data-path="objectifs-dapprentissage.html"><a href="objectifs-dapprentissage.html"><i class="fa fa-check"></i><b>1</b> Objectifs d’apprentissage</a></li>
 <li class="chapter" data-level="2" data-path="préparez-vous-pour-cet-atelier.html"><a href="préparez-vous-pour-cet-atelier.html"><i class="fa fa-check"></i><b>2</b> Préparez-vous pour cet atelier</a></li>
-<li class="chapter" data-level="3" data-path="quest-ce-que-lordination.html"><a href="quest-ce-que-lordination.html"><i class="fa fa-check"></i><b>3</b> Qu’est-ce que l’ordination?</a></li>
-<li class="chapter" data-level="4" data-path="introduction-aux-données.html"><a href="introduction-aux-données.html"><i class="fa fa-check"></i><b>4</b> Introduction aux données</a></li>
-<li class="chapter" data-level="5" data-path="exploration-des-données.html"><a href="exploration-des-données.html"><i class="fa fa-check"></i><b>5</b> 1. Exploration des données</a>
+<li class="part"><span><b>PRÉAMBULE</b></span></li>
+<li class="chapter" data-level="3" data-path="récapitulatif-analyses-univariées.html"><a href="récapitulatif-analyses-univariées.html"><i class="fa fa-check"></i><b>3</b> Récapitulatif : Analyses univariées</a></li>
+<li class="chapter" data-level="4" data-path="intro-analyses-multivariées.html"><a href="intro-analyses-multivariées.html"><i class="fa fa-check"></i><b>4</b> Intro : Analyses multivariées</a></li>
+<li class="chapter" data-level="5" data-path="définir-nos-objectifs.html"><a href="définir-nos-objectifs.html"><i class="fa fa-check"></i><b>5</b> Définir nos objectifs</a></li>
+<li class="chapter" data-level="6" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html"><i class="fa fa-check"></i><b>6</b> L’algèbre matricielle, très brièvement</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-les-espèces"><i class="fa fa-check"></i><b>5.1</b> 1.1 Données sur les espèces</a></li>
-<li class="chapter" data-level="5.2" data-path="exploration-des-données.html"><a href="exploration-des-données.html#données-sur-lenvironnement"><i class="fa fa-check"></i><b>5.2</b> 1.2 Données sur l’environnement</a></li>
+<li class="chapter" data-level="6.1" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#les-ensembles-de-données-sont-des-matrices"><i class="fa fa-check"></i><b>6.1</b> Les ensembles de données <em>sont</em> des matrices</a></li>
+<li class="chapter" data-level="6.2" data-path="lalgèbre-matricielle-très-brièvement.html"><a href="lalgèbre-matricielle-très-brièvement.html#matrices-dassociation"><i class="fa fa-check"></i><b>6.2</b> Matrices d’association</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html"><i class="fa fa-check"></i><b>7</b> Exploration de l’ensemble de données</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#communautés-de-poissons-du-doubs"><i class="fa fa-check"></i><b>7.1</b> Communautés de poissons du Doubs</a></li>
+<li class="chapter" data-level="7.2" data-path="exploration-de-lensemble-de-données.html"><a href="exploration-de-lensemble-de-données.html#données-environnementales-de-la-rivière-doubs"><i class="fa fa-check"></i><b>7.2</b> Données environnementales de la rivière Doubs</a></li>
 </ul></li>
 <li class="part"><span><b>Mesures d’association</b></span></li>
-<li class="chapter" data-level="6" data-path="la-dissimilarité-des-données.html"><a href="la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>6</b> La (dis)similarité des données</a></li>
-<li class="chapter" data-level="7" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html"><i class="fa fa-check"></i><b>7</b> Quantifier la (dis)similarité des données</a>
+<li class="chapter" data-level="8" data-path="dist.html"><a href="dist.html"><i class="fa fa-check"></i><b>8</b> <code>dist()</code></a></li>
+<li class="chapter" data-level="9" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html"><i class="fa fa-check"></i><b>9</b> Types de coefficients de distance</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="quantifier-la-dissimilarité-des-données.html"><a href="quantifier-la-dissimilarité-des-données.html#transformations-des-données-de-composition-des-communautés"><i class="fa fa-check"></i><b>7.1</b> Transformations des données de composition des communautés</a></li>
+<li class="chapter" data-level="9.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-métriques"><i class="fa fa-check"></i><b>9.1</b> Distances métriques</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-euclidiennes"><i class="fa fa-check"></i><b>9.1.1</b> Distances euclidiennes</a></li>
+<li class="chapter" data-level="9.1.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#défi-1"><i class="fa fa-check"></i><b>9.1.2</b> Défi #1</a></li>
+<li class="chapter" data-level="9.1.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-daccord"><i class="fa fa-check"></i><b>9.1.3</b> Distances d’accord</a></li>
+<li class="chapter" data-level="9.1.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-jaccard"><i class="fa fa-check"></i><b>9.1.4</b> Coefficient de Jaccard</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="groupement.html"><a href="groupement.html"><i class="fa fa-check"></i><b>8</b> Groupement</a></li>
+<li class="chapter" data-level="9.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-semimétriques"><i class="fa fa-check"></i><b>9.2</b> Distances semimétriques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-sørensen"><i class="fa fa-check"></i><b>9.2.1</b> Coefficient de Sørensen</a></li>
+<li class="chapter" data-level="9.2.2" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#coefficient-de-bray-curtis"><i class="fa fa-check"></i><b>9.2.2</b> Coefficient de Bray-Curtis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distances-non-métriques"><i class="fa fa-check"></i><b>9.3</b> Distances non métriques</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#distance-de-mahalanobis"><i class="fa fa-check"></i><b>9.3.1</b> Distance de Mahalanobis</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="types-de-coefficients-de-distance.html"><a href="types-de-coefficients-de-distance.html#représentation-des-matrices-de-distance"><i class="fa fa-check"></i><b>9.4</b> Représentation des matrices de distance</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="transformations.html"><a href="transformations.html"><i class="fa fa-check"></i><b>10</b> Transformations</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="transformations.html"><a href="transformations.html#transformation-présence-absence"><i class="fa fa-check"></i><b>10.1</b> Transformation présence-absence</a></li>
+<li class="chapter" data-level="10.2" data-path="transformations.html"><a href="transformations.html#transformation-des-profils-despèces"><i class="fa fa-check"></i><b>10.2</b> Transformation des profils d’espèces</a></li>
+<li class="chapter" data-level="10.3" data-path="transformations.html"><a href="transformations.html#transformation-de-hellinger"><i class="fa fa-check"></i><b>10.3</b> Transformation de Hellinger</a></li>
+<li class="chapter" data-level="10.4" data-path="transformations.html"><a href="transformations.html#normalisation-par-le-score-z"><i class="fa fa-check"></i><b>10.4</b> Normalisation par le score Z</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="transformations.html"><a href="transformations.html#autres-métriques-dassociation"><i class="fa fa-check"></i><b>10.4.1</b> Autres métriques d’association</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Clustering</b></span></li>
+<li class="chapter" data-level="11" data-path="regroupement.html"><a href="regroupement.html"><i class="fa fa-check"></i><b>11</b> Regroupement</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-lien-unique"><i class="fa fa-check"></i><b>11.1</b> Regroupement agglomératif à lien unique</a></li>
+<li class="chapter" data-level="11.2" data-path="regroupement.html"><a href="regroupement.html#regroupement-agglomératif-à-liens-complets"><i class="fa fa-check"></i><b>11.2</b> Regroupement agglomératif à liens complets</a></li>
+<li class="chapter" data-level="11.3" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-non-pondérés-avec-moyenne-arithmétique-upgma"><i class="fa fa-check"></i><b>11.3</b> Méthode des groupes de paires non pondérés avec moyenne arithmétique (UPGMA)</a></li>
+<li class="chapter" data-level="11.4" data-path="regroupement.html"><a href="regroupement.html#méthode-des-groupes-de-paires-pondérés-avec-moyenne-arithmétique-wpgma"><i class="fa fa-check"></i><b>11.4</b> Méthode des groupes de paires pondérés avec moyenne arithmétique (WPGMA)</a></li>
+<li class="chapter" data-level="11.5" data-path="regroupement.html"><a href="regroupement.html#variance-minimale-de-ward"><i class="fa fa-check"></i><b>11.5</b> Variance minimale de Ward</a></li>
+<li class="chapter" data-level="11.6" data-path="regroupement.html"><a href="regroupement.html#décider-des-points-de-coupure"><i class="fa fa-check"></i><b>11.6</b> Décider des points de coupure</a></li>
+<li class="chapter" data-level="11.7" data-path="regroupement.html"><a href="regroupement.html#jouer-avec-des-données-réelles-les-données-sur-les-espèces-de-poissons-du-doubs"><i class="fa fa-check"></i><b>11.7</b> Jouer avec des données réelles : les données sur les espèces de poissons du Doubs</a></li>
+</ul></li>
 <li class="part"><span><b>L’Ordination sans contrainte</b></span></li>
-<li class="chapter" data-level="9" data-path="le-significat-de-lordination-sans-contrainte.html"><a href="le-significat-de-lordination-sans-contrainte.html"><i class="fa fa-check"></i><b>9</b> Le significat de l’ordination “sans contrainte”</a></li>
-<li class="chapter" data-level="10" data-path="analyses-en-composantes-principales.html"><a href="analyses-en-composantes-principales.html"><i class="fa fa-check"></i><b>10</b> Analyses en Composantes Principales</a></li>
-<li class="chapter" data-level="11" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>11</b> Analyse des Correpondances</a></li>
-<li class="chapter" data-level="12" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>12</b> Analyse en coordonnées principales</a></li>
-<li class="chapter" data-level="13" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>13</b> Positionnement multidimensionnel non-métrique</a></li>
+<li class="chapter" data-level="12" data-path="que-signifie-sans-contrainte.html"><a href="que-signifie-sans-contrainte.html"><i class="fa fa-check"></i><b>12</b> Que signifie “sans contrainte” ?</a></li>
+<li class="chapter" data-level="13" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html"><i class="fa fa-check"></i><b>13</b> Analyse en composantes principales</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#lanalyse-en-composantes-principales-pas-en-bref"><i class="fa fa-check"></i><b>13.1</b> L’analyse en composantes principales <em>pas</em> en bref</a></li>
+<li class="chapter" data-level="13.2" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-à-laide-des-fonctions-du-paquet"><i class="fa fa-check"></i><b>13.2</b> Analyse en composantes principales à l’aide des fonctions du paquet</a></li>
+<li class="chapter" data-level="13.3" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#analyse-en-composantes-principales-sur-des-données-écologiques"><i class="fa fa-check"></i><b>13.3</b> Analyse en composantes principales sur des données écologiques</a></li>
+<li class="chapter" data-level="13.4" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#condenser-les-données-avec-lanalyse-en-composantes-principales"><i class="fa fa-check"></i><b>13.4</b> Condenser les données avec l’analyse en composantes principales</a></li>
+<li class="chapter" data-level="13.5" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#échelonnement"><i class="fa fa-check"></i><b>13.5</b> Échelonnement</a></li>
+<li class="chapter" data-level="13.6" data-path="analyse-en-composantes-principales.html"><a href="analyse-en-composantes-principales.html#défi-2"><i class="fa fa-check"></i><b>13.6</b> Défi #2</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="analyse-des-correpondances.html"><a href="analyse-des-correpondances.html"><i class="fa fa-check"></i><b>14</b> Analyse des Correpondances</a></li>
+<li class="chapter" data-level="15" data-path="analyse-en-coordonnées-principales.html"><a href="analyse-en-coordonnées-principales.html"><i class="fa fa-check"></i><b>15</b> Analyse en coordonnées principales</a></li>
+<li class="chapter" data-level="16" data-path="positionnement-multidimensionnel-non-métrique.html"><a href="positionnement-multidimensionnel-non-métrique.html"><i class="fa fa-check"></i><b>16</b> Positionnement multidimensionnel non-métrique</a></li>
 <li class="part"><span><b>Considérations finales</b></span></li>
-<li class="chapter" data-level="14" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>14</b> Sommaire</a></li>
-<li class="chapter" data-level="15" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>15</b> Resources additionnels</a></li>
-<li class="chapter" data-level="16" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>16</b> Réferences</a></li>
+<li class="chapter" data-level="17" data-path="sommaire.html"><a href="sommaire.html"><i class="fa fa-check"></i><b>17</b> Sommaire</a></li>
+<li class="chapter" data-level="18" data-path="resources-additionnels.html"><a href="resources-additionnels.html"><i class="fa fa-check"></i><b>18</b> Resources additionnels</a></li>
+<li class="chapter" data-level="19" data-path="réferences.html"><a href="réferences.html"><i class="fa fa-check"></i><b>19</b> Réferences</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/qcbsRworkshops" target="blank">QCBS R Workshop Series</a></li>
 
@@ -208,8 +259,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="analyse-en-coordonnées-principales" class="section level1 hasAnchor" number="12">
-<h1><span class="header-section-number">Chapitre 12</span> Analyse en coordonnées principales<a href="analyse-en-coordonnées-principales.html#analyse-en-coordonnées-principales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="analyse-en-coordonnées-principales" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Chapitre 15</span> Analyse en coordonnées principales<a href="analyse-en-coordonnées-principales.html#analyse-en-coordonnées-principales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>La PCA, comme la CA, impose une préservation des distances entre objets:
 la distance euclidienne dans le cas de la PCA, et la distance de Chi2
 dans la CA. Si l’objectif est d’ordonner les objets sur la base d’une
@@ -236,43 +287,1013 @@ des centaines d’espèces ont été observées dans un petit nombree de
 quadrats, une approche basée sur une PCoA utilisant la distance de
 Bray-Curtis (voir ci-dessous) peut être plus adaptée.</p>
 <p>PCoA avec DoubsSpe (transformé Hellinger):</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="analyse-en-coordonnées-principales.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># En utilisant la fonction cmdscale()</span></span>
-<span id="cb46-2"><a href="analyse-en-coordonnées-principales.html#cb46-2" aria-hidden="true" tabindex="-1"></a>?cmdscale</span>
-<span id="cb46-3"><a href="analyse-en-coordonnées-principales.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmdscale</span>(<span class="fu">dist</span>(spe.hel), <span class="at">k=</span>(<span class="fu">nrow</span>(spe)<span class="sc">-</span><span class="dv">1</span>), <span class="at">eig=</span><span class="cn">TRUE</span>)</span>
-<span id="cb46-4"><a href="analyse-en-coordonnées-principales.html#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-5"><a href="analyse-en-coordonnées-principales.html#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># En utilisant la fonction pcoa()</span></span>
-<span id="cb46-6"><a href="analyse-en-coordonnées-principales.html#cb46-6" aria-hidden="true" tabindex="-1"></a>?pcoa</span>
-<span id="cb46-7"><a href="analyse-en-coordonnées-principales.html#cb46-7" aria-hidden="true" tabindex="-1"></a>spe.h.pcoa<span class="ot">&lt;-</span><span class="fu">pcoa</span>(<span class="fu">dist</span>(spe.hel))</span>
-<span id="cb46-8"><a href="analyse-en-coordonnées-principales.html#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-9"><a href="analyse-en-coordonnées-principales.html#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des résultats</span></span>
-<span id="cb46-10"><a href="analyse-en-coordonnées-principales.html#cb46-10" aria-hidden="true" tabindex="-1"></a>spe.h.pcoa </span>
-<span id="cb46-11"><a href="analyse-en-coordonnées-principales.html#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-12"><a href="analyse-en-coordonnées-principales.html#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Représentation graphique</span></span>
-<span id="cb46-13"><a href="analyse-en-coordonnées-principales.html#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(spe .h.pcoa, spe.hel, <span class="at">dir.axis2=</span><span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
-<p>Les résultats de cette PCoA sont:</p>
-<p><img src="images//pcoa_outputfr_1.png" width="800" /></p>
-<p><img src="images//pcoa_outputfr_2.png" width="800" /></p>
-<p>Et le graphique:</p>
-<p><img src="images//pcoa_spe.png" width="500" /></p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="analyse-en-coordonnées-principales.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># En utilisant la fonction cmdscale() ?cmdscale</span></span>
+<span id="cb144-2"><a href="analyse-en-coordonnées-principales.html#cb144-2" aria-hidden="true" tabindex="-1"></a><span class="co"># cmdscale(dist(spe.hel), k=(nrow(spe)-1), eig=TRUE)</span></span>
+<span id="cb144-3"><a href="analyse-en-coordonnées-principales.html#cb144-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-4"><a href="analyse-en-coordonnées-principales.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="co"># En utilisant la fonction pcoa() ?pcoa</span></span>
+<span id="cb144-5"><a href="analyse-en-coordonnées-principales.html#cb144-5" aria-hidden="true" tabindex="-1"></a>spe.h.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(<span class="fu">dist</span>(spe.hel))</span>
+<span id="cb144-6"><a href="analyse-en-coordonnées-principales.html#cb144-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-7"><a href="analyse-en-coordonnées-principales.html#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraction des résultats</span></span>
+<span id="cb144-8"><a href="analyse-en-coordonnées-principales.html#cb144-8" aria-hidden="true" tabindex="-1"></a>spe.h.pcoa</span></code></pre></div>
+<pre><code>## $correction
+## [1] &quot;none&quot; &quot;1&quot;   
+## 
+## $note
+## [1] &quot;There were no negative eigenvalues. No correction was applied&quot;
+## 
+## $values
+##     Eigenvalues Relative_eig Broken_stick Cumul_eig Cumul_br_stick
+## 1  7.2247719550 4.959363e-01  0.144128028 0.4959363      0.1441280
+## 2  1.9115365901 1.312153e-01  0.107090991 0.6271515      0.2512190
+## 3  1.3384760670 9.187817e-02  0.088572472 0.7190297      0.3397915
+## 4  1.0797364397 7.411728e-02  0.076226793 0.7931470      0.4160183
+## 5  0.6161946090 4.229798e-02  0.066967534 0.8354450      0.4829858
+## 6  0.4820458816 3.308949e-02  0.059560127 0.8685345      0.5425459
+## 7  0.4283230637 2.940175e-02  0.053387287 0.8979362      0.5959332
+## 8  0.3762159586 2.582492e-02  0.048096282 0.9237611      0.6440295
+## 9  0.3056520040 2.098113e-02  0.043466652 0.9447423      0.6874962
+## 10 0.1933000228 1.326886e-02  0.039351426 0.9580111      0.7268476
+## 11 0.1461674552 1.003350e-02  0.035647722 0.9680446      0.7624953
+## 12 0.1234859973 8.476556e-03  0.032280719 0.9765212      0.7947760
+## 13 0.0802304371 5.507327e-03  0.029194299 0.9820285      0.8239703
+## 14 0.0757579222 5.200317e-03  0.026345296 0.9872288      0.8503156
+## 15 0.0436416031 2.995728e-03  0.023699794 0.9902245      0.8740154
+## 16 0.0402292154 2.761489e-03  0.021230658 0.9929860      0.8952461
+## 17 0.0300862815 2.065239e-03  0.018915843 0.9950513      0.9141619
+## 18 0.0226628371 1.555665e-03  0.016737194 0.9966069      0.9308991
+## 19 0.0137723152 9.453849e-04  0.014679581 0.9975523      0.9455787
+## 20 0.0123632307 8.486599e-04  0.012730263 0.9984010      0.9583090
+## 21 0.0081555480 5.598283e-04  0.010878411 0.9989608      0.9691874
+## 22 0.0063464793 4.356469e-04  0.009114743 0.9993965      0.9783021
+## 23 0.0040090171 2.751944e-04  0.007431241 0.9996717      0.9857334
+## 24 0.0025405355 1.743922e-04  0.005820935 0.9998460      0.9915543
+## 25 0.0015475694 1.062311e-04  0.004277725 0.9999523      0.9958320
+## 26 0.0004279456 2.937584e-05  0.002796244 0.9999817      0.9986283
+## 27 0.0002672735 1.834669e-05  0.001371742 1.0000000      1.0000000
+## 
+## $vectors
+##          Axis.1      Axis.2       Axis.3       Axis.4       Axis.5       Axis.6
+## 1  -0.510156945  0.34756659  0.603085591 -0.310543265 -0.197553521 -0.221069305
+## 2  -0.697567847  0.04025083  0.104205663 -0.225612118  0.163849922  0.057118813
+## 3  -0.639279415 -0.02078733  0.039889544 -0.263628398  0.130319412  0.111253367
+## 4  -0.411968300 -0.13472113 -0.142902757 -0.290074579  0.003953021  0.070356253
+## 5   0.005052046 -0.09541567 -0.305402114 -0.285298970 -0.319905818 -0.074116109
+## 6  -0.292971968 -0.11423456 -0.318658086 -0.235971751 -0.055670665 -0.023524696
+## 7  -0.606181804  0.01311371 -0.103502900 -0.166666590  0.068994249  0.046616186
+## 8  -0.044277099  0.37855579  0.209803758 -0.041860959 -0.050340441 -0.224811387
+## 9  -0.055398038  0.23770911 -0.554896259  0.035714264  0.245404126 -0.294269844
+## 10 -0.411659370 -0.04289473 -0.334330241 -0.064890540 -0.036668552  0.163955021
+## 11 -0.647448909  0.07241771  0.059230271  0.165765759  0.138217948  0.077220226
+## 12 -0.660227103  0.04063431  0.069626365  0.164694182  0.151045792  0.067901571
+## 13 -0.669989292 -0.02617200  0.254127895  0.296853851  0.020112254  0.039361331
+## 14 -0.514123243 -0.11759191  0.124161107  0.337034089 -0.072737199  0.102923203
+## 15 -0.382456316 -0.18268726 -0.044509503  0.326475994 -0.196934814  0.009434612
+## 16 -0.104612763 -0.34327514 -0.060655999  0.173934966 -0.240560559 -0.196130632
+## 17  0.077182346 -0.31157335  0.004924379  0.223599341 -0.025562246 -0.150291623
+## 18  0.190358561 -0.28346955 -0.003617427  0.210396847 -0.002011505 -0.072026282
+## 19  0.375901506 -0.23662078 -0.085630881  0.044242671  0.070944646  0.008377573
+## 20  0.527629462 -0.15173319 -0.018308764 -0.019944534  0.064702813 -0.003343781
+## 21  0.569870073 -0.16047375  0.065307725 -0.068096992  0.062804974  0.031580390
+## 22  0.617258390 -0.11793174  0.094167103 -0.068833539  0.041405159 -0.002858822
+## 23  0.336055026  0.73592106 -0.204488229  0.227831244  0.025285812 -0.134590432
+## 24  0.497505046  0.55783894  0.004515865  0.162635299  0.089200208  0.187738632
+## 25  0.451988375  0.40277173 -0.125327479  0.012077795 -0.406808027  0.294782035
+## 26  0.614448977 -0.01805379  0.074796024 -0.072007390  0.085588501  0.080433384
+## 27  0.618392379 -0.08429084  0.101059106 -0.072533377  0.073400866  0.025763345
+## 28  0.620954661 -0.08172447  0.118745770 -0.079281887  0.097537821  0.019641919
+## 29  0.495638840 -0.18890154  0.177201163 -0.005346842  0.048466617  0.036178632
+## 30  0.650082728 -0.11422705  0.197383307 -0.110664573  0.023519205 -0.033603580
+##          Axis.7       Axis.8      Axis.9      Axis.10       Axis.11
+## 1   0.144778497 -0.108680760  0.18105189  0.042053483 -0.0016587031
+## 2   0.131675051  0.067697769 -0.06442281  0.016322950  0.0766957137
+## 3   0.069666241  0.031770585 -0.18133335  0.054260234  0.1067437960
+## 4  -0.047927061 -0.136480728 -0.13598284  0.106888544 -0.1645322957
+## 5  -0.131095899 -0.174271395 -0.05877177 -0.073981709  0.0131279680
+## 6  -0.021743286 -0.115004262  0.03097933  0.065134857 -0.0476015027
+## 7   0.145272319  0.133736176  0.13596783 -0.071403704  0.0478781210
+## 8  -0.249281692  0.347792146 -0.20431566 -0.019627104 -0.1000657420
+## 9  -0.156249571 -0.036248842  0.08732011  0.069397576  0.0711114885
+## 10  0.053941040  0.277546755  0.15097392 -0.090289879 -0.0627982226
+## 11 -0.075619678 -0.113051884  0.05179123 -0.166515459 -0.0936935628
+## 12 -0.082316286 -0.089474135  0.05531765 -0.101060997 -0.0354555822
+## 13 -0.111861920 -0.051493606 -0.11003492  0.007324915  0.0835976123
+## 14 -0.155831067 -0.084666037 -0.05268442  0.108373540  0.0413567293
+## 15 -0.102805610  0.082457361  0.19458097  0.085700119  0.0295625679
+## 16  0.126867264  0.110495416  0.01963519  0.097451870  0.0123631286
+## 17  0.229852292 -0.022948272 -0.09446251 -0.070757727 -0.0318276098
+## 18  0.171587545 -0.053114138 -0.06502363 -0.053291310 -0.1178208859
+## 19  0.127081334  0.087197011 -0.11829211  0.047993991  0.0835424502
+## 20  0.069016007  0.000460929 -0.04253991 -0.018492619 -0.0139967841
+## 21 -0.009766216 -0.006130571 -0.03271554 -0.023218456 -0.0006656359
+## 22 -0.046128905  0.013506969  0.06301853  0.004431100 -0.0278464929
+## 23  0.159237588 -0.121000025 -0.06538492 -0.086608737  0.0660163262
+## 24  0.131408044  0.004925476  0.04467269  0.198440168 -0.1434962817
+## 25 -0.000769921  0.012976434 -0.06943344 -0.066678460  0.0711120416
+## 26 -0.071425449 -0.028398595  0.05601302  0.050939982  0.0494279711
+## 27 -0.076854712  0.004905405  0.06998558  0.042964922  0.0448326499
+## 28 -0.085841284  0.011954160  0.08869290 -0.008741900  0.0253749009
+## 29 -0.027534472 -0.052600816  0.04462036 -0.026347339  0.0190432434
+## 30 -0.107330191  0.006141473  0.02077662 -0.120662852 -0.0003274070
+##         Axis.12      Axis.13      Axis.14      Axis.15      Axis.16
+## 1  -0.016985570 -0.059356684 -0.032259029  0.017751662 -0.032551065
+## 2  -0.040382483 -0.004522773  0.034175345  0.030438784 -0.003470435
+## 3   0.059748365  0.030529406 -0.056369389 -0.030472273  0.023507620
+## 4   0.128113024  0.005672885  0.029024190  0.037726744 -0.016192023
+## 5  -0.142025015  0.027986563  0.044895706 -0.031926925  0.021644656
+## 6   0.002730923 -0.012716449  0.048262228 -0.020739758  0.012986316
+## 7   0.013501670  0.021247503  0.016671866 -0.052330462  0.012911167
+## 8   0.006193487 -0.025282152  0.007970746 -0.025493553  0.011617612
+## 9  -0.038202009 -0.020718941 -0.094846511  0.001390466 -0.054329506
+## 10  0.018135140  0.002582547  0.027579884  0.012535440 -0.057093096
+## 11 -0.045020205  0.026564345 -0.032588078  0.066552203  0.005309144
+## 12 -0.014423939 -0.019722088 -0.073255141 -0.022081383  0.088608382
+## 13 -0.113643929  0.047913574  0.086889725 -0.029669059 -0.023007366
+## 14  0.085753156 -0.024981689 -0.041772099  0.018944140 -0.049571366
+## 15  0.042255905 -0.081698779  0.091913004  0.009632658  0.028317188
+## 16  0.009130686  0.148327119 -0.068359877  0.043569274  0.052496280
+## 17  0.016739286 -0.016572914  0.002677102 -0.048014006 -0.005203501
+## 18  0.014076801 -0.050636202 -0.046206632 -0.074380342 -0.035703891
+## 19 -0.102061060 -0.062317049  0.012286823  0.061776992 -0.020887344
+## 20 -0.043631886 -0.121847295 -0.015523233  0.039146960  0.032396504
+## 21 -0.020855074 -0.020418570  0.023435950  0.064833903  0.017006933
+## 22  0.013713142  0.015947853  0.012667359  0.027584750  0.038980645
+## 23  0.136150259  0.026788223  0.100732248  0.026844661  0.019799830
+## 24 -0.131949957  0.057983455  0.004971150 -0.020944221  0.003456220
+## 25  0.012583227 -0.029467230 -0.104718995  0.001544042 -0.014342105
+## 26  0.029739984 -0.047390015  0.028381466 -0.071868171  0.023492243
+## 27  0.051420190  0.003944216 -0.021284610 -0.021355323  0.038782465
+## 28  0.038056995  0.056857822 -0.012266161 -0.015148328  0.009103088
+## 29  0.019744857  0.066405552  0.020151093 -0.027354925 -0.088766027
+## 30  0.011394031  0.058897769  0.006763871  0.031506050 -0.039298567
+##         Axis.17       Axis.18      Axis.19      Axis.20       Axis.21
+## 1  -0.002022009 -0.0114828298  0.016218432  0.001079419 -0.0005019483
+## 2   0.032848263  0.0221283401 -0.033450998 -0.026019257 -0.0339142968
+## 3  -0.041700683  0.0295264894  0.010334071  0.005409936  0.0035999917
+## 4   0.035988011 -0.0254209339 -0.020162069  0.016483289  0.0167710090
+## 5  -0.055721856  0.0037098626 -0.013022444  0.005899574 -0.0164850945
+## 6   0.033956416  0.0087676376  0.050604576 -0.019181658  0.0067963329
+## 7  -0.022284596 -0.0165882742 -0.040039849  0.014046393  0.0363072960
+## 8  -0.010291948  0.0055408227  0.002787075 -0.004392699  0.0024537397
+## 9   0.011778079 -0.0003455269 -0.013508307 -0.001331984  0.0043800067
+## 10 -0.013908033 -0.0135256237  0.037445682  0.004395065 -0.0235946995
+## 11 -0.009826263  0.0703357289  0.002523735 -0.010262220  0.0075908622
+## 12  0.016312674 -0.0721256365  0.014210040  0.010521804 -0.0134186070
+## 13  0.047335815 -0.0161922560  0.009042442 -0.003528424  0.0235887894
+## 14 -0.067022434 -0.0116252988  0.001354905  0.010199583 -0.0219927886
+## 15  0.009364557  0.0263486731 -0.023351454 -0.001296985  0.0094959853
+## 16  0.025964781  0.0104597824 -0.006956306  0.006661384 -0.0094263976
+## 17 -0.020248107  0.0067446767  0.027258460  0.026967756 -0.0015512224
+## 18  0.027093364  0.0072679935 -0.028002826 -0.047328412 -0.0059261451
+## 19  0.009924204 -0.0481308750  0.024850340 -0.004324904  0.0079824875
+## 20 -0.015585863  0.0277501077 -0.013702681  0.047724297  0.0182074195
+## 21 -0.016542963  0.0092821760  0.001480220 -0.025370160 -0.0084429859
+## 22 -0.055684864 -0.0561345635 -0.024796601 -0.040797082  0.0050452392
+## 23 -0.008860634 -0.0069233159  0.004266889 -0.002271375 -0.0054075510
+## 24 -0.018443767  0.0075841409 -0.002515486  0.014595728 -0.0022631488
+## 25  0.040923141 -0.0024101993 -0.007624906 -0.011774119  0.0140077288
+## 26  0.035467099  0.0174345585 -0.010536421  0.019434700 -0.0402246854
+## 27 -0.002288486  0.0406949575  0.041498383 -0.023999144  0.0203703758
+## 28  0.018397048 -0.0095601545  0.008600220  0.001377984  0.0035839658
+## 29 -0.038561698 -0.0001869609 -0.004530281 -0.001379115  0.0121067848
+## 30  0.053640748 -0.0029234986 -0.010274840  0.038460625 -0.0091384433
+##          Axis.22       Axis.23       Axis.24       Axis.25       Axis.26
+## 1   0.0014833225 -0.0065787897  0.0025708440  0.0006111797 -6.652485e-04
+## 2   0.0097642374  0.0268452560 -0.0100620960  0.0038976796  2.137164e-03
+## 3  -0.0092776871 -0.0037606885  0.0144658364 -0.0036287070 -6.821978e-03
+## 4   0.0028506107 -0.0027090716 -0.0017569852  0.0057491452 -1.706076e-03
+## 5   0.0136989727  0.0003475077  0.0011424898 -0.0030847372 -2.908802e-03
+## 6  -0.0115349565  0.0047214339 -0.0018803323 -0.0034464820  5.217117e-03
+## 7  -0.0056934775 -0.0093295061  0.0003530511 -0.0072762582  5.329989e-03
+## 8  -0.0008469183 -0.0004881854 -0.0038862115  0.0017875196 -1.512602e-04
+## 9  -0.0074683994  0.0047774096  0.0019637794  0.0029468259  5.485785e-04
+## 10  0.0098644645 -0.0076437028 -0.0018942865 -0.0002971812  3.409468e-04
+## 11 -0.0037986549 -0.0152174925  0.0080735768  0.0096867419 -7.755451e-04
+## 12 -0.0033199047  0.0093492106 -0.0131126832 -0.0028589307 -4.710659e-03
+## 13  0.0039517664 -0.0090423073 -0.0004737194  0.0008766611  4.745572e-03
+## 14  0.0093856775 -0.0005970185  0.0010930490 -0.0090303061  6.734889e-03
+## 15 -0.0063600828  0.0142798563  0.0080190556  0.0001970928 -8.014365e-03
+## 16  0.0006285270 -0.0125371143 -0.0098869078  0.0012568280  7.931333e-04
+## 17 -0.0176256858  0.0250253705  0.0100018862  0.0137503799  3.542893e-03
+## 18  0.0143625846 -0.0098348246  0.0033598507 -0.0120505422 -2.320132e-03
+## 19  0.0015468382 -0.0153852060  0.0067802235  0.0012764314 -6.401490e-03
+## 20  0.0216341197 -0.0019871266 -0.0143405081 -0.0015301558  3.713579e-03
+## 21 -0.0176748102  0.0008238311 -0.0027859661 -0.0083260780  3.104888e-03
+## 22 -0.0158740130  0.0002140067  0.0104861271  0.0093024539  4.263876e-03
+## 23  0.0081132047 -0.0063640810 -0.0031794156 -0.0034469454 -1.325333e-03
+## 24 -0.0038248668  0.0081036968  0.0040210079 -0.0045838875 -9.888835e-04
+## 25 -0.0080154023  0.0073904422 -0.0006747257  0.0067623375  1.688911e-03
+## 26 -0.0155602791 -0.0299232051 -0.0002259646  0.0111009252  1.625749e-03
+## 27  0.0039892822  0.0049533207 -0.0106345438 -0.0087416826  3.701578e-05
+## 28  0.0549447863  0.0095490227  0.0166916073  0.0079819755  3.801458e-04
+## 29 -0.0085946905  0.0042374550 -0.0270118328  0.0085586800 -6.625968e-03
+## 30 -0.0207485655  0.0107805002  0.0127837939 -0.0174409634 -7.887060e-04
+##          Axis.27
+## 1  -0.0002438509
+## 2  -0.0016677021
+## 3   0.0045375912
+## 4  -0.0044881420
+## 5  -0.0030365301
+## 6   0.0073731251
+## 7  -0.0023330313
+## 8   0.0005887564
+## 9  -0.0005713160
+## 10 -0.0004645789
+## 11 -0.0009212218
+## 12  0.0005358741
+## 13  0.0003558427
+## 14 -0.0008856661
+## 15  0.0011316764
+## 16  0.0009562223
+## 17 -0.0032726121
+## 18  0.0011084512
+## 19 -0.0028887932
+## 20  0.0044727668
+## 21  0.0012218169
+## 22  0.0016579982
+## 23  0.0005197968
+## 24 -0.0001848745
+## 25  0.0003261856
+## 26 -0.0010766735
+## 27 -0.0091910944
+## 28  0.0024768505
+## 29  0.0035590558
+## 30  0.0004040766
+## 
+## $trace
+## [1] 14.56794
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;pcoa&quot;</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="analyse-en-coordonnées-principales.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Représentation graphique</span></span>
+<span id="cb146-2"><a href="analyse-en-coordonnées-principales.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(spe.h.pcoa, spe.hel, <span class="at">dir.axis2 =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Vous pouvez aussi exécuter cette PCoA avec une autre mesure de distance
 (ex. Bray-Curtis):</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="analyse-en-coordonnées-principales.html#cb47-1" aria-hidden="true" tabindex="-1"></a>spe.bray.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(spe.db)  <span class="co"># il s&#39;agit de la matrice de distances de Bray-Curtis qu&#39;on a générée plus tôt </span></span>
-<span id="cb47-2"><a href="analyse-en-coordonnées-principales.html#cb47-2" aria-hidden="true" tabindex="-1"></a>spe.bray.pcoa</span>
-<span id="cb47-3"><a href="analyse-en-coordonnées-principales.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(spe.bray.pcoa, spe.hel, <span class="at">dir.axis2 =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb47-4"><a href="analyse-en-coordonnées-principales.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Le choix d&#39;une mesure de distance est très important car</span></span>
-<span id="cb47-5"><a href="analyse-en-coordonnées-principales.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ça influence les résultats!</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="analyse-en-coordonnées-principales.html#cb147-1" aria-hidden="true" tabindex="-1"></a>spe.bray.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(spe.db)  <span class="co"># il s&#39;agit de la matrice de distances de Bray-Curtis qu&#39;on a générée plus tôt </span></span>
+<span id="cb147-2"><a href="analyse-en-coordonnées-principales.html#cb147-2" aria-hidden="true" tabindex="-1"></a>spe.bray.pcoa</span></code></pre></div>
+<pre><code>## $correction
+## [1] &quot;none&quot; &quot;1&quot;   
+## 
+## $note
+## [1] &quot;No correction was applied to the negative eigenvalues&quot;
+## 
+## $values
+##      Eigenvalues  Relative_eig Rel_corr_eig Broken_stick Cum_corr_eig
+## 1   3.695332e+00  4.924914e-01  0.396254705  0.140256109    0.3962547
+## 2   1.197352e+00  1.595758e-01  0.133291315  0.104541823    0.5295460
+## 3   8.465325e-01  1.128207e-01  0.096360364  0.086684680    0.6259064
+## 4   5.253896e-01  7.002074e-02  0.062553505  0.074779918    0.6884599
+## 5   4.147227e-01  5.527173e-02  0.050903553  0.065851347    0.7393634
+## 6   2.977969e-01  3.968856e-02  0.038594722  0.058708489    0.7779582
+## 7   1.913094e-01  2.549655e-02  0.027384732  0.052756109    0.8053429
+## 8   1.554757e-01  2.072086e-02  0.023612504  0.047654068    0.8289554
+## 9   1.307617e-01  1.742712e-02  0.021010850  0.043189782    0.8499663
+## 10  1.272105e-01  1.695385e-02  0.020637021  0.039221528    0.8706033
+## 11  8.550928e-02  1.139616e-02  0.016247110  0.035650099    0.8868504
+## 12  4.357746e-02  5.807740e-03  0.011832929  0.032403346    0.8986833
+## 13  3.862321e-02  5.147468e-03  0.011311393  0.029427156    0.9099947
+## 14  2.727686e-02  3.635295e-03  0.010116958  0.026679903    0.9201117
+## 15  1.303318e-02  1.736984e-03  0.008617519  0.024128883    0.9287292
+## 16  6.704839e-03  8.935804e-04  0.007951331  0.021747930    0.9366805
+## 17  3.817779e-03  5.088104e-04  0.007647409  0.019515787    0.9443279
+## 18  1.300463e-03  1.733178e-04  0.007382410  0.017414947    0.9517103
+## 19  0.000000e+00  0.000000e+00  0.007241723  0.015430820    0.9589521
+## 20 -3.597737e-05 -4.794846e-06  0.006806781  0.013551121    0.9657588
+## 21 -4.167639e-03 -5.554377e-04  0.006301162  0.011765406    0.9720600
+## 22 -8.970687e-03 -1.195559e-03  0.005694152  0.010064726    0.9777541
+## 23 -1.473688e-02 -1.964042e-03  0.005560103  0.008441350    0.9833143
+## 24 -1.601025e-02 -2.133749e-03  0.004966161  0.006888555    0.9882804
+## 25 -2.165231e-02 -2.885689e-03  0.003953426  0.005400459    0.9922338
+## 26 -3.127263e-02 -4.167827e-03  0.003620673  0.003971888    0.9958545
+## 27 -3.443356e-02 -4.589097e-03  0.003284015  0.002598262    0.9991385
+## 28 -3.763160e-02 -5.015311e-03  0.000861473  0.001275510    1.0000000
+## 29 -6.064415e-02 -8.082285e-03  0.000000000  0.000000000    1.0000000
+## 30 -6.882758e-02 -9.172922e-03  0.000000000  0.000000000    1.0000000
+##    Cumul_br_stick
+## 1       0.1402561
+## 2       0.2447979
+## 3       0.3314826
+## 4       0.4062625
+## 5       0.4721139
+## 6       0.5308224
+## 7       0.5835785
+## 8       0.6312325
+## 9       0.6744223
+## 10      0.7136439
+## 11      0.7492940
+## 12      0.7816973
+## 13      0.8111245
+## 14      0.8378044
+## 15      0.8619332
+## 16      0.8836812
+## 17      0.9031970
+## 18      0.9206119
+## 19      0.9360427
+## 20      0.9495938
+## 21      0.9613593
+## 22      0.9714240
+## 23      0.9798653
+## 24      0.9867539
+## 25      0.9921543
+## 26      0.9961262
+## 27      0.9987245
+## 28      1.0000000
+## 29      1.0000000
+## 30      1.0000000
+## 
+## $vectors
+##          Axis.1      Axis.2        Axis.3       Axis.4       Axis.5
+## 1  -0.320449823  0.23306708  0.4052011521  0.413065395  0.015467310
+## 2  -0.502684922 -0.03668632  0.0997686617  0.057953534  0.131243584
+## 3  -0.472042556 -0.07339838  0.0403753966  0.006212226  0.047271525
+## 4  -0.316249689 -0.09691873 -0.0491347038  0.002385678  0.066184200
+## 5   0.066641517 -0.13220277 -0.0390672681 -0.012811215  0.179083299
+## 6  -0.241592757 -0.04199098 -0.1494561573  0.012030513  0.103395863
+## 7  -0.441932409 -0.01314509 -0.0447489079  0.020783790  0.061783592
+## 8  -0.001003178  0.48166769  0.4918540684 -0.484890471 -0.022190458
+## 9  -0.028617328  0.08917429 -0.1852217989 -0.148928771  0.391250238
+## 10 -0.293012598 -0.02300668 -0.1871502897 -0.096313161  0.118272698
+## 11 -0.438723426  0.06823719  0.0580789208  0.147205049 -0.015397336
+## 12 -0.472756087 -0.02746175 -0.0121736070 -0.004845316 -0.034829016
+## 13 -0.475481686 -0.07544948  0.1076846382 -0.002262210 -0.152129112
+## 14 -0.374686608 -0.08941462 -0.0393980393 -0.058453813 -0.201138975
+## 15 -0.243653042 -0.17161666 -0.0604201374 -0.094551547 -0.124766409
+## 16 -0.073434106 -0.19187100 -0.0766719854 -0.084668713 -0.153297850
+## 17  0.040676259 -0.17425458 -0.0875892901 -0.055947030 -0.163426682
+## 18  0.144508662 -0.14874280 -0.1071774823 -0.063043216 -0.123147241
+## 19  0.229660655 -0.14844143 -0.1097826754 -0.072230936 -0.047123653
+## 20  0.401052593 -0.11604102 -0.0002766332 -0.007839228  0.027044314
+## 21  0.438415129 -0.10928733  0.0607616262  0.031524233  0.014274293
+## 22  0.465196276 -0.10586147  0.1107737062  0.036773609  0.034947440
+## 23  0.116548455  0.59487844 -0.2494981196  0.086922295 -0.075488505
+## 24  0.320052060  0.35575234 -0.2002483247  0.073501208 -0.028683520
+## 25  0.226020916  0.38053577 -0.2829375696  0.057844064 -0.125723103
+## 26  0.434698863 -0.01620189 -0.0228296456  0.040594850  0.018358257
+## 27  0.462587642 -0.07973733  0.0872440317  0.046221679  0.028473423
+## 28  0.462892804 -0.08746326  0.1130809043  0.048047644  0.048644676
+## 29  0.409464629 -0.14642284  0.1498949779  0.045443752 -0.017221474
+## 30  0.477903756 -0.09769640  0.1790645512  0.060276109 -0.001131376
+##          Axis.6        Axis.7       Axis.8        Axis.9       Axis.10
+## 1  -0.078285649  0.0281757686  0.152419739  0.0620214512 -0.0084554849
+## 2   0.042274052  0.0647050617 -0.046966117  0.0143279884  0.0405790440
+## 3  -0.092178285  0.0646661933 -0.122869623  0.0796812732 -0.0146515001
+## 4  -0.126239659  0.0018330966 -0.077145856  0.0229106939 -0.0158674810
+## 5  -0.147957254 -0.2144370289  0.052128944 -0.1149083302 -0.0366926489
+## 6  -0.149604492  0.0187947347  0.049587848  0.0219358922  0.0065920493
+## 7  -0.061421046  0.0155580388 -0.066973268  0.0493668301  0.0392205663
+## 8  -0.073508675  0.0132432281  0.019726717 -0.0102409140  0.0260418495
+## 9   0.212219629 -0.0213876730  0.084549171  0.0833210876 -0.0862271809
+## 10 -0.042173259  0.0595019777 -0.006366994 -0.1525320721  0.1266833055
+## 11  0.097100129 -0.0547434551  0.026313041 -0.1170521719  0.1003201704
+## 12  0.118684341 -0.0038674809 -0.036603841 -0.0083417190 -0.0032760416
+## 13  0.150478201 -0.0152858466 -0.057633010 -0.0454827223 -0.0944894934
+## 14  0.040946350  0.0171424468 -0.062093588 -0.0221704722 -0.1350306736
+## 15  0.034048165 -0.0516086788  0.098276062 -0.0360009400 -0.1004717412
+## 16 -0.087210913 -0.0623387129  0.185188284  0.0934010593 -0.0134974136
+## 17  0.065064290  0.0156944167  0.056920618  0.0397691611  0.1316850202
+## 18  0.067261462  0.0089925735  0.074536919  0.0067912156  0.0997951967
+## 19 -0.081932990  0.0808348609 -0.058475012  0.1289316028  0.0384049959
+## 20  0.005055568  0.0522460709  0.021009409  0.0305227531  0.0251360419
+## 21 -0.012210424  0.0170555064 -0.026624540 -0.0107184566  0.0473053698
+## 22  0.018336154 -0.0391108664 -0.009713173 -0.0004278611 -0.0145278880
+## 23  0.130741953 -0.1778339520 -0.067327702  0.1126514521  0.0477877228
+## 24  0.088821183  0.2340538172  0.069625917 -0.0988142834 -0.0374512340
+## 25 -0.235264361 -0.0454730098 -0.051405489 -0.0582072398 -0.0511812804
+## 26 -0.046619217  0.1067385313  0.019401955 -0.0020776418 -0.0875194852
+## 27  0.010207061  0.0240932023 -0.033950337 -0.0162326594 -0.0382303296
+## 28  0.031303330  0.0001778202 -0.062589906 -0.0076687424 -0.0357280637
+## 29  0.088986182 -0.0695883636 -0.054404092 -0.0394183353  0.0005809206
+## 30  0.033078176 -0.0678322774 -0.068542079 -0.0053378990  0.0431656874
+##         Axis.11       Axis.12       Axis.13      Axis.14       Axis.15
+## 1  -0.022513152 -0.0318331401 -0.0045374664 -0.015077925  0.0031514532
+## 2   0.004346706 -0.0464769912 -0.0303066505  0.006230699 -0.0144407298
+## 3   0.007605501 -0.0202944454  0.0086976933  0.001783476 -0.0241033581
+## 4   0.113604692  0.0150396902  0.0625367256 -0.057056064  0.0451045108
+## 5   0.085457125 -0.0373920345 -0.0011773242  0.040833799 -0.0080899983
+## 6   0.012985916  0.0573687582  0.0214274380 -0.005953678 -0.0351495991
+## 7  -0.087085273  0.0072777798 -0.0122808336  0.029907929  0.0252014820
+## 8   0.013088057  0.0134033106 -0.0014114206 -0.002947475  0.0007884534
+## 9  -0.005670494 -0.0108812935 -0.0133239372 -0.020611411 -0.0101564754
+## 10 -0.097334439 -0.0219174760  0.0170523689  0.007001587  0.0027982719
+## 11  0.032374573  0.1009488052 -0.0365944549 -0.009018777  0.0006566102
+## 12 -0.022014126  0.0203339131  0.0157782484  0.010840871  0.0182929659
+## 13  0.068391690 -0.0329503130 -0.0342092959  0.034415085 -0.0129269717
+## 14  0.016999784 -0.0101130826  0.0176159540 -0.010254550 -0.0128577160
+## 15 -0.117836229  0.0037692594  0.0003900737 -0.029259843  0.0294199049
+## 16 -0.024101817  0.0055763715  0.0259347583  0.044524714 -0.0066274081
+## 17  0.054096138 -0.0007715256  0.0698100584  0.003525640 -0.0067179644
+## 18  0.035445421 -0.0269397615 -0.0745064719 -0.076763249 -0.0162243590
+## 19 -0.025979200  0.0085842408 -0.0593572055  0.035387675  0.0027740422
+## 20  0.053661635 -0.0609488270 -0.0272268776 -0.026509555  0.0224754279
+## 21  0.061210849  0.0078654082 -0.0293185530  0.047424785  0.0158689438
+## 22 -0.015952815 -0.0092570258 -0.0047907493  0.024730677  0.0553511539
+## 23  0.009607789  0.0150524279  0.0166706456  0.014413980  0.0045712548
+## 24  0.029482022 -0.0375430818  0.0457779315  0.034080068  0.0062274271
+## 25 -0.034619949 -0.0346910621 -0.0466250483 -0.033314532 -0.0074982529
+## 26  0.047801977  0.0941097564 -0.0065089702 -0.001246796 -0.0140351406
+## 27 -0.063767848  0.0481306939 -0.0117106873  0.020080313 -0.0210301432
+## 28 -0.047675392  0.0376833081  0.0289096828 -0.050138582  0.0078730675
+## 29 -0.025499193 -0.0053410529 -0.0219190042 -0.002121161 -0.0123922727
+## 30 -0.056109947 -0.0477926103  0.0852033720 -0.014907698 -0.0383045803
+##          Axis.16      Axis.17       Axis.18
+## 1  -0.0041089733  0.001281615 -1.578001e-04
+## 2  -0.0008511369 -0.010134296  6.215124e-04
+## 3  -0.0191012489  0.008554064  5.435894e-03
+## 4   0.0007208242 -0.009200677  2.802553e-03
+## 5   0.0061478570 -0.001737084 -2.337866e-03
+## 6   0.0065979265  0.011562195  1.814119e-03
+## 7   0.0257149123  0.006045217 -8.690735e-03
+## 8   0.0019250117  0.001207893  1.716228e-05
+## 9  -0.0069122537  0.003732332  5.125124e-04
+## 10 -0.0136488283 -0.003474875 -7.283457e-04
+## 11 -0.0015574416  0.002778467  1.154824e-03
+## 12  0.0021606023 -0.004478062  4.226975e-03
+## 13  0.0179575259 -0.001803925 -7.357764e-03
+## 14 -0.0238185726 -0.001882466  3.850686e-03
+## 15  0.0216875991  0.002420574  2.142474e-03
+## 16 -0.0216100892 -0.011978541 -5.622120e-03
+## 17  0.0116958034  0.013519024 -8.567581e-05
+## 18 -0.0117577436 -0.008506454  4.595190e-03
+## 19  0.0007245537  0.004918996 -2.351058e-03
+## 20  0.0347124084 -0.001991238 -2.245306e-03
+## 21 -0.0159517282 -0.015709825 -4.490605e-03
+## 22 -0.0227505122  0.015099333  1.584427e-02
+## 23  0.0012299491 -0.005809954  3.671371e-04
+## 24 -0.0038107317  0.002199450 -1.845175e-03
+## 25 -0.0004268606  0.003758138  2.147508e-04
+## 26  0.0156858166  0.011041608  7.294447e-04
+## 27  0.0147261003 -0.031157037  1.393095e-02
+## 28 -0.0198937624 -0.011611121 -2.269475e-02
+## 29 -0.0113382328  0.033581892 -4.128149e-03
+## 30  0.0158512255 -0.002225245  4.474894e-03
+## 
+## $trace
+## [1] 7.503343
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;pcoa&quot;</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="analyse-en-coordonnées-principales.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(spe.bray.pcoa, spe.hel, <span class="at">dir.axis2 =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-97-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="analyse-en-coordonnées-principales.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Le choix d&#39;une mesure de distance est très important car</span></span>
+<span id="cb150-2"><a href="analyse-en-coordonnées-principales.html#cb150-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ça influence les résultats!</span></span></code></pre></div>
 <p><strong>Défi 5</strong> Exécuter une PCoA sur les données d’abondance des <em>espèces
 d’acariens</em> transformées Hellinger (données mite). Quels sont les axes
 importants? Quels groupes de sites pouvez-vous identifier? Quelles
 espèces sont liées à chaque groupe de sites? Comment les résultats de
 cette PCoA se comparent-ils avec ceux de la PCA?</p>
 <p><strong>Défi 5 - Solution</strong></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="analyse-en-coordonnées-principales.html#cb48-1" aria-hidden="true" tabindex="-1"></a>mite.spe.h.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(<span class="fu">dist</span>(mite.spe.hel))</span>
-<span id="cb48-2"><a href="analyse-en-coordonnées-principales.html#cb48-2" aria-hidden="true" tabindex="-1"></a>mite.spe.h.pcoa</span>
-<span id="cb48-3"><a href="analyse-en-coordonnées-principales.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">windows</span>()</span>
-<span id="cb48-4"><a href="analyse-en-coordonnées-principales.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(mite.spe.h.pcoa, mite.spe.hel, <span class="at">dir.axis2 =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
-<p>Représentation graphique:</p>
-<p><img src="images//pcoa_mite.png" width="500" /></p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="analyse-en-coordonnées-principales.html#cb151-1" aria-hidden="true" tabindex="-1"></a>mite.spe.h.pcoa <span class="ot">&lt;-</span> <span class="fu">pcoa</span>(<span class="fu">dist</span>(mite.spe.hel))</span>
+<span id="cb151-2"><a href="analyse-en-coordonnées-principales.html#cb151-2" aria-hidden="true" tabindex="-1"></a>mite.spe.h.pcoa</span></code></pre></div>
+<pre><code>## $correction
+## [1] &quot;none&quot; &quot;1&quot;   
+## 
+## $note
+## [1] &quot;There were no negative eigenvalues. No correction was applied&quot;
+## 
+## $values
+##     Eigenvalues Relative_eig Broken_stick Cumul_eig Cumul_br_stick
+## 1  11.602643193 0.4264887201 0.1184794691 0.4264887      0.1184795
+## 2   3.526055542 0.1296103733 0.0899080405 0.5560991      0.2083875
+## 3   2.186367334 0.0803662571 0.0756223263 0.6364654      0.2840098
+## 4   1.570196758 0.0577171249 0.0660985167 0.6941825      0.3501084
+## 5   1.171005251 0.0430436861 0.0589556596 0.7372262      0.4090640
+## 6   1.006554628 0.0369988276 0.0532413739 0.7742250      0.4623054
+## 7   0.844412363 0.0310388195 0.0484794691 0.8052638      0.5107849
+## 8   0.653368743 0.0240164585 0.0443978365 0.8292803      0.5551827
+## 9   0.548575687 0.0201644865 0.0408264079 0.8494448      0.5960091
+## 10  0.529037917 0.0194463193 0.0376518047 0.8688911      0.6336609
+## 11  0.385624780 0.0141747545 0.0347946619 0.8830658      0.6684556
+## 12  0.380429104 0.0139837724 0.0321972593 0.8970496      0.7006528
+## 13  0.340199814 0.0125050284 0.0298163069 0.9095546      0.7304691
+## 14  0.284248035 0.0104483589 0.0276185047 0.9200030      0.7580876
+## 15  0.276071181 0.0101477950 0.0255776884 0.9301508      0.7836653
+## 16  0.240701481 0.0088476794 0.0236729265 0.9389985      0.8073383
+## 17  0.225645857 0.0082942663 0.0218872122 0.9472927      0.8292255
+## 18  0.186479038 0.0068545766 0.0202065399 0.9541473      0.8494320
+## 19  0.162466773 0.0059719363 0.0186192383 0.9601192      0.8680512
+## 20  0.149898967 0.0055099702 0.0171154789 0.9656292      0.8851667
+## 21  0.147693237 0.0054288922 0.0156869075 0.9710581      0.9008536
+## 22  0.128050704 0.0047068741 0.0143263633 0.9757650      0.9151800
+## 23  0.114094908 0.0041938885 0.0130276620 0.9799589      0.9282077
+## 24  0.085824674 0.0031547342 0.0117854259 0.9831136      0.9399931
+## 25  0.081991690 0.0030138418 0.0105949498 0.9861274      0.9505880
+## 26  0.076994065 0.0028301396 0.0094520926 0.9889576      0.9600401
+## 27  0.056610567 0.0020808852 0.0083531915 0.9910385      0.9683933
+## 28  0.055672481 0.0020464031 0.0072949905 0.9930849      0.9756883
+## 29  0.047757948 0.0017554816 0.0062745823 0.9948404      0.9819629
+## 30  0.042041391 0.0015453530 0.0052893606 0.9963857      0.9872522
+## 31  0.036886153 0.0013558573 0.0043369797 0.9977416      0.9915892
+## 32  0.023659824 0.0008696853 0.0034153207 0.9986112      0.9950045
+## 33  0.019271950 0.0007083963 0.0025224635 0.9993196      0.9975270
+## 34  0.013529456 0.0004973143 0.0016566627 0.9998170      0.9991837
+## 35  0.004979684 0.0001830427 0.0008163265 1.0000000      1.0000000
+## 
+## $vectors
+##          Axis.1       Axis.2       Axis.3       Axis.4       Axis.5      Axis.6
+## 1   0.072050731 -0.404874957  0.123880209 -0.214979492 -0.009322998  0.04540086
+## 2  -0.080178872 -0.475895251 -0.040770237 -0.132551999 -0.187285469  0.03404235
+## 3  -0.006340714 -0.532965199 -0.071896456 -0.085631135 -0.109737585 -0.05262964
+## 4   0.065918599 -0.390261954 -0.023053705 -0.061263985 -0.125083832  0.06828817
+## 5   0.475151216 -0.176766735  0.005673279  0.014041251 -0.127282100  0.05785622
+## 6   0.508769546 -0.137055078 -0.066473245  0.113920983 -0.061556779  0.12041210
+## 7   0.615792769 -0.012727468 -0.035579920  0.025759028  0.018790021  0.12033710
+## 8   0.578722079 -0.084058324  0.062705431  0.012841804 -0.143529919  0.05319677
+## 9   0.197878804 -0.410753144  0.020690961 -0.194665880 -0.078958035 -0.11658023
+## 10  0.608325106 -0.015468259  0.025731538  0.050448066 -0.021002061  0.12889625
+## 11  0.478021945 -0.067075271  0.317222690 -0.060486992  0.141958632  0.14829596
+## 12  0.587259598  0.042587053  0.079365613  0.019598754  0.066693660  0.01729548
+## 13  0.558944326  0.009379685 -0.050295252  0.097753588 -0.087203405 -0.11625856
+## 14  0.570349529 -0.075826157  0.015931378  0.089155654 -0.040227562  0.26254962
+## 15  0.081724886 -0.327652800  0.089794988 -0.250898445 -0.041952295 -0.01567727
+## 16  0.492924862 -0.063384901  0.107549414 -0.061933568  0.122444718 -0.13143314
+## 17  0.605418395 -0.031177967  0.062448858 -0.043530873  0.111937022 -0.17626401
+## 18  0.473400394 -0.060716576 -0.025228123  0.008950565 -0.053679152  0.17744501
+## 19  0.268953127  0.072137657 -0.079958674 -0.091057728 -0.041435916  0.19671612
+## 20  0.592151288 -0.134817005 -0.106682850  0.063603203 -0.061353879  0.17070630
+## 21  0.543656538  0.073134587 -0.124289921  0.168830238  0.044259335  0.06728093
+## 22  0.540084475  0.120592846 -0.225644134  0.135460999 -0.044740495  0.01840295
+## 23  0.116027323  0.058972633  0.223538124 -0.207598692  0.099716583 -0.09291938
+## 24  0.610752047 -0.066007703 -0.037653614  0.011528145  0.134979947 -0.08918350
+## 25  0.426004859  0.034350409  0.194793819 -0.178435260  0.059422271 -0.10172354
+## 26  0.390690776 -0.109530838  0.011995476 -0.092230045 -0.057845914 -0.24266016
+## 27  0.524790071  0.044933189 -0.166240198  0.188395173 -0.038489018  0.02482370
+## 28  0.196897594  0.234782188  0.110252021 -0.041060202  0.141258740 -0.32628433
+## 29  0.421587994  0.118835403  0.305620715 -0.099846519  0.208524889 -0.14463319
+## 30 -0.009302721 -0.058229090  0.079113402 -0.151699920  0.202495657 -0.08300807
+## 31 -0.177633108 -0.031743654 -0.041439735 -0.140365559 -0.036010456 -0.18243789
+## 32  0.205409152  0.191604525 -0.141474447 -0.054579730  0.008040158  0.05754339
+## 33  0.008226966  0.208030587  0.149147135 -0.172134356  0.135320503  0.02130081
+## 34  0.312956055  0.162088598 -0.125369421  0.013521253 -0.065070596 -0.11979025
+## 35  0.264512217  0.223992775 -0.435382803  0.112936301  0.083849778 -0.04652766
+## 36 -0.027824772  0.092274228 -0.327703849 -0.078961006  0.068275335  0.03289788
+## 37  0.016183720  0.316431956 -0.392738667  0.051253154  0.021953563  0.11550571
+## 38 -0.458017323 -0.230280095 -0.047613826 -0.053488937  0.063512513  0.03129361
+## 39 -0.311094921 -0.105368514 -0.249237716 -0.067490190  0.063178838 -0.25061363
+## 40 -0.414536308  0.112183606 -0.095507102 -0.165839771 -0.154670110  0.09171669
+## 41 -0.477835885 -0.018642421 -0.060820510 -0.184988555 -0.081318549  0.06911550
+## 42 -0.526855511  0.019085981 -0.124548101 -0.156244757 -0.072060578  0.02227910
+## 43 -0.421784721 -0.347740029 -0.054249960  0.111664813  0.124847907 -0.04252694
+## 44 -0.496668283 -0.472265941 -0.017533282  0.363355616  0.295294190  0.08036815
+## 45 -0.411617255  0.147025739 -0.060863587 -0.106046792  0.078253378 -0.04681688
+## 46 -0.147972303  0.152402083 -0.292129022 -0.037564627 -0.010626511 -0.04209114
+## 47 -0.059396147  0.422482800 -0.363724173  0.032699346 -0.021440171  0.06018240
+## 48 -0.540357634 -0.019577661 -0.227248515  0.068413003 -0.064988499  0.03087487
+## 49 -0.103779359  0.421322375  0.011131249 -0.084039038 -0.046883869 -0.06674867
+## 50 -0.374998473  0.082845872  0.096635202 -0.135005680 -0.112409494  0.10430752
+## 51 -0.457882308  0.194328933 -0.002301925 -0.092323183 -0.034599072 -0.06958501
+## 52 -0.520380836  0.050588718 -0.089262342  0.004906471  0.072706620 -0.04358735
+## 53 -0.452455480  0.169000417  0.068782608  0.065289195 -0.132036073 -0.07522844
+## 54 -0.555004826  0.067191946  0.128956265 -0.175519992  0.049194077  0.16125106
+## 55 -0.379842520  0.165447433 -0.103778345 -0.174888630 -0.088650571 -0.10147860
+## 56 -0.577115324 -0.040132955  0.149994387  0.006154776 -0.051880100  0.07292502
+## 57 -0.535724762 -0.070762288 -0.109142545  0.170910085  0.561454633  0.10546998
+## 58 -0.349421103  0.343568476 -0.221171854 -0.097188293  0.006148163  0.06623027
+## 59 -0.569563891 -0.454176975 -0.002932557  0.318294201  0.184176662 -0.05703861
+## 60 -0.475931334  0.062643143  0.022690473 -0.118532626 -0.051440357  0.06652905
+## 61 -0.351111983  0.276409674  0.324110966  0.008842665 -0.026062892  0.16970214
+## 62 -0.062102525  0.435917916  0.507168325 -0.037231831  0.244367271  0.27667297
+## 63 -0.134804460  0.114873983  0.233289844  0.124305709 -0.110676437 -0.15028214
+## 64 -0.417100776  0.147390907  0.227304817  0.187682188 -0.140213429  0.03178561
+## 65 -0.261469224 -0.005878805  0.233424650  0.504731310 -0.169850465 -0.08177118
+## 66 -0.103105531  0.340214098  0.237501878  0.199192965 -0.129160880 -0.07185010
+## 67 -0.641978437 -0.473517641 -0.038747654 -0.013507009 -0.029761513  0.06843047
+## 68 -0.250539755 -0.039504714  0.307659441  0.189967645 -0.300772626 -0.00219446
+## 69  0.059739523  0.042395505  0.013737233  0.327360181 -0.019588367 -0.20136385
+## 70 -0.327547127  0.173388449  0.130845880  0.252042971 -0.132197039 -0.10714025
+##          Axis.7        Axis.8       Axis.9       Axis.10      Axis.11
+## 1   0.054979690 -0.1259798298 -0.038388402  0.0416029181 -0.003343086
+## 2  -0.013772704  0.0424759853 -0.023242740  0.0142629726  0.053781054
+## 3   0.011569809  0.0487209775 -0.026872719  0.0155367809  0.066889828
+## 4   0.149518923  0.0082899082 -0.072465166  0.0027443926  0.108237651
+## 5  -0.163909150  0.1002439832 -0.001393597 -0.1092631607  0.180358560
+## 6   0.031834849 -0.0230837010  0.071516621 -0.0012109434  0.093347455
+## 7   0.014793181 -0.1081213875  0.006970952 -0.0972433509  0.008375110
+## 8  -0.146234433  0.1232853527  0.077095965  0.1271726643  0.053170849
+## 9  -0.124276773 -0.0543478847  0.107500472  0.1871654922 -0.067217056
+## 10 -0.002018798  0.0427695962 -0.118563815  0.0462900431 -0.055493791
+## 11 -0.050546611  0.1797122146 -0.006052679 -0.0122751784  0.127062487
+## 12 -0.051450504 -0.0985123481 -0.106546735 -0.0031404745  0.023612699
+## 13 -0.149360160 -0.0114240488 -0.074643603  0.1139616947  0.124733237
+## 14  0.137455955  0.1771412930  0.001755198 -0.0002730352 -0.117938414
+## 15 -0.005111966  0.1339553719 -0.026358135 -0.0470726142 -0.139668556
+## 16 -0.179283676 -0.1143665801 -0.079927663  0.1696727226 -0.061972235
+## 17 -0.098459396 -0.0943549245  0.021270966 -0.0725845230 -0.090125685
+## 18  0.211932781  0.0254476001 -0.024196119 -0.0860041122 -0.038021355
+## 19  0.059585480 -0.0006793380  0.076005861  0.0087134149 -0.159833033
+## 20 -0.033432873  0.1793374186  0.058011000  0.1186598197 -0.149502079
+## 21 -0.051116783 -0.2097074081  0.088113698 -0.0324457386 -0.003899276
+## 22 -0.006819811 -0.0439374076 -0.049141951 -0.0911331199 -0.007124479
+## 23  0.153258923 -0.1054977932  0.153647302  0.0873371291  0.040112862
+## 24 -0.090440201 -0.1245755252 -0.056912009 -0.0516696004  0.015033932
+## 25 -0.145680117 -0.0336613586  0.054221475 -0.2319031504  0.007034901
+## 26 -0.016058442 -0.0116438487 -0.039825838 -0.0325677863  0.095929468
+## 27 -0.073027893  0.1183113984 -0.100232251  0.0374415826 -0.063618254
+## 28 -0.061258900  0.0634346364  0.003413527 -0.0064311681 -0.012612001
+## 29  0.168378760  0.0261114845 -0.010076647 -0.1954983867 -0.063165381
+## 30  0.201627200  0.0918935222  0.006844985  0.1355824594 -0.073197434
+## 31  0.105334433 -0.0413408787 -0.013162531 -0.1551350458 -0.004087350
+## 32  0.048916610 -0.0274920479  0.152668370  0.1246760627  0.073120512
+## 33  0.229288869  0.0983781577 -0.009600415 -0.0805465316 -0.002913514
+## 34 -0.054478868 -0.0026304894  0.144344969 -0.0650447663  0.009368832
+## 35  0.150479695 -0.1078446792 -0.103303802 -0.0327024027 -0.028222449
+## 36  0.088755708 -0.1323677937 -0.052061228  0.0413269157  0.050078439
+## 37  0.109922197 -0.1350301284  0.009319563 -0.0211761074 -0.045178157
+## 38  0.196889490  0.0239558002  0.050481487  0.0734082622  0.060643762
+## 39 -0.137354105  0.1229745346 -0.054003032 -0.0989478988 -0.113107163
+## 40 -0.043769785 -0.0292884844  0.095585470 -0.0914004885  0.003912074
+## 41  0.053564940  0.0694142397 -0.032623657 -0.0964475885  0.027341540
+## 42 -0.119494712  0.0368513256 -0.052701512  0.0040413750  0.022440629
+## 43  0.175127167 -0.1120364171  0.075237982  0.1333128325  0.049235854
+## 44 -0.071150065 -0.0007002596  0.339956513 -0.0473190064  0.017139112
+## 45  0.053744586  0.1090509070  0.024947135  0.0195849462 -0.020556711
+## 46  0.111543767 -0.1338339995 -0.036350496  0.1302375527  0.046500041
+## 47 -0.103466859 -0.0289057423  0.023898507 -0.0095084652  0.011134728
+## 48 -0.041464580  0.1508344704 -0.019512061 -0.1239059035 -0.013651658
+## 49  0.032783637  0.0568739426  0.234081670  0.0888618090 -0.034706009
+## 50 -0.083648566 -0.0534891586 -0.044797312 -0.0381473572  0.041772326
+## 51 -0.060893303 -0.0107780319 -0.077948348  0.1063037716  0.021821591
+## 52  0.047538862  0.1001280449 -0.014901675 -0.0261195396  0.134841333
+## 53 -0.014301516 -0.0081772429 -0.011935959  0.0064219620  0.045795454
+## 54 -0.100444424 -0.0304592644 -0.021749289  0.0388418562 -0.058753685
+## 55 -0.094205657  0.0757014184  0.129503314  0.0659212523 -0.097470701
+## 56 -0.157392732 -0.1150222659  0.025971435 -0.0083061667 -0.048830224
+## 57 -0.206113955  0.1206099899 -0.254283898  0.1368673802 -0.010273229
+## 58 -0.117188568  0.1068084565  0.031439021 -0.0480701935  0.043925961
+## 59 -0.020235949 -0.0781189775  0.076688475 -0.1240166048 -0.032437350
+## 60 -0.061703906 -0.0419688609 -0.066995799 -0.0129099288  0.102440109
+## 61  0.027713475 -0.0100958081 -0.115194257 -0.0544700755 -0.079657841
+## 62 -0.039775488 -0.0950793695  0.033826038  0.0016214222  0.141246681
+## 63  0.217789267 -0.0336927708 -0.113982235  0.1210213701 -0.084367040
+## 64 -0.078221810  0.0122938516  0.007016610  0.0218941720 -0.058225073
+## 65 -0.011806064  0.0026497544  0.049509607 -0.0619555495 -0.087247318
+## 66 -0.071722739  0.0223785593  0.035953419  0.1017211984 -0.035936948
+## 67  0.001160322 -0.1628278152 -0.115069960 -0.0881969614 -0.096911371
+## 68  0.030564329 -0.1753016469 -0.104511592  0.0521954334 -0.017223454
+## 69  0.214509235  0.2388983869 -0.039636129  0.0258853614  0.140137016
+## 70  0.060530698  0.0174429339 -0.057632349 -0.0452460983  0.035913270
+##         Axis.12      Axis.13       Axis.14       Axis.15       Axis.16
+## 1  -0.110681911 -0.011045953 -0.0143687288  0.0079825796  0.0241099789
+## 2   0.023069872 -0.081317893 -0.0266120930  0.0226698395  0.0719038273
+## 3  -0.077773222  0.033308708 -0.0283338720  0.0267315712 -0.0127746261
+## 4  -0.075938167 -0.053293673  0.0244658272 -0.0326340920  0.0339536617
+## 5  -0.041071137  0.164515099 -0.0594547449 -0.0207568133 -0.0826374492
+## 6  -0.185673332  0.089457954 -0.0085475005  0.0542603232 -0.0409483579
+## 7  -0.085801770 -0.038865240  0.0141818148  0.0423703885 -0.0080447997
+## 8  -0.004066936  0.066459189  0.0262256033  0.0612070960 -0.0275915600
+## 9  -0.030443746 -0.053677400 -0.0072257576  0.0366395855 -0.0397572555
+## 10 -0.099515839  0.079048313  0.0416959754  0.0172507049  0.0814299884
+## 11 -0.012171578 -0.014843432 -0.1379814582 -0.0312880402 -0.0413558844
+## 12 -0.002046185  0.022188461 -0.0204560588  0.0551185940  0.0512186249
+## 13  0.068098539 -0.056179799  0.0909004579  0.1046258321 -0.0017734530
+## 14 -0.059111344  0.021867551  0.0803926922 -0.0876316722  0.0542560583
+## 15  0.045801510 -0.088166986  0.0928434839 -0.2019252101 -0.0163125991
+## 16  0.014300846 -0.021868864 -0.0522306660  0.0081884716  0.0812231920
+## 17  0.028771164  0.071658071  0.0021089068  0.0206881839 -0.0314864586
+## 18  0.030726547  0.012264276  0.0293283220 -0.0382539780  0.0439208048
+## 19 -0.085603786 -0.023819321 -0.0291961284  0.0044453546 -0.0152077305
+## 20  0.123535092 -0.134428794  0.0215807107 -0.0395596539 -0.0502173529
+## 21  0.018151588 -0.029190820 -0.0245242151  0.0537191247  0.0596366183
+## 22  0.140126583  0.005291937  0.0839636565 -0.0106682225 -0.0278820591
+## 23  0.031711528  0.095810923 -0.0034786776 -0.1027400186 -0.0449714002
+## 24  0.027819338 -0.181670115  0.0065002083  0.0976257454 -0.1236277050
+## 25 -0.024821202  0.098264755 -0.1177909307 -0.0425812286 -0.0040741126
+## 26  0.127161655  0.029268110  0.0388809399 -0.0707441743 -0.0379741011
+## 27  0.052334086 -0.037429824 -0.0599071300  0.0761656200  0.1010558734
+## 28 -0.092961163 -0.181967202 -0.0270398763 -0.0919897718  0.0575604444
+## 29  0.093687768  0.020294764  0.0577503466  0.0838798983 -0.0017052840
+## 30 -0.024713583 -0.002694932 -0.0223308284  0.0908275233 -0.0374814190
+## 31 -0.100524831 -0.078004085  0.0465755459 -0.0165638415  0.0557950946
+## 32  0.070699632  0.089570673 -0.0174431879 -0.2154265746 -0.0926176365
+## 33  0.059226667 -0.014497544 -0.0427052434  0.0778643971 -0.0213468354
+## 34 -0.018441513 -0.019694187  0.0806471630 -0.1137315673  0.0172014231
+## 35  0.027638380  0.052405275 -0.1003719731 -0.0523477350 -0.0003811319
+## 36 -0.097975258 -0.030667144  0.0043216189  0.0049461448 -0.1159265467
+## 37 -0.028584717 -0.041617091 -0.0357896180 -0.0188914570  0.0182962223
+## 38  0.127957150 -0.048227349  0.0519499617  0.0726603498 -0.0341254867
+## 39  0.028102493  0.077257923  0.0310572946  0.0008312879 -0.0051799519
+## 40  0.075825576  0.016032704 -0.0632337456  0.0291392535  0.0763029125
+## 41  0.111756752  0.033667256 -0.0311763256  0.0441776645  0.0644633823
+## 42  0.036429088 -0.033751529 -0.0363677386  0.0322966729  0.0545030717
+## 43  0.129774163 -0.036491377 -0.0557499806  0.0137069233 -0.0401607946
+## 44  0.070104777 -0.062094775 -0.0433794081  0.0182616684  0.0380731199
+## 45 -0.126003120  0.037891873  0.0002582049  0.0226782908  0.0553078302
+## 46  0.004263033  0.046322858  0.0239659977 -0.0399926660  0.0541260538
+## 47 -0.001659923  0.020460426  0.0259287483 -0.0094058501 -0.0110036751
+## 48 -0.032709107 -0.087265899 -0.0198575662  0.0495634437 -0.0629143634
+## 49 -0.058900987 -0.012472448 -0.1098073595  0.0685156001  0.0598695786
+## 50  0.115631566 -0.051108736 -0.0584228139 -0.0408385396  0.1628695158
+## 51 -0.072780179 -0.007092176  0.0313132878 -0.0185868329 -0.0094136521
+## 52 -0.152294360 -0.097327163  0.0426185297 -0.0081616694  0.0191540974
+## 53 -0.104341064 -0.093331568 -0.1189367774 -0.0703678560 -0.0242693060
+## 54 -0.014377757  0.072591511  0.0435498741  0.0597984421 -0.0900892337
+## 55  0.035026367  0.184795940  0.0084732982  0.0778422349  0.0483353160
+## 56 -0.032990865  0.013332000  0.0418194839 -0.0287690453 -0.0155565347
+## 57  0.004194121  0.076674704 -0.0565545580 -0.1131544969  0.0163298509
+## 58  0.051700255 -0.022221390  0.0554465303  0.0664377252 -0.0808606455
+## 59 -0.103406549  0.081667633  0.1075354327 -0.0030932673  0.0682957346
+## 60  0.075581566 -0.001611872  0.1893893068 -0.0188132653 -0.0348104271
+## 61  0.017502992 -0.035358820 -0.1216866911  0.0366535888 -0.1530463112
+## 62  0.015546112 -0.037291029  0.1435086796  0.0009765413  0.0994535383
+## 63 -0.045037400  0.099492146  0.0596002140  0.0400234622 -0.0094934135
+## 64 -0.022047639 -0.017287396 -0.0062949148 -0.0078039177 -0.0521778649
+## 65 -0.003098698  0.004050166  0.0114296984 -0.0327366085 -0.0463902317
+## 66 -0.039717775 -0.010170666  0.1166417496  0.0374516421 -0.0074743343
+## 67  0.024153473  0.087405631  0.0009171793  0.0301721125 -0.0522177596
+## 68  0.111865185  0.014185271 -0.1180893744 -0.0617751275  0.0557352790
+## 69  0.073734060  0.091752652 -0.0219694431  0.0390492904  0.0446419102
+## 70 -0.024722882 -0.061210264 -0.0304513591 -0.0462099789 -0.0637432588
+##          Axis.17      Axis.18       Axis.19       Axis.20       Axis.21
+## 1  -0.1456382325 -0.020901790  9.674368e-02  0.0870975056 -9.637297e-02
+## 2   0.0124733490  0.043376108 -2.727828e-02  0.0403973485  1.100675e-01
+## 3   0.0464678390  0.037778081 -7.583428e-02 -0.0642431152  5.495810e-02
+## 4   0.0519271696  0.098510329 -2.681726e-03  0.0026836134  1.733641e-02
+## 5  -0.0833144865 -0.025803572 -8.458268e-03 -0.0005495176 -4.575199e-02
+## 6   0.0497598527  0.050639841  1.499189e-02 -0.1004140334 -9.319535e-03
+## 7   0.0812759804  0.061605210 -2.118716e-02 -0.0542437757  5.122670e-02
+## 8   0.0163084099 -0.076890124 -1.391162e-02 -0.0646313186  5.576417e-02
+## 9   0.0233632665 -0.004852586  1.059609e-02  0.0157394381 -5.054585e-02
+## 10  0.0534031812  0.001314603  2.073294e-02  0.0275422690  6.973359e-03
+## 11 -0.0525447737 -0.041764439  2.956717e-05  0.0191515200  1.331754e-02
+## 12  0.0208906704  0.029038591  1.676862e-02  0.0008119271 -4.611191e-02
+## 13  0.0938237905 -0.032553245  1.287237e-01 -0.0117765005 -1.001255e-01
+## 14  0.0401989312 -0.039743814  4.465570e-02  0.0172717046  2.222420e-02
+## 15  0.0349053822 -0.025640048  3.008143e-04  0.0249648290  3.878325e-02
+## 16 -0.0050710435  0.033032460 -2.811728e-02  0.0718797313 -6.867173e-03
+## 17  0.0017577951 -0.056925167 -1.132138e-01 -0.0515443614 -5.719464e-02
+## 18  0.0493068893  0.030978770 -1.696447e-02 -0.0250514561 -3.551161e-02
+## 19 -0.1046646594  0.052207447  5.609506e-02 -0.0314716404 -1.215348e-01
+## 20 -0.0350952229 -0.095960338  5.680576e-03 -0.0214747161  2.500358e-02
+## 21 -0.0553104520  0.057755124  1.215887e-02  0.1044506490  4.004886e-02
+## 22 -0.0006623028  0.011511928 -7.070360e-02  0.0845345986 -6.844238e-02
+## 23  0.0746764903  0.033409411 -1.176782e-02 -0.0159792892 -7.584224e-03
+## 24  0.0627715717  0.009966023  1.587759e-02 -0.0240554811  1.011006e-01
+## 25 -0.0955945734 -0.008384812  2.671743e-02 -0.0084945848  5.837061e-02
+## 26  0.0087090209 -0.026850354  2.910935e-02  0.0339621716 -2.444727e-02
+## 27 -0.1116226136 -0.015536509 -8.273959e-02  0.0011804383 -4.410336e-03
+## 28 -0.0019270743 -0.005476935  2.779431e-02 -0.0504395321  5.614761e-02
+## 29  0.0555162897 -0.052117008 -5.692147e-02 -0.0196729895 -4.552761e-02
+## 30 -0.1083219890  0.079937991 -7.797664e-03  0.0036153124  4.241026e-03
+## 31  0.0210203153  0.021252772  1.766589e-02  0.0294281270 -2.602886e-02
+## 32  0.0607819660  0.040943928 -2.843305e-02 -0.0094659260 -4.601792e-02
+## 33 -0.0045373109  0.067389722 -2.319957e-02 -0.0034037391  2.076090e-02
+## 34 -0.0368734257  0.071470037  3.443703e-02  0.0824718564  3.117178e-02
+## 35 -0.0371702856 -0.098710408  7.431323e-02 -0.0376516222  6.491082e-02
+## 36 -0.0933149922 -0.040027136 -4.465444e-02  0.0241852246  4.020198e-02
+## 37  0.0279709564 -0.021500230 -2.957365e-02 -0.0346951700 -3.805964e-03
+## 38 -0.1358018077 -0.071321019 -1.206956e-02 -0.0831281648 -1.566410e-02
+## 39 -0.0284423229  0.059594153  1.160889e-02 -0.0859147631 -4.960028e-02
+## 40 -0.0227355188  0.008865651  4.523321e-02 -0.0073460255  5.409568e-02
+## 41  0.0025252305  0.006205674  1.090416e-02 -0.0456658794 -7.294540e-03
+## 42  0.0548592968  0.032469339 -7.241887e-02 -0.0489473661 -2.336522e-02
+## 43  0.0382106202  0.060839320  2.035331e-02  0.0100785090 -2.139274e-02
+## 44  0.0072313700 -0.004341247  2.056001e-02 -0.0018962801 -2.338482e-03
+## 45 -0.0171363242 -0.001482175 -8.625515e-02  0.0463387765  2.249344e-02
+## 46 -0.0075013091  0.005879174 -6.317029e-02 -0.0101706353  1.753614e-02
+## 47  0.0019486749 -0.011812367 -1.311889e-02  0.0107399440 -6.271511e-03
+## 48  0.0497192593 -0.018716239  1.226912e-02  0.0336831474 -5.634660e-02
+## 49  0.0877754122 -0.111929400  1.515540e-03  0.0037856714 -2.171333e-02
+## 50  0.0240199161  0.056970595  2.562336e-02 -0.0676836527 -8.967807e-02
+## 51 -0.0120355411 -0.028588839  1.161441e-02 -0.0074609314 -1.034024e-02
+## 52  0.0317636944 -0.103718116 -5.543261e-02  0.0405272456 -8.566143e-02
+## 53  0.0340415108 -0.085818309 -3.974408e-03  0.0198963185 -8.425055e-03
+## 54  0.0328707243  0.002347393 -8.012554e-02  0.0883252354  9.331706e-03
+## 55  0.0484887994 -0.005276396  9.941347e-02  0.0361611022  6.189897e-02
+## 56 -0.0517700741  0.010802576 -3.645885e-02 -0.0009123045  6.037057e-03
+## 57  0.0395791660  0.053748584  2.946709e-02 -0.0300215283  5.607730e-03
+## 58 -0.0001176404  0.082635361  7.826619e-02  0.0270434193  5.502414e-02
+## 59 -0.0038324723 -0.037320361  3.703481e-02 -0.0154898388 -3.500361e-03
+## 60 -0.1137277250 -0.014767457  1.561514e-02 -0.0265594630  3.291779e-02
+## 61  0.0951175525  0.042426940  6.911839e-02  0.0515500430 -3.085042e-02
+## 62 -0.0089725872 -0.070216513  1.281842e-02 -0.0094503827  3.716633e-02
+## 63 -0.0209640183 -0.019030209  9.329783e-02 -0.0476428722  5.604272e-02
+## 64 -0.0515301184  0.057439040 -7.125371e-02  0.0144992628  1.912438e-03
+## 65 -0.0175077373  0.052011376 -2.425524e-02 -0.0053238447 -8.402267e-05
+## 66 -0.0006241893  0.062492289 -6.235889e-02 -0.0400704707 -4.015490e-03
+## 67  0.0999975705 -0.136561831  4.218747e-03  0.0527335325  2.944207e-02
+## 68 -0.0217427651 -0.046231320 -4.242624e-02 -0.0204847899  2.724055e-02
+## 69  0.0087569996  0.010837335 -1.182085e-02  0.1362221611  1.375847e-02
+## 70 -0.0581093253  0.019087137  6.625245e-02 -0.0595246707 -1.097167e-02
+##         Axis.22      Axis.23       Axis.24       Axis.25      Axis.26
+## 1  -0.040438790  0.125439145 -0.0158793790  0.0262169979 -0.032543847
+## 2   0.024387648  0.052065779  0.0996724163  0.0778077538 -0.018061388
+## 3  -0.086269637 -0.004168564  0.0059333937  0.0319543989  0.030626656
+## 4  -0.034869674 -0.027382294 -0.0269101345 -0.0378773239 -0.016921288
+## 5   0.030036779  0.017268441 -0.0570507358 -0.0483347534  0.036998227
+## 6   0.006100397  0.035583272 -0.0449477016 -0.0053228203 -0.020271047
+## 7  -0.026626594  0.023744458  0.0491038626  0.0080658526 -0.042326060
+## 8   0.055670770  0.026121291  0.0795813958 -0.0688369706  0.037219596
+## 9   0.028711855  0.101320249  0.0075709486 -0.0186710912 -0.036963304
+## 10 -0.037428010 -0.071222853 -0.0106918310  0.0120690037  0.062894539
+## 11  0.017930432 -0.080083785  0.0320661871  0.0134429888 -0.045112533
+## 12  0.015282092 -0.068984778 -0.0448919987  0.0111739053 -0.055270619
+## 13  0.057862965 -0.041122358 -0.0157497206  0.0525205040 -0.023667241
+## 14  0.004988447  0.008619122  0.0285873472  0.0080955460  0.030268421
+## 15  0.112582986 -0.037144872 -0.0641084738 -0.0534223015 -0.037212826
+## 16  0.062953161 -0.025449487  0.0487586788 -0.0320571196  0.008712794
+## 17 -0.065844169 -0.033248458  0.0032921762  0.0293899323  0.010017483
+## 18  0.014359120  0.021467721  0.0572970856  0.0096608775  0.031206379
+## 19  0.020732901 -0.039225060 -0.0062623818  0.0313303492 -0.003068978
+## 20 -0.041895805 -0.002836519 -0.0543506259  0.0420522045 -0.005171203
+## 21  0.010350055 -0.036915762 -0.0057389293 -0.0277865916  0.015988502
+## 22 -0.075749328  0.075033764  0.0053072401  0.0131357455  0.066577826
+## 23  0.054769278  0.072622241 -0.0522673146 -0.0225822069  0.072173421
+## 24 -0.040920527 -0.020185112 -0.0582119418 -0.0335844503 -0.031989594
+## 25  0.038694389  0.021979269  0.0043703205  0.0232399786 -0.014549540
+## 26 -0.046802676 -0.076040334  0.0061659757  0.0366376061  0.031848755
+## 27 -0.066950931  0.018125759 -0.0459701521 -0.0763413162 -0.006922873
+## 28 -0.033027601  0.053894472 -0.0136118152 -0.0186692837  0.045289970
+## 29  0.035596749  0.041101907  0.0369002804  0.0131349928 -0.018393462
+## 30  0.000574700 -0.050649792  0.0448469749  0.0599955591  0.033001055
+## 31  0.018808949 -0.029277182 -0.0060642064 -0.0492494512 -0.000744636
+## 32 -0.082658736 -0.031005109  0.0192482593 -0.0031248121 -0.074999080
+## 33 -0.012704324  0.014495574 -0.0184860075 -0.0228263670 -0.028498236
+## 34 -0.052949707 -0.010914719 -0.0013438113  0.0349431552  0.027926227
+## 35  0.007960620  0.068887507  0.0210963756  0.0127561093 -0.050071720
+## 36  0.085110553 -0.064240287  0.0275202169 -0.0224393346  0.072291953
+## 37  0.045589464 -0.008421365  0.0074333720 -0.0189261612  0.002352847
+## 38 -0.029285505 -0.003169859 -0.0100256145 -0.0330001883  0.002370786
+## 39  0.011735590 -0.014602076  0.0565795037 -0.0010327008 -0.003159050
+## 40  0.016569944 -0.036348784 -0.0483629679  0.0176128278  0.038146694
+## 41  0.025603659 -0.026396076 -0.0404551064  0.0412848488 -0.022985895
+## 42  0.043757716  0.032100523 -0.0634511186  0.0569057716  0.055658047
+## 43  0.004803843 -0.001807494 -0.0055142963 -0.0270443839  0.020187176
+## 44  0.023088835 -0.030036862 -0.0040772600  0.0081787304  0.025915021
+## 45 -0.024694763  0.006235557 -0.0726691809 -0.0007567561 -0.044539992
+## 46  0.008429598 -0.030943379  0.0074557175  0.0006690425 -0.055852617
+## 47  0.100211466  0.049625021  0.0003304394  0.0193240285 -0.019074317
+## 48  0.006258276  0.018976399  0.0313634016 -0.0816237730  0.013241165
+## 49 -0.019233910 -0.019050685  0.0239066695  0.0072822930 -0.006487026
+## 50 -0.010233299 -0.010108650  0.0377406017 -0.0651116988 -0.003898574
+## 51 -0.074751459  0.014285158  0.0156977988 -0.0307723783  0.024073411
+## 52 -0.012044019 -0.019118957 -0.0002444917  0.0269709743 -0.013376911
+## 53 -0.013271391 -0.028553139  0.0191524295  0.0473963414  0.008459835
+## 54  0.022151144 -0.028516945 -0.0073250495  0.0149849351 -0.008001277
+## 55 -0.092169655 -0.020978271  0.0142256494 -0.0537558984 -0.024583900
+## 56 -0.003534186 -0.033763089  0.0275567374 -0.0077100766 -0.004994291
+## 57 -0.001567351  0.041151180 -0.0049713337  0.0179639307  0.006567013
+## 58 -0.009633274  0.046536452 -0.0275773624  0.0561740808  0.012139881
+## 59 -0.004593441 -0.018482965 -0.0007014041 -0.0091956304  0.012275173
+## 60 -0.003909064 -0.013973943  0.0578358560 -0.0310650176 -0.036089210
+## 61 -0.030654312  0.003009323  0.0307571021 -0.0417347298  0.033439548
+## 62 -0.039770554  0.041403620 -0.0038409700  0.0020715501  0.004420062
+## 63  0.024598141 -0.027629067 -0.0415701289 -0.0052244439  0.019515687
+## 64 -0.021989961  0.015417525 -0.0112320353 -0.0109183137 -0.024856001
+## 65  0.017642506  0.005680885  0.0085821287  0.0145294451 -0.071757676
+## 66  0.062371139  0.022188952 -0.0158903073  0.0332440661 -0.003534504
+## 67 -0.020347562  0.010346666 -0.0153019275  0.0218580579 -0.012637531
+## 68  0.008436941  0.014104598 -0.0236966750  0.0194280894  0.026667414
+## 69  0.053653426  0.029991254  0.0006474882 -0.0149502523 -0.023683592
+## 70 -0.021546320 -0.006824151  0.0228603599  0.0204461225  0.023800278
+##          Axis.27       Axis.28       Axis.29       Axis.30       Axis.31
+## 1  -0.0214489348 -0.0062493017  0.0005904075 -0.0098185124  0.0002576620
+## 2  -0.0018257707  0.0007192033 -0.0060382759  0.0252139281  0.0449648727
+## 3  -0.0230905950  0.0459988987 -0.0145453326 -0.0069991267  0.0133689950
+## 4   0.0106510843 -0.0582517939 -0.0183645997  0.0121981876 -0.0358175465
+## 5   0.0310533762 -0.0017150785  0.0514465327  0.0714369118 -0.0151264400
+## 6  -0.0413952413  0.0277986881 -0.0127963105 -0.0132924710  0.0249466938
+## 7  -0.0434234759  0.0126047551  0.0038049668 -0.0052145017 -0.0632259337
+## 8  -0.0280980176 -0.0175207970 -0.0059972747  0.0092652975 -0.0039279369
+## 9   0.0150038615  0.0522817116  0.0082975396 -0.0177932521 -0.0210459397
+## 10  0.0550203506 -0.0064864577 -0.0035575446 -0.0108387469  0.0185434607
+## 11 -0.0042753709 -0.0150529779  0.0670866905 -0.0080975105  0.0337201840
+## 12 -0.0312721604 -0.0037783797  0.0222792189 -0.0351956927  0.0423692092
+## 13  0.0177882370  0.0133480681 -0.0052239919 -0.0208074324 -0.0132163250
+## 14 -0.0358830147 -0.0279213051  0.0014769046  0.0004334194 -0.0043077515
+## 15 -0.0248318804 -0.0092380051 -0.0177418509  0.0128708998  0.0061136295
+## 16 -0.0252088165 -0.0271021422  0.0467064640  0.0190021463 -0.0224382992
+## 17 -0.0377047263 -0.0591888106  0.0013912891 -0.0192558738  0.0215036364
+## 18  0.1110065546  0.0204471578  0.0266087892 -0.0486169465  0.0003625703
+## 19 -0.0117987667 -0.0257447959 -0.0667356492  0.0217256780  0.0203420725
+## 20  0.0289764253  0.0521870718  0.0138145333 -0.0120594776  0.0110135048
+## 21 -0.0113635420  0.0079184964 -0.0043510810 -0.0381929707 -0.0091066208
+## 22 -0.0382993472  0.0107828833 -0.0069340389  0.0284098164  0.0318818830
+## 23  0.0399641087 -0.0350229029  0.0244152678 -0.0363308802  0.0313227941
+## 24  0.0469243293 -0.0325680546 -0.0296103161  0.0361556853  0.0434139088
+## 25  0.0476790031 -0.0143709167 -0.0707650961 -0.0476826989 -0.0238758739
+## 26 -0.0134611769  0.0318026261 -0.0305535669  0.0055644150 -0.0050692293
+## 27  0.0369995086  0.0053703578 -0.0110926849 -0.0105625149 -0.0592820566
+## 28 -0.0038029798  0.0070580280 -0.0011800054 -0.0161664275 -0.0166779299
+## 29 -0.0100094651  0.0162433440 -0.0041247438  0.0218673099 -0.0241213008
+## 30  0.0327289508 -0.0516424466 -0.0059136579  0.0397235717 -0.0147868792
+## 31  0.0135065688  0.0376298489  0.0017446882  0.0222509850  0.0088253457
+## 32 -0.0033455770 -0.0008101316 -0.0488419005  0.0089879326 -0.0373315002
+## 33 -0.0255530572  0.0731260724  0.0324018886 -0.0052977609  0.0332144234
+## 34 -0.0530728067 -0.0042314954  0.0714480322  0.0134570285 -0.0166931185
+## 35  0.0109757721 -0.0284798781 -0.0017207441  0.0628434968  0.0235285119
+## 36 -0.0034083605  0.0628324835 -0.0282645754  0.0116761180 -0.0211710294
+## 37  0.0034393932 -0.0111674618  0.0305521344 -0.0364791504 -0.0019428642
+## 38 -0.0315624396 -0.0168141537  0.0129373373 -0.0240528204 -0.0034672596
+## 39  0.0097854651  0.0279607816  0.0089584803 -0.0100916690  0.0061073178
+## 40 -0.0352206447  0.0206039473 -0.0062121194 -0.0173187156  0.0036841251
+## 41 -0.0151240745  0.0010622221  0.0278677346  0.0083462099 -0.0508889960
+## 42 -0.0114842209 -0.0534966140  0.0033315478 -0.0028085996 -0.0124117182
+## 43  0.0167170676 -0.0141925247  0.0231283735  0.0028018260  0.0018106653
+## 44 -0.0017622609  0.0155812834 -0.0167785673  0.0162111915 -0.0108387588
+## 45 -0.0045449602  0.0017673982  0.0146474457 -0.0065889495  0.0095181873
+## 46  0.0121643678 -0.0127435487  0.0193114085  0.0023655311  0.0030121056
+## 47  0.0026465175  0.0323911632  0.0150391106  0.0080151446  0.0197120488
+## 48 -0.0484105081 -0.0726902697 -0.0197390565 -0.0362241219  0.0239513142
+## 49 -0.0134510101 -0.0128910977 -0.0104135389  0.0097521029  0.0045581559
+## 50  0.0167054437  0.0199320911 -0.0193070994  0.0546327629  0.0190375608
+## 51  0.0252331870 -0.0009875097  0.0034476035 -0.0081223988  0.0299794563
+## 52  0.0294332679  0.0130384055 -0.0030962415  0.0223830028 -0.0030494214
+## 53  0.0042006345 -0.0007718911  0.0056639463 -0.0227457598 -0.0132682296
+## 54  0.0024225437  0.0258593133 -0.0228528265  0.0021265663  0.0019810891
+## 55  0.0254698968  0.0065970763  0.0113244053  0.0054839764  0.0103950787
+## 56  0.0174164770  0.0240398402 -0.0119526633 -0.0054691526  0.0177730547
+## 57 -0.0297689604  0.0238298835 -0.0151576827 -0.0136784538 -0.0025749689
+## 58  0.0289761364 -0.0400599929 -0.0009706409  0.0035309994 -0.0094606071
+## 59  0.0132983773 -0.0010944863  0.0030521686  0.0138627378  0.0204883760
+## 60 -0.0049639073 -0.0309751304  0.0028734066 -0.0557648928  0.0056917335
+## 61 -0.0160031598  0.0167434304  0.0053205537  0.0087701552 -0.0197227818
+## 62  0.0032113281  0.0030168213 -0.0162370868  0.0221897116 -0.0092914700
+## 63 -0.0437055098  0.0212661966 -0.0028278305  0.0199058418 -0.0151101158
+## 64  0.0171760139  0.0077014306  0.0016350446  0.0014059253  0.0046139875
+## 65  0.0232413040 -0.0133783814  0.0348026147  0.0096684387  0.0058536784
+## 66  0.0071036630 -0.0195644072 -0.0129221615  0.0263891796 -0.0127991543
+## 67  0.0167799078 -0.0236396424  0.0248162406 -0.0042188572 -0.0440954317
+## 68 -0.0193685409  0.0037146733 -0.0322523694  0.0004210092  0.0242485474
+## 69 -0.0053493050  0.0009760003 -0.0671527188 -0.0321081413  0.0062049494
+## 70 -0.0004065372  0.0056111297  0.0300030748 -0.0234506602 -0.0121713013
+##          Axis.32       Axis.33       Axis.34       Axis.35
+## 1   3.510752e-02  0.0330537797  0.0064130595  3.099937e-03
+## 2  -7.282958e-03  0.0084330757  0.0124690915  6.786092e-03
+## 3   1.217735e-02 -0.0092968600  0.0134000578 -2.125948e-02
+## 4  -5.574305e-02  0.0149621804 -0.0117199065  4.489755e-03
+## 5  -1.324568e-02 -0.0075264555 -0.0034528252  1.647750e-03
+## 6  -9.055993e-03 -0.0126035392  0.0155388726  7.666602e-03
+## 7  -1.212234e-03  0.0127056432 -0.0056336788  1.394855e-02
+## 8   4.594964e-02  0.0173325658 -0.0015677204 -1.062034e-02
+## 9  -1.638890e-02 -0.0119287062 -0.0338301707 -4.068784e-04
+## 10  1.801940e-02 -0.0020138441 -0.0314317463  1.322075e-03
+## 11 -2.123204e-02 -0.0213312551 -0.0114671193  9.854437e-03
+## 12 -1.249415e-02  0.0390694185  0.0071184506 -2.401359e-02
+## 13  5.987312e-03 -0.0101920667  0.0049739037 -1.566912e-03
+## 14 -2.980406e-03  0.0174372896  0.0066029480  1.843012e-02
+## 15  7.454551e-03  0.0050672473  0.0238078426 -1.283033e-03
+## 16  4.664383e-03 -0.0412186706  0.0415721350 -3.950347e-05
+## 17 -6.167162e-03  0.0144790824 -0.0064490785  1.282354e-02
+## 18  1.830630e-02 -0.0332296397  0.0058819323 -8.862927e-03
+## 19 -4.846018e-03 -0.0453632580  0.0018132032  3.197985e-03
+## 20 -3.450014e-02  0.0144161544 -0.0025490666 -8.333917e-03
+## 21 -1.896468e-02  0.0021186673 -0.0092023192 -2.753702e-03
+## 22 -2.470002e-02 -0.0082942666  0.0067085986 -5.809050e-03
+## 23  1.383753e-02  0.0324447828 -0.0032135908  2.392182e-03
+## 24  3.801842e-02 -0.0131890589 -0.0017748227  9.571190e-03
+## 25 -1.414439e-02 -0.0041638583  0.0147097953 -9.891806e-03
+## 26  1.961504e-02  0.0272383226 -0.0092618349  1.556238e-02
+## 27  2.488080e-02  0.0177689818  0.0126005331  4.184439e-03
+## 28 -2.536238e-02 -0.0147246274 -0.0183805721 -2.103705e-03
+## 29 -1.568484e-02 -0.0036095441  0.0013930586  3.792005e-03
+## 30  8.585959e-05  0.0191575625 -0.0193990584 -8.605473e-03
+## 31  5.624822e-03 -0.0002089641 -0.0075711978 -5.410577e-04
+## 32  1.120639e-02 -0.0190568202  0.0057916623 -9.588107e-03
+## 33  1.698908e-02 -0.0155822174 -0.0037558585 -6.778566e-03
+## 34  3.071256e-02 -0.0204598348 -0.0112964196 -1.369937e-02
+## 35  1.207238e-02  0.0030738942 -0.0143359751 -1.053930e-02
+## 36 -3.068529e-02  0.0217505233  0.0050341596 -7.745756e-03
+## 37  2.547492e-02  0.0137135067  0.0221998203  6.385784e-03
+## 38 -5.316307e-03 -0.0156909943  0.0136055800  2.352438e-03
+## 39 -7.467045e-03  0.0079694518  0.0084433326  9.186845e-03
+## 40  5.878099e-04 -0.0008690955  0.0015844459  6.201978e-03
+## 41  2.095992e-02  0.0064914656 -0.0143665545 -6.266448e-04
+## 42 -1.575755e-02 -0.0046578297  0.0015868157 -6.418221e-03
+## 43 -1.364468e-02 -0.0017398831  0.0072978490  7.951869e-03
+## 44  1.811432e-02  0.0056957559 -0.0076106786  2.956302e-03
+## 45  1.452626e-02 -0.0081496465 -0.0067340754  4.731944e-03
+## 46 -5.291376e-03 -0.0026911453 -0.0067170862  4.111421e-03
+## 47 -2.065112e-02  0.0001675641 -0.0251276297  1.554287e-02
+## 48  1.597797e-03 -0.0082973070 -0.0264576803 -1.451270e-02
+## 49 -1.245360e-02  0.0065924763  0.0073839142 -6.417907e-03
+## 50  3.272533e-03  0.0177346351 -0.0087642293 -5.738138e-03
+## 51 -2.984018e-02 -0.0042623257  0.0285669454  5.221643e-03
+## 52  1.579617e-02  0.0086392722  0.0179429757  1.226834e-03
+## 53  1.499405e-02  0.0043424790 -0.0049312717  1.843771e-04
+## 54  1.397514e-02  0.0082247936  0.0002817281  1.785904e-03
+## 55 -2.566738e-02  0.0054366397  0.0057942811  7.943804e-03
+## 56  1.199141e-02  0.0013465563 -0.0034659503  1.493599e-03
+## 57  4.490482e-03  0.0043205427 -0.0093614018 -8.452111e-04
+## 58  7.178215e-03  0.0027775535  0.0311719961 -1.310182e-04
+## 59 -1.609972e-03 -0.0105622044  0.0085364730 -2.390268e-03
+## 60  2.523931e-03 -0.0067345871 -0.0232747076 -2.962267e-03
+## 61 -7.867086e-04  0.0127251920  0.0048373495 -5.676931e-05
+## 62 -1.834353e-02 -0.0027708817  0.0063045039 -5.620415e-03
+## 63  3.018902e-03 -0.0121693026 -0.0005458156 -5.555145e-03
+## 64  1.863758e-02 -0.0067412687 -0.0086869155  1.096419e-02
+## 65 -2.374383e-02  0.0394753730  0.0119960228 -1.590973e-02
+## 66  4.393773e-03 -0.0058721577 -0.0106343099 -2.647808e-03
+## 67 -1.203905e-02 -0.0288067193 -0.0066613416 -6.225101e-03
+## 68  3.970740e-03 -0.0193941859 -0.0080688470  7.618608e-03
+## 69 -1.967131e-03 -0.0121338719  0.0014419782  4.158236e-03
+## 70  3.056504e-03 -0.0006255353  0.0128961404  1.171213e-02
+## 
+## $trace
+## [1] 27.20504
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;pcoa&quot;</code></pre>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="analyse-en-coordonnées-principales.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">biplot.pcoa</span>(mite.spe.h.pcoa, mite.spe.hel, <span class="at">dir.axis2 =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="book-fr_files/figure-html/unnamed-chunk-98-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Les espèces 16 et 31 sont plus éloignées des autres espèces en termes de
 distance, et donc leur distribution entre les sites est très différente
 de celle des autres espèces d’acariens. Les sites dont les étiquettes

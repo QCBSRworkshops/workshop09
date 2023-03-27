@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Atelier 9 : Analyses multivariées en R</title>
+  <title>Chapitre 6 L’algèbre matricielle, très brièvement | Atelier 9 : Analyses multivariées en R</title>
   <meta name="description" content="Analyses multivariées en R" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Atelier 9 : Analyses multivariées en R" />
+  <meta property="og:title" content="Chapitre 6 L’algèbre matricielle, très brièvement | Atelier 9 : Analyses multivariées en R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Analyses multivariées en R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Atelier 9 : Analyses multivariées en R" />
+  <meta name="twitter:title" content="Chapitre 6 L’algèbre matricielle, très brièvement | Atelier 9 : Analyses multivariées en R" />
   
   <meta name="twitter:description" content="Analyses multivariées en R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-
-
+<link rel="prev" href="définir-nos-objectifs.html"/>
+<link rel="next" href="exploration-de-lensemble-de-données.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -259,11 +259,159 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="lalgèbre-matricielle-très-brièvement" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapitre 6</span> L’algèbre matricielle, très brièvement<a href="lalgèbre-matricielle-très-brièvement.html#lalgèbre-matricielle-très-brièvement" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>L’algèbre matricielle est bien adaptée à l’écologie, car la plupart (sinon tous) des <em>ensembles de données</em> avec lesquels nous travaillons sont dans un format <em>matrix</em>.</p>
+<div id="les-ensembles-de-données-sont-des-matrices" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Les ensembles de données <em>sont</em> des matrices<a href="lalgèbre-matricielle-très-brièvement.html#les-ensembles-de-données-sont-des-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Les tableaux de données écologiques sont obtenus sous forme d’observations d’objets ou d’unités d’échantillonnage, et sont souvent enregistrés sous cette forme :</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Objets</th>
+<th align="center"><span class="math inline">\(y_1\)</span></th>
+<th align="center"><span class="math inline">\(y_2\)</span></th>
+<th align="center"><span class="math inline">\(\dots\)</span></th>
+<th align="center"><span class="math inline">\(y_n\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(x_1\)</span></td>
+<td align="center"><span class="math inline">\(y_{1,1}\)</span></td>
+<td align="center"><span class="math inline">\(y_{1,2}\)</span></td>
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+<td align="center"><span class="math inline">\(y_{1,n}\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_2\)</span></td>
+<td align="center"><span class="math inline">\(y_{2,1}\)</span></td>
+<td align="center"><span class="math inline">\(y_{2,2}\)</span></td>
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+<td align="center"><span class="math inline">\(y_{2,n}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="center"><span class="math inline">\(\ddots\)</span></td>
+<td align="center"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(x_m\)</span></td>
+<td align="center"><span class="math inline">\(y_{m,1}\)</span></td>
+<td align="center"><span class="math inline">\(y_{m,2}\)</span></td>
+<td align="center"><span class="math inline">\(\dots\)</span></td>
+<td align="center"><span class="math inline">\(y_{m,n}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>où <span class="math inline">\(x_m\)</span> est l’unité d’échantillonnage <span class="math inline">\(m\)</span> ; et <span class="math inline">\(y_n\)</span> est le descripteur écologique qui peut être, par exemple, les espèces présentes dans une unité d’échantillonnage, une localité ou une variable chimique.</p>
+<p>Le même tableau de données écologiques peut être représenté en <em>notation matricielle</em> de la manière suivante :</p>
+<p><span class="math display">\[Y = [y_{m,n}] =
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n}
+\end{bmatrix}\]</span></p>
+<p>où les lettres minuscules indiquent les <em>éléments</em>, et les lettres en indice indiquent la <em>position de ces éléments</em> dans la matrice (et dans le tableau !).</p>
+<p>De plus, tout sous-ensemble d’une matrice peut être reconnu.</p>
+<p>Nous pouvons sous-ensembler <em>une matrice de lignes</em>, comme ci-dessous :</p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+\end{bmatrix}\]</span></p>
+<p>Nous pouvons également sous-ensemble <em>une matrice de colonnes</em>, comme ci-dessous :</p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,1} \\ y_{2,2} \\ \vdots \\ y_{m,2}
+\end{bmatrix}\]</span></p>
+</div>
+<div id="matrices-dassociation" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Matrices d’association<a href="lalgèbre-matricielle-très-brièvement.html#matrices-dassociation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Deux matrices importantes peuvent être dérivées de la matrice des données écologiques : la <em><strong>matrice d’association entre les objets</strong></em> et la <em><strong>matrice d’association entre les descripteurs</strong></em>.</p>
+<p>En utilisant les données de notre matrice <span class="math inline">\(Y\)</span>,</p>
+<div class="math">
+<p><span class="math display">\[ Y =
+\begin{array}{cc}
+\begin{array}{ccc}
+x_1 \rightarrow\\
+x_2 \rightarrow\\
+\vdots \\
+x_m \rightarrow\\
+\end{array}
+&amp;
+\begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+y_{m,1} &amp; y_{m,2} &amp; \cdots &amp; y_{m,n}
+\end{bmatrix}
+\end{array}
+\]</span></p>
+</div>
+<p>on peut examiner la relation entre les deux premiers objets :</p>
+<div class="math">
+<p><span class="math display">\[x_1 \rightarrow \begin{bmatrix}
+y_{1,1} &amp; y_{1,2} &amp; \cdots &amp; y_{1,n} \\
+\end{bmatrix}
+\]</span></p>
+</div>
+<div class="math">
+<p><span class="math display">\[x_2 \rightarrow
+\begin{bmatrix}
+y_{2,1} &amp; y_{2,2} &amp; \cdots &amp; y_{2,n} \\
+\end{bmatrix}
+\]</span></p>
+</div>
+<p>
+et obtenir <span class="math inline">\(a_{1,2}\)</span>.
+</p>
+<p>Nous pouvons remplir la matrice d’association <span class="math inline">\(A_{n,n}\)</span> avec les relations entre tous les objets de <span class="math inline">\(Y\)</span> :</p>
+<div class="math">
+<p><span class="math display">\[A_{n,n} =
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,n} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,n} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{n,1} &amp; a_{n,2} &amp; \cdots &amp; a_{n,n}
+\end{bmatrix}\]</span></p>
+</div>
+<p>
+Parce que <span class="math inline">\(A_{n,n}\)</span> a le même nombre de lignes et de colonnes, on la désigne comme une <i>matrice carrée</i>.
+</p>
+<p>
+<p>Donc <span class="math inline">\(A_{n,n}\)</span> a <span class="math inline">\(n^2\)</span> éléments.</p>
+<p>
+Par conséquent, <span class="math inline">\(A_{n,n}\)</span> a <span class="math inline">\(n^2\)</span> éléments.
+</p>
+<p>Nous pouvons également obtenir la relation entre les deux premiers descripteurs de <span class="math inline">\(Y\)</span>, <span class="math inline">\(y_1\)</span> et <span class="math inline">\(y_2\)</span> :</p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,2} \\
+y_{2,2} \\
+\vdots  \\
+y_{m,2}
+\end{bmatrix}\]</span></p>
+<p><span class="math display">\[\begin{bmatrix}
+y_{1,1} \\
+y_{2,1} \\
+\vdots  \\
+y_{m,1}
+\end{bmatrix}\]</span></p>
+<p>et le stocker dans <span class="math inline">\(a_{1,2}\)</span>.</p>
+<p>Nous pouvons remplir la matrice d’association <span class="math inline">\(A_{m,m}\)</span> avec les relations entre tous les descripteurs de <span class="math inline">\(Y\)</span> :</p>
+<p><span class="math display">\[A_{m,m} =
+\begin{bmatrix}
+a_{1,1} &amp; a_{1,2} &amp; \cdots &amp; a_{1,m} \\
+a_{2,1} &amp; a_{2,2} &amp; \cdots &amp; a_{2,m} \\
+\vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+a_{m,1} &amp; a_{m,2} &amp; \cdots &amp; a_{m,m}
+\end{bmatrix}\]</span></p>
+<p>
+Cette <span class="math inline">\(A_{m,m}\)</span> est une <i>matrice carrée</i>, et elle a <span class="math inline">\(m^2\)</span> éléments.
+</p>
+<p>Ces matrices, (A_{n,n}) et (A_{m,m}), sont à la base des analyses <strong><em>Q-mode</em></strong> et <strong><em>R-mode</em></strong> en écologie.</p>
+<p>La <strong><em>R-mode</em></strong> consiste à analyser l’association entre des descripteurs ou des espèces, tandis que la <strong><em>Q-mode</em></strong> analyse l’association entre des OTU, des objets ou des sites.</p>
+</div>
 </div>
 <hr>
 <center> 
@@ -276,8 +424,8 @@ the table of contents to find the page you are looking for.</p>
           </div>
         </div>
       </div>
-
-
+<a href="définir-nos-objectifs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploration-de-lensemble-de-données.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Atelier 9 : Analyses multivariées en R</title>
+  <title>Chapitre 7 Exploration de l’ensemble de données | Atelier 9 : Analyses multivariées en R</title>
   <meta name="description" content="Analyses multivariées en R" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Atelier 9 : Analyses multivariées en R" />
+  <meta property="og:title" content="Chapitre 7 Exploration de l’ensemble de données | Atelier 9 : Analyses multivariées en R" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
   <meta property="og:description" content="Analyses multivariées en R" />
   <meta name="github-repo" content="qcbsRworkshops/workshop09" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Atelier 9 : Analyses multivariées en R" />
+  <meta name="twitter:title" content="Chapitre 7 Exploration de l’ensemble de données | Atelier 9 : Analyses multivariées en R" />
   
   <meta name="twitter:description" content="Analyses multivariées en R" />
   <meta name="twitter:image" content="https://github.com/qcbsRworkshops/assets/images/logo/csbq_logo_accueil.png" />
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
-
-
+<link rel="prev" href="lalgèbre-matricielle-très-brièvement.html"/>
+<link rel="next" href="dist.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -259,12 +259,167 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   <img class= "hero-image" src="assets/images/jean-philippe-delberghe-75xPHEQBmvA-unsplash_hero_image.jpg">
 </div>
 --!>
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="exploration-de-lensemble-de-données" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapitre 7</span> Exploration de l’ensemble de données<a href="exploration-de-lensemble-de-données.html#exploration-de-lensemble-de-données" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Nous utiliserons deux jeux de données principaux dans la première partie de cet atelier.</p>
+<p>Ils proviennent de la thèse de doctorat de Verneaux (1973), dans laquelle il a proposé d’utiliser les espèces de poissons pour caractériser les zones écologiques le long des rivières et des ruisseaux européens.</p>
+<p>Il a recueilli des données dans <strong>30 localités</strong> le long du Doubs, qui coule près de la frontière franco-suisse, dans les montagnes du Jura.</p>
+<p>Il a montré que les communautés de poissons étaient des indicateurs biologiques de ces masses d’eau.</p>
+<p>Leurs données sont réparties en trois matrices :</p>
+<ol style="list-style-type: decimal">
+<li>L’abondance de 27 espèces de poissons dans les communautés (<code>DoubsSpe.csv</code> et ci-après, l’objet <code>spe</code>) ;</li>
+<li>Les variables environnementales enregistrées sur chaque site (<code>DoubsEnv.csv</code> et ici, l’objet <code>env</code>) ; et,</li>
+<li>Les coordonnées géographiques de chaque site.</li>
+</ol>
+<p>Verneaux, J. (1973) <em>Cours d’eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs</em>. Essai de biotypologie. Thèse d’état, Besançon. 1-257.</p>
+<div id="communautés-de-poissons-du-doubs" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Communautés de poissons du Doubs<a href="exploration-de-lensemble-de-données.html#communautés-de-poissons-du-doubs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Vous pouvez télécharger ces jeux de données à partir de [r.qcbs.ca/workshops/r-workshop-09] (<a href="http://r.qcbs.ca/workshops/r-workshop-09/" class="uri">http://r.qcbs.ca/workshops/r-workshop-09/</a>).</p>
+<p>Nous pouvons charger leurs données à partir du répertoire <code>data/</code> dans cet atelier :</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exploration-de-lensemble-de-données.html#cb6-1" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/doubsspe.csv&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb6-2"><a href="exploration-de-lensemble-de-données.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="exploration-de-lensemble-de-données.html#cb6-3" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/doubsenv.csv&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Leurs données peuvent également être récupérées à partir du paquet <code>ade4</code> :</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exploration-de-lensemble-de-données.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ade4)</span>
+<span id="cb7-2"><a href="exploration-de-lensemble-de-données.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(doubs)</span>
+<span id="cb7-3"><a href="exploration-de-lensemble-de-données.html#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="exploration-de-lensemble-de-données.html#cb7-4" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> doubs<span class="sc">$</span>fish</span>
+<span id="cb7-5"><a href="exploration-de-lensemble-de-données.html#cb7-5" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> doubs<span class="sc">$</span>env</span></code></pre></div>
+<p>Alternativement, à partir du paquet <code>codep</code> :</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exploration-de-lensemble-de-données.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(codep)</span>
+<span id="cb8-2"><a href="exploration-de-lensemble-de-données.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Doubs)</span>
+<span id="cb8-3"><a href="exploration-de-lensemble-de-données.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="exploration-de-lensemble-de-données.html#cb8-4" aria-hidden="true" tabindex="-1"></a>spe <span class="ot">&lt;-</span> Doubs.fish</span>
+<span id="cb8-5"><a href="exploration-de-lensemble-de-données.html#cb8-5" aria-hidden="true" tabindex="-1"></a>env <span class="ot">&lt;-</span> Doubs.env</span></code></pre></div>
+<p>Nous pouvons alors explorer les objets contenant nos données nouvellement chargées.</p>
+<p>Jetons un coup d’œil aux données <code>spe</code> :</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="exploration-de-lensemble-de-données.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>]</span></code></pre></div>
+<pre><code>##   CHA TRU VAI LOC OMB BLA HOT TOX
+## 1   0   3   0   0   0   0   0   0
+## 2   0   5   4   3   0   0   0   0
+## 3   0   5   5   5   0   0   0   0
+## 4   0   4   5   5   0   0   0   0
+## 5   0   2   3   2   0   0   0   0
+## 6   0   3   4   5   0   0   0   0</code></pre>
+<p>Nous pouvons également utiliser la fonction <code>str()</code>, que nous avons étudiée dans les ateliers 1 et 2 :</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="exploration-de-lensemble-de-données.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(spe)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  27 variables:
+##  $ CHA: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TRU: int  3 5 5 4 2 3 5 0 0 1 ...
+##  $ VAI: int  0 4 5 5 3 4 4 0 1 4 ...
+##  $ LOC: int  0 3 5 5 2 5 5 0 3 4 ...
+##  $ OMB: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ BLA: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ HOT: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TOX: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ VAN: int  0 0 0 0 5 1 1 0 0 2 ...
+##  $ CHE: int  0 0 0 1 2 2 1 0 5 2 ...
+##  $ BAR: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ SPI: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ GOU: int  0 0 0 1 2 1 0 0 0 1 ...
+##  $ BRO: int  0 0 1 2 4 1 0 0 0 0 ...
+##  $ PER: int  0 0 0 2 4 1 0 0 0 0 ...
+##  $ BOU: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ PSO: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ROT: int  0 0 0 0 2 0 0 0 0 0 ...
+##  $ CAR: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ TAN: int  0 0 0 1 3 2 0 0 1 0 ...
+##  $ BCO: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ PCH: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ GRE: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ GAR: int  0 0 0 0 5 1 0 0 4 0 ...
+##  $ BBO: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ABL: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ ANG: int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<p>Vous pouvez également essayer certains de ces exemples !</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="exploration-de-lensemble-de-données.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Essayez-en quelques-uns !</span></span>
+<span id="cb13-2"><a href="exploration-de-lensemble-de-données.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="exploration-de-lensemble-de-données.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(spe)  <span class="co"># noms des objets</span></span>
+<span id="cb13-4"><a href="exploration-de-lensemble-de-données.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(spe)  <span class="co"># dimensions</span></span>
+<span id="cb13-5"><a href="exploration-de-lensemble-de-données.html#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="exploration-de-lensemble-de-données.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(spe)  <span class="co"># structure des objets</span></span>
+<span id="cb13-7"><a href="exploration-de-lensemble-de-données.html#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe)  <span class="co"># statistiques sommaires</span></span>
+<span id="cb13-8"><a href="exploration-de-lensemble-de-données.html#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="exploration-de-lensemble-de-données.html#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spe)  <span class="co"># 6 premières lignes</span></span></code></pre></div>
 </div>
+<div id="données-environnementales-de-la-rivière-doubs" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Données environnementales de la rivière Doubs<a href="exploration-de-lensemble-de-données.html#données-environnementales-de-la-rivière-doubs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="exploration-de-lensemble-de-données.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(env)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  11 variables:
+##  $ das: num  0.3 2.2 10.2 18.5 21.5 32.4 36.8 49.1 70.5 99 ...
+##  $ alt: int  934 932 914 854 849 846 841 792 752 617 ...
+##  $ pen: num  48 3 3.7 3.2 2.3 3.2 6.6 2.5 1.2 9.9 ...
+##  $ deb: num  0.84 1 1.8 2.53 2.64 2.86 4 1.3 4.8 10 ...
+##  $ pH : num  7.9 8 8.3 8 8.1 7.9 8.1 8.1 8 7.7 ...
+##  $ dur: int  45 40 52 72 84 60 88 94 90 82 ...
+##  $ pho: num  0.01 0.02 0.05 0.1 0.38 0.2 0.07 0.2 0.3 0.06 ...
+##  $ nit: num  0.2 0.2 0.22 0.21 0.52 0.15 0.15 0.41 0.82 0.75 ...
+##  $ amm: num  0 0.1 0.05 0 0.2 0 0 0.12 0.12 0.01 ...
+##  $ oxy: num  12.2 10.3 10.5 11 8 10.2 11.1 7 7.2 10 ...
+##  $ dbo: num  2.7 1.9 3.5 1.3 6.2 5.3 2.2 8.1 5.2 4.3 ...</code></pre>
+<p>Il contient les variables suivantes:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Variable</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">das</td>
+<td align="left">Distance from the source [km]</td>
+</tr>
+<tr class="even">
+<td align="center">alt</td>
+<td align="left">Altitude [m a.s.l.]</td>
+</tr>
+<tr class="odd">
+<td align="center">pen</td>
+<td align="left">Slope [per thousand]</td>
+</tr>
+<tr class="even">
+<td align="center">deb</td>
+<td align="left">Mean min. discharge [m<sup>3</sup>s<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">pH</td>
+<td align="left">pH of water</td>
+</tr>
+<tr class="even">
+<td align="center">dur</td>
+<td align="left">Ca conc. (hardness) [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">pho</td>
+<td align="left">K conc. [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="even">
+<td align="center">nit</td>
+<td align="left">N conc. [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">amn</td>
+<td align="left">NH₄⁺ conc. [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="even">
+<td align="center">oxy</td>
+<td align="left">Diss. oxygen [mgL<sup>-1</sup>]</td>
+</tr>
+<tr class="odd">
+<td align="center">dbo</td>
+<td align="left">Biol. oxygen demand [mgL<sup>-1</sup>]</td>
+</tr>
+</tbody>
+</table>
+<p>Vous pouvez également utiliser <code>summary()</code> pour obtenir des statistiques sommaires à partir des variables de <code>env</code> :</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="exploration-de-lensemble-de-données.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(env)  <span class="co"># statistiques sommaires</span></span></code></pre></div>
+
+</div>
+</div>
+
+
+
 <hr>
 <center> 
   <div class="footer">
@@ -276,8 +431,8 @@ the table of contents to find the page you are looking for.</p>
           </div>
         </div>
       </div>
-
-
+<a href="lalgèbre-matricielle-très-brièvement.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="dist.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
