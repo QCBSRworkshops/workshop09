@@ -2,15 +2,21 @@
 
 # Objectifs d'apprentissage
 
-**Résumé:** Dans cet atelier, vous apprendrez les bases des analyses
-multivariées qui vous permettront de révéler les patrons de diversité
-dans vos données de communautés. Vous apprendrez d'abord comment
-choisir les mesures de distance et les transformations appropriées pour
-ensuite réaliser plusieurs types d'analyses multivariées: des
-groupements, des Analyses en Composantes Principales (PCA), des Analyses
-de Correspondance (CA), des Analyses en Coordonnées Principales (PCoA)
-et des Positionnements Multidimensionnels Non-Métriques (NMDS).
+1. Apprendre les bases de l'analyse multivariée pour révéler des modèles dans les données sur la composition des communautés.
 
+2. Utiliser `R` pour effectuer une ordination sans contrainte
+
+3. Apprendre à connaître les coefficients de similarité et de dissimilarité et les transformations pour effectuer une analyse multivariée
+
+4. Utiliser `R` pour créer des dendrogrammes
+
+5. Apprenez les méthodes suivantes :
+
+  * Analyse de regroupement
+  * Analyse en composantes principales (ACP)
+  * Analyse des coordonnées principales (PCoA)
+  * Échelle multidimensionnelle non métrique (NMDS)
+  
 # Préparez-vous pour cet atelier
 
 ```{r eval=FALSE, echo=FALSE, purl=TRUE}
@@ -30,27 +36,72 @@ et des Positionnements Multidimensionnels Non-Métriques (NMDS).
 
 ```
 
-**Téléchargez le script R et les données pour cet atelier:**
 
--   [script R](http://qcbs.ca/wiki/_media/multivar1_f.r)
--   [DoubsEnv](http://qcbs.ca/wiki/_media/DoubsEnv.csv)
--   [DoubsSpe](http://qcbs.ca/wiki/_media/DoubsSpe.csv)
--   [Coldiss (fonction R)](http://qcbs.ca/wiki/_media/coldiss.R)
+Pour préparer cet atelier, vous devez suivre les étapes suivantes :
 
-**Télechargez les paquets R pour cet atelier:**
+Télécharger les données nécessaires à cet atelier :
 
--   [vegan](http://cran.r-project.org/web/packages/vegan/index.html)
--   [gclus](http://cran.r-project.org/web/packages/gclus/index.html)
--   [ape](http://cran.r-project.org/web/packages/ape/index.html)
+- [Données de DoubsEnv](http://qcbs.ca/wiki/_media/DoubsEnv.csv)
+- [Données de DoubsSpe](http://qcbs.ca/wiki/_media/DoubsSpe.csv)
 
-```{r, echo = TRUE, eval = FALSE}
-install.packages("vegan")
-install.packages("gclus")
-install.packages("ape")
 
-library(vegan)
-library(gclus)
-library(ape)
+Leurs données peuvent également être récupérées à partir du paquet `ade4` :
 
-source(file.choose()) #coldiss.R 
+```{r eval=FALSE, echo = TRUE}
+library (ade4)
+data (doubs)
+
+spe <- doubs$fish
+env <- doubs$env
+```
+
+Alternativement, à partir du paquet `codep` :
+
+```{r eval=FALSE, echo = TRUE}
+library (codep)
+data (Doubs)
+
+spe <- Doubs.fish
+env <- Doubs.env
+```
+
+
+Téléchargez le script contenant la fonction `coldiss()` :
+
+- [`R` script](http://qcbs.ca/wiki/_media/multivar1_e.r)
+- [R` script contenant la fonction `coldiss()`](http://qcbs.ca/wiki/_media/coldiss.R)
+
+Vous devez également utiliser ces paquets :
+
+- [ape](https://cran.r-project.org/package=ape)
+- [ade4](https://cran.r-project.org/package=ade4)
+- [codep](https://cran.r-project.org/package=codep)
+- [gclus](https://cran.r-project.org/package=gclus)
+- [vegan](https://cran.r-project.org/package=vegan)
+- [GGally](https://cran.r-project.org/package=GGally)
+- [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
+- [remotes](https://cran.r-project.org/package=remotes)
+- [MASS](https://cran.r-project.org/package=MASS)
+
+
+```{r preparing, eval=T, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+list.of.packages <- c("ape", "ade4", "codep", 
+                      "gclus", "vegan", "GGally", 
+                      "PlaneGeometry", "remotes", 
+                      "matlib",
+                      "MASS")
+
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+
+if(length(new.packages) > 0) {
+  install.packages(new.packages, dependencies = TRUE) 
+  print(paste0("The following package was installed:", new.packages)) 
+} else if(length(new.packages) == 0) {
+  print("All packages were already installed previously")
+}
+
+# Chargement de toutes les bibliothèques nécessaires en une seule fois
+invisible(lapply(list.of.packages, library, character.only = TRUE, quietly = TRUE))
+
+# source(file.choose()) #  utilisez coldiss.R que vous avez téléchargé dans votre propre répertoire
 ```

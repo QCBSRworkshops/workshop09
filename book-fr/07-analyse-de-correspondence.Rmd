@@ -38,12 +38,13 @@ régressions multiples par exemple.
 
 Exécuter une CA sur les données d'abondance d'espèces:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 #Effectuer une CA à l'aide de la fonction cca() (NB: cca() est utilisée à la fois pour les CA et CCA)
-spe.ca <- cca(spe)
+spe.ca <- cca(spe[ -8, ])
  
 # Identifier les axes significatifs
 ev<-spe.ca$CA$eig
+
 ev[ev>mean(ev)]
 n=length(ev)
 barplot(ev, main="Eigenvalues", col="grey", las=2)
@@ -51,7 +52,6 @@ abline(h=mean(ev), col="red")
 legend("topright", "Average eigenvalue", lwd=1, col=2, bty="n")
 ```
 
-![](images//ca_guttmankaiser.png){.align-center}
 
 D'après cet histogramme, à partir du sixième axe d'ordination CA6, la
 proportion de variance expliquée diminue sous la proportion moyenne
@@ -59,20 +59,19 @@ expliquée par l'ensemble des axes. La sortie R de la CA ci-dessous
 montre également que les cinq premiers axes d'ordination explique une
 proportion cumulée de variance expliquée de 84.63%.
 
-```{r, echo = TRUE, eval = FALSE}
-summary(spe.h.pca) 
-summary(spe.h.pca, diplay=NULL)
+```{r, echo = TRUE, eval = T}
+# summary(spe.h.pca) 
+# summary(spe.h.pca, diplay=NULL)
 ```
-
-![](images//ca_summary.png){.align-center}
 
 Les résultats d'une CA sont présentés sous R de la même façon que ceux
 d'une PCA. On y observe que le premier axe CA1 explique 51.50% de la
 variation de l'abondance des espèces tandis que le second axe CA2
 explique 12.37% de la variation.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 par(mfrow=c(1,2))
+
 #### scaling 1
 plot(spe.ca, scaling=1, type="none", main='CA - biplot scaling 1', xlab=c("CA1 (%)", round((spe.ca$CA$eig[1]/sum(spe.ca$CA$eig))*100,2)),
 ylab=c("CA2 (%)", round((spe.ca$CA$eig[2]/sum(spe.ca$CA$eig))*100,2)))
@@ -93,8 +92,6 @@ text(scores(spe.ca, display="species", choices=c(1), scaling=2),
      labels=rownames(scores(spe.ca, display="species", scaling=2)),col="red", cex=0.8)
 ```
 
-![](images//ca_biplot.png){.align-center}
-
 Ces biplots montrent qu'un groupe de sites (à gauche) possède des
 communautés similaires de poissons caractérisées par de nombreuses
 espèces dont GAR, TAN, PER, ROT, PSO et CAR; dans le coin supérieur
@@ -110,8 +107,9 @@ chaque groupe de sites?
 **Défi 4 - Solution**  Votre code devrait s'apparenter à
 celui-ci:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 # CA 
+mite.spe <- mite
 mite.spe.ca<-cca(mite.spe)
 
 # Quels sont les axes importants? 
@@ -123,10 +121,9 @@ abline(h=mean(ev), col="red")
 legend("topright", "Average eigenvalue", lwd=1, col=2, bty="n")
 
 # Résultats  
-summary(mite.spe.ca, display=NULL)
+# summary(mite.spe.ca, display=NULL)
 
 # Biplot
-windows()
 plot(mite.spe.ca, scaling=1, type="none",
      xlab=c("PC1 (%)", round((mite.spe.ca$CA$eig[1]/sum(mite.spe.ca$CA$eig))*100,2)),
      ylab=c("PC2 (%)", round((mite.spe.ca$CA$eig[2]/sum(mite.spe.ca$CA$eig))*100,2)))
@@ -137,8 +134,3 @@ text(scores(mite.spe.ca, display="species", choices=c(1), scaling=1),
      labels=rownames(scores(mite.spe.ca, display="species", scaling=1)),
      col="red", cex=0.8)
 ```
-
-Et votre biplot devrait ressembler à celui-ci:
-
-![](images//ca_mite_biplot.png){.align-center}
-

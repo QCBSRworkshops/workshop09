@@ -12,7 +12,7 @@ two ones as the explained the larger part of the variation) to represent
 objects in an ordination plot. The produced biplot thus represents well
 the distance among objects (e.g. the between-sites similarity), but
 fails to represent the whole variation dimensions of the ordination
-space (as Axis3, Axis4,..., Axisn are not represented on the biplot, but
+space (as Axis3, Axis4, ..., Axisn are not represented on the biplot, but
 still contribute to explain the variation among objects).
 
 In some case, the priority is not to preserve the exact distances among
@@ -38,9 +38,9 @@ ordination plot against the original distances. The R2 obtained from the
 regression between these two distances measure the goodness-of-fit of
 the NMDS ordination.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 # Run the NMDS
-spe.nmds<-metaMDS(spe, distance='bray', k=2)
+spe.nmds <- metaMDS(spe[, -8], distance='bray', k=2)
  
 ### Extract the results
 spe.nmds
@@ -50,7 +50,7 @@ spe.nmds$stress
 stressplot(spe.nmds, main='Shepard plot')
 
 # Construct the biplot
-windows()
+
 plot(spe.nmds, type="none", main=paste('NMDS/Bray - Stress=', round(spe.nmds$stress, 3)),
      xlab=c("NMDS1"),
      ylab=c("NMDS2"))
@@ -62,13 +62,11 @@ text(scores(spe.nmds, display="species", choices=c(1)),
      col="red", cex=0.8)
 ```
 
-![](/shepard_plot.png){.align-center}
 
 The Shepard plot identifies a strong correlation between observed
 dissimilarity and ordination distance (R2 \> 0.95), highlighting a high
 goodness-of-fit of the NMDS.
 
-![](/nmds_biplot.png){.align-center}
 
 The biplot of the NMDS shows a group of closed sites characterized by
 the species BLA, TRU, VAI, LOC, CHA and OMB, while the other species
@@ -79,10 +77,10 @@ in the lower part of the graph are strongly different from the others.
 dimensions based on a Bray-Curtis distance. Assess the goodness-of-fit
 of the ordination and interpret the biplot.
 
-**Challenge 6 - Solution** \<hidden\> Your code likely looks something
+**Challenge 6 - Solution** <hidden> Your code likely looks something
 like this:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 mite.spe.nmds<-metaMDS(mite.spe, distance='bray', k=2)
 ### Extract the results
 mite.spe.nmds
@@ -92,7 +90,6 @@ mite.spe.nmds$stress
 stressplot(mite.spe.nmds, main='Shepard plot')
 
 ### Construct the biplot
-windows()
 plot(mite.spe.nmds, type="none", main=paste('NMDS/Bray - Stress=', round(mite.spe.nmds$stress, 3)),
      xlab=c("NMDS1"),
      ylab=c("NMDS2"))
@@ -104,16 +101,12 @@ text(scores(mite.spe.nmds, display="species", choices=c(1)),
      col="red", cex=0.8)
 ```
 
-And your plots like this:
-
-![](/nmds_mite_shepard.png){.align-center}
 
 The correlation between observed dissimilarity and ordination distance
-(R2 \> 0.91) and the stress value relatively low, showing together a
+(R2 > 0.91) and the stress value relatively low, showing together a
 good accuracy of the NMDS ordination.
 
-![](/nmds_mite_biplot.png){.align-center}
 
 No cluster of sites can be precisely defined from the NMDS biplot
 showing that most of the species occurred in most of the sites, i.e. a
-few sites shelter specific communities. \</hidden\>
+few sites shelter specific communities. </hidden>

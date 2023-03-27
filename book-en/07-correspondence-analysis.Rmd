@@ -28,12 +28,13 @@ can be extracted to be used in multiples regressions.
 
 Run a CA on species data:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 #Run the CA using the cca() function (NB: cca() is used for both CA and CCA)
-spe.ca <- cca(spe)
+spe.ca <- cca(spe[-8, ])
  
 # Identify the significant axes
 ev<-spe.ca$CA$eig
+
 ev[ev>mean(ev)]
 n=length(ev)
 barplot(ev, main="Eigenvalues", col="grey", las=2)
@@ -41,27 +42,24 @@ abline(h=mean(ev), col="red")
 legend("topright", "Average eigenvalue", lwd=1, col=2, bty="n")
 ```
 
-![](/ca_guttmankaiser.png){.align-center}
-
 From this barplot, you can see that once you reach C6, the proportion of
 variance explained falls below the average proportion explained by the
 other components. If you take another look at the CA summary, you will
 notice that by the time you reach CA5, the cumulative proportion of
 variance explained by the principal components is 84.63%.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 summary(spe.h.pca) #overall results
-summary(spe.h.pca, diplay=NULL)# only axis eigenvalues and contribution
+# summary(spe.h.pca, diplay=NULL)# only axis eigenvalues and contribution
 ```
-
-![](/ca_summary.png){.align-center}
 
 CA results are presented in a similar manner as PCA results. You can see
 here that CA1 explains 51.50% of the variation in species abundances,
 while CA2 explain 12.37% of the variation.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 par(mfrow=c(1,2))
+
 #### scaling 1
 plot(spe.ca, scaling=1, type="none", main='CA - biplot scaling 1', xlab=c("CA1 (%)", round((spe.ca$CA$eig[1]/sum(spe.ca$CA$eig))*100,2)),
 ylab=c("CA2 (%)", round((spe.ca$CA$eig[2]/sum(spe.ca$CA$eig))*100,2)))
@@ -82,7 +80,6 @@ text(scores(spe.ca, display="species", choices=c(1), scaling=2),
      labels=rownames(scores(spe.ca, display="species", scaling=2)),col="red", cex=0.8)
 ```
 
-![](/ca_biplot.png){.align-center}
 
 These biplots show that a group of sites located in the left part with
 similar fish community characterized by numerous species such as GAR,
@@ -95,12 +92,13 @@ characterized by the species BLA, CHA and OMB.
 the significant axes of variation? Which groups of sites can you
 identify? Which species are related to each group of sites?
 
-**Challenge 4 - Solution** \<hidden\> Your code likely looks something
+**Challenge 4 - Solution** <hidden> Your code likely looks something
 like the following:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = T}
 # CA on mite species 
-mite.spe.ca<-cca(mite.spe)
+mite.spe <- mite
+mite.spe.ca <- cca(mite.spe)
 
 #What are the significant axes ?  
 ev<-mite.spe.ca$CA$eig
@@ -114,7 +112,6 @@ legend("topright", "Average eigenvalue", lwd=1, col=2, bty="n")
 summary(mite.spe.ca, display=NULL)
 
 #Plot the biplot
-windows()
 plot(mite.spe.ca, scaling=1, type="none",
      xlab=c("PC1 (%)", round((mite.spe.ca$CA$eig[1]/sum(mite.spe.ca$CA$eig))*100,2)),
      ylab=c("PC2 (%)", round((mite.spe.ca$CA$eig[2]/sum(mite.spe.ca$CA$eig))*100,2)))
@@ -126,8 +123,4 @@ text(scores(mite.spe.ca, display="species", choices=c(1), scaling=1),
      col="red", cex=0.8)
 ```
 
-And your resulting biplot likely looks something like this:
-
-![](/ca_mite_biplot.png){.align-center}
-
-\</hidden\>
+</hidden>

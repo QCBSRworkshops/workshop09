@@ -74,13 +74,19 @@ Voici quelques exemples de comportements inacceptables de la part des participan
 CETTE SECTION NE DOIT ÊTRE ÉDITÉE QUE PAR LES COORDINATEURS DE LA SÉRIE D'ATELIERS R
 ```
 
-Développé à l'origine par :
+Développé à l'origine par Bérenger Bourgeois, Xavier Giroux-Bougard, Amanda Winegardner, Emmanuelle Chrétien, Monica Granados et Pedro Henrique Pereira Braga. Le matériel contenu dans le script R provient de Borcard, Gillet & Legendre (2011). Numerical Ecology with R. Springer New York.
 
-A contribué à modifier la présentation :
+Depuis 2014, plusieurs membres du CSBQ ont contribué à développer et à mettre à jour cet atelier de manière cohérente et collaborative, dans le cadre de la bourse d'apprentissage et de développement du CSBQ. Il s'agit de :
 
-Contribution avec des changements à la documentation écrite :
-
-Contribution en signalant des problèmes et en suggérant des modifications :
+|      2025 - 2024 - 2023      |       2022 - 2021 - 2020      |      2019 - 2018 - 2017     |      2016 - 2015 - 2014      |
+|:----------------------------:|:----------------------------:|:---------------------------:|:----------------------------:|
+|  Pedro Henrique P. Braga  | Pedro Henrique P. Braga  | Gabriel Muñoz | Monica Granados |
+|                              |  Katherine Hébert        | Marie Hélène-Brice  |   Emmanuelle Chrétien        |
+|                              |  Mi Lin                  | Pedro Henrique P. Braga | Bérenger Bourgeois     |
+|                              |  Linley Sherin           |                             | Amanda Winegardner       |
+|                              |                              |                             | Xavier Giroux-Bougard    |
+|                              |                              |                             | Vincent Fugère           |
+|                              |                              |                             | Zofia Taranu          |
 
 
 ## Contribuez à la série!

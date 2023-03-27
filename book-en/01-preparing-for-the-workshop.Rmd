@@ -62,23 +62,29 @@ spe <- Doubs.fish
 env <- Doubs.env
 ```
 
-Download the RScript containing the `coldiss()` function:
+Download the script containing the `coldiss()` function:
 
-- [R Script](http://qcbs.ca/wiki/_media/multivar1_e.r)
-- [Coldiss R function](http://qcbs.ca/wiki/_media/coldiss.R)
+- [`R` script](http://qcbs.ca/wiki/_media/multivar1_e.r)
+- [`R` script containing the `coldiss()` function](http://qcbs.ca/wiki/_media/coldiss.R)
 
 You must also use these packages:
-* [ape](https://cran.r-project.org/package=ape)
-* [ade4](https://cran.r-project.org/package=ade4)
-* [codep](https://cran.r-project.org/package=codep)
-* [gclus](https://cran.r-project.org/package=gclus)
-* [vegan](https://cran.r-project.org/package=vegan)
-* [GGally](https://cran.r-project.org/package=GGally)
-* [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
-* [remotes](https://cran.r-project.org/package=remotes)
 
-```{r, echo = TRUE, eval = TRUE}
-list.of.packages <- c("ape", "ade4", "codep", "gclus", "vegan", "GGally", "PlaneGeometry", "remotes", "matlib")
+- [ape](https://cran.r-project.org/package=ape)
+- [ade4](https://cran.r-project.org/package=ade4)
+- [codep](https://cran.r-project.org/package=codep)
+- [gclus](https://cran.r-project.org/package=gclus)
+- [vegan](https://cran.r-project.org/package=vegan)
+- [GGally](https://cran.r-project.org/package=GGally)
+- [PlaneGeometry](https://cran.r-project.org/package=PlaneGeometry)
+- [remotes](https://cran.r-project.org/package=remotes)
+- [MASS](https://cran.r-project.org/package=MASS)
+
+```{r preparing, eval=T, echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+list.of.packages <- c("ape", "ade4", "codep", 
+                      "gclus", "vegan", "GGally", 
+                      "PlaneGeometry", "remotes", 
+                      "matlib",
+                      "MASS")
 
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 
@@ -90,7 +96,7 @@ if(length(new.packages) > 0) {
 }
 
 # Load all required libraries at once
-lapply(list.of.packages, require, character.only = TRUE, quietly = TRUE)
+invisible(lapply(list.of.packages, library, character.only = TRUE, quietly = TRUE))
 
 # source(file.choose()) # use coldiss.R which you have downloaded to your own directory
 ```
