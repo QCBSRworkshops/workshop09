@@ -231,10 +231,10 @@ Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reco
 
 5. Apprendre les méthodes suivantes :
 
-* Analyse de regroupement
-* Analyse en composantes principales (ACP)
-* Analyse en coordonnées principales (ACoP)
-* Échelle multidimensionnelle non métrique (PMnM).
+  * Analyse de regroupement
+  * Analyse en composantes principales (ACP)
+  * Analyse en coordonnées principales (ACoP)
+  * Échelle multidimensionnelle non métrique (PMnM).
 
 ---
 
