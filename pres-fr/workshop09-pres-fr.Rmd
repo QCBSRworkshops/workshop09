@@ -1225,13 +1225,17 @@ La distance de Mahalanobis est également robuste aux changements dans la distri
 Dans `R`, nous pouvons calculer la distance de Mahalanobis comme suit :
 
 ```{r}
-env.D.Mah <- mahalanobis(
-  env, 
-  center = colMeans(env), 
-  cov = cov(env)
-)
+# Pour la reproductibilité
+set.seed(123)
+# Générer des données aléatoires à partir d'une distribution normale multivariée
+data <- data.frame(x = rnorm(100, mean = 10, sd = 2),
+                   y = rnorm(100, mean = 5, sd = 1),
+                   z = rnorm(100, mean = 20, sd = 4))
 
-env.D.Mah[1:6, 1:6]
+# Calculer la distance de Mahalanobis
+mahalanobis_dist <- mahalanobis(data, 
+                                center = colMeans(data), 
+                                cov = cov(data))
 ```
 
 ]
@@ -1469,7 +1473,7 @@ exclude: true
 
 ```{r, fig.width = 10, fig.height = 8, eval = T}
 # the code for the coldiss() function is in the workshop script.
-coldiss(spe.db.pa)
+coldiss(spe.D.Bray)
 ```
 
 ---
@@ -3275,7 +3279,7 @@ La ACoP peut également être utilisée pour capturer les informations contenues
 
 .pull-left[
 ```{r}
-spe.bray.pcoa <- pcoa(spe.db.pa)
+spe.bray.pcoa <- pcoa(spe.D.Bray)
 ```
 
 ```{r}
@@ -3289,7 +3293,7 @@ Notez les valeurs propres négatives !
 Cela est dû au fait que les distances non métriques ne peuvent pas être représentées dans l'espace euclidien sans corrections (*voir* Legendre & Legendre 2012 pour plus de détails à ce sujet) :
 
 ```{r}
-spe.bray.pcoa <- pcoa(spe.db.pa,
+spe.bray.pcoa <- pcoa(spe.D.Bray,
                       correction = "cailliez")
 ```
 ]
