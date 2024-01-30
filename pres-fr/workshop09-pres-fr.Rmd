@@ -231,10 +231,10 @@ Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reco
 
 5. Apprendre les méthodes suivantes :
 
-* Analyse de regroupement
-* Analyse en composantes principales (ACP)
-* Analyse en coordonnées principales (ACoP)
-* Échelle multidimensionnelle non métrique (PMnM).
+  * Analyse de regroupement
+  * Analyse en composantes principales (ACP)
+  * Analyse en coordonnées principales (ACoP)
+  * Échelle multidimensionnelle non métrique (PMnM).
 
 ---
 
@@ -904,28 +904,6 @@ Vous pouvez l'utiliser pour vous rappeler le théorème de Pythagore que tout le
 
 
 ---
-Comparaison des sites Doubs
-
-La fonction `vegdist()` contient toutes les distances couramment utilisées.
-
-```{r, eval = F}
-?vegdist
-```
-
---
-Quelle est la différence de composition des communautés entre les 30 sites de la rivière Doubs?
-
-```{r}
-spe.db.pa <- vegdist(spe, method = "bray")
-spe.db <- as.matrix(spe.db.pa)
-```
-
---
-- La diagonale est égale à zéro, car les sites sont comparés les uns aux autres.
-- Les sites 3 et 7 sont les plus similaires (*plus petite distance*).
-- Les sites 1 et 9 sont les plus différents (1 = ils sont *complètement* différents).
-
----
 
 # Défi #1  ![:cube]()
 
@@ -1011,7 +989,7 @@ as.matrix(Y.hmm.DistEu)
 
 La distance euclidienne entre les sites $s_2$ et $s_3$, qui n'ont aucune espèce en commun, est plus petite que la distance entre $s_1$ et $s_2$, qui partagent les espèces $y_2$ et $y_3$ ( !).
 
-D'un point de vue écologique, _cette évaluation de la relation entre les sites est problématique.
+D'un point de vue écologique, _cette évaluation de la relation entre les sites est problématique_.
 
 --
 
@@ -1228,6 +1206,7 @@ spe.D.Bray <- vegdist(spe,
 ---
 ### Mesures de (dis)similarité : Distance de Mahalanobis
 
+.pull-left[
 Les variables sont souvent corrélées et l'utilisation d'une mesure de distance qui n'en tient pas compte peut conduire à des résultats erronés.
 
 La distance de Mahalanobis tient compte de la corrélation entre les variables dans les données.
@@ -1237,15 +1216,17 @@ $$D_{Mahal}^2 = (x - \mu)^T \Sigma^{-1} (x - \mu)$$
 $D$ représente la distance de Mahalanobis, $x$ est le point à partir duquel vous mesurez la distance, $\mu$ est le vecteur moyen de la distribution que vous mesurez, et $\Sigma$ est la matrice de covariance de la distribution.
 
 La distance de Mahalanobis est également robuste aux changements dans la distribution des données (elle ne présuppose pas la normalité).
+]
 
 --
 
-Dans `R`, nous pouvons la calculer comme suit :
+.pull-right[
+
+Dans `R`, nous pouvons calculer la distance de Mahalanobis comme suit :
 
 ```{r}
 # Pour la reproductibilité
 set.seed(123)
-
 # Générer des données aléatoires à partir d'une distribution normale multivariée
 data <- data.frame(x = rnorm(100, mean = 10, sd = 2),
                    y = rnorm(100, mean = 5, sd = 1),
@@ -1257,7 +1238,7 @@ mahalanobis_dist <- mahalanobis(data,
                                 cov = cov(data))
 ```
 
-
+]
 
 ---
 # Mesures de (dis)similarité : représentation
@@ -1492,7 +1473,7 @@ exclude: true
 
 ```{r, fig.width = 10, fig.height = 8, eval = T}
 # the code for the coldiss() function is in the workshop script.
-coldiss(spe.db.pa)
+coldiss(spe.D.Bray)
 ```
 
 ---
@@ -1530,7 +1511,7 @@ Les algorithmes de regroupement s'appuient généralement sur cette série d'ét
 
 1. Calculer une matrice d'association avec toutes les similitudes par paires entre tous les objets ;
 2. Réunir les paires d'objets qui sont les plus similaires (ou dissemblables) ;
-3. Recalculer la matrice de similarité pour ce groupe _par rapport à tous les objets restants ;
+3. Recalculer la matrice de similarité pour ce groupe _par rapport à tous les objets restants_ ;
 4. Répétez les étapes 2 et 3 jusqu'à ce que tous les objets soient réunis.
 
 --
@@ -3298,7 +3279,7 @@ La ACoP peut également être utilisée pour capturer les informations contenues
 
 .pull-left[
 ```{r}
-spe.bray.pcoa <- pcoa(spe.db.pa)
+spe.bray.pcoa <- pcoa(spe.D.Bray)
 ```
 
 ```{r}
@@ -3312,7 +3293,7 @@ Notez les valeurs propres négatives !
 Cela est dû au fait que les distances non métriques ne peuvent pas être représentées dans l'espace euclidien sans corrections (*voir* Legendre & Legendre 2012 pour plus de détails à ce sujet) :
 
 ```{r}
-spe.bray.pcoa <- pcoa(spe.db.pa,
+spe.bray.pcoa <- pcoa(spe.D.Bray,
                       correction = "cailliez")
 ```
 ]

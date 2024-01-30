@@ -4,14 +4,14 @@
     <title>Atelier 9: Analyses multivariées</title>
     <meta charset="utf-8" />
     <meta name="author" content="Centre de la Science de la Biodiversité du Québec" />
-    <script src="assets/header-attrs-2.21/header-attrs.js"></script>
+    <script src="assets/header-attrs-2.25/header-attrs.js"></script>
     <link href="assets/remark-css-0.0.1/default.css" rel="stylesheet" />
     <script src="assets/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="assets/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="assets/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fas fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"<i class=\"fa fa-times-circle\" style=\"color: #F94144\"><\/i>"})</script>
-    <link href="assets/font-awesome-6.2.1/css/all.min.css" rel="stylesheet" />
-    <link href="assets/font-awesome-6.2.1/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="assets/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+    <link href="assets/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css">
     <link rel="stylesheet" href="qcbsR.css" type="text/css" />
@@ -177,10 +177,10 @@ Au cours de cet atelier, il y aura une série de **défis** que vous pouvez reco
 
 5. Apprendre les méthodes suivantes :
 
-* Analyse de regroupement
-* Analyse en composantes principales (ACP)
-* Analyse en coordonnées principales (ACoP)
-* Échelle multidimensionnelle non métrique (PMnM).
+  * Analyse de regroupement
+  * Analyse en composantes principales (ACP)
+  * Analyse en coordonnées principales (ACoP)
+  * Échelle multidimensionnelle non métrique (PMnM).
 
 ---
 
@@ -1002,30 +1002,6 @@ Vous pouvez l'utiliser pour vous rappeler le théorème de Pythagore que tout le
 
 
 ---
-Comparaison des sites Doubs
-
-La fonction `vegdist()` contient toutes les distances couramment utilisées.
-
-
-```r
-?vegdist
-```
-
---
-Quelle est la différence de composition des communautés entre les 30 sites de la rivière Doubs?
-
-
-```r
-spe.db.pa &lt;- vegdist(spe, method = "bray")
-spe.db &lt;- as.matrix(spe.db.pa)
-```
-
---
-- La diagonale est égale à zéro, car les sites sont comparés les uns aux autres.
-- Les sites 3 et 7 sont les plus similaires (*plus petite distance*).
-- Les sites 1 et 9 sont les plus différents (1 = ils sont *complètement* différents).
-
----
 
 # Défi #1  ![:cube]()
 
@@ -1125,7 +1101,7 @@ as.matrix(Y.hmm.DistEu)
 
 La distance euclidienne entre les sites `\(s_2\)` et `\(s_3\)`, qui n'ont aucune espèce en commun, est plus petite que la distance entre `\(s_1\)` et `\(s_2\)`, qui partagent les espèces `\(y_2\)` et `\(y_3\)` ( !).
 
-D'un point de vue écologique, _cette évaluation de la relation entre les sites est problématique.
+D'un point de vue écologique, _cette évaluation de la relation entre les sites est problématique_.
 
 --
 
@@ -1366,6 +1342,7 @@ spe.D.Bray &lt;- vegdist(spe,
 ---
 ### Mesures de (dis)similarité : Distance de Mahalanobis
 
+.pull-left[
 Les variables sont souvent corrélées et l'utilisation d'une mesure de distance qui n'en tient pas compte peut conduire à des résultats erronés.
 
 La distance de Mahalanobis tient compte de la corrélation entre les variables dans les données.
@@ -1375,16 +1352,18 @@ La distance de Mahalanobis tient compte de la corrélation entre les variables d
 `\(D\)` représente la distance de Mahalanobis, `\(x\)` est le point à partir duquel vous mesurez la distance, `\(\mu\)` est le vecteur moyen de la distribution que vous mesurez, et `\(\Sigma\)` est la matrice de covariance de la distribution.
 
 La distance de Mahalanobis est également robuste aux changements dans la distribution des données (elle ne présuppose pas la normalité).
+]
 
 --
 
-Dans `R`, nous pouvons la calculer comme suit :
+.pull-right[
+
+Dans `R`, nous pouvons calculer la distance de Mahalanobis comme suit :
 
 
 ```r
 # Pour la reproductibilité
 set.seed(123)
-
 # Générer des données aléatoires à partir d'une distribution normale multivariée
 data &lt;- data.frame(x = rnorm(100, mean = 10, sd = 2),
                    y = rnorm(100, mean = 5, sd = 1),
@@ -1396,7 +1375,7 @@ mahalanobis_dist &lt;- mahalanobis(data,
                                 cov = cov(data))
 ```
 
-
+]
 
 ---
 # Mesures de (dis)similarité : représentation
@@ -1411,7 +1390,7 @@ Nous pouvons créer des représentations graphiques des matrices d'association e
 coldiss(spe.D.Jac)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-39-1.png" width="1152" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-37-1.png" width="1152" style="display: block; margin: auto;" /&gt;
 
 ---
 # Transformations pour les données de composition des communautés
@@ -1566,7 +1545,7 @@ barplot(site.pre, main = "Species richness",
         col = "grey ", las = 1)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-46-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 exclude: true
@@ -1579,10 +1558,10 @@ exclude: true
 
 ```r
 # the code for the coldiss() function is in the workshop script.
-coldiss(spe.db.pa)
+coldiss(spe.D.Bray)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-48-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-46-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ---
 class: inverse, middle, center
@@ -1600,7 +1579,7 @@ Un objectif des écologistes pourrait être de diviser un ensemble de sites en g
 
 Ces résultats peuvent être représentés sous forme de dendrogrammes (diagrammes en forme d'arbre), qui décrivent la proximité des observations.
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-49-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /&gt;
 
 ???
 .center[![:scale 80%](images/cluster1_revised.jpg)]
@@ -1612,7 +1591,7 @@ Les algorithmes de regroupement s'appuient généralement sur cette série d'ét
 
 1. Calculer une matrice d'association avec toutes les similitudes par paires entre tous les objets ;
 2. Réunir les paires d'objets qui sont les plus similaires (ou dissemblables) ;
-3. Recalculer la matrice de similarité pour ce groupe _par rapport à tous les objets restants ;
+3. Recalculer la matrice de similarité pour ce groupe _par rapport à tous les objets restants_ ;
 4. Répétez les étapes 2 et 3 jusqu'à ce que tous les objets soient réunis.
 
 --
@@ -1673,7 +1652,7 @@ spe.dhe1.single &lt;- hclust(spe.dhe1, method = "single")
 plot(spe.dhe1.single)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-50-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-48-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1687,7 +1666,7 @@ plot(spe.dhe1.single, main="Single linkage clustering", hang =-1)
 plot(spe.dhe1.complete, main="Complete linkage clustering", hang=-1)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-51-1.png" width="1080" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-49-1.png" width="1080" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
 
@@ -1728,7 +1707,7 @@ spe.dhel.ward$height &lt;- sqrt(spe.dhel.ward$height)
 plot(spe.dhel.ward, hang = -1) # hang = -1 aligns objects at 0
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-52-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-50-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 &gt; L'algorithme de clustering de Ward ne peut être appliqué qu'avec des distances euclidiennes. Les distances de Bray-Curtis ne sont pas euclidiennes, elles doivent donc être racinées au carré avant.
 
@@ -2014,7 +1993,7 @@ En revanche, la flèche rouge a changé de direction, et *n'est donc pas* un *ve
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-53-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-51-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2350,7 +2329,7 @@ Les flèches sur les composantes principales sont obtenues en multipliant leurs 
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-59-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-57-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2375,7 +2354,7 @@ Notez comment les composantes principales sont orthogonales !
 
 .pull-right[
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-60-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-58-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -2480,7 +2459,7 @@ La *matrice des coordonnées*, `\(F\)`, (objet `F_PrComps`) permet de *rotationn
 `\(\text{N}\)` ~ `\(\text{P}\)`
 ]
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-63-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-61-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -2488,7 +2467,7 @@ La *matrice des coordonnées*, `\(F\)`, (objet `F_PrComps`) permet de *rotationn
 `\(\text{PC}1\)` ~ `\(\text{PC}2\)`
 ]
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-64-1.png" width="252" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-62-1.png" width="252" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -2868,7 +2847,7 @@ legend("topright", "Average eigenvalue",
        lwd = 2, col = "red3" , bty = "n")
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-80-1.png" width="720" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-78-1.png" width="720" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2896,7 +2875,7 @@ screeplot(spe.h.pca,
           bstick = TRUE, type = "lines")
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-82-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-80-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2933,7 +2912,7 @@ ev[ev&gt;mean(ev)]
 --
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-86-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-84-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -2949,7 +2928,7 @@ Nous pouvons produire un biplot rapide de l'ACP en utilisant la fonction `plot()
 plot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-87-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-85-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -2965,7 +2944,7 @@ plot(spe.h.pca)
 biplot(spe.h.pca)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-88-1.png" width="468" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-86-1.png" width="468" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right2[
@@ -2997,7 +2976,7 @@ Les descripteurs situés à 0 degré l'un de l'autre sont positivement corrélé
 biplot(spe.h.pca, scaling = 1)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-89-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-87-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
@@ -3006,7 +2985,7 @@ biplot(spe.h.pca, scaling = 1)
 biplot(spe.h.pca, scaling = 2)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-90-1.png" width="324" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-88-1.png" width="324" style="display: block; margin: auto;" /&gt;
 ]
 
 ???
@@ -3066,7 +3045,7 @@ legend("topright",
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-94-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-92-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -3078,7 +3057,7 @@ biplot(mite.spe.h.pca,
        col = c("red3", "grey15"))
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-95-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-93-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 # Analyse des coordonnées principales
@@ -3152,7 +3131,7 @@ Nous pouvons afficher les distances entre les sites en utilisant la fonction `bi
 biplot.pcoa(spe.h.pcoa, spe.hel)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-99-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-97-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -3164,7 +3143,7 @@ La ACoP peut également être utilisée pour capturer les informations contenues
 .pull-left[
 
 ```r
-spe.bray.pcoa &lt;- pcoa(spe.db.pa)
+spe.bray.pcoa &lt;- pcoa(spe.D.Bray)
 ```
 
 
@@ -3186,7 +3165,7 @@ Cela est dû au fait que les distances non métriques ne peuvent pas être repr�
 
 
 ```r
-spe.bray.pcoa &lt;- pcoa(spe.db.pa,
+spe.bray.pcoa &lt;- pcoa(spe.D.Bray,
                       correction = "cailliez")
 ```
 ]
@@ -3218,7 +3197,7 @@ Utilisez un biplot sans les espèces pour la représenter !
 biplot.pcoa(spe.bray.pcoa)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-104-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-102-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -3260,7 +3239,7 @@ mite.spe.h.pcoa &lt;- pcoa(dist(mite.spe.hel))
 biplot.pcoa(mite.spe.h.pcoa, mite.spe.hel)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-107-1.png" width="432" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-105-1.png" width="432" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -3311,7 +3290,7 @@ stressplot(spe.nmds, main = "Shepard plot")
 ```
 
 .pull-left[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-111-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-109-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 .pull-right[
 &lt;Br&gt;&lt;Br&gt;
@@ -3354,7 +3333,7 @@ Quatre sites dans la partie inférieure du graphique sont fortement différents 
 ]
 
 .pull-right[
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-113-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-111-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -3408,7 +3387,7 @@ text(scores(mite.nmds, display = "species", choices = c(1)),
 ---
 # Défi #4: Solution
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-117-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-115-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 Il n'y a pas vraiment de regroupement évident de sites dans le biplot NMDS. Cela nous indique que les espèces sont présentes dans la plupart des sites. Seuls quelques sites contiennent des communautés spécifiques.
 
@@ -3420,7 +3399,7 @@ Il n'y a pas vraiment de regroupement évident de sites dans le biplot NMDS. Cel
 stressplot(mite.nmds)
 ```
 
-&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-118-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="workshop09-pres-fr_files/figure-html/unnamed-chunk-116-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 La dissimilarité observée est fortement corrélée avec la distance d'ordination, et la valeur de stress NMDS est relativement faible, ce qui nous indique que l'ordination NMDS est relativement précise.
 

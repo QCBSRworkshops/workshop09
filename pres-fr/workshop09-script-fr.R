@@ -142,11 +142,6 @@ spe.D.Euclid <- dist(x = spe,
 
 is.euclid(spe.D.Euclid)
 
-?vegdist
-
-spe.db.pa <- vegdist(spe, method = "bray")
-spe.db <- as.matrix(spe.db.pa)
-
 Y.hmm <- data.frame(
   y1 = c(0, 0, 1),
   y2 = c(4, 1, 0),
@@ -191,7 +186,6 @@ spe.D.Bray <- vegdist(spe,
 
 # Pour la reproductibilité
 set.seed(123)
-
 # Générer des données aléatoires à partir d'une distribution normale multivariée
 data <- data.frame(x = rnorm(100, mean = 10, sd = 2),
                    y = rnorm(100, mean = 5, sd = 1),
@@ -331,7 +325,7 @@ barplot(site.pre, main = "Species richness",
 # coldiss(spe.dj, nc=9, byrank=F, diag=T)
 
 # the code for the coldiss() function is in the workshop script.
-coldiss(spe.db.pa)
+coldiss(spe.D.Bray)
 
 # Demonstration of a cluster dendrogram
 spe.hel<-decostand(spe, method="hellinger")
@@ -1024,11 +1018,11 @@ head(spe.h.pcoa$vectors)[, 1:5]
 
 biplot.pcoa(spe.h.pcoa, spe.hel)
 
-spe.bray.pcoa <- pcoa(spe.db.pa)
+spe.bray.pcoa <- pcoa(spe.D.Bray)
 
 spe.bray.pcoa$values$Eigenvalues
 
-spe.bray.pcoa <- pcoa(spe.db.pa,
+spe.bray.pcoa <- pcoa(spe.D.Bray,
                       correction = "cailliez")
 
 spe.bray.pcoa$values$Corr_eig
