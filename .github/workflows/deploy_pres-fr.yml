@@ -38,9 +38,6 @@ jobs:
         working-directory: pres-fr
         
     steps:
-      - name: Install libmpfr
-        run: sudo apt-get install libmpfr-dev
-    
       - name: 🛎️ Checkout repository
         uses: actions/checkout@v3
 
@@ -67,6 +64,9 @@ jobs:
           print(paste0("The following package was installed:", new.packages))} else 
           if(length(new.packages) == 0) {
           print("All packages have been previously installed and fetched from cache.")}'
+
+      - name: Install libmpfr
+        run: sudo apt-get install libmpfr-dev
                   
       - name: 🧶 Render presentation
         run: Rscript -e 'rmarkdown::render("workshop09-pres-fr.Rmd")'
