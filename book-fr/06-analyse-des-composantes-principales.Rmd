@@ -12,7 +12,7 @@ L'ACP a été introduite pour la première fois par Karl Pearson en 1901, qui a 
 
 L'ACP est devenue l'une des techniques les plus utilisées dans l'analyse des données données en raison de sa capacité à identifier des modèles cachés et à réduire la complexité des données à haute dimension.
 
-En substance, l'ACP vise à trouver les combinaisons linéaires des variables qui représentent la plus grande quantité possible de variation dans l'ensemble l'ensemble des données. Les composantes principales qui en résultent sont orthogonales les unes par rapport aux autres, ce qui signifie qu'elles ne sont pas corrélées entre elles. orthogonales, ce qui signifie qu'elles ne sont pas corrélées. leur importance dans l'explication de la variabilité des données.
+En substance, l'ACP vise à trouver les combinaisons linéaires des variables qui représentent la plus grande quantité possible de variation dans l'ensemble l'ensemble des données. Les composantes principales qui en résultent sont orthogonales les unes par rapport aux autres, ce qui signifie qu'elles ne sont pas corrélées entre elles et leur ordre reflète leur importance dans l'explication de la variabilité des données.
 
 Pour vous familiariser avec l'ACP, nous allons suivre des exemples détaillés sur la façon de l'exécuter étape par étape. comment l'effectuer étape par étape, puis nous utiliserons les fonctions des paquets R pour la réaliser.
 
